@@ -1,0 +1,42 @@
+[
+    {
+      "name": "ادمین شبکه های اجتماعی",
+      "description": "اسنپ",
+      "imageUrl": "https://s3-alpha-sig.figma.com/img/4516/2a9f/16244bd2686831ada5d1e9356a6114c4?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LJhR39aPPOqGwt-QQ5dtu6GE0EJilRVSFNXQrieuYMi08nj3Kcyo-GqCLKy36dQ9XhmDdC-KnW3vEp2aXDPuakQxb3XdePw~h5cAjNDqqxRcTZQVBgC4OQoXzJgPCmW8fJGqYuZVd5t391SdcdVrutoWQO7kCUhBEKQR6QapyRGsl022wEJsgFIOiYdxbALl6c3ndTz0SujGZ3hcqptGmFJGPQrsjJgQqe9zhqJHyuM2zn9SOLqElVfxPGkuMDbFazZPGfWVHn6as4NcXbehuuKQw4GtvV92y7fiygdMJ3QRcK8K~FKKzhnyGis2Ro0hFz14-9-VUnsDmJzbHH8wfA__"
+    },
+    {
+      "name": "باریستا کار",
+      "description": "کافه کاما",
+      "imageUrl": "https://s3-alpha-sig.figma.com/img/79fc/7c8d/96ba159c24ef9664db392242fcd27d97?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=lsfOQAiP0geQQNSLJTHMUheoom2PB7SOekaYGITQfDohMKePJ-4ItpC1jd2lZk9UGpuN2zBL2EriX0fRm6ypcglVDXgQZiTDbSqklFyFpc2h54Pt6dEnLGCnv0UHoTfgqodSuiihzMqdpfnR~B274T5KUPm7R2UEhQNy0JSBCwQj4Hf0OywLSQ5~OvkXtfhKN8khoT-tNL4Tk7lG~wM7xzTuwtefd8hXsho2a5QNC3qUVvQVgfITFwqVvQ5kuGUYMDBQL79ofgFM32LDpA~oO54yn7k~mkbpgmQ~sAyZyunzoPve0nlNJGscdZsFKPpPKRKeGxkmECJUgONEIDRbug__"
+    },
+    {
+      "name": "مهندس عمران",
+      "description": "دفتر معماری زندیگان",
+      "imageUrl": "https://s3-alpha-sig.figma.com/img/81c2/9705/749eebcb72fd764c01555db705259095?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ai1UZj~tcWGxQoztWkL3dTMxlorRd~n5sQScFKmXZ3n0tcu0Npv-ShPXu6jqZTGXnerlL1Vm0DJ6LEq1r2Pe9uD7GeJ-lg6oeKsXghq3X~TZP~m0JUw3mrZKnRpC4VNdZ7ALj1fSLtnYKtqMsZQB~gMX4he4uPqT5lhz6o6sNGEZPZ8F7DTfakoSlRnyLlCvYsaX97OvPOkfJnRlopblBP5znF9o9RhXWQZA9FZNOXJD74GMPVAUIhbWEItItbZKEwRbvNjoDqtBHiUdLBjFXZMp9IyHp4AVgYwJqcvD8HzoTLjq4pkhfX~CSxtlxMfJuA6IH5aiJxxuTiqG1LBX2A__"
+    },
+    {
+      "name": "شرکت لوازم آرایشی",
+      "description": "کلینیک ارگانیک مایندد",
+      "imageUrl": "https://s3-alpha-sig.figma.com/img/ac87/21cf/62321336e53d3884feb648d6e6c152c4?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TCUAODrDyCP3LH9eX7U6vxNhicZgTfzDwKBRVjmiomzxHdteC-pmnEF-u8cOWx31It4D7fOu9n3AMCXyiWKIq5VxsHilXvaugbEfgECdXwodIQXYrkpzPykhS~ovuk1di9AcDd3vyx4Qf56PwDoBnwMN5dthVpRYXvhKoP6RJR7kZpcevJY3Fc89UfZl3dS8sbmfiC3sXixa1ayOvM6f5QxJJCg0rwAsOXRBCrLSkJdBj~wQcx6wo5qg6g0OoGOFx7s5UnDFiNxEXcPLVjNGBQw1AE2ZNmZndmqqvS10AYyDJiQR40Z3sHWsG239Sv4o-wR2o3bI2z3Ech17A89sOg__"
+    },
+    {
+      "name": "Photo 5",
+      "description": "Description for Photo 5",
+      "imageUrl": "https://images.examples.com/wp-content/uploads/2017/03/Free-Electrical-Business-Logo.jpg"
+    },
+    {
+      "name": "Photo 6",
+      "description": "Description for Photo 6",
+      "imageUrl": "https://i.pinimg.com/474x/a2/3f/0c/a23f0c29bd8472a984699af2c1fc01b1.jpg"
+    },
+    {
+      "name": "Photo 7",
+      "description": "Description for Photo 7",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAe2wmK22ypZq7hoxXkMTxkb2AeErIskXHJUT4VnXHFIljE09syeHEvi2RoiBZ0Cc-lVQ&usqp=CAU"
+    },
+    {
+      "name": "Photo 8",
+      "description": "Description for Photo 8",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThivUuZ5eKUGAPWf7riWq_Vkuy8cIZQp8y_SxL1BXtjQ&s"
+    }
+  ]
