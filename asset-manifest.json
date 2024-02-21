@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.82d6c8d4.css",
+    "main.css": "/sobotdadeh/static/css/main.a59dae01.css",
     "main.js": "/sobotdadeh/static/js/main.b20e11a8.js",
     "static/js/453.dbf2342d.chunk.js": "/sobotdadeh/static/js/453.dbf2342d.chunk.js",
     "static/media/background.jpg": "/sobotdadeh/static/media/background.af7504f9e7824d4445ba.jpg",
@@ -20,12 +20,12 @@
     "static/media/leftarrowslider.svg": "/sobotdadeh/static/media/leftarrowslider.9e0d4fc3807540a1b9dfccb702b983ac.svg",
     "static/media/bookmark.svg": "/sobotdadeh/static/media/bookmark.7ad8fe157db21387f2897023015611ba.svg",
     "index.html": "/sobotdadeh/index.html",
-    "main.82d6c8d4.css.map": "/sobotdadeh/static/css/main.82d6c8d4.css.map",
+    "main.a59dae01.css.map": "/sobotdadeh/static/css/main.a59dae01.css.map",
     "main.b20e11a8.js.map": "/sobotdadeh/static/js/main.b20e11a8.js.map",
     "453.dbf2342d.chunk.js.map": "/sobotdadeh/static/js/453.dbf2342d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.82d6c8d4.css",
+    "static/css/main.a59dae01.css",
     "static/js/main.b20e11a8.js"
   ]
 }
