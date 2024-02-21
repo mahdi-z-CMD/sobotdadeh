@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/sobotdadeh/static/css/main.53833639.css",
+    "main.js": "/sobotdadeh/static/js/main.2db60c5d.js",
+    "static/js/453.dbf2342d.chunk.js": "/sobotdadeh/static/js/453.dbf2342d.chunk.js",
+    "static/media/background.jpg": "/sobotdadeh/static/media/background.af7504f9e7824d4445ba.jpg",
+    "static/media/Iranian Sans.ttf": "/sobotdadeh/static/media/Iranian Sans.8c2ed8fb0154947263c5.ttf",
+    "static/media/pageinfoicon.svg": "/sobotdadeh/static/media/pageinfoicon.0ad408f5e7703518526d6a96576f32b0.svg",
+    "static/media/mostatil.svg": "/sobotdadeh/static/media/mostatil.3fc6a165ebe0a283cd243fe205f5bd52.svg",
+    "static/media/loginicon.svg": "/sobotdadeh/static/media/loginicon.40a218f465a4e9809e49ad6c5b233e62.svg",
+    "static/media/logo.svg": "/sobotdadeh/static/media/logo.e29423e7b3029879f744a4bda95af58b.svg",
+    "static/media/locationicon.svg": "/sobotdadeh/static/media/locationicon.3297f8dadf55131f233c0f28ee07b387.svg",
+    "static/media/locicon.svg": "/sobotdadeh/static/media/locicon.4b78b0dcc49a8e2dcebf69eb45850512.svg",
+    "static/media/Searchiconblack.svg": "/sobotdadeh/static/media/Searchiconblack.6caea9d3c4572d5cc36dfd0559afce29.svg",
+    "static/media/searchicon2.svg": "/sobotdadeh/static/media/searchicon2.dd7e059b3f2d3071260d8af279338e08.svg",
+    "static/media/expandright.svg": "/sobotdadeh/static/media/expandright.9a3da63ce2313592ca45ca97592eca53.svg",
+    "static/media/expandleft.svg": "/sobotdadeh/static/media/expandleft.fc54f937ec3860f8bf510abb94399206.svg",
+    "static/media/expandmoreicon.svg": "/sobotdadeh/static/media/expandmoreicon.468ddfc2cd82de5a8d117523a90d5bec.svg",
+    "index.html": "/sobotdadeh/index.html",
+    "main.53833639.css.map": "/sobotdadeh/static/css/main.53833639.css.map",
+    "main.2db60c5d.js.map": "/sobotdadeh/static/js/main.2db60c5d.js.map",
+    "453.dbf2342d.chunk.js.map": "/sobotdadeh/static/js/453.dbf2342d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.53833639.css",
+    "static/js/main.2db60c5d.js"
+  ]
+}
