@@ -1,0 +1,97 @@
+@font-face {
+    font-family: "Sans";
+    src: url('Iranian\ Sans.ttf');
+  }
+*{
+    box-sizing: border-box;
+    padding: 0%;
+    margin: 0%;
+    font-family: "Sans";
+}
+/* navbar  */
+nav{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    position: absolute;
+    z-index: 2;
+    align-items: center;
+    background-color: transparent;
+    width: 100%;
+    height: 13.5vh;
+    padding-right: 3%;
+    padding-left: 5%;
+    font-family: "Sans";
+    font-size: 20px;
+    direction: rtl;
+}
+/* navbar links */
+nav a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #F6F6F6;
+    text-decoration: none;
+    line-height: 25px;
+}
+/* navbar links icons */
+nav a img{
+    position: relative;
+    left: -10%;
+}
+nav .Navbar-items2 a img{
+    position: relative;
+    left: 0%;
+}
+/* links divs */
+.Navbar-items1{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    width: 25%;
+}
+.Navbar-items2{
+    display: flex;
+    position: relative;
+    left: 10%;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    width: 50%;
+}
+/* search box */
+.Navbar-items2 input{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    padding: 7px;
+    justify-content: space-between;
+    background-color: transparent;
+    width: 233.93px;
+    cursor: pointer;
+    height: 37.03px;
+    color: #F6F6F6;
+    border: 1.5px solid #F6F6F6;
+    border-radius: 40px;
+    font-size: 11px;
+}
+.Navbar-items2 input:focus{
+    outline: none;
+}
+.Navbar-items2 input::placeholder{
+    color: #F6F6F6;
+
+}
+/* search box icon */
+.Search-nav img{
+    width: 24px;
+    height: 24px;
+    position: relative;
+    left: 13%;
+}
+.Search-nav{
+    display: flex;
+    direction: rtl;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
