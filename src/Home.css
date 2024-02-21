@@ -156,6 +156,16 @@ main{
     top: -10%;
     justify-content: end;
 }
+@keyframes blurAndFadeOut {
+    0% {
+      filter: blur(10px);
+      opacity: 0;
+    }
+    100% {
+      filter: blur(0px);
+      opacity: 1;
+    }
+  }
 .slider h1{
     font-size: 18px;
     color: #3D3D3D;
@@ -176,7 +186,7 @@ main{
     border: 2px solid #002347;
     border-radius: 20px;
     margin-top: 4%;
-    /* margin-right: 2%; */
+    animation: blurAndFadeOut 0.5s forwards;
 }
 .cards .bookmarkicon{
     position: relative;
