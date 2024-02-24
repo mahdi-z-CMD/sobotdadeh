@@ -1,6 +1,6 @@
 import './Home.css'
 import Navbar from './Navbar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // icons
 import mostatil from './Icons/mostatil.svg'
 import Searchiconblack from './Icons/Searchiconblack.svg'
@@ -17,10 +17,81 @@ import masir1icon from './Icons/masir1.svg'
 import masir2icon from './Icons/masir2.svg'
 import masir3icon from './Icons/masir3.svg'
 import arrowmasiricon from './Icons/arrowmasir.svg'
-// images 
+// images
+import boximage1 from './image/box1.png' 
+import boximage2 from './image/box2.png' 
+import scrolldownicon from './image/scrolldown.png'
+import majaleimg1 from './image/majale1.png' 
+import majaleimg2 from './image/majale2.png' 
+import majaleimg3 from './image/majale3.png' 
+
+// json test for api
 import sliderdata from './slidersdata.json'
 
 export const Homepage = () => {
+  // thie section is for box khadamat animation 
+  const [scrolled, setScrolled] = useState(false);
+  const [majale, setMajale] = useState({
+    des: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است',
+    image: majaleimg3
+  });
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const boxKhadamat = document.querySelector('.box-khadamat');
+      const boxKhadamatOffset = boxKhadamat.offsetTop;
+      const boxKhadamatHeight = boxKhadamat.clientHeight;
+
+      if (scrollTop >= boxKhadamatOffset && scrollTop < boxKhadamatOffset + boxKhadamatHeight) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // thie section is for box khadamat animation
+  // this section is for api images ------------------------
+  const [imageURL1, setImageURL1] = useState('');
+  const [imageURL2, setImageURL2] = useState('');
+  const [imageURL3, setImageURL3] = useState('');
+
+  useEffect(() => {
+    // Function to fetch random images from Unsplash API for each box
+    const fetchRandomImages = async () => {
+      try {
+        const response1 = await fetch('https://api.unsplash.com/photos/random?client_id=UjLM3yr5HKHkZ1-2_bvC8ljtfKbpE6cPjslblQvKTvc');
+        if (!response1.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data1 = await response1.json();
+        setImageURL1(data1.urls.regular);
+
+        const response2 = await fetch('https://api.unsplash.com/photos/random?client_id=UjLM3yr5HKHkZ1-2_bvC8ljtfKbpE6cPjslblQvKTvc');
+        if (!response2.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data2 = await response2.json();
+        setImageURL2(data2.urls.regular);
+
+        const response3 = await fetch('https://api.unsplash.com/photos/random?client_id=UjLM3yr5HKHkZ1-2_bvC8ljtfKbpE6cPjslblQvKTvc');
+        if (!response3.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data3 = await response3.json();
+        setImageURL3(data3.urls.regular);
+      } catch (error) {
+        console.error('Error fetching images:', error);
+      }
+    };
+
+    // Call the fetchRandomImages function when the component mounts
+    fetchRandomImages();
+  }, []); 
+  // this section is for api images ----------------------------------------------
   let i = 1;
   const [startIndex, setStartIndex] = useState(0);
 
@@ -33,7 +104,7 @@ export const Homepage = () => {
     const newIndex = Math.max(startIndex - 4, 0);
     setStartIndex(newIndex);
   };
-
+  // Components -----------------
     const Card = ((props)=>{
         return(
             <div key={props.key} className='cards'>
@@ -53,7 +124,6 @@ export const Homepage = () => {
                 </div>
         )
     })
-    
     
   return (
     <div>
@@ -138,6 +208,55 @@ export const Homepage = () => {
                   </div>
           </div>
       </div>
+      <div className="kharid">
+        <h1>به ثبات‌داده اعتماد کن ما کنارتان هستیم ...</h1>
+        <h2>ارائه بهترین شرکت ها در همه حوزه‌ها</h2>
+        <a href="#">خرید اشتراک</a>
+      </div>
+      <div className={`box-khadamat ${scrolled ? 'scrolled' : ''}`}>
+      <div className="box-khadamat-img">
+        <img src={scrolled ? boximage2 : boximage1} alt="box image" />
+      </div>
+      <div className="box-khadamat-text">
+        <h1>{scrolled ? 'باکس خدمات 2' : 'باکس خدمات'}</h1>
+        <p>{scrolled ? 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است' : 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است'}</p>
+        <img src={scrolldownicon} alt="scroll icon" className='scrollicon-khadamat'/>
+      </div>
+    </div>
+      <div className="majale-header">
+        <h1>مجله ثبات‌داده</h1>
+        <h2>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است</h2>
+      </div>
+      <div className="majale-content">
+        <div className="majale-soton">
+          <div className="majale-box">
+            <img src={imageURL1} alt="majale image" width="304px" height="176px"/>
+            <div className="majale-text">
+              <p>{majale.des}</p>
+              <span>مشاهده بیشتر<img src={expanddown} alt="expand donw" /></span>
+            </div>
+          </div>
+          <div className="majale-box">
+            <img src={imageURL2} alt="majale image" width="304px" height="176px"/>
+            <div className="majale-text">
+              <p>{majale.des}</p>
+              <span>مشاهده بیشتر<img src={expanddown} alt="expand donw" /></span>
+            </div>
+          </div>
+      </div>
+      <div className="majale-soton2">
+            <div className="majale-box2">
+              <img src={imageURL3} alt="majale image" width="446px" height="212px"/>
+              <div className="majale-text">
+                <p>{majale.des}</p>
+                <span>مشاهده بیشتر<img src={expanddown} alt="expand donw" /></span>
+              </div>
+            </div>
+          </div>
+      </div>
+    <div className="soalat">
+
+    </div>
 	</div>
   )
 }
