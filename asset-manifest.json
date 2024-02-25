@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.b045fd42.css",
-    "main.js": "/sobotdadeh/static/js/main.439a600f.js",
+    "main.css": "/sobotdadeh/static/css/main.0d7636dc.css",
+    "main.js": "/sobotdadeh/static/js/main.8412a63f.js",
     "static/js/453.dbf2342d.chunk.js": "/sobotdadeh/static/js/453.dbf2342d.chunk.js",
     "static/media/box2.png": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.png",
     "static/media/box1.png": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.png",
@@ -9,12 +9,17 @@
     "static/media/background.jpg": "/sobotdadeh/static/media/background.af7504f9e7824d4445ba.jpg",
     "static/media/majale3.png": "/sobotdadeh/static/media/majale3.9cef6f631bbe85a23576.png",
     "static/media/majale1.png": "/sobotdadeh/static/media/majale1.f68c87dc5c14f664ef01.png",
+    "static/media/namad2.png": "/sobotdadeh/static/media/namad2.1c73e1631f756e8d1cc6.png",
+    "static/media/namad3.png": "/sobotdadeh/static/media/namad3.1dfccd1c68b02608cd53.png",
     "static/media/Iranian Sans.ttf": "/sobotdadeh/static/media/Iranian Sans.8c2ed8fb0154947263c5.ttf",
+    "static/media/namad1.png": "/sobotdadeh/static/media/namad1.c4d3320e93ec053c9116.png",
     "static/media/arrowmasir.svg": "/sobotdadeh/static/media/arrowmasir.79f81a4413b55579a44c4fc5c8486f18.svg",
     "static/media/pageinfoicon.svg": "/sobotdadeh/static/media/pageinfoicon.0ad408f5e7703518526d6a96576f32b0.svg",
+    "static/media/aparaticon.svg": "/sobotdadeh/static/media/aparaticon.02e512f742fb73c6d9325adb6075471a.svg",
     "static/media/masir1.svg": "/sobotdadeh/static/media/masir1.83a2adce3b443672ae27050464b3860c.svg",
     "static/media/mostatil.svg": "/sobotdadeh/static/media/mostatil.3fc6a165ebe0a283cd243fe205f5bd52.svg",
     "static/media/masir3.svg": "/sobotdadeh/static/media/masir3.8aa6bb6e3e78bfd013442a2c8d967137.svg",
+    "static/media/instagramicon.svg": "/sobotdadeh/static/media/instagramicon.bc70a335392be3ad5a2dcc0d877dab09.svg",
     "static/media/loginicon.svg": "/sobotdadeh/static/media/loginicon.40a218f465a4e9809e49ad6c5b233e62.svg",
     "static/media/logo.svg": "/sobotdadeh/static/media/logo.e29423e7b3029879f744a4bda95af58b.svg",
     "static/media/bookmarkfill.svg": "/sobotdadeh/static/media/bookmarkfill.b0c98aa0809e8b0eab6a2ee2e8c8ec99.svg",
@@ -23,19 +28,24 @@
     "static/media/locicon.svg": "/sobotdadeh/static/media/locicon.4b78b0dcc49a8e2dcebf69eb45850512.svg",
     "static/media/Searchiconblack.svg": "/sobotdadeh/static/media/Searchiconblack.6caea9d3c4572d5cc36dfd0559afce29.svg",
     "static/media/searchicon2.svg": "/sobotdadeh/static/media/searchicon2.dd7e059b3f2d3071260d8af279338e08.svg",
+    "static/media/arrowback.svg": "/sobotdadeh/static/media/arrowback.0c6979ac973e5c6135d95745b592285d.svg",
+    "static/media/foter.svg": "/sobotdadeh/static/media/foter.5d610ff3c0d645d3ceb59cd6b074fab4.svg",
+    "static/media/expandmoresolat.svg": "/sobotdadeh/static/media/expandmoresolat.d190653ee2f5bd93eb920c258396bd02.svg",
     "static/media/expandright.svg": "/sobotdadeh/static/media/expandright.9a3da63ce2313592ca45ca97592eca53.svg",
     "static/media/expandleft.svg": "/sobotdadeh/static/media/expandleft.fc54f937ec3860f8bf510abb94399206.svg",
     "static/media/expandmoreicon.svg": "/sobotdadeh/static/media/expandmoreicon.468ddfc2cd82de5a8d117523a90d5bec.svg",
+    "static/media/expanddownsoalat.svg": "/sobotdadeh/static/media/expanddownsoalat.0dd9a3b84e33eedbee491bf830935624.svg",
     "static/media/expanddown.svg": "/sobotdadeh/static/media/expanddown.43d82dfbd674bae9436ceb342ae42c09.svg",
     "static/media/leftarrowslider.svg": "/sobotdadeh/static/media/leftarrowslider.9e0d4fc3807540a1b9dfccb702b983ac.svg",
     "static/media/bookmark.svg": "/sobotdadeh/static/media/bookmark.7ad8fe157db21387f2897023015611ba.svg",
     "index.html": "/sobotdadeh/index.html",
-    "main.b045fd42.css.map": "/sobotdadeh/static/css/main.b045fd42.css.map",
-    "main.439a600f.js.map": "/sobotdadeh/static/js/main.439a600f.js.map",
+    "static/media/telegramicon.svg": "/sobotdadeh/static/media/telegramicon.510f62d76baf0a5e0eac594effcf7268.svg",
+    "main.0d7636dc.css.map": "/sobotdadeh/static/css/main.0d7636dc.css.map",
+    "main.8412a63f.js.map": "/sobotdadeh/static/js/main.8412a63f.js.map",
     "453.dbf2342d.chunk.js.map": "/sobotdadeh/static/js/453.dbf2342d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b045fd42.css",
-    "static/js/main.439a600f.js"
+    "static/css/main.0d7636dc.css",
+    "static/js/main.8412a63f.js"
   ]
 }
