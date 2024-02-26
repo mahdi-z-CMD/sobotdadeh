@@ -1,0 +1,58 @@
+.soalat {
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    align-items: start;
+    margin-left: 9%;
+    margin-right: 9%;
+    height: auto;
+  }
+  
+  .soalat h1 {
+    font-size: 18px;
+    color: #4f4f4f;
+  }
+  
+  .box-soalat {
+    margin-top: 3%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid #bdbdbd;
+    border-radius: 8px;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  .box-soalat.active {
+    border: 2px solid #002347;
+    animation: blurAndFadeOut 0.4s ease-in-out;
+
+  }
+  
+  .box-soalat-header {
+    padding: 2%;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .box-soalat-header h2 {
+    padding: 1%;
+    font-size: 16px;
+    color: #3d3d3d;
+  }
+  
+  .additional-text {
+    display: flex;
+    padding: 2%;
+  }
+  .additional-text p{
+    font-size: 16px;
+    color: #7A7A7A;
+    margin-right: 2%;
+  }
+  .additional-text img{
+    margin-right: 2%;
+  }

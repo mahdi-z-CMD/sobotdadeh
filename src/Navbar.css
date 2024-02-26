@@ -14,7 +14,7 @@ nav{
     flex-direction: row-reverse;
     justify-content: space-between;
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     align-items: center;
     background-color: transparent;
     width: 100%;
@@ -24,6 +24,32 @@ nav{
     font-family: "Sans";
     font-size: 20px;
     direction: rtl;
+}
+/* not in home pgae css */
+.nav-not-home{
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 12px 0px #2C156126;
+}
+.nav-not-home .Navbar-items2 a{
+    color: #FF7F50;
+}
+.nav-not-home .Navbar-items1 a img{
+    color: #FF7F50;
+}
+.nav-not-home .Navbar-items2 input{
+    border: 1.5px solid #FF7F50;
+    color: black;
+    font-size: 16px;
+}
+.nav-not-home .Navbar-items2 input::placeholder{
+    color: #194775;
+    font-size: 11px;
+}
+.nav-not-home .Navbar-items1 a{
+    color: #FF7F50;
+}
+.nav-not-home .Navbar-items1 .loc-a2{
+    color: #002347;
 }
 /* navbar links */
 nav a{
@@ -81,6 +107,38 @@ nav .Navbar-items2 a img{
     color: #F6F6F6;
 
 }
+/* Other styles remain the same */
+
+.nav-list-hover {
+    display: none;
+    position: absolute;
+    top: calc(100% - 1px);
+    left: calc(35% - 10px);
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .nav-list-hover li {
+    list-style: none;
+  }
+  
+  .nav-list-hover li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .nav-list-hover li a:hover {
+    text-decoration: underline;
+  }
+  
+  .Navbar-items2:hover .nav-list-hover {
+    display: block;
+  }
+  
 /* search box icon */
 .Search-nav img{
     width: 24px;

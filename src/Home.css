@@ -4,10 +4,6 @@
     margin: 0%;
     font-weight: lighter;
 }
-:root {
-    --white: #F6F6F6;
-    --whitebody : #D9D9D9;
-  }
 header{
     background-image: url('./Icons/background.jpg');
     background-repeat: no-repeat;
@@ -47,6 +43,12 @@ header{
     justify-content: center;
     align-items: center;
     color: var(--whitebody);
+}
+.overlaynotrow h1{
+    color: white;
+}
+.overlaynotrow h2{
+    color: white;
 }
 .overlaym{
     width: 100%;
@@ -560,6 +562,8 @@ main{
 }
 .majale-box2 img{
     border-radius: 25px;
+    position: relative;
+    top: 2%;
     padding: 2%;
 }
 .majale-box2 p{
@@ -568,226 +572,16 @@ main{
 .majale-box2 span{
     width: 200px;
     cursor: pointer;
+    margin-bottom: 5%;
 }
 /* soalat motadavel */
-.soalat {
-    display: flex;
-    flex-direction: column;
+.solata-home h1{
+    font-size: 18px;
+    color: #4f4f4f;
     direction: rtl;
     align-items: start;
     margin-left: 9%;
     margin-right: 9%;
     margin-top: 7%;
     height: auto;
-  }
-  
-  .soalat h1 {
-    font-size: 18px;
-    color: #4f4f4f;
-  }
-  
-  .box-soalat {
-    margin-top: 3%;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    border: 1px solid #bdbdbd;
-    border-radius: 8px;
-    cursor: pointer;
-    overflow: hidden;
-  }
-  
-  .box-soalat.active {
-    border: 2px solid #002347;
-    animation: blurAndFadeOut 0.4s ease-in-out;
-
-  }
-  
-  .box-soalat-header {
-    padding: 2%;
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .box-soalat-header h2 {
-    padding: 1%;
-    font-size: 16px;
-    color: #3d3d3d;
-  }
-  
-  .additional-text {
-    display: flex;
-    padding: 2%;
-  }
-  .additional-text p{
-    font-size: 16px;
-    color: #7A7A7A;
-    margin-right: 2%;
-  }
-  .additional-text img{
-    margin-right: 2%;
-  }
-  /* fotter section */
-  .footer{
-    margin-top: 5%;
-    height: 100vh;
-  }
- .footerbg{
-    position: absolute;
-    width: 100%;
- } 
- .footet-detail{
-    margin-left: 9%;
-    margin-right: 9%;
-    z-index: 1;
-    position: relative;
-    top: 10%;
- }
- .signup{
-    width: 100%;
-    position: relative;
-    background-color: #FF7F50;
-    border-radius: 5px;
-    display: flex;
-    height: auto;
-    flex-direction: column;
-    justify-self: center;
-    align-items: center;
-    direction: rtl;
- }
- .signup h1{
-    font-size: 32px;
-    color: #FFFFFF;
-    padding: 2%;
- }
- .singup-submit{
-    margin-top: 2%;
-    margin-bottom: 3%;
-    display: flex;
- }
- .singup-submit input{
-    width: 510px;
-    height: 70.91px;
-    border-radius: 5px;
-    border: none;
-    font-size: 20px;
-    padding: 2%;
-    direction: rtl;
- }
- .singup-submit input::placeholder{
-    padding: 2%;
-    color: #2B3D51;
-    font-size: 16px;
- }
- .singup-submit button{
-    background-color: #FF7F50;
-    height: 55.15px;
-    width: 180px;
-    position: absolute;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    margin-right: 29%;
-    margin-top: 0.7%;
-    cursor: pointer;
- }
- .footer-about{
-    display: flex;
-    flex-direction: column;
-    direction: rtl;
-    margin-top: 5%;
- }
- .footer-about h2{
-    font-weight: bold;
-    font-size: 16px;
-    color: #3D3D3D;
- }
- .footer-about p{
-    font-size: 14px;
-    color: #7A7A7A;
-    margin-top: 2%;
-    line-height: 17.29px;
-    width: 60%;
- }
- .footer h1{
-    margin-top: 2%;
-    font-size: 16px;
-    direction: rtl;
-    margin-right: 5%;
- }
- .footer-pages{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
- }
- .footer-namads{
-    display: flex;
-    width: 40%;
-    justify-content: space-between;
- }
- .namads-place{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 112px;
-    border-radius: 8px;
-    height: 112px;
-    border: 1px solid #D1D1D1;
- }
- .namads-place img{
-    padding: 3%;
- }
- .links{
-    width: 55%;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    direction: rtl;
- }
- .links-row{
-    display: flex;
-    margin-top: 3%;
-    width: 100%;
-    justify-content: start;
-    direction: rtl;
- }
- .links-row a{
-    font-size: 14px;
-    color: #2D69E5;
-    margin-right: 9%;
- }
- .links-row a:not(:first-child){
-    margin-right: 20%;
- }
- .footet-detail hr{
-    margin-top: 2%;
- }
-.footer-end{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 2%;
-    margin-left: 2%;
-    width: 100%;
-    margin-top: 1%;
-}
-.social-icon{
-    display: flex;
-    justify-content: space-between;
-    width: 15%;
-    margin-top: 1%;
-}
-.hoghogh{
-    width: 75%;
-    display: flex;
-    flex-direction: row;
-    direction: rtl;
-    align-items: center;
-}
-.hoghogh h1{
-    font-size: 14px;
-    color: #3D3D3D;
-    text-align: center;
 }
