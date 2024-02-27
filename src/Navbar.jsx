@@ -79,10 +79,10 @@ export const Navbar = () => {
             onMouseEnter={handleListMouseEnter2}
             onMouseLeave={handleListMouseLeave2}
           >
-            <li><Link to={'sobotdadeh/ghavanin'}><a onClick={handleItemClick2}>قوانین و مقررات</a></Link></li>
-            <li><Link to={'sobotdadeh/aboutus'}><a onClick={handleItemClick2}>درباره ما</a></Link></li>
-            <li><Link to={'sobotdadeh/soalatmotadavel'}><a onClick={handleItemClick2}>سوالات متداول</a></Link></li>
-            <li><Link to={'sobotdadeh/contact'}><a onClick={handleItemClick2}>تماس با ما</a></Link></li>
+            <li><Link to={'/sobotdadeh/ghavanin'}><a onClick={handleItemClick2}>قوانین و مقررات</a></Link></li>
+            <li><Link to={'/sobotdadeh/aboutus'}><a onClick={handleItemClick2}>درباره ما</a></Link></li>
+            <li><Link to={'/sobotdadeh/soalatmotadavel'}><a onClick={handleItemClick2}>سوالات متداول</a></Link></li>
+            <li><Link to={'/sobotdadeh/contact'}><a onClick={handleItemClick2}>تماس با ما</a></Link></li>
           </ul>
         )}
         {/* next list items */}
@@ -109,7 +109,7 @@ export const Navbar = () => {
           <input type="text" placeholder='جست‌وجو در ثبات‌داده....'/>
         </div>
       </div>
-      <Link to={'sobotdadeh'}><img src={logo} alt="Logo" width="61px" height="62px"/></Link>
+      <Link to={'/sobotdadeh'}><img src={logo} alt="Logo" width="61px" height="62px"/></Link>
     </nav>
   );
 };
