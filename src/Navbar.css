@@ -138,7 +138,36 @@ nav .Navbar-items2 a img{
   .Navbar-items2:hover .nav-list-hover {
     display: block;
   }
+  /* ---------------- */
+  .nav-list-hover2 {
+    display: none;
+    position: absolute;
+    top: calc(100% - 1px);
+    left: calc(0% - 10px);
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
   
+  .nav-list-hover2 li {
+    list-style: none;
+  }
+  
+  .nav-list-hover2 li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .nav-list-hover2 li a:hover {
+    text-decoration: underline;
+  }
+  
+  .Navbar-items2:hover .nav-list-hover2 {
+    display: block;
+  }
 /* search box icon */
 .Search-nav img{
     width: 24px;

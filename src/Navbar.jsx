@@ -36,7 +36,29 @@ export const Navbar = () => {
   const handleItemClick = (e) => {
     e.stopPropagation(); // Prevent click event from propagating to the parent link
   };
+  // nav list 2
+  const [isHovered2, setHovered2] = useState(false);
+  const [isListHovered2, setListHovered2] = useState(false);
 
+  const handleMouseEnter2 = () => {
+    setHovered2(true);
+  };
+
+  const handleMouseLeave2 = () => {
+    setHovered2(false);
+  };
+
+  const handleListMouseEnter2 = () => {
+    setListHovered2(true);
+  };
+
+  const handleListMouseLeave2 = () => {
+    setListHovered2(false);
+  };
+
+  const handleItemClick2 = (e) => {
+    e.stopPropagation(); // Prevent click event from propagating to the parent link
+  };
   return (
     <nav className={isHomepage ? '' : 'nav-not-home'}>
       <div className="Navbar-items1">
@@ -44,7 +66,26 @@ export const Navbar = () => {
         <a href="#">ورود/ثبت نام<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></a>
       </div>
       <div className="Navbar-items2">
-        <Link to={'sobotdadeh/aboutus'}><a>درباره ثبات‌داده<img src={isHomepage ? expandmoreicon : expandmore_nothome} alt="expand down" width="24px" height="24px"/></a></Link>
+        <a
+          onMouseEnter={handleMouseEnter2}
+          onMouseLeave={handleMouseLeave2}
+        >
+          درباره ثبات‌داده
+          <img src={isHomepage ? expandmoreicon : expandmore_nothome} alt="expand down" width="24px" height="24px" />
+        </a>
+        {(isHovered2 || isListHovered2) && (
+          <ul
+            className="nav-list-hover2"
+            onMouseEnter={handleListMouseEnter2}
+            onMouseLeave={handleListMouseLeave2}
+          >
+            <li><Link to={'sobotdadeh/ghavanin'}><a onClick={handleItemClick2}>قوانین و مقررات</a></Link></li>
+            <li><Link to={'sobotdadeh/aboutus'}><a onClick={handleItemClick2}>درباره ما</a></Link></li>
+            <li><Link to={'sobotdadeh/soalatmotadavel'}><a onClick={handleItemClick2}>سوالات متداول</a></Link></li>
+            <li><Link to={'sobotdadeh/contact'}><a onClick={handleItemClick2}>تماس با ما</a></Link></li>
+          </ul>
+        )}
+        {/* next list items */}
         <a
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}

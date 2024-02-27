@@ -1,0 +1,41 @@
+*{
+    box-sizing: border-box;
+    padding: 0%;
+    margin: 0%;
+}
+/* header */
+.header-ghavanin{
+    background-image: url('./image/ghavanin.svg');
+    background-size: auto;
+    background-repeat: no-repeat;
+    position: relative;
+    padding-top: 10%;
+    height: 55vh;
+    background-color: #003366;
+}
+.header-ghavanin h1{
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    direction: rtl;
+    margin-top: 6%;
+    margin-right: 10%;
+    font-size: 28px;
+}
+.header-ghavanin h1 img{
+    margin-left: 3%;
+}
+/* main content */
+.ghavanin-content{
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    background-color: #FFFFFF;
+    font-family: url;
+}
+.ghavanin-content-back{
+    border-radius: 45px 45px 0px 0px;
+    background-color: white;
+    position: relative;
+    bottom: 4%;
+}
