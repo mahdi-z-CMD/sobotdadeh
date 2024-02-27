@@ -14,12 +14,12 @@ export const Home = () => {
     <div>
       <Navbar></Navbar>
       <Routes >
-        <Route path="sobotdadeh" element={<Homepage></Homepage>}></Route>
-        <Route path="sobotdadeh/login" element={<Login></Login>}></Route>
-        <Route path="sobotdadeh/aboutus" element={<Aboutus></Aboutus>}></Route>
-        <Route path="sobotdadeh/ghavanin" element={<Ghavanin></Ghavanin>}></Route>
-        <Route path="sobotdadeh/soalatmotadavel" element={<Soalatmotadavel></Soalatmotadavel>}></Route>
-        <Route path="sobotdadeh/contact" element={<Contact></Contact>}></Route>
+        <Route path="/" element={<Homepage></Homepage>}></Route>
+        <Route path="/login" element={<Login></Login>}></Route>
+        <Route path="/aboutus" element={<Aboutus></Aboutus>}></Route>
+        <Route path="/ghavanin" element={<Ghavanin></Ghavanin>}></Route>
+        <Route path="/soalatmotadavel" element={<Soalatmotadavel></Soalatmotadavel>}></Route>
+        <Route path="/contact" element={<Contact></Contact>}></Route>
       </Routes>
       <Footer></Footer>
 	</div>
