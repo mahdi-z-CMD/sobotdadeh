@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/sobotdadeh/static/css/main.6be33a79.css",
-    "main.js": "/sobotdadeh/static/js/main.abf2c389.js",
+    "main.js": "/sobotdadeh/static/js/main.08a159c8.js",
     "static/media/box2.png": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.png",
     "static/media/box1.png": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.png",
     "static/media/majale2.png": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.png",
@@ -59,10 +59,10 @@
     "index.html": "/sobotdadeh/index.html",
     "static/media/telegramicon.svg": "/sobotdadeh/static/media/telegramicon.510f62d76baf0a5e0eac594effcf7268.svg",
     "main.6be33a79.css.map": "/sobotdadeh/static/css/main.6be33a79.css.map",
-    "main.abf2c389.js.map": "/sobotdadeh/static/js/main.abf2c389.js.map"
+    "main.08a159c8.js.map": "/sobotdadeh/static/js/main.08a159c8.js.map"
   },
   "entrypoints": [
     "static/css/main.6be33a79.css",
-    "static/js/main.abf2c389.js"
+    "static/js/main.08a159c8.js"
   ]
 }
