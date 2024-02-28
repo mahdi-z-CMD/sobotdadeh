@@ -113,7 +113,7 @@ nav .Navbar-items2 a img{
     display: none;
     position: absolute;
     top: calc(100% - 1px);
-    left: calc(35% - 10px);
+    left: calc(25% - 10px);
     padding: 10px;
     background-color: #fff;
     border: 1px solid #ccc;

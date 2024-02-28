@@ -1,0 +1,178 @@
+
+
+.Companies-header{
+    padding-right: 8%;
+    padding-left: 8%;
+    padding-top: 15%;
+    height: 60vh;
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position-x: 105%;
+    background-image: url('./image/companiesbg.svg');
+}
+.Companies-center{
+    padding-right: 8%;
+    padding-left: 8%;
+    height: 5vh;
+}
+/* search box */
+.Searchbox-main2{
+    box-shadow: 00px 0px 24px 0px #1B2B4E33;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    direction: rtl;
+    width: 100%;
+    height: auto;
+    background-color: #F6F6F6;
+    border-radius: 20px;
+    padding: 5%;
+    box-shadow: 0px 0px 24px 0px #1B2B4E33;
+}
+.Searchbox-main2 h1{
+    color: #002347;
+    font-size: 20px;
+}
+.Searchbox-items2{
+    display: flex;
+    direction: rtl;
+    width: 100%;
+    margin-top: 2%;
+}
+.Searchbox-items2 input{
+    flex-basis: 25%;
+    height: 48px;
+    border: 1px solid #BDBDBD;
+    border-radius: 8px;
+    padding: 1%;
+    padding-right: 4%;
+}
+.Searchbox-items2 img{
+    position: relative;
+    right: 3%;
+}
+.Searchbox-items2 select{
+    font-family: "Sans";
+    flex-basis: 25%;
+    height: 48px;
+    border: 1px solid #BDBDBD;
+    border-radius: 8px;
+    padding: 1%;
+    padding-right: 4%;
+}
+.Searchbox-items2 button{
+    direction: rtl;
+    text-align: right;
+    padding-right: 3%;
+    flex-basis: 15%;
+    border: none;
+    width: 144px;
+    height: 48px;
+    background-color: #FF7F50;
+    color: #FFFFFF;
+    border-radius: 8px;
+    transition: .3s;
+    cursor: pointer;
+}
+.Searchbox-items2 button:hover{
+    background-color: #d43800;
+    transition: .3s;
+}
+.Searchbox-items2 .searchicon2{
+    position: relative;
+    right: 13%;
+}
+/* filter header */
+.Companies-filter-header{
+    padding-right: 8%;
+    padding-left: 8%;
+    margin-top: 3%;
+    display: flex;
+    direction: rtl;
+    flex-direction: column;
+    align-items: center;
+}
+.Companies-filter-header h1{
+    color: #3D3D3D;
+    font-size: 24px;
+    font-weight: bold;
+}
+.Companies-filter-header p{
+    color: #3D3D3D;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 3%;
+    line-height: 30.13px;
+}
+/* companies filter search box */
+.Searchbox-main2{
+    box-shadow: 00px 0px 24px 0px #1B2B4E33;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    direction: rtl;
+    width: 100%;
+    height: auto;
+    background-color: #F6F6F6;
+    border-radius: 20px;
+    padding: 5%;
+    box-shadow: 0px 0px 24px 0px #1B2B4E33;
+}
+.Searchbox-main-companies{
+    display: flex;
+    direction: rtl;
+    width: 100%;
+    margin-top: 2%;
+}
+.Searchbox-items22{
+    display: flex;
+    direction: rtl;
+    width: 100%;
+    margin-top: 2%;
+}
+.Searchbox-items22 img{
+    position: relative;
+    right: 3%;
+}
+.Searchbox-items22 select{
+    font-family: "Sans";
+    flex-basis: 20%;
+    height: 48px;
+    border: 1px solid #BDBDBD;
+    border-radius: 8px;
+    padding: 1%;
+    appearance: none; /* Remove default appearance */
+    -webkit-appearance: none; /* Remove default appearance for WebKit browsers */
+    -moz-appearance: none; /* Remove default appearance for Firefox */
+    background-image: url('./Icons/expanddownsoalat.svg'); /* Add custom expand down icon */
+    background-repeat: no-repeat; /* Prevent repeating the background image */
+    background-position: left; /* Position the background image to the right center */
+    background-position-x: 5%;
+    background-size: 20px; /* Set the size of the background image */
+}
+.Searchbox-items22 select:not(:first-child){
+    margin-right: 2%;
+}
+.Searchbox-items22 button{
+    direction: rtl;
+    text-align: right;
+    padding-right: 3%;
+    flex-basis: 10%;
+    border: none;
+    width: 144px;
+    height: 48px;
+    background-color: #FF7F50;
+    color: #FFFFFF;
+    border-radius: 8px;
+    transition: .3s;
+    cursor: pointer;
+}
+.Searchbox-items22 button:hover{
+    background-color: #d43800;
+    transition: .3s;
+}
+.Searchbox-items22 .searchicon2{
+    position: relative;
+    right: 8.5%;
+}
+/* result */

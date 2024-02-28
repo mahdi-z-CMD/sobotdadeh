@@ -8,6 +8,8 @@ import Aboutus from './Aboutus';
 import Ghavanin from './Ghavanin';
 import Soalatmotadavel from './Soalatmotadavel';
 import Contact from './Contact';
+import Madreseeghtesad from './Madreseeghtesad';
+import Companies from './Companies';
 export const Home = () => {
     
   return (
@@ -20,6 +22,8 @@ export const Home = () => {
         <Route path="/ghavanin" element={<Ghavanin></Ghavanin>}></Route>
         <Route path="/soalatmotadavel" element={<Soalatmotadavel></Soalatmotadavel>}></Route>
         <Route path="/contact" element={<Contact></Contact>}></Route>
+        <Route path="/madreseeghtesad" element={<Madreseeghtesad></Madreseeghtesad>}></Route>
+        <Route path="/companies" element={<Companies></Companies>}></Route>
       </Routes>
       <Footer></Footer>
 	</div>

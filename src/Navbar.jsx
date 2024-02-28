@@ -99,9 +99,8 @@ export const Navbar = () => {
             onMouseEnter={handleListMouseEnter}
             onMouseLeave={handleListMouseLeave}
           >
-            <li><a href="#" onClick={handleItemClick}>ویژه</a></li>
-            <li><a href="#" onClick={handleItemClick}>تعرفه</a></li>
-            <li><a href="#" onClick={handleItemClick}>شرکت ها</a></li>
+          <li><Link to='/madreseeghtesad'><a onClick={handleItemClick2}>کسب و کار تو</a></Link></li>
+          <li><Link to='/companies'><a onClick={handleItemClick2}>استعلام شرکت‌ها</a></Link></li>
           </ul>
         )}
         <div className='Search-nav'>
