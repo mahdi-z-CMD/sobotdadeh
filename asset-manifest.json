@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.a0111cc1.css",
-    "main.js": "/sobotdadeh/static/js/main.78cbe5a6.js",
+    "main.css": "/sobotdadeh/static/css/main.a7e84986.css",
+    "main.js": "/sobotdadeh/static/js/main.50b19dd1.js",
     "static/media/box2.png": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.png",
     "static/media/box1.png": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.png",
     "static/media/majale2.png": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.png",
@@ -29,10 +29,12 @@
     "static/media/aboutperson1.png": "/sobotdadeh/static/media/aboutperson1.26aaa2b07031d28ccae3.png",
     "static/media/namad1.png": "/sobotdadeh/static/media/namad1.c4d3320e93ec053c9116.png",
     "static/media/arrowmasir.svg": "/sobotdadeh/static/media/arrowmasir.79f81a4413b55579a44c4fc5c8486f18.svg",
+    "static/media/Login_googleicon.svg": "/sobotdadeh/static/media/Login_googleicon.3718fb9055a6aa1d4037b05997929298.svg",
     "static/media/pageinfoicon.svg": "/sobotdadeh/static/media/pageinfoicon.0ad408f5e7703518526d6a96576f32b0.svg",
     "static/media/Contactfaxicon.svg": "/sobotdadeh/static/media/Contactfaxicon.c9c2457889e115407e1d257db46df46f.svg",
     "static/media/ghavaninpolicyicon.svg": "/sobotdadeh/static/media/ghavaninpolicyicon.d3dd93af30354d548fcf3e844b04c1cb.svg",
     "static/media/aparaticon.svg": "/sobotdadeh/static/media/aparaticon.02e512f742fb73c6d9325adb6075471a.svg",
+    "static/media/Login_visibilityicon.svg": "/sobotdadeh/static/media/Login_visibilityicon.3deaab47bea5839b3ecbf0a19cbdeb7e.svg",
     "static/media/soalatmotadavelicon.svg": "/sobotdadeh/static/media/soalatmotadavelicon.41518f0c973a085ce956275cfa059f1b.svg",
     "static/media/masir1.svg": "/sobotdadeh/static/media/masir1.83a2adce3b443672ae27050464b3860c.svg",
     "static/media/Contactemailicon.svg": "/sobotdadeh/static/media/Contactemailicon.f2307222dda2c6d5aff5c4939d6312a5.svg",
@@ -53,6 +55,7 @@
     "static/media/Searchiconblack.svg": "/sobotdadeh/static/media/Searchiconblack.6caea9d3c4572d5cc36dfd0559afce29.svg",
     "static/media/searchicon2.svg": "/sobotdadeh/static/media/searchicon2.dd7e059b3f2d3071260d8af279338e08.svg",
     "static/media/arrowback.svg": "/sobotdadeh/static/media/arrowback.0c6979ac973e5c6135d95745b592285d.svg",
+    "static/media/Login_remembericon.svg": "/sobotdadeh/static/media/Login_remembericon.728040ad0de2cf77e6ed6f78221cc13f.svg",
     "static/media/Madresebg.svg": "/sobotdadeh/static/media/Madresebg.74c79175ac0d9dd377eb.svg",
     "static/media/foter.svg": "/sobotdadeh/static/media/foter.5d610ff3c0d645d3ceb59cd6b074fab4.svg",
     "static/media/expandmoresolat.svg": "/sobotdadeh/static/media/expandmoresolat.d190653ee2f5bd93eb920c258396bd02.svg",
@@ -68,11 +71,11 @@
     "index.html": "/sobotdadeh/index.html",
     "static/media/telegramicon.svg": "/sobotdadeh/static/media/telegramicon.510f62d76baf0a5e0eac594effcf7268.svg",
     "static/media/companiesbg.svg": "/sobotdadeh/static/media/companiesbg.f9571ec8aa65a19426f6.svg",
-    "main.a0111cc1.css.map": "/sobotdadeh/static/css/main.a0111cc1.css.map",
-    "main.78cbe5a6.js.map": "/sobotdadeh/static/js/main.78cbe5a6.js.map"
+    "main.a7e84986.css.map": "/sobotdadeh/static/css/main.a7e84986.css.map",
+    "main.50b19dd1.js.map": "/sobotdadeh/static/js/main.50b19dd1.js.map"
   },
   "entrypoints": [
-    "static/css/main.a0111cc1.css",
-    "static/js/main.78cbe5a6.js"
+    "static/css/main.a7e84986.css",
+    "static/js/main.50b19dd1.js"
   ]
 }
