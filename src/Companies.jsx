@@ -14,14 +14,9 @@ import expandright from './Icons/expandright.svg'
 
 // json test for api
 import sliderdata from './slidersdata.json'
-import {Link, useLocation} from 'react-router-dom'
 import { useState } from 'react'
 const Companies = () => {
-    const location = useLocation();
-    const isHomepages = location.pathname === '/companies';
 
-    // SLIDER BETARIN 
-    let i = 1;
     const [startIndex, setStartIndex] = useState(0);
 
     const nextSlide = () => {
@@ -35,6 +30,27 @@ const Companies = () => {
     };
       // Components -----------------
       const Card = ((props)=>{
+        return(
+            <div key={props.key} className='cards2'>
+                    <img src={props.bookmark == "true" ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='bookmarkicon'/>
+                    <div className='cards-info2'>
+                      <img src={props.img} alt="profile companie"/>
+                      <h1>{props.name}</h1>
+                      <h2>{props.namecompanie}</h2>
+                      <div className='cards-info-row2'>
+                        <h3>{props.timerelease}</h3>
+                        <div className='cards-info-row-more2'>
+                          <h3>نمایش بیشتر</h3>
+                          <img src={leftarrowslider} alt="left icon"/>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+        )
+    })
+    // bartarin 
+    // Components -----------------
+    const Card2 = ((props)=>{
         return(
             <div key={props.key} className='cards'>
                     <img src={props.bookmark == "true" ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='bookmarkicon'/>
@@ -85,7 +101,7 @@ const Companies = () => {
                     <h1>برترین شرکت‌ها</h1>
                     <div className='card-box'>
                         {sliderdata.slice(startIndex, startIndex + 4).map((key, index) => (
-                    <Card name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card>
+                    <Card2 name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card2>
                     ))}
                         <div className='arrow-card'>
                             <img src={expandright} alt="right icon" className='arrow-card-right' onClick={nextSlide}/>
@@ -132,20 +148,15 @@ const Companies = () => {
                     </div>
             </div>
             </div>
-            <div className="Madrese-slider">
-                    <div className='slider'>
-                    <div className='card-box'>
-                        {sliderdata.slice(startIndex, startIndex + 4).map((key, index) => (
-                    <Card name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card>
-                    ))}
-                        <div className='arrow-card'>
+            <div className="Companies-slider">
+                    <div className='slider2'>
+                        <div className='card-box2'>
+                            {sliderdata.slice(startIndex, startIndex + 8).map((key, index) => (
+                        <Card name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card>
+                                ))}
                         </div>
                     </div>
-                    <div className='slider-showmore'>
-                </div>
-                </div>
             </div>
-            
         </div>
      );
 }

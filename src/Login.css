@@ -1,0 +1,211 @@
+.Login-content{
+    padding-top: 10%;
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+/* Login items */
+.Login-items{
+    width: 50%;
+    height: 100%;
+    padding-top: 3%;
+    display: flex;
+    border: 4px solid #002347;
+    border-radius: 16px;
+    flex-direction: column;
+    direction: ltr;
+    align-items: center;
+    background-color: #CC6540;
+    height: auto;
+    padding-bottom: 5%;
+}
+.Login-items-button{
+    width: 40%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    background-color: #194775;
+    padding: 1%;
+    border-radius: 8px;
+}
+.Login-items-button-Login{
+    background-color: #FF7F50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    padding: 5%;
+    width: 50%;
+    cursor: pointer;
+}
+.Login-items-button-Singup{
+    background-color: #194775;
+    color: #CC6540;
+    border: none;
+    width: 50%;
+    font-size: 16px;
+    cursor: pointer;
+}
+/* inputs */
+.Login-items-inputs{
+    width: 60%;
+    padding-top: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    direction: rtl;
+}
+.Login-items-inputs label{
+    font-size: 14px;
+    color: #003366;
+    padding-top: 6%;
+    font-weight: bold;
+}
+.Login-items-inputs input{
+    width: 100%;
+    padding: 5%;
+    margin-top: 5%;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 1px solid #002347;
+    direction: ltr;
+}
+.Login-items-inputs input::placeholder{
+    padding-left: 30%;
+}
+.Login-items-inputs img{
+    position: relative;
+    bottom: 16%;
+    margin-right: 5%;
+}
+.Login-items-b-submit{
+    display: flex;
+    justify-content: center;
+    width: 60%;
+}
+.Login-items-b-submit button{
+    width: 100%;
+    font-size: 16px;
+    background-color: #FF7F50;
+    color: white;
+    padding: 5%;
+    border: none;
+    margin-top: 5%;
+    border-radius: 8px;
+}
+.Login-items-faramoshi{
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    direction: rtl;
+    padding-top: 4%;
+}
+.Login-items-faramoshi span{
+    cursor: pointer;
+    font-weight: bold;
+}
+.Login-items-faramoshi-last{
+    padding-top: 5%;
+}
+.Login-items-faramoshi-remember{
+    display: flex;
+    align-items: center;
+}
+.Login-items-faramoshi-remember{
+    color: #7A7A7A;
+}
+.Login-items-faramoshi-remember img{
+    position: relative;
+    left: 5%;
+}
+.Login-items hr{
+    width: 60%;
+    margin-top: 5%;
+    border: 0;
+    border-top: 1px solid #003366;
+}
+.Login-items-google{
+    padding-top: 5%;
+    width: 60%;
+}
+.Login-items-google button{
+    padding: 5%;
+    width: 100%;
+    color: #8BACF1;
+    background-color: transparent;
+    border: 2px solid #ABC3F5;
+    border-radius: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.Login-items-google button img{
+    margin-left: 3%;
+}
+/* singup page */
+
+.Login-items-button-Login2{
+    background-color: #194775;
+    color: #CC6540;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    padding: 5%;
+    width: 50%;
+    cursor: pointer;
+}
+.Login-items-button-Singup2{
+    background-color: #FF7F50;
+    color: white;
+    border: none;
+    width: 50%;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.Login-items-inputs-singup{
+    width: 60%;
+    padding-top: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    direction: rtl;
+}
+.Login-items-inputs-singup label{
+    font-size: 14px;
+    color: #003366;
+    padding-top: 6%;
+    font-weight: bold;
+}
+.Login-items-inputs-singup input{
+    width: 100%;
+    padding: 5%;
+    margin-top: 5%;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 1px solid #002347;
+    direction: ltr;
+}
+.Login-items-inputs-singup input::placeholder{
+    color: #D1D1D1;
+}
+.Login-items-b-submit2{
+    display: flex;
+    justify-content: center;
+    width: 60%;
+}
+.Login-items-b-submit2 button{
+    width: 100%;
+    font-size: 16px;
+    background-color: #FF7F50;
+    color: white;
+    padding: 5%;
+    border: none;
+    margin-top: 15%;
+    border-radius: 8px;
+}

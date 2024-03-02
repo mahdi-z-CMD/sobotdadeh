@@ -63,7 +63,7 @@ export const Navbar = () => {
     <nav className={isHomepage ? '' : 'nav-not-home'}>
       <div className="Navbar-items1">
         <a href="#" className={isHomepage ? 'loc-a1' : 'loc-a2'}>تهران<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></a>
-        <a href="#">ورود/ثبت نام<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></a>
+        <Link to={'/Login'}><a href="#">ورود/ثبت نام<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></a></Link>
       </div>
       <div className="Navbar-items2">
         <a
