@@ -91,7 +91,7 @@ header{
 main{
     height: 100vh;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     flex-direction: column;
     align-items: center;
     margin-right: 9%;
@@ -167,7 +167,7 @@ main{
     direction: rtl;
     width: 100%;
     height: 410px;
-    justify-content: end;
+    justify-content: flex-end;
 }
 @keyframes blurAndFadeOut {
     0% {
@@ -427,7 +427,7 @@ main{
     direction: rtl;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     justify-content: center;
     width: 45%;
 }
@@ -577,7 +577,7 @@ main{
     font-size: 18px;
     color: #4f4f4f;
     direction: rtl;
-    align-items: start;
+    align-items: flex-start;
     margin-left: 9%;
     margin-right: 9%;
     margin-top: 7%;

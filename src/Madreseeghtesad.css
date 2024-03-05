@@ -86,7 +86,7 @@
 .Madrese-content2-lists{
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: flex-end;
     padding-top: 2%;
     width: 40%;
 }

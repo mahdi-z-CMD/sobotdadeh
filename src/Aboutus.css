@@ -91,17 +91,16 @@
     padding: 2%;
     margin-top: 5%;
     border-left: 2px solid rgb(204, 78, 211);
-
 }
 .content-box-image{
     width: 100%;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .content-box-image2{
     width: 100%;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
 }
 .content-box-image2 img{
     height: 100%;
@@ -115,7 +114,7 @@
 }
 .content-box-prof{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-top: 3%;
 }
 .content-box-prof img{
@@ -145,7 +144,7 @@
     display: flex;
     flex-direction: column;
     direction: rtl;
-    align-items: start;
+    align-items: flex-start;
     margin-top: 15%;
     margin-left: 7%;
     margin-right: 7%;

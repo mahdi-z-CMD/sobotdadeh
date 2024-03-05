@@ -7,17 +7,33 @@ import profile_companie2 from './image/prof2.png'
 import profile_companie3 from './image/prof3.jpg'
 import profile_companie4 from './image/prof4.png'
 import profile_companie5 from './image/prof5.jpg'
-import profile_companie6 from './image/prof6.jpg'
 // Icons
 import profile_edit from './Icons/Profile_edit.svg'
 import profile_bookmark_selected from './Icons/Profile_bookmark_selected.svg'
 import profile_bookmark from './Icons/Profile_bookmark.svg'
 import bookmarked from './Icons/bookmarksaved_blue.svg'
+import showpassicon from './Icons/Login_visibilityicon.svg'
+import profile_sabtagahiicon1 from './Icons/Profile_sabtagahi1.svg'
+import profile_sabtagahiicon2 from './Icons/profile_sabtagahi2.svg'
 const Profile = () => {
-    const [activespan, setActivespan] = useState(0)
-    const [picchange, setPicchange] = useState(false)
+    const [activespan, setActivespan] = useState(0);
+    const [picchange, setPicchange] = useState(false);
+    const [showpass1, setShowpass1] = useState(false);
+    const [showpass2, setShowpass2] = useState(false);
+    const [showpass3, setShowpass3] = useState(false);
+    const [agahiheader, setAgahiheader] = useState(0);
 
-    // bookmark cards
+    // see the password function 
+    const show1 = () => {
+        setShowpass1(!showpass1);
+      };
+    const show2 = () => {
+        setShowpass2(!showpass2);
+      };
+    const show3 = () => {
+        setShowpass3(!showpass3);
+      };
+    // bookmark cards   
     const Bookmarkcard = (props)=>{
         return (
                     <div className="Profile-bookmark-box">
@@ -34,6 +50,38 @@ const Profile = () => {
                             <img src={bookmarked} alt="bookmark icon" width="24px" height="24px"/>
                         </div>
                     </div>
+        )
+    }
+    // agahi cards 
+    const Agahicard = (props)=>{
+        return(
+            <>
+                <div className="Profile-agahi-content-card">
+                    <div className="Profile-agahi-content-card-cloum1 Profile-agahi-content-card-cloum">
+                        {
+                            agahiheader === 2 ? (<>
+                                <button className='Profile-agahi-content-card-cloum1-btn3'>غیر فعال</button>
+                            
+                            </>): agahiheader === 1 ? (<>
+                                <button className='Profile-agahi-content-card-cloum1-btn4'>در حال برسی</button>
+                            </>):(<>      
+                                <button className='Profile-agahi-content-card-cloum1-btn1'>ویرایش آگهی</button>
+                                <button className='Profile-agahi-content-card-cloum1-btn2'>ارتقای آگهی</button>
+                            </>)
+                        }
+                    </div>
+                    <div className="Profile-agahi-content-card-cloum2 Profile-agahi-content-card-cloum">
+                        <h1>{props.price}</h1>
+                    </div>
+                    <div className="Profile-agahi-content-card-cloum3 Profile-agahi-content-card-cloum">
+                        <h1>{props.header} ️</h1>
+                        <h2>{props.des}</h2>
+                    </div>
+                    <div className="Profile-agahi-content-card-cloum4 Profile-agahi-content-card-cloum">
+                        <img src={props.img} alt="companie logo" width="55px" height="55px"/>
+                    </div>
+                </div>
+            </>
         )
     }
     return ( 
@@ -165,16 +213,84 @@ const Profile = () => {
                         
                         
                     ) : activespan === 2 ? (
-                        <>
-                        </>
+                        <div className="Profile-changep">
+                            <div className="Profile-changep-row">
+                                <div className="Profile-changep-row-box">
+                                    <label htmlFor="currentpass">رمز عبور فعلی</label>
+                                    <input type={showpass1 ? "text" : "password"} name="" id="currentpass" /><img src={showpassicon} alt="show password" width="24px" height="24px" onClick={show1}/>
+                                </div>
+                            </div>
+                            <div className="Profile-changep-row">
+                                <div className="Profile-changep-row-box2">
+                                    <label htmlFor="currentpass">رمز عبور جدید</label>
+                                    <input type={showpass2 ? "text" : "password"} name="" id="currentpass" /><img src={showpassicon} alt="show password" width="24px" height="24px" onClick={show2}/>
+                                </div>
+                                <div className="Profile-changep-row-box2">
+                                    <label htmlFor="currentpass">تکرار رمز عبور جدید</label>
+                                    <input type={showpass3 ? "text" : "password"} name="" id="currentpass" /><img src={showpassicon} alt="show password" width="24px" height="24px" onClick={show3}/>
+                                </div>
+                            </div>
+                            <button type="submit">ثبت تغییرات</button>
+                        </div>
                     ) : activespan === 3 ? (
-                        <>
-                            
-                        </>
+                        <div className='Profile-agahi'>
+                            <div className="Profile-agahi-headers">
+                                <div className="Profile-agahi-headers-text">
+                                    <h1 onClick={()=>setAgahiheader(0)} className={agahiheader === 0 ? 'Profile-agahi-headers-text-active' : ''}>آگهی‌های فعال</h1>
+                                    <h1 onClick={()=>setAgahiheader(1)} className={agahiheader === 1 ? 'Profile-agahi-headers-text-active' : ''}>در حال بررسی</h1>
+                                    <h1 onClick={()=>setAgahiheader(2)} className={agahiheader === 2 ? 'Profile-agahi-headers-text-active' : ''}>آگهی‌های غیر فعال</h1>
+                                </div>                              
+                            </div>
+                            <div className="Profile-agahi-content">
+                                    {
+                                        agahiheader === 0 ? (
+                                            <>
+                                                <Agahicard img={profile_companie1} header="استخدام مشاور آقا ️" price="حقوق از ۲۰ میلیون تومان" des="کلینیک ارگانیک مایندد"></Agahicard>
+                                                <Agahicard img={profile_companie3} header="مدیر روابط عمومی ️" price="حقوق از ۱۵ میلیون تومان" des="دفتر معماری زندیگان"></Agahicard>                            
+                                            </>
+                                        ) : agahiheader === 1 ? (
+                                            <>
+                                                <Agahicard img={profile_companie1} header="استخدام مشاور آقا ️" price="حقوق از ۲۰ میلیون تومان" des="کلینیک ارگانیک مایندد"></Agahicard>                          
+                                            </>
+                                        ) : agahiheader === 2 ? (
+                                            <>
+                                                <Agahicard img={profile_companie1} header="استخدام مشاور آقا ️" price="حقوق از ۲۰ میلیون تومان" des="کلینیک ارگانیک مایندد"></Agahicard>
+                                                <Agahicard img={profile_companie3} header="مدیر روابط عمومی ️" price="حقوق از ۱۵ میلیون تومان" des="دفتر معماری زندیگان"></Agahicard>                            
+                                                <Agahicard img={profile_companie4} header="مدیر روابط عمومی ️" price="حقوق از ۱۵ میلیون تومان" des="دفتر معماری زندیگان"></Agahicard>                            
+                                            </>
+                                        ) : null
+                                    }
+                            </div>
+                        </div>
                     ) : activespan === 4 ? (
-                        <>
-                            
-                        </>
+                        <div className="Profile-sabtagahi">
+                            <div className="Profile-sabtagahi-header">
+                                <h1>برای ثبت آگهی ابتدا باید نوع آگهی حساب خود را انتخاب کنید.</h1>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                            </div>
+                            <div className="Profile-sabtagahi-content">
+                                <div className="Profile-sabtagahi-content-box">
+                                    <div className="Profile-sabtagahi-content-box-header">
+                                        <h1>ارائه خدمات</h1>
+                                        <img src={profile_sabtagahiicon2} alt="icon" />
+                                    </div>
+                                    <div className="Profile-sabtagahi-content-box-texts">
+                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                                    </div>
+                                    <button type="submit">ثبت آگهی خدماتی</button>
+                                </div>
+                                <div className="Profile-sabtagahi-content-box">
+                                    <div className="Profile-sabtagahi-content-box-header">
+                                        <h1>ارائه خدمات</h1>
+                                        <img src={profile_sabtagahiicon1} alt="icon" />
+                                    </div>
+                                    <div className="Profile-sabtagahi-content-box-texts">
+                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                                    </div>
+                                    <button type="submit">ثبت آگهی خدماتی</button>
+                                </div>
+                            </div>
+                        </div>
                     ) : activespan === 5 ? (
                         <>
                             
