@@ -572,3 +572,153 @@
     padding: 2%;
     margin-top: 10%;
 }
+/* eshterak */
+.Profile-eshterak{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    padding: 1%;
+}
+.Profile-eshterak-header{
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    width: 100%;
+}
+.Profile-eshterak-header h1{
+    color: #3D3D3D;
+    font-size: 20px;
+    width: 100%;
+}
+.Profile-eshterak-header p{
+    color: #4F4F4F;
+    font-size: 16px;
+    line-height: 19.76px;
+    text-align: justify;
+    margin-top: 3%;
+    width: 100%;
+}
+.Profile-eshterak-price{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 5%;
+}
+.Profile-eshterak-price-cloum{
+    border: 1px solid #D1D1D1;
+    width: 31%;
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    align-items: flex-start;
+    padding: 2%;
+    border-radius: 12px;
+}
+.Profile-eshterak-price-cloum h1{
+    color: #4F4F4F;
+    font-size: 18px;
+}
+.Profile-eshterak-price-cloum h2{
+    color: #7A7A7A;
+    font-size: 14px;
+    margin-top: 7%;
+    margin-right: 15%;
+}
+.Profile-eshterak-price-cloum span{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    margin-top: 10%;
+    font-size: 20px;
+    margin-left: auto;
+}
+.Profile-eshterak-price-cloum button{
+    border: none;
+    background-color: #2D69E5;
+    color: white;
+    width: 80%;
+    padding: 7%;
+    border-radius: 8px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.Profile-eshterak-price-cloum button:hover{
+    background-color: #0245cd;
+    transition: all .3s;
+    width: 85%;
+}
+.Profile-eshterak-price-cloum-special{
+    background-color: #2454B7;
+    border: 2px solid #2D69E5
+}
+.Profile-eshterak-price-cloum-special h1{
+    color: white;
+}
+.Profile-eshterak-price-cloum-special h2{
+    color: #E4E4E4;
+}
+.Profile-eshterak-price-cloum-special span{
+    color: #E4E4E4;
+}
+.Profile-eshterak-price-cloum-special button{
+    color: #3D3D3D;
+    background-color: #F6F9FE;
+}
+.Profile-eshterak-price-cloum-special button:hover{
+    background-color: #2454B7;
+    color: white;
+}
+.Profile-eshterak-price-cloum-special-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.Profile-eshterak-price-cloum-special-header h1{
+    width: 60%;
+}
+.Profile-eshterak-price-cloum-special-header h2{
+    font-size: 10px;
+    width: 40%;
+    margin-right: 0%;
+}
+/* rezome */
+.Profile-rezome{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2%;
+}
+.Profile-rezome h1{
+    color: #3D3D3D;
+    font-size: 20px;
+}
+.Profile-rezome p{
+    color: #4F4F4F;
+    font-size: 16px;
+    margin-top: 3%;
+}
+.Profile-rezome span{
+    color: #A8A8A8;
+    font-size: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 40%;
+}
+.Profile-rezome button{
+    background-color: #4D80E9;
+    font-size: 16px;
+    color: white;
+    padding: 2%;
+    border: none;
+    border-radius: 8px;
+    width: 30%;
+    margin-top: 10%;
+    margin-right: auto;
+    cursor: pointer;
+}

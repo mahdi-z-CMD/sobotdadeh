@@ -15,6 +15,8 @@ import bookmarked from './Icons/bookmarksaved_blue.svg'
 import showpassicon from './Icons/Login_visibilityicon.svg'
 import profile_sabtagahiicon1 from './Icons/Profile_sabtagahi1.svg'
 import profile_sabtagahiicon2 from './Icons/profile_sabtagahi2.svg'
+import profile_rezomeiconblue from './Icons/Profile_rezomeicon.svg'
+import profile_rezomeiconwhite from './Icons/Profile_rezomewhite.svg'
 const Profile = () => {
     const [activespan, setActivespan] = useState(0);
     const [picchange, setPicchange] = useState(false);
@@ -292,13 +294,51 @@ const Profile = () => {
                             </div>
                         </div>
                     ) : activespan === 5 ? (
-                        <>
-                            
-                        </>
+                        <div className="Profile-eshterak">
+                            <div className="Profile-eshterak-header">
+                                <h1>اشتراک ثبات‌داده</h1>
+                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+                            </div>
+                            <div className="Profile-eshterak-price">
+                                <div className="Profile-eshterak-price-cloum">
+                                    <h1>اشتراک سطح ۱</h1>
+                                    <h2>اشتراک سطح ۱</h2>
+                                    <h2>اشتراک سطح ۱</h2>
+                                    <h2>اشتراک سطح ۱</h2>
+                                    <h2>اشتراک سطح ۱</h2>
+                                    <span>۵۰,۰۰۰ تومان</span>
+                                    <button type="submit">خرید اشتراک</button>
+                                </div>
+                                <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
+                                    <div className="Profile-eshterak-price-cloum-special-header">
+                                        <h1>امکانات سطح ۲</h1>
+                                        <h2>(محبوب کاربران)</h2>
+                                    </div>
+                                    <h2>امکانات سطح ۲</h2>
+                                    <h2>امکانات سطح ۲</h2>
+                                    <h2>امکانات سطح ۲</h2>
+                                    <h2>امکانات سطح ۲</h2>
+                                    <span>۸۰,۰۰۰ تومان</span>
+                                    <button type="submit">خرید اشتراک</button>
+                                </div>
+                                <div className="Profile-eshterak-price-cloum">
+                                    <h1>امکانات سطح ۳</h1>
+                                    <h2>امکانات سطح ۳</h2>
+                                    <h2>امکانات سطح ۳</h2>
+                                    <h2>امکانات سطح ۳</h2>
+                                    <h2>امکانات سطح ۳</h2>
+                                    <span>۱۲۰,۰۰۰ تومان</span>
+                                    <button type="submit">خرید اشتراک</button>
+                                </div>
+                            </div>
+                        </div>
                     ) : (
-                        <>
-                            
-                        </>
+                        <div className="Profile-rezome">
+                            <h1>رزومه شما</h1>
+                            <p>با بارگذاری رزومه خود در سایت ثبات‌داده به راحتی برای هر آگهی شغلی که میخواهید رزومه را ارسال کنید.</p>
+                            <span>هنوز رزومه‌ای ثبت نکرده اید</span>
+                            <button>بارگذاری رزومه</button>
+                        </div>
                     ) 
                 }         
             </div>
@@ -310,7 +350,7 @@ const Profile = () => {
                 <span onClick={()=>setActivespan(3)} className={activespan === 3 ? 'Profile-category-active-span' : ''}>آگهی‌های من</span>
                 <span onClick={()=>setActivespan(4)} className={activespan === 4 ? 'Profile-category-active-span' : ''}>ثبت آگهی</span>
                 <span onClick={()=>setActivespan(5)} className={activespan === 5 ? 'Profile-category-active-span' : ''}>اشتراک</span>
-                <span onClick={()=>setActivespan(6)} className={activespan === 6 ? 'Profile-category-active-span' : ''}>رزومه من</span>
+                <span onClick={()=>setActivespan(6)} className={activespan === 6 ? 'Profile-category-active-span' : ''}><img src={activespan === 6 ? profile_rezomeiconblue : profile_rezomeiconwhite} alt="bookmark icon" width="24px" height="24px"/>رزومه من</span>
                 <h2>خروج از حساب</h2>
             </div>
         </div>
