@@ -26,7 +26,7 @@ export const Home = () => {
         <Route path="/contact" element={<Contact></Contact>}></Route>
         <Route path="/madreseeghtesad" element={<Madreseeghtesad></Madreseeghtesad>}></Route>
         <Route path="/companies" element={<Companies></Companies>}></Route>
-        <Route path="/companie" element={<Companie></Companie>}></Route>
+        <Route path="/companie/:companyid" element={<Companie></Companie>}></Route>
         <Route path="/profile" element={<Profile></Profile>}></Route>
       </Routes>
       <Footer></Footer>

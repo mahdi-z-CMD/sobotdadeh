@@ -1,10 +1,58 @@
 import './Companie.css'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 // Images
 import companielogo from './image/compani_logo.jpg'
 const Companie = () => {
     const [titileactive, setTitileactive] = useState(0);
     const [issub, setIssub] = useState(false);
+    // get data from api ------------------------
+    const { companyid } = useParams();
+    const [companyData, setCompanyData] = useState(null);
+  
+    useEffect(() => {
+      fetchData(companyid);
+      console.log(companyid)
+    }, [companyid]);
+  
+    const fetchData = async (companyid) => {
+      try {
+        const token = 'your-api-token';
+        const response = await axios.post('https://api.sobotdadeh.com/v1/company/show', {
+          code: companyid
+        }, {
+          headers: {
+            'Api-Token': token,
+            'Content-Type': 'application/json'
+          }
+        });
+        if (response.status === 200) {
+          setCompanyData(response.data.data);
+        } else {
+          console.error('Failed to fetch company data');
+        }
+      } catch (error) {
+        console.error('Error fetching company data:', error);
+      }
+    };
+  
+    if (!companyData) {
+      return  <div className="companie-content-detail">
+      <h2>سال تاسیس</h2>
+      <span>Loading ...</span>
+      <h2>نوع شرکت</h2>
+      <span>Loading ...</span>
+      <h2>وضعیت شرکت</h2>
+      <span>فعال</span>
+      <h2>شناسه ملی</h2>
+      <span>Loading ...</span>
+      <h2>آخرین سرمایه ثبتی</h2>
+      <span> میلیون ریال Loading ...</span>
+  </div>;
+    }
+    // get data from api ------------------------
+
     return ( 
         <div className='companie-page'>
             <div className="companie-header-bg">
@@ -12,7 +60,7 @@ const Companie = () => {
             <div className="companie-content">
                 <div className="companie-content-header">
                     <img src={companielogo} alt="companie logo" />
-                    <h1>دیجی‌ پی</h1>
+                    <h1>{companyData.title}</h1>
                 </div>
                 <div className="companie-content-header-title">
                     <h1 className={titileactive === 0 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(0)}>درباره شرکت</h1>
@@ -24,18 +72,18 @@ const Companie = () => {
                       <>
                         <div className="companie-content-detail">
                         <h2>سال تاسیس</h2>
-                        <span>1378/06/22</span>
+                        <span>{companyData.registrationDate}</span>
                         <h2>نوع شرکت</h2>
-                        <span>سهامی خاص</span>
+                        <span>{companyData.registrationTypeTitle}</span>
                         <h2>وضعیت شرکت</h2>
-                        <span>فعال</span>
+                        <span>{companyData.status === 1 ? "فعال" : "غیر فعال"}</span>
                         <h2>شناسه ملی</h2>
-                        <span>10380299732</span>
+                        <span>{companyData.entityId}</span>
                         <h2>آخرین سرمایه ثبتی</h2>
-                        <span> میلیون ریال</span>
+                        <span> میلیون ریال {companyData.capital}</span>
                     </div>
                     <div className="companie-content-detail-des">
-                        <h2>درباره دیجی پی</h2>
+                        <h2>درباره {companyData.title}</h2>
                         <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>
                     </div>
                       </>

@@ -188,6 +188,7 @@
     direction: rtl;
     width: 100%;
     height: auto;
+    margin-bottom: 15%;
 }
 @keyframes blurAndFadeOut {
     0% {
@@ -281,6 +282,9 @@
     direction: rtl;
     align-items: center;
     justify-content: space-between;
+}
+.cards-info-row2 a{
+    text-decoration: none !important;
 }
 .cards-info-row-more2{
     display: flex;

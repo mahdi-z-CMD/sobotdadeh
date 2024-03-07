@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import Soalat from './Soalat';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 // icons
 import mostatil from './Icons/mostatil.svg'
 import Searchiconblack from './Icons/Searchiconblack.svg'
@@ -130,7 +131,19 @@ export const Homepage = () => {
                 </div>
         )
     })
-    
+    // Search to companies page
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedCity, setSelectedCity] = useState('');
+    const [selectedSabeghe, setSelectedSabeghe] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      // Redirect to the search page with the search term as a query parameter
+      navigate(`/companies?search=${searchTerm}&city=${selectedCity}&sabeghe=${selectedSabeghe}`);
+    };
+
+    // Search to companies page
   return (
     <div>
       <header>
@@ -140,35 +153,38 @@ export const Homepage = () => {
             <h2>فقط <span>۳</span> مرحله تا پیدا کردن شرکت فاصله دارید</h2>      
         </div>
         <div className='overlaym'>
+            <div className="overlaym-bg">
                   <h1>ثبات‌داده</h1>
                   <h2>پلتفرمی برای همه شرکت‌ها</h2>
-                  <img src={mostatil} alt='nothing'/>
+            </div>
         </div>
       </div>
       </header>
       <main>
         <div className='Searchbox-main'>
-            <h1>جستجوی شرکت ها</h1>
-            <div className='Searchbox-items'>
-                <img src={Searchiconblack} alt="Search icon" />
-                <input type="text" name="Search" placeholder='عنوان شرکت....'/>
-                <img src={locicon} alt="Search icon" placeholder="شهر"/>
-                <select name="city">
-                <option value="تهران">تهران</option>
-                <option value="مازندران">مازندران</option>
-                <option value="خوزستان">خوزستان</option>
-                <option value="کرمان">کرمان</option>
-                </select>
-                <img src={pageicon} alt="Search icon" />
-                <select name="activity">
-                <option value="سابقه فعالیت">سابقه فعالیت</option>
-                <option value="مازندران">مازندران</option>
-                <option value="خوزستان">خوزستان</option>
-                <option value="کرمان">کرمان</option>
-                </select>
-                <img src={searchicon2} alt="Search icon" className='searchicon2'/>
-                <button type="submit">جستجو</button>
-            </div>
+            <form onSubmit={handleSubmit}>
+              <h1>جستجوی شرکت ها</h1>
+              <div className='Searchbox-items'>
+                  <img src={Searchiconblack} alt="Search icon" />
+                  <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} name="Search" placeholder='عنوان شرکت....'/>
+                  <img src={locicon} alt="Search icon" placeholder="شهر"/>
+                  <select name="city" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+                  <option value="تهران">انتخاب شهر</option>
+                  <option value="مازندران">مازندران</option>
+                  <option value="خوزستان">خوزستان</option>
+                  <option value="کرمان">کرمان</option>
+                  </select>
+                  <img src={pageicon} alt="Search icon" />
+                  <select name="activity" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
+                  <option value="سابقه فعالیت">سابقه فعالیت</option>
+                  <option value="مازندران">مازندران</option>
+                  <option value="خوزستان">خوزستان</option>
+                  <option value="کرمان">کرمان</option>
+                  </select>
+                  <img src={searchicon2} alt="Search icon" className='searchicon2'/>
+                  <button type="submit">جستجو</button>
+              </div>  
+            </form>       
         </div>
         <div className='slider'>
             <h1>برترین شرکت‌ها</h1>
