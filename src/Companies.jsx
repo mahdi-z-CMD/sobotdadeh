@@ -36,7 +36,7 @@ const Companies = () => {
       const Card = ((props)=>{
         return(
             <div key={props.key} className='cards2'>
-                    <img src={props.bookmark == "true" ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='bookmarkicon'/>
+                    <img src={props.bookmark === "true" ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='bookmarkicon'/>
                     <div className='cards-info2'>
                       <img src={props.img} alt="profile companie"/>
                       <h1>{props.name}</h1>
@@ -59,7 +59,7 @@ const Companies = () => {
     const Card2 = ((props)=>{
         return(
             <div key={props.key} className='cards'>
-                    <img src={props.bookmark == "true" ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='bookmarkicon'/>
+                    <img src={props.bookmark === "true" ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='bookmarkicon'/>
                     <div className='cards-info'>
                       <img src={props.img} alt="profile companie"/>
                       <h1>{props.name}</h1>
@@ -76,7 +76,6 @@ const Companies = () => {
         )
     })
     // Search from homepage 
-    const [startIndex, setStartIndex] = useState(0);
     const [searchInput, setSearchInput] = useState('');
     const [searchTermInput, setSearchTermInput] = useState('');
     const [apiData, setApiData] = useState([]);
@@ -161,7 +160,7 @@ const Companies = () => {
                     <div className='slider'>
                     <h1>برترین شرکت‌ها</h1>
                     <div className='card-box'>
-                        {sliderdata.slice(startIndex, startIndex + 4).map((key, index) => (
+                        {sliderdata.slice(startIndex2, startIndex2 + 4).map((key, index) => (
                     <Card2 name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card2>
                     ))}
                         <div className='arrow-card'>

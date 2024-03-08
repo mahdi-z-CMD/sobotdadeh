@@ -1,0 +1,87 @@
+
+.Khareji{
+    padding-top: 5%;
+}
+
+.Khareji-header{
+    background-image: url('./image/kharejibg.jpg');
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    align-items: center;
+}
+.Khareji-header h1{
+    margin-top: 5%;
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 2%;
+}
+/* select country */
+.Khareji-select-country{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Khareji-select-country h1{
+    color: black;
+    font-size: 40px;
+    direction: rtl;
+    font-weight: 700;
+    margin-top: 5%;
+    text-align: center;
+}
+.Khareji-select-map{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    margin-top: 10%;
+}
+.Khareji-select-map-country{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Khareji-select-map-country h1{
+    font-size: 18px;
+    color: black;
+    margin-top: 15%;
+    cursor: pointer;
+}
+.Khareji-select-map-country img{
+    cursor: pointer;
+}
+.Khareji-select-map-country-active{
+    border-bottom: 2px solid #FF7F50;
+    color: #FF7F50 !important;
+    padding-right: 3%;
+    padding-left: 3%;
+}
+/* country background */
+.Khareji-country-bg{
+    background-image: url('./image/khareji_iranbg.jpg');
+    height: 80vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-x: center;
+}
+.Khareji-country-bg-overlay{
+    width: 100%;
+    height: 100%;
+    background: #00234780;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.Khareji-country-bg-overlay h1{
+    font-size: 100px;
+    color: white;
+    font-weight: 700;
+}

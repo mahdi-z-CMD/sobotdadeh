@@ -101,6 +101,7 @@ export const Navbar = () => {
           >
           <li><Link to='/madreseeghtesad'><a onClick={handleItemClick2}>کسب و کار تو</a></Link></li>
           <li><Link to='/companies'><a onClick={handleItemClick2}>استعلام شرکت‌ها</a></Link></li>
+          <li><Link to='/khareji'><a onClick={handleItemClick2}>شرکت های خارجی</a></Link></li>
           </ul>
         )}
         <div className='Search-nav'>

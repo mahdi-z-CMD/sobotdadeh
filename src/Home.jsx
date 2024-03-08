@@ -1,5 +1,5 @@
 import './Home.css'
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import {Route, Routes, useLocation} from 'react-router-dom'
 import Navbar from './Navbar';
 import Homepage from './Homepage';
@@ -13,6 +13,7 @@ import Madreseeghtesad from './Madreseeghtesad';
 import Companies from './Companies';
 import Companie from './Companie';
 import Profile from './Profile';
+import Khareji from './Khareji';
 export const Home = () => {
   function ScrollToTop() {
     const { pathname } = useLocation();
@@ -38,6 +39,7 @@ export const Home = () => {
         <Route path="/companies" element={<Companies></Companies>}></Route>
         <Route path="/companie/:companyid" element={<Companie></Companie>}></Route>
         <Route path="/profile" element={<Profile></Profile>}></Route>
+        <Route path="/khareji" element={<Khareji></Khareji>}></Route>
       </Routes>
       <Footer></Footer>
 	</div>
