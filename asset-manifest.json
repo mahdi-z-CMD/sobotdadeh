@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.8e490555.css",
-    "main.js": "/sobotdadeh/static/js/main.d24857a6.js",
+    "main.css": "/sobotdadeh/static/css/main.0d4e0acf.css",
+    "main.js": "/sobotdadeh/static/js/main.a2732e60.js",
     "static/media/box2.png": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.png",
     "static/media/box1.png": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.png",
     "static/media/majale2.png": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.png",
@@ -83,11 +83,12 @@
     "static/media/Profile_bookmark_selected.svg": "/sobotdadeh/static/media/Profile_bookmark_selected.f906cb666be7a279ed475f9de080c2b1.svg",
     "static/media/telegramicon.svg": "/sobotdadeh/static/media/telegramicon.510f62d76baf0a5e0eac594effcf7268.svg",
     "static/media/companiesbg.svg": "/sobotdadeh/static/media/companiesbg.f9571ec8aa65a19426f6.svg",
-    "main.8e490555.css.map": "/sobotdadeh/static/css/main.8e490555.css.map",
-    "main.d24857a6.js.map": "/sobotdadeh/static/js/main.d24857a6.js.map"
+    "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.1115cab952894688597fc2eddad7929d.svg",
+    "main.0d4e0acf.css.map": "/sobotdadeh/static/css/main.0d4e0acf.css.map",
+    "main.a2732e60.js.map": "/sobotdadeh/static/js/main.a2732e60.js.map"
   },
   "entrypoints": [
-    "static/css/main.8e490555.css",
-    "static/js/main.d24857a6.js"
+    "static/css/main.0d4e0acf.css",
+    "static/js/main.a2732e60.js"
   ]
 }
