@@ -140,7 +140,7 @@
     height: 48px;
     border: 1px solid #BDBDBD;
     border-radius: 8px;
-    padding: 1%;
+    padding-right: 1%;
     appearance: none; /* Remove default appearance */
     -webkit-appearance: none; /* Remove default appearance for WebKit browsers */
     -moz-appearance: none; /* Remove default appearance for Firefox */
@@ -318,4 +318,37 @@
     line-height: 29.64px;
     position: relative;
     top: -10%;
+}
+/* change or delete filter */
+.Companies-delete-filter{
+    display: flex;
+    margin-top: 5%;
+    flex-direction: column;
+    direction: rtl;
+    margin-right: 9%;
+    margin-left: 9%;
+}
+.Companies-delete-filter-items{
+    display: flex;
+    margin-top: 3%;
+    margin-right: 7%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 2%;
+    direction: rtl;
+}
+.Companies-delete-filter-items span{
+    background-color: rgb(226, 226, 226);
+    padding: 1%;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-basis: 15%;
+    transition: all .3s;
+}
+.Companies-delete-filter-items span:hover{
+    background-color: rgb(204, 204, 204);
+    transition: all .3s;
 }

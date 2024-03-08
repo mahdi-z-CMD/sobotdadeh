@@ -1,5 +1,6 @@
 import './Home.css'
-import {Route, Routes} from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import {Route, Routes, useLocation} from 'react-router-dom'
 import Navbar from './Navbar';
 import Homepage from './Homepage';
 import Footer from './Footer';
@@ -13,10 +14,19 @@ import Companies from './Companies';
 import Companie from './Companie';
 import Profile from './Profile';
 export const Home = () => {
-    
+  function ScrollToTop() {
+    const { pathname } = useLocation();
+  
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+  
+    return null;
+  }
   return (
     <div>
       <Navbar></Navbar>
+      <ScrollToTop></ScrollToTop>
       <Routes >
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>

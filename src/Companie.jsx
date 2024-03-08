@@ -13,7 +13,6 @@ const Companie = () => {
   
     useEffect(() => {
       fetchData(companyid);
-      console.log(companyid)
     }, [companyid]);
   
     const fetchData = async (companyid) => {
@@ -40,15 +39,15 @@ const Companie = () => {
     if (!companyData) {
       return  <div className="companie-content-detail">
       <h2>سال تاسیس</h2>
-      <span>Loading ...</span>
+      <span>در حال جستجو...</span>
       <h2>نوع شرکت</h2>
-      <span>Loading ...</span>
+      <span>در حال جستجو...</span>
       <h2>وضعیت شرکت</h2>
-      <span>فعال</span>
+      <span>در حال جستجو...</span>
       <h2>شناسه ملی</h2>
-      <span>Loading ...</span>
+      <span>در حال جستجو...</span>
       <h2>آخرین سرمایه ثبتی</h2>
-      <span> میلیون ریال Loading ...</span>
+      <span> میلیون ریال در حال جستجو...</span>
   </div>;
     }
     // get data from api ------------------------
