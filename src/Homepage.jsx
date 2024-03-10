@@ -35,7 +35,22 @@ import majaleimg3 from './image/majale3.png'
 import sliderdata from './slidersdata.json'
 
 export const Homepage = () => {
+  // get window width
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  // get window width
   // thie section is for box khadamat animation 
   const [scrolled, setScrolled] = useState(false);
   const [majale, setMajale] = useState({
@@ -45,11 +60,11 @@ export const Homepage = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const boxKhadamat = document.querySelector('.box-khadamat');
+      const boxKhadamat = document.querySelector(`.${windowWidth <= 500 ? 'kharid' : 'box-khadamat'}`);
       const boxKhadamatOffset = boxKhadamat.offsetTop;
       const boxKhadamatHeight = boxKhadamat.clientHeight;
 
-      if (scrollTop >= boxKhadamatOffset && scrollTop < boxKhadamatOffset + boxKhadamatHeight) {
+      if (scrollTop >= boxKhadamatOffset && scrollTop  < boxKhadamatOffset + boxKhadamatHeight) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -99,18 +114,53 @@ export const Homepage = () => {
     fetchRandomImages();
   }, []); 
   // this section is for api images ----------------------------------------------
-  let i = 1;
   const [startIndex, setStartIndex] = useState(0);
+  const [autoSlideIntervalId, setAutoSlideIntervalId] = useState(null);
 
+  // Function to start automatic sliding
+  const startAutoSlide = () => {
+    const id = setInterval(() => {
+      const newIndex = (startIndex + 1) % sliderdata.length; // Calculate the next index and loop back to 0 if it reaches the end
+      setStartIndex(newIndex);
+    }, 2000); // Change slide every 1 second
+    setAutoSlideIntervalId(id);
+  };
+
+  // Function to stop automatic sliding
+  const stopAutoSlide = () => {
+    clearInterval(autoSlideIntervalId);
+    setAutoSlideIntervalId(null);
+  };
+
+  // Start automatic sliding when component mounts or when startIndex changes
+  useEffect(() => {
+    if (windowWidth <= 500) {
+      startAutoSlide();
+    } else {
+      stopAutoSlide(); // Stop automatic sliding on larger screens
+    }
+
+    // Clean up function to stop automatic sliding when component unmounts or when startIndex changes
+    return () => {
+      if (autoSlideIntervalId) {
+        clearInterval(autoSlideIntervalId);
+      }
+    };
+  }, [startIndex, windowWidth]); // Re-run effect when startIndex or windowWidth changes
+
+  // Function to handle next slide
   const nextSlide = () => {
-    const newIndex = Math.min(startIndex + 4, sliderdata.length - 4);
+    const newIndex = (startIndex + (windowWidth <= 500 ? 1 : 4)) % sliderdata.length; // Calculate the next index and loop back to 0 if it reaches the end
     setStartIndex(newIndex);
   };
 
+  // Function to handle previous slide
   const prevSlide = () => {
-    const newIndex = Math.max(startIndex - 4, 0);
+    const newIndex = (startIndex - (windowWidth <= 500 ? 1 : 4) + sliderdata.length) % sliderdata.length; // Calculate the previous index and loop back to the end if it reaches 0
     setStartIndex(newIndex);
   };
+
+
   // Components -----------------
     const Card = ((props)=>{
         return(
@@ -154,8 +204,6 @@ export const Homepage = () => {
         </div>
         <div className='overlaym'>
             <div className="overlaym-bg">
-                  <h1>ثبات‌داده</h1>
-                  <h2>پلتفرمی برای همه شرکت‌ها</h2>
             </div>
         </div>
       </div>
@@ -189,7 +237,7 @@ export const Homepage = () => {
         <div className='slider'>
             <h1>برترین شرکت‌ها</h1>
             <div className='card-box'>
-                {sliderdata.slice(startIndex, startIndex + 4).map((key, index) => (
+                {sliderdata.slice(startIndex, startIndex + (windowWidth <= 500 ? 1 : 4)).map((key, index) => (
               <Card name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card>
             ))}
                 <div className='arrow-card'>
@@ -197,10 +245,13 @@ export const Homepage = () => {
                     <img src={expandleft} alt="left icon" className='arrow-card-left' onClick={prevSlide}/>
                 </div>
             </div>
-            <div className='slider-showmore'>
+          {
+            windowWidth >= 500 ? (<div className='slider-showmore'>
             <span>مشاهده بیشتر</span>
             <img src={expanddown} alt="expand down icon" />
-        </div>
+        </div>): null
+          }
+          
         </div>
       </main>
       <div className='masir'>
@@ -235,12 +286,17 @@ export const Homepage = () => {
         <a href="#">خرید اشتراک</a>
       </div>
       <div className={`box-khadamat ${scrolled ? 'scrolled' : ''}`}>
+      {
+          windowWidth <= 500 ? (<h1 className='box-khadamat-text-h1'>{scrolled ? 'باکس خدمات 2' : 'باکس خدمات'}</h1>):null
+      }
       <div className="box-khadamat-img">
         <img src={scrolled ? boximage2 : boximage1} alt="box image" />
       </div>
       <div className="box-khadamat-text">
-        <h1>{scrolled ? 'باکس خدمات 2' : 'باکس خدمات'}</h1>
-        <p>{scrolled ? 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است' : 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است'}</p>
+        {
+            windowWidth >= 500 ? (<h1>{scrolled ? 'باکس خدمات 2' : 'باکس خدمات'}</h1>):null
+        }
+        <p>{scrolled ? 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است' : 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است'}</p>  
         <img src={scrolldownicon} alt="scroll icon" className='scrollicon-khadamat'/>
       </div>
     </div>
@@ -251,14 +307,14 @@ export const Homepage = () => {
       <div className="majale-content">
         <div className="majale-soton">
           <div className="majale-box">
-            <img src={imageURL1} alt="majale image" width="304px" height="176px"/>
+            <img src={imageURL1} alt="majale image" width="50%" height="100%"/>
             <div className="majale-text">
               <p>{majale.des}</p>
               <span>مشاهده بیشتر<img src={expanddown} alt="expand donw" /></span>
             </div>
           </div>
           <div className="majale-box">
-            <img src={imageURL2} alt="majale image" width="304px" height="176px"/>
+            <img src={imageURL2} alt="majale image" width="50%" height="100%"/>
             <div className="majale-text">
               <p>{majale.des}</p>
               <span>مشاهده بیشتر<img src={expanddown} alt="expand donw" /></span>
@@ -267,7 +323,7 @@ export const Homepage = () => {
       </div>
       <div className="majale-soton2">
             <div className="majale-box2">
-              <img src={imageURL3} alt="majale image" width="446px" height="212px"/>
+              <img src={imageURL3} alt="majale image" width="100%" height="60%"/>
               <div className="majale-text">
                 <p>{majale.des}</p>
                 <span>مشاهده بیشتر<img src={expanddown} alt="expand donw" /></span>

@@ -37,18 +37,35 @@ const Companie = () => {
     };
   
     if (!companyData) {
-      return  <div className="companie-content-detail">
-      <h2>سال تاسیس</h2>
-      <span>در حال جستجو...</span>
-      <h2>نوع شرکت</h2>
-      <span>در حال جستجو...</span>
-      <h2>وضعیت شرکت</h2>
-      <span>در حال جستجو...</span>
-      <h2>شناسه ملی</h2>
-      <span>در حال جستجو...</span>
-      <h2>آخرین سرمایه ثبتی</h2>
-      <span> میلیون ریال در حال جستجو...</span>
-  </div>;
+      return (
+        <>
+         <div className="companie-header-bg">
+            </div>
+            <div className="companie-content">
+                <div className="companie-content-header">
+                    <img src={companielogo} alt="companie logo" />
+                    <h1>در حال جستجو...</h1>
+                </div>
+                <div className="companie-content-header-title">
+                    <h1 className={null === 0 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(0)}>درباره شرکت</h1>
+                    <h1 className={null === 1 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(1)}>شناخت ریسک</h1>
+                </div>
+                <hr/>
+        <div className="companie-content-detail">
+            <h2>سال تاسیس</h2>
+            <span>در حال جستجو...</span>
+            <h2>نوع شرکت</h2>
+            <span>در حال جستجو...</span>
+            <h2>وضعیت شرکت</h2>
+            <span>در حال جستجو...</span>
+            <h2>شناسه ملی</h2>
+            <span>در حال جستجو...</span>
+            <h2>آخرین سرمایه ثبتی</h2>
+            <span> میلیون ریال در حال جستجو...</span>
+        </div>
+        </div>
+        </>
+      );
     }
     // get data from api ------------------------
 
@@ -79,7 +96,7 @@ const Companie = () => {
                         <h2>شناسه ملی</h2>
                         <span>{companyData.entityId}</span>
                         <h2>آخرین سرمایه ثبتی</h2>
-                        <span> میلیون ریال {companyData.capital}</span>
+                        <span>{companyData.capital} میلیون ریال</span>
                     </div>
                     <div className="companie-content-detail-des">
                         <h2>درباره {companyData.title}</h2>

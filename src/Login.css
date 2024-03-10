@@ -73,11 +73,11 @@
     direction: ltr;
 }
 .Login-items-inputs input::placeholder{
-    padding-left: 30%;
+    text-align: right;
 }
 .Login-items-inputs img{
     position: relative;
-    bottom: 16%;
+    bottom: 15%;
     margin-right: 5%;
 }
 .Login-items-b-submit{
@@ -99,9 +99,8 @@
     display: flex;
     width: 60%;
     justify-content: space-between;
-    flex-wrap: wrap;
     direction: rtl;
-    padding-top: 4%;
+    margin-top: 4%;
 }
 .Login-items-faramoshi span{
     cursor: pointer;

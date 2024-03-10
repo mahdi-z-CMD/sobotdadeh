@@ -27,6 +27,8 @@ const Login = () => {
                     <div className="Login-items-faramoshi">
                         <span>فراموشی رمز عبور</span>
                         <span className='Login-items-faramoshi-remember'><img src={remember} alt="remember icon" />مرا به خاطر بسپار</span>
+                    </div>
+                    <div className="Login-items-faramoshi">
                         <span className='Login-items-faramoshi-last'>ورود با رمز یک بار مصرف</span>
                     </div>
                     <hr />

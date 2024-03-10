@@ -52,8 +52,8 @@
     justify-content: space-between;
 }
 .Madrese-content2 img{
-    width: 501px;
-    height: 551px;
+    width: 30%;
+    height: 80vh;
 }
 .Madrese-content2-texts{
     display: flex;
@@ -108,13 +108,12 @@
 /* sabt darkhast */
 .Madrese-sabt-darkhast{
     height: 90vh;
-    margin-top: 5%;
     width: 100%;
-    padding-top: 6%;
+    padding-top: 10%;
     background-image: url('./image/Madresebg2.svg');
     background-repeat: no-repeat;
-    background-position-y: 110%;
-    background-size: auto;
+    background-position-y: bottom;
+    background-size: cover;
     display: flex;
     direction: rtl;
     flex-direction: column;

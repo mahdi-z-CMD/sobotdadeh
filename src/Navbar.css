@@ -184,3 +184,9 @@ nav .Navbar-items2 a img{
     justify-content: center;
     align-items: center;
 }
+/* mobile desing */
+@media only screen and (max-width: 500px) {
+  nav{
+      display: none;
+  }
+}
