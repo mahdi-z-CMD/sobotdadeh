@@ -101,7 +101,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 112px;
+    width: 25%;
     border-radius: 8px;
     height: 112px;
     border: 1px solid #D1D1D1;
@@ -162,4 +162,101 @@
     font-size: 14px;
     color: #3D3D3D;
     text-align: center;
+}
+/* mobile desing */
+@media only screen and (max-width: 500px) {
+   .singup-submit{
+      display: none;
+   }
+   .signup{
+      display: none;
+   }
+   .footer{
+      height: 60vh;
+   }
+   .footer-hr{
+      border: none;
+      border-top: 1px solid #D1D1D1;
+      margin-right: 9%;
+      margin-left: 9%;
+      margin-top: 10%;
+   }
+   .footet-detail{
+      top: 0%;
+   }
+   .footet-detail h1{
+      margin-top: 5%;
+   }
+   .footer-about h2{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 16px;
+      font-weight: 400;
+   }
+   .footer-about h2 img{
+      width: 32px;
+      height: 32px;
+   }
+   .footer-about p{
+      font-size: 14px;
+      margin-top: 5%;
+      width: 100%;
+      text-align: justify;
+   }
+   .footer-pages{
+      flex-direction: column-reverse;
+      align-items: flex-end;
+   }
+   .links{
+      width: 100%;
+   }
+   .links-row a:not(:first-child){
+      margin-right: 20%;
+   }
+   .links-cloum{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+   }
+   .links-cloum-list{
+      display: flex;
+      margin-top: 3%;
+      width: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      direction: rtl;
+   }
+   .links-cloum-list a{
+      font-size: 14px;
+      cursor: pointer;
+      color: #2D69E5;
+      margin-right: 9%;
+      margin-top: 10%;
+   }
+   .footer-namads{
+      width: 100%;
+   }
+   .namads-place{
+      width: 30%;
+      margin-top: 5%;
+   }
+   .namads-place img{
+      width: 100px;
+      height: 100px;
+   }
+   .hoghogh{
+      width: 100%;
+   }
+   .hoghogh h1{
+      font-size: 13px;
+   }
+   .footer-end{
+      flex-direction: column-reverse;
+   }
+   .social-icon{
+      margin-top: 5%;
+      width: 50%;
+   }
+   
 }

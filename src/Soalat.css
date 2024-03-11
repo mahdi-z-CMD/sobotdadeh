@@ -57,3 +57,15 @@
   .additional-text img{
     margin-right: 2%;
   }
+  @media only screen and (max-width: 500px) {
+    .box-soalat-header h2 {
+      font-size: 14px !important;
+    }
+    .additional-text p{
+      font-size: 14px !important;
+      padding: 5%;
+    }
+    .additional-text img{
+      width: 20px;
+    }
+  }

@@ -212,26 +212,56 @@ export const Homepage = () => {
         <div className='Searchbox-main'>
             <form onSubmit={handleSubmit}>
               <h1>جستجوی شرکت ها</h1>
-              <div className='Searchbox-items'>
-                  <img src={Searchiconblack} alt="Search icon" />
-                  <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} name="Search" placeholder='عنوان شرکت....'/>
-                  <img src={locicon} alt="Search icon" placeholder="شهر"/>
-                  <select name="city" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
-                  <option value="تهران">انتخاب شهر</option>
-                  <option value="مازندران">مازندران</option>
-                  <option value="خوزستان">خوزستان</option>
-                  <option value="کرمان">کرمان</option>
-                  </select>
-                  <img src={pageicon} alt="Search icon" />
-                  <select name="activity" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
-                  <option value="سابقه فعالیت">سابقه فعالیت</option>
-                  <option value="مازندران">مازندران</option>
-                  <option value="خوزستان">خوزستان</option>
-                  <option value="کرمان">کرمان</option>
-                  </select>
-                  <img src={searchicon2} alt="Search icon" className='searchicon2'/>
-                  <button type="submit">جستجو</button>
-              </div>  
+              {
+                    windowWidth <= 500 ? (
+                      <div className='Searchbox-items'>
+                            <div className="Searchbox-items-mobile">
+                              <img src={Searchiconblack} alt="Search icon" />
+                              <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} name="Search" placeholder='عنوان شرکت....'/>
+                            </div>
+                            <div className="Searchbox-items-mobile">
+                              <img src={locicon} alt="Search icon" placeholder="شهر"/>
+                              <select name="city" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+                                <option value="تهران">انتخاب شهر</option>
+                                <option value="مازندران">مازندران</option>
+                                <option value="خوزستان">خوزستان</option>
+                                <option value="کرمان">کرمان</option>
+                              </select>
+                            </div>
+                            <div className="Searchbox-items-mobile">
+                              <img src={pageicon} alt="Search icon" />
+                              <select name="activity" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
+                                <option value="سابقه فعالیت">سابقه فعالیت</option>
+                                <option value="مازندران">مازندران</option>
+                                <option value="خوزستان">خوزستان</option>
+                                <option value="کرمان">کرمان</option>
+                              </select>
+                            </div>
+                      <button type="submit">جستجو</button>
+                  </div>  
+                    ) : (
+                      <div className='Searchbox-items'>
+                        <img src={Searchiconblack} alt="Search icon" />
+                        <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} name="Search" placeholder='عنوان شرکت....'/>
+                        <img src={locicon} alt="Search icon" placeholder="شهر"/>
+                        <select name="city" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+                        <option value="تهران">انتخاب شهر</option>
+                        <option value="مازندران">مازندران</option>
+                        <option value="خوزستان">خوزستان</option>
+                        <option value="کرمان">کرمان</option>
+                        </select>
+                        <img src={pageicon} alt="Search icon" />
+                        <select name="activity" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
+                        <option value="سابقه فعالیت">سابقه فعالیت</option>
+                        <option value="مازندران">مازندران</option>
+                        <option value="خوزستان">خوزستان</option>
+                        <option value="کرمان">کرمان</option>
+                        </select>
+                        <img src={searchicon2} alt="Search icon" className='searchicon2'/>
+                        <button type="submit">جستجو</button>
+                    </div>  
+                    )
+                  } 
             </form>       
         </div>
         <div className='slider'>
@@ -302,27 +332,55 @@ export const Homepage = () => {
     </div>
       <div className="majale-header">
         <h1>مجله ثبات‌داده</h1>
-        <h2>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است</h2>
+        {
+          windowWidth <= 500 ? (null):(<h2>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است</h2>)
+        }
+        
       </div>
       <div className="majale-content">
         <div className="majale-soton">
           <div className="majale-box">
             <img src={imageURL1} alt="majale image" width="50%" height="100%"/>
+            {
+              windowWidth <= 500 ? (<h1>عنوان مجله</h1>) : null
+            }
             <div className="majale-text">
-              <p>{majale.des}</p>
-              <span>مشاهده بیشتر<img src={expanddown} alt="expand donw" /></span>
+              {
+                windowWidth <= 500 ? null : (<p>{majale.des}</p>) 
+              }
+              <span>مشاهده بیشتر<img src={windowWidth <=500 ? leftarrowslider : expanddown} alt="expand donw" /></span>
             </div>
           </div>
           <div className="majale-box">
             <img src={imageURL2} alt="majale image" width="50%" height="100%"/>
+            {
+              windowWidth <= 500 ? (<h1>عنوان مجله</h1>) : null
+            }
             <div className="majale-text">
-              <p>{majale.des}</p>
-              <span>مشاهده بیشتر<img src={expanddown} alt="expand donw" /></span>
+              {
+                windowWidth <= 500 ? null : (<p>{majale.des}</p>) 
+              }
+              <span>مشاهده بیشتر<img src={windowWidth <=500 ? leftarrowslider : expanddown} alt="expand donw" /></span>
             </div>
           </div>
+          {
+            windowWidth <= 500 ? (
+              <div className="majale-box">
+                <img src={imageURL3} alt="majale image" width="50%" height="100%"/>
+                {
+                  windowWidth <= 500 ? (<h1>عنوان مجله</h1>) : null
+                }
+                <div className="majale-text">
+                  <span>مشاهده بیشتر<img src={leftarrowslider} alt="expand donw" /></span>
+                </div>
+              </div>
+            ) : null
+          }
       </div>
-      <div className="majale-soton2">
-            <div className="majale-box2">
+      {
+        windowWidth >= 500 ? (
+          <div className="majale-soton2">
+            <div className={"majale-box2"}>
               <img src={imageURL3} alt="majale image" width="100%" height="60%"/>
               <div className="majale-text">
                 <p>{majale.des}</p>
@@ -330,6 +388,9 @@ export const Homepage = () => {
               </div>
             </div>
           </div>
+        ) : null
+      }
+      
       </div>
       <div className="solata-home">
         <h1>سوالات متداول</h1>
