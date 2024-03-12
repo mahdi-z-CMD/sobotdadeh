@@ -1,40 +1,26 @@
-// AuthContext.js
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
+// auth.js
 
-const AuthContext = createContext();
+import Cookies from 'universal-cookie';
 
-export const useAuth = () => useContext(AuthContext);
+const cookies = new Cookies();
 
-export const AuthProvider = ({ children }) => {
-  const [cookies, setCookie, removeCookie] = useCookies(['isLoggedIn']);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+// Function to set a cookie
+export const setCookie = (name, value, options) => {
+  cookies.set(name, value, options);
+};
 
-  useEffect(() => {
-    // Check if the user is logged in by reading from the cookie
-    const userLoggedIn = cookies.isLoggedIn === 'true';
-    setIsLoggedIn(userLoggedIn);
-  }, [cookies]);
+// Function to get a cookie
+export const getCookie = (name) => {
+  return cookies.get(name);
+};
 
-  const login = () => {
-    // Perform login actions (e.g., send request to server for authentication)
-    // If login is successful, set isLoggedIn to true and store it in the cookie
-    setIsLoggedIn(true);
-    setCookie('isLoggedIn', 'true', { path: '/' });
-  };
+// Function to remove a cookie
+export const removeCookie = (name) => {
+  cookies.remove(name);
+};
 
-  const logout = () => {
-    // Perform logout actions (e.g., clear authentication-related data)
-    // Set isLoggedIn to false and remove the cookie
-    setIsLoggedIn(false);
-    removeCookie('isLoggedIn', { path: '/' });
-  };
-
-  const authValues = {
-    isLoggedIn,
-    login,
-    logout,
-  };
-
-  return <AuthContext.Provider value={authValues}>{children}</AuthContext.Provider>;
+// Function to check if the user is authenticated
+export const isAuthenticated = () => {
+  const userLoggedIn = getCookie('user');
+  return userLoggedIn === 'true';
 };

@@ -29,6 +29,7 @@ import scrolldownicon from './image/scrolldown.png'
 import majaleimg1 from './image/majale1.png' 
 import majaleimg2 from './image/majale2.png' 
 import majaleimg3 from './image/majale3.png'
+import hadafimg from './image/aboutimg2.jpg'
 
 
 // json test for api
@@ -328,6 +329,18 @@ export const Homepage = () => {
         }
         <p>{scrolled ? 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است' : 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است'}</p>  
         <img src={scrolldownicon} alt="scroll icon" className='scrollicon-khadamat'/>
+      </div>
+    </div>
+    <div className="hadaf-sobot">
+        {
+          windowWidth >= 500 ? null : (<h1>هدف از ثبات‌داده</h1>)
+        }
+      <img src={hadafimg} alt="hadaf image" />
+      <div className="hadaf-sobot-text">
+        {
+          windowWidth <= 500 ? null : (<h1>هدف از ثبات‌داده</h1>)
+        }
+        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
       </div>
     </div>
       <div className="majale-header">

@@ -24,7 +24,6 @@ const Profile = () => {
     const [showpass2, setShowpass2] = useState(false);
     const [showpass3, setShowpass3] = useState(false);
     const [agahiheader, setAgahiheader] = useState(0);
-
     // see the password function 
     const show1 = () => {
         setShowpass1(!showpass1);

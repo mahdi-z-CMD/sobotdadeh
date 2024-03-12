@@ -403,10 +403,10 @@ main{
 /* box khadamat */
 .box-khadamat{
     height: 90vh;
-    margin-right: 5%;
+    margin-right: 9%;
+    margin-left: 9%;
     display: flex;
     justify-content: space-between;
-    margin-left: 5%;
     transition: all 0.5s ease;
 }
 .box-khadamat-img{
@@ -463,6 +463,39 @@ main{
     to {
         transform: translateY(0);
     }
+}
+/* hadaf */
+.hadaf-sobot{
+    margin-top: 10%;
+    margin-bottom: 8%;
+    display: flex;
+    height: auto;
+    margin-right: 9%;
+    margin-left: 9%;
+    justify-content: space-between;
+}
+.hadaf-sobot img{
+    width: 50%;
+    border-radius: 14px;
+    height: 100%;
+}
+.hadaf-sobot-text{
+    display: flex;
+    direction: rtl;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 45%;
+}
+.hadaf-sobot-text h1{
+    font-size: 25px;
+    font-weight: 700;
+}
+.hadaf-sobot-text p{
+    font-size: 18px;
+    margin-top: 5%;
+    color: #3D3D3D;
+    text-align: justify;
 }
 /* majale */
 .majale-header{
@@ -824,5 +857,24 @@ main{
     .majale-text img{
         width: 24px;
         height: 24px;
+    }
+    /* hadaf sobot */
+    .hadaf-sobot{
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .hadaf-sobot{
+        color: #FF7F50;
+        font-size: 25px;
+        font-weight: 700;
+    }
+    .hadaf-sobot img{
+        width: 100%;
+        margin-top: 7%;
+    }
+    .hadaf-sobot-text{
+        width: 100%;
+        margin-top: 5%;
     }
   }

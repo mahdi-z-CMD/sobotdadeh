@@ -1,6 +1,6 @@
 import './Home.css'
 import { useEffect } from 'react';
-import {Route, Routes, useLocation} from 'react-router-dom'
+import {Route, Routes, useLocation, Navigate} from 'react-router-dom'
 import Navbar from './Navbar';
 import Homepage from './Homepage';
 import Footer from './Footer';
@@ -14,6 +14,7 @@ import Companies from './Companies';
 import Companie from './Companie';
 import Profile from './Profile';
 import Khareji from './Khareji';
+import isAuthenticated from './PrivateRoute'; // Import the isAuthenticated function
 export const Home = () => {
   function ScrollToTop() {
     const { pathname } = useLocation();
@@ -30,7 +31,6 @@ export const Home = () => {
       <ScrollToTop></ScrollToTop>
       <Routes >
         <Route path="/" element={<Homepage></Homepage>}></Route>
-        <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/aboutus" element={<Aboutus></Aboutus>}></Route>
         <Route path="/ghavanin" element={<Ghavanin></Ghavanin>}></Route>
         <Route path="/soalatmotadavel" element={<Soalatmotadavel></Soalatmotadavel>}></Route>
@@ -38,7 +38,14 @@ export const Home = () => {
         <Route path="/madreseeghtesad" element={<Madreseeghtesad></Madreseeghtesad>}></Route>
         <Route path="/companies" element={<Companies></Companies>}></Route>
         <Route path="/companie/:companyid" element={<Companie></Companie>}></Route>
-        <Route path="/profile" element={<Profile></Profile>}></Route>
+        <Route
+          path="/profile"
+          element={isAuthenticated() ? <Profile /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/login"
+          element={!isAuthenticated() ? <Login /> : <Navigate to="/profile" />}
+        />
         <Route path="/khareji" element={<Khareji></Khareji>}></Route>
       </Routes>
       <Footer></Footer>
