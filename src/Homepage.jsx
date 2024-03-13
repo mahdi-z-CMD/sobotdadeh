@@ -49,6 +49,7 @@ export const Homepage = () => {
     // Cleanup the event listener when the component unmounts
     return () => {
       window.removeEventListener('resize', handleResize);
+      console.log(windowWidth)
     };
   }, []);
   // get window width
@@ -268,7 +269,7 @@ export const Homepage = () => {
         <div className='slider'>
             <h1>برترین شرکت‌ها</h1>
             <div className='card-box'>
-                {sliderdata.slice(startIndex, startIndex + (windowWidth <= 500 ? 1 : 4)).map((key, index) => (
+                {sliderdata.slice(startIndex, startIndex + (windowWidth <= 500 ? 1 : windowWidth <= 1500 ? 3 : 4)).map((key, index) => (
               <Card name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card>
             ))}
                 <div className='arrow-card'>
@@ -292,19 +293,19 @@ export const Homepage = () => {
                   </div>
                   <div className='masir-middle'>
                     <div className='masir-middle-items'>
-                        <img src={masir1icon} alt="expand down icon" width="73px" height="73px"/>
+                        <img src={masir1icon} alt="expand down icon" width="100%" height="73px"/>
                         <h1>عضویت در ثبات‌داده</h1>
                         <p>با ثبت اطلاعات موردنظرتان در سایت ثبات‌داده قدم اول برای پیدا کردن شرکت مناسب خود را بردارید.</p>
                     </div>
                     <img src={arrowmasiricon} alt="expand down icon" className='arrow-icon1'/>
                     <div className='masir-middle-items'>
-                        <img src={masir2icon} alt="expand down icon" width="73px" height="73px"/>
+                        <img src={masir2icon} alt="expand down icon" width="100%" height="73px"/>
                         <h1>ثبت درخواست</h1>
                         <p>با ثبت یک درخواست کامل در سایت به پیدا کردن شرکت مناسب کار خود نزدیک خواهید شد.</p>
                     </div>
                     <img src={arrowmasiricon} alt="expand down icon" className='arrow-icon2'/>
                     <div className='masir-middle-items'>
-                        <img src={masir3icon} alt="expand down icon" width="73px" height="73px"/>
+                        <img src={masir3icon} alt="expand down icon" width="100%" height="73px"/>
                         <h1>ارتباط با شرکت</h1>
                         <p>مدتی پس از ثبت درخواست وخرید اشتراک شما به شرکت مدنظر متصل خواهید شد.</p>
                     </div>

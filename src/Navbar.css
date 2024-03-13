@@ -184,6 +184,30 @@ nav .Navbar-items2 a img{
     justify-content: center;
     align-items: center;
 }
+.Search-nav input{
+  padding: 5%;
+}
+/* responsive ----------- */
+@media only screen and (max-width: 1200px) {
+  .Navbar-items2{
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    left: 0;
+  }
+  .Navbar-items1{
+    width: 30%;
+  }
+  .nav-not-home .Navbar-items2{
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    left: 0;
+  }
+  .nav-not-home .Navbar-items1{
+    width: 30%;
+  }
+}
 /* mobile desing */
 @media only screen and (max-width: 500px) {
   nav{

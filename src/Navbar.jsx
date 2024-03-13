@@ -1,6 +1,6 @@
 import './Navbar.css'
 import {Link, useLocation} from 'react-router-dom'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import Searchicon from './Icons/search-13-512.png'
 import Searchicon_nothome from './Icons/search_nothome.svg'
 import logo from './Icons/logo.svg'
@@ -12,6 +12,23 @@ import loginicon_nothome from './Icons/loginicon_nothome.svg'
 import loginicon from './Icons/loginicon.svg'
 
 export const Navbar = () => {
+   // get window width
+   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+   useEffect(() => {
+     const handleResize = () => {
+       setWindowWidth(window.innerWidth);
+       console.log(windowWidth)
+     };
+ 
+     window.addEventListener('resize', handleResize);
+ 
+     // Cleanup the event listener when the component unmounts
+     return () => {
+       window.removeEventListener('resize', handleResize);
+     };
+   }, []);
+   // get window width
   const location = useLocation();
   const isHomepage = location.pathname === '/';
   const [isHovered, setHovered] = useState(false);
@@ -109,7 +126,9 @@ export const Navbar = () => {
           <input type="text" placeholder='جست‌وجو در ثبات‌داده....'/>
         </div>
       </div>
-      <Link to={'/'}><img src={logo} alt="Logo" width="61px" height="62px"/></Link>
+      {
+        windowWidth <= 1200 ? null : (<Link to={'/'}><img src={logo} alt="Logo" width="61px" height="62px"/></Link>)
+      }
     </nav>
   );
 };
