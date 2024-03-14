@@ -614,6 +614,7 @@
     direction: rtl;
     align-items: flex-start;
     padding: 2%;
+    transition: all .3s;
     border-radius: 12px;
 }
 .Profile-eshterak-price-cloum h1{
@@ -653,8 +654,13 @@
     transition: all .3s;
     width: 85%;
 }
+.Profile-eshterak-price-cloum-special:hover , .Profile-eshterak-price-cloum:hover{
+    transition: all .3s;
+    margin-top: -3%;
+}
 .Profile-eshterak-price-cloum-special{
     background-color: #2454B7;
+    transition: all .3s;
     border: 2px solid #2D69E5
 }
 .Profile-eshterak-price-cloum-special h1{

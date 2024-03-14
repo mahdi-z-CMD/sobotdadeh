@@ -20,16 +20,33 @@ import comapnie_logo_def from './image/default_companies_img.png'
 import sliderdata from './slidersdata.json'
 import { useState, useEffect } from 'react'
 const Companies = () => {
+  // get window width
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      console.log(windowWidth)
+    };
+  }, []);
+  // get window width
 
     const [startIndex2, setStartIndex2] = useState(0);
 
     const nextSlide = () => {
-        const newIndex = Math.min(startIndex2 + 4, sliderdata.length - 4);
+        const newIndex = Math.min(startIndex2 + windowWidth <= 1024 ? 3 : 4, sliderdata.length - windowWidth <= 1024 ? 3 : 4);
         setStartIndex2(newIndex);
     };
 
     const prevSlide = () => {
-        const newIndex = Math.max(startIndex2 - 4, 0);
+        const newIndex = Math.max(startIndex2 - windowWidth <= 1024 ? 3 : 4, 0);
         setStartIndex2(newIndex);
     };
       // Components -----------------
@@ -160,7 +177,7 @@ const Companies = () => {
                     <div className='slider'>
                     <h1>برترین شرکت‌ها</h1>
                     <div className='card-box'>
-                        {sliderdata.slice(startIndex2, startIndex2 + 4).map((key, index) => (
+                        {sliderdata.slice(startIndex2, startIndex2 + windowWidth <= 1024 ? 3 : 4).map((key, index) => (
                     <Card2 name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card2>
                     ))}
                         <div className='arrow-card'>

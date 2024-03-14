@@ -4,7 +4,7 @@
     padding-right: 8%;
     padding-left: 8%;
     padding-top: 15%;
-    height: 60vh;
+    height: auto;
     background-repeat: no-repeat;
     background-size: auto;
     background-position-x: 105%;
@@ -41,7 +41,7 @@
 }
 .Searchbox-items2 input{
     flex-basis: 25%;
-    height: 48px;
+    height: auto;
     border: 1px solid #BDBDBD;
     border-radius: 8px;
     padding: 1%;
@@ -54,7 +54,7 @@
 .Searchbox-items2 select{
     font-family: "Sans";
     flex-basis: 25%;
-    height: 48px;
+    height: auto;
     border: 1px solid #BDBDBD;
     border-radius: 8px;
     padding: 1%;
@@ -66,8 +66,7 @@
     padding-right: 3%;
     flex-basis: 15%;
     border: none;
-    width: 144px;
-    height: 48px;
+    height: auto;
     background-color: #FF7F50;
     color: #FFFFFF;
     border-radius: 8px;
@@ -351,4 +350,16 @@
 .Companies-delete-filter-items span:hover{
     background-color: rgb(204, 204, 204);
     transition: all .3s;
+}
+/* responsive --------- */
+@media only screen and (max-width: 1500px) {
+    .Searchbox-items2 img{
+        right: 4%;
+    }
+    .Searchbox-items2 input , .Searchbox-items2 select{
+        padding-right: 5%;
+    }
+    .Searchbox-items2 button{
+        flex-basis: 18%;
+    }
 }

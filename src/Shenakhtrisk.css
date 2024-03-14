@@ -1,0 +1,203 @@
+.Shenakht-bg{
+    padding-top: 15%;
+    height: 100vh;
+    background-image: url('./image/Madresebg.svg');
+    background-repeat: no-repeat;
+    background-position-x: 100vh;
+    background-position-y: -10vh;
+    background-size: cover;
+}
+.Shenakht-content{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    margin-right: 3%;
+    margin-left: 3%;
+    direction: rtl;
+}
+.Shenakht-content-texts{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 7%;
+    align-items: flex-start;
+}
+.Shenakht-content-texts h1{
+    color: #003366;
+    font-size: 40px;
+    text-align: center;
+    font-weight: bold;
+    width: 80%;
+}
+.Shenakht-content-texts p{
+    text-align: center;
+    color: #3D3D3D;
+    padding-top: 5%;
+    font-size: 18px;
+    width: 80%;
+    line-height: 30.13px;
+}
+.Shenakht-content img{
+    width: 50%;
+    height: 546px;
+}
+/* header end */
+.Shenakht-takhmin-text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 5%;
+    margin-left: 5%;
+    direction: rtl;
+    margin-top: 10%;
+}
+.Shenakht-takhmin-text h1{
+    color: #003366;
+    font-size: 30px;
+    margin-bottom: 3%;
+    font-weight: 700;
+}
+.Shenakht-takhmin-text p{
+    font-size: 24px;
+    margin-top: 1%;
+    color: #000000;
+    font-weight: 500;
+    text-align: justify;
+}
+/* kharid eshterak */
+.Shenakht-kharid{
+    margin-top: 15%;
+    height: auto;
+    background: linear-gradient(180deg, rgba(255, 127, 80, 0.4) 0%, rgba(0, 51, 102, 0.4) 100%);
+    box-shadow: 0px 4px 4px 0px #00000040;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Shenakht-kharid h1{
+    font-size: 40px;
+    color: #003366;
+    font-weight: 700;
+    margin-top: 5%;
+}
+.Shenakht-kharid-row{
+    margin-top: 5%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+    width: 100%;
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-bottom: 3%;
+}
+.Shenakht-kharid-box{
+    flex-basis: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    direction: rtl;
+    border: 1px solid #D1D1D1;
+    border-radius: 12px;
+    padding: 1%;
+    padding-right: 2%;
+    transition: all .3s;
+    height: 100%;
+}
+.Shenakht-kharid-box:hover{
+    transition: all .3s;
+    top: -2vh;
+    position: relative;
+    border: 1px solid black;
+}
+.Shenakht-kharid-box h1{
+    font-size: 18px;
+    color: #4F4F4F;
+    font-weight: 500;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 5%;
+}
+.Shenakht-kharid-box h2{
+    font-size: 14px;
+    color: #7A7A7A;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin-top: 6%;
+}
+.Shenakht-kharid-box span{
+    margin-right: auto;
+    margin-left: auto;
+    color: #4F4F4F;
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 10%;
+}
+.Shenakht-kharid-box button{
+    background-color: #003366;
+    margin-top: 5%;
+    font-size: 16px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 3%;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    width: 70%;
+    margin-bottom: 5%;
+    cursor: pointer;
+    transition: all .3s;
+}
+.Shenakht-kharid-box button:hover{
+    transition: all .3s;
+    background-color: #0455a5;
+}
+.shenakht-special-box{
+    background-color: #FF9872;
+    border: 2px solid #003366;
+}
+.shenakht-special-box h3{
+    color: #194775;
+    font-size: 12px;
+    margin-right: auto;
+}
+.shenakht-special-box h1{
+    color: #FFFFFF;
+}
+.shenakht-special-box h2{
+    color: #FFFFFF;
+}
+.shenakht-special-box span{
+    color: #FFFFFF;
+}
+.shenakht-special-box button{
+    background-color: #F6F9FE;
+    transition: all .3s;
+    color: #3D3D3D;
+}
+.shenakht-special-box button:hover{
+    transition: all .3s;
+    background-color: #e0e1e3;
+}
+/* responsive------ */
+@media only screen and (max-width: 1600px) {
+    .Shenakht-bg{
+        background-position-y: -7vh;
+        background-position-x: 80vh;
+    }
+}
+@media only screen and (max-width: 1400px) {
+    .Shenakht-bg{
+        background-position-y: -5vh;
+        background-position-x: 70vh;
+    }
+}
+@media only screen and (max-width: 1300px) {
+    .Shenakht-bg{
+        background-position-y: 0vh;
+        background-position-x: 66vh;
+    }
+}

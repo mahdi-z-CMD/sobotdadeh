@@ -15,6 +15,7 @@ import Companie from './Companie';
 import Profile from './Profile';
 import Khareji from './Khareji';
 import isAuthenticated from './PrivateRoute'; // Import the isAuthenticated function
+import Shenakhtrisk from './Shenakhtrisk';
 export const Home = () => {
   function ScrollToTop() {
     const { pathname } = useLocation();
@@ -32,6 +33,7 @@ export const Home = () => {
       <Routes >
         <Route path="/" element={<Homepage></Homepage>}></Route>
         <Route path="/aboutus" element={<Aboutus></Aboutus>}></Route>
+        <Route path="/shenakhtrisk" element={<Shenakhtrisk></Shenakhtrisk>}></Route>
         <Route path="/ghavanin" element={<Ghavanin></Ghavanin>}></Route>
         <Route path="/soalatmotadavel" element={<Soalatmotadavel></Soalatmotadavel>}></Route>
         <Route path="/contact" element={<Contact></Contact>}></Route>

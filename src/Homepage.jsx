@@ -267,15 +267,15 @@ export const Homepage = () => {
             </form>       
         </div>
         <div className='slider'>
+          <div className='arrow-card'>
+                <img src={expandright} alt="right icon" className='arrow-card-right' onClick={nextSlide}/>
+                <img src={expandleft} alt="left icon" className='arrow-card-left' onClick={prevSlide}/>
+          </div>
             <h1>برترین شرکت‌ها</h1>
             <div className='card-box'>
                 {sliderdata.slice(startIndex, startIndex + (windowWidth <= 500 ? 1 : windowWidth <= 1500 ? 3 : 4)).map((key, index) => (
               <Card name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card>
             ))}
-                <div className='arrow-card'>
-                    <img src={expandright} alt="right icon" className='arrow-card-right' onClick={nextSlide}/>
-                    <img src={expandleft} alt="left icon" className='arrow-card-left' onClick={prevSlide}/>
-                </div>
             </div>
           {
             windowWidth >= 500 ? (<div className='slider-showmore'>

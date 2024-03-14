@@ -28,7 +28,7 @@
 .header-content{
     position: relative;
     width: 100%;
-    height: 270vh;
+    height: auto;
     background-color: #FFFFFF;
     font-family: url;
 }
@@ -145,7 +145,7 @@
     flex-direction: column;
     direction: rtl;
     align-items: flex-start;
-    margin-top: 15%;
+    margin-top: 5%;
     margin-left: 7%;
     margin-right: 7%;
     height: auto;
