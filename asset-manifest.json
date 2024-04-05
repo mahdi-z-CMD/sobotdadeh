@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.f621048a.css",
-    "main.js": "/sobotdadeh/static/js/main.5708a6a4.js",
-    "static/media/box2.png": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.png",
-    "static/media/box1.png": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.png",
-    "static/media/majale2.png": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.png",
+    "main.css": "/sobotdadeh/static/css/main.bc41ed69.css",
+    "main.js": "/sobotdadeh/static/js/main.ba7a4a28.js",
+    "static/media/box2.webp": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.webp",
+    "static/media/box1.webp": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.webp",
+    "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
     "static/media/madrese6.jpg": "/sobotdadeh/static/media/madrese6.37c084883cc525301f6c.jpg",
     "static/media/madrese5.jpg": "/sobotdadeh/static/media/madrese5.10636edfc32541ea3c0c.jpg",
     "static/media/madrese4.jpg": "/sobotdadeh/static/media/madrese4.e7704f8323ab6336a5b4.jpg",
@@ -13,14 +13,15 @@
     "static/media/madrese3.jpg": "/sobotdadeh/static/media/madrese3.edd03dcb178f5d7275f0.jpg",
     "static/media/profilepic1.png": "/sobotdadeh/static/media/profilepic1.bb8cdbfd654edfd80e35.png",
     "static/media/prof5.jpg": "/sobotdadeh/static/media/prof5.07d04cd6e0b7e9bd1a55.jpg",
-    "static/media/majale3.png": "/sobotdadeh/static/media/majale3.9cef6f631bbe85a23576.png",
-    "static/media/majale1.png": "/sobotdadeh/static/media/majale1.f68c87dc5c14f664ef01.png",
+    "static/media/majale3.webp": "/sobotdadeh/static/media/majale3.9cef6f631bbe85a23576.webp",
+    "static/media/majale1.webp": "/sobotdadeh/static/media/majale1.f68c87dc5c14f664ef01.webp",
     "static/media/Inter-Regular.ttf": "/sobotdadeh/static/media/Inter-Regular.9ca9ba81e9dcaa12b3a1.ttf",
     "static/media/aboutimg1.jpg": "/sobotdadeh/static/media/aboutimg1.352c832978f5d6ae1b96.jpg",
     "static/media/namad2.png": "/sobotdadeh/static/media/namad2.1c73e1631f756e8d1cc6.png",
     "static/media/madrese1.png": "/sobotdadeh/static/media/madrese1.9402a02fbc9a88e143eb.png",
     "static/media/kharejibg.jpg": "/sobotdadeh/static/media/kharejibg.b9508b0f09c3044e5290.jpg",
-    "static/media/aboutimg2.jpg": "/sobotdadeh/static/media/aboutimg2.0aef991bb3817317e39f.jpg",
+    "static/media/aboutimg2.webp": "/sobotdadeh/static/media/aboutimg2.0aef991bb3817317e39f.webp",
+    "static/media/khareji_milad.jpg": "/sobotdadeh/static/media/khareji_milad.6ed7d53bbceea118b8c5.jpg",
     "static/media/aboutimg3.jpg": "/sobotdadeh/static/media/aboutimg3.f776dc8558e8ab8ea9ac.jpg",
     "static/media/madrese7.jpg": "/sobotdadeh/static/media/madrese7.98de377f0e1370af3056.jpg",
     "static/media/Madresebg2.svg": "/sobotdadeh/static/media/Madresebg2.65bc441a6e4d9f958b64.svg",
@@ -88,17 +89,18 @@
     "static/media/Profile_rezomewhite.svg": "/sobotdadeh/static/media/Profile_rezomewhite.43c8e249888971319a8fef61e20be258.svg",
     "static/media/search_nothome.svg": "/sobotdadeh/static/media/search_nothome.6afcff043526c8515969a6e1fe0b4502.svg",
     "static/media/bookmark.svg": "/sobotdadeh/static/media/bookmark.7ad8fe157db21387f2897023015611ba.svg",
+    "static/media/scrolldown.webp": "/sobotdadeh/static/media/scrolldown.5612398fde67631d51da.webp",
     "index.html": "/sobotdadeh/index.html",
     "static/media/Profile_bookmark.svg": "/sobotdadeh/static/media/Profile_bookmark.e59e35e086fbf501ed069139d6fca01f.svg",
     "static/media/Profile_bookmark_selected.svg": "/sobotdadeh/static/media/Profile_bookmark_selected.f906cb666be7a279ed475f9de080c2b1.svg",
     "static/media/telegramicon.svg": "/sobotdadeh/static/media/telegramicon.510f62d76baf0a5e0eac594effcf7268.svg",
     "static/media/companiesbg.svg": "/sobotdadeh/static/media/companiesbg.f9571ec8aa65a19426f6.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.1115cab952894688597fc2eddad7929d.svg",
-    "main.f621048a.css.map": "/sobotdadeh/static/css/main.f621048a.css.map",
-    "main.5708a6a4.js.map": "/sobotdadeh/static/js/main.5708a6a4.js.map"
+    "main.bc41ed69.css.map": "/sobotdadeh/static/css/main.bc41ed69.css.map",
+    "main.ba7a4a28.js.map": "/sobotdadeh/static/js/main.ba7a4a28.js.map"
   },
   "entrypoints": [
-    "static/css/main.f621048a.css",
-    "static/js/main.5708a6a4.js"
+    "static/css/main.bc41ed69.css",
+    "static/js/main.ba7a4a28.js"
   ]
 }
