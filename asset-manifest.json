@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/sobotdadeh/static/css/main.187452cd.css",
-    "main.js": "/sobotdadeh/static/js/main.ff1aac21.js",
+    "main.js": "/sobotdadeh/static/js/main.34452093.js",
     "static/media/box2.webp": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.webp",
     "static/media/box1.webp": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.webp",
     "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
@@ -54,6 +54,7 @@
     "static/media/soalatmotadavelicon.svg": "/sobotdadeh/static/media/soalatmotadavelicon.41518f0c973a085ce956275cfa059f1b.svg",
     "static/media/masir1.svg": "/sobotdadeh/static/media/masir1.83a2adce3b443672ae27050464b3860c.svg",
     "static/media/Contactemailicon.svg": "/sobotdadeh/static/media/Contactemailicon.f2307222dda2c6d5aff5c4939d6312a5.svg",
+    "static/media/default_companies_img.webp": "/sobotdadeh/static/media/default_companies_img.14e59c85fecc7aaa5415.webp",
     "static/media/masir3.svg": "/sobotdadeh/static/media/masir3.8aa6bb6e3e78bfd013442a2c8d967137.svg",
     "static/media/khareji_markicon.svg": "/sobotdadeh/static/media/khareji_markicon.b3b7c7dcd06af2ac7b2092c97a6a8ae2.svg",
     "static/media/Contactwarningicon.svg": "/sobotdadeh/static/media/Contactwarningicon.ca428e09b4aeb03663c7ad8554b4517d.svg",
@@ -97,10 +98,10 @@
     "static/media/companiesbg.svg": "/sobotdadeh/static/media/companiesbg.f9571ec8aa65a19426f6.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.1115cab952894688597fc2eddad7929d.svg",
     "main.187452cd.css.map": "/sobotdadeh/static/css/main.187452cd.css.map",
-    "main.ff1aac21.js.map": "/sobotdadeh/static/js/main.ff1aac21.js.map"
+    "main.34452093.js.map": "/sobotdadeh/static/js/main.34452093.js.map"
   },
   "entrypoints": [
     "static/css/main.187452cd.css",
-    "static/js/main.ff1aac21.js"
+    "static/js/main.34452093.js"
   ]
 }
