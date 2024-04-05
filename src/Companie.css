@@ -156,7 +156,7 @@
     position: absolute;
     width: 70%;
     box-shadow: 0px 4px 4px 0px #00000040 inset;
-    background-color: rgba(0, 51, 102,0.9);
+    background-color: rgba(182, 180, 180, 0.9);
     left: 15%;
     top: 30%;
     border-radius: 10px;
@@ -171,12 +171,14 @@
 }
 .companie-content-buy h1{
     text-align: center;
-    color: white;
-    font-size: 17px;
+    color: #003366;
+    font-size: 24px;
+    font-weight: 700;
     width: 100%;
     margin-right: auto;
     margin-left: auto;
     padding: 1%;
+    
 }
 .companie-content-buy button{
     width: 30%;
@@ -193,7 +195,7 @@
 }
 .companie-content-buy button:hover{
     transition: all .3s;
-    padding: 3%;
+    padding: 2%;
     width: 40%;
     border: 2px solid #d0410e;
 }

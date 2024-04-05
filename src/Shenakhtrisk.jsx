@@ -2,7 +2,7 @@ import './Shenakhtrisk.css'
 // icons
 import markgreen from './Icons/Shenkhat_kharid_mark.svg'
 // images
-import madrese1 from './image/shenakht_img1.jpg'
+import madrese1 from './image/shenakht_img1.png'
 
 const Shenakhtrisk = () => {
     return ( 

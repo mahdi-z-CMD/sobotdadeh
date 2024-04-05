@@ -221,7 +221,7 @@ main{
 }
 .cards-info img{
     width: 30%;
-    height: auto;
+    height: 10vh;
     border-radius: 100px;
     border: 1px solid #959595;
     margin-right: auto;
@@ -512,7 +512,7 @@ main{
 }
 .majale-content{
     display: flex;
-    height: 60vh;
+    height: 70vh;
     margin-right: 9%;
     margin-left: 9%;
 }
@@ -544,6 +544,7 @@ main{
     align-items: center;
     flex-direction: column;
     width: 100%;
+    height: auto;
 }
 .majale-text p{
     font-size: 18px;
@@ -557,6 +558,7 @@ main{
     display: flex;
     align-items: center;
     text-align: center;
+    justify-content: center;
     width: 90%;
     color: #FF7F50;
     font-size: 20px;
@@ -683,7 +685,7 @@ main{
         justify-content: flex-start;
         align-items: flex-end;
         direction: rtl;
-        margin-top: 35%;
+        margin-top: 45%;
         margin-right: 45%;
         width: 55%;
     }
@@ -710,7 +712,7 @@ main{
         background-image: url('./image/mostatil_mobile.svg');
         width: 35%;
         height: 60vh;
-        margin-right: 3%;
+        margin-right: 0%;
         margin-top: 15%;
     }
     /* search box */
@@ -773,6 +775,10 @@ main{
         display: none;
     }
     /* masir section */
+    .masir{
+        height: 70vh;
+        margin-top: 30%;
+    }
     .masir-detail{
         position: relative;
         top: -25vh;
@@ -860,22 +866,36 @@ main{
         width: 34px;
     }
     /* majale */
+    .majale-content{
+        display: flex; /* Add this line */
+        justify-content: flex-start; /* Add this line */
+        overflow-x: auto; /* Add this line */
+        height: 60vh !important;
+    }
     .majale-soton{
         flex-direction: row-reverse;
-        overflow-x: scroll;
+        width: 100%;
+        overflow-x: auto;
         align-items: flex-start;
         padding: 2%;
+        box-sizing: border-box;
+        gap: 10%;
+        height: auto;
     }
     .majale-box{
         border: 2px solid #ABC3F5;
         box-shadow: 0px 1px 5px 0px #2C156133;
         margin-right: 5%;
         height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        white-space: nowrap;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-between;
         padding: 2%;
+        min-width: 90%; /* Set a minimum width for each box */
     }
     .majale-box h1{
         font-size: 21px;

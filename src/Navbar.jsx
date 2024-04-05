@@ -80,48 +80,53 @@ export const Navbar = () => {
     <nav className={isHomepage ? '' : 'nav-not-home'}>
       <div className="Navbar-items1">
         <a href="#" className={isHomepage ? 'loc-a1' : 'loc-a2'}>تهران<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></a>
-        <Link to={'/Login'}><a href="#">ورود/ثبت نام<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></a></Link>
+        <Link to={'/Login'}>ورود/ثبت نام<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
       </div>
       <div className="Navbar-items2">
-        <a
-          onMouseEnter={handleMouseEnter2}
-          onMouseLeave={handleMouseLeave2}
+        <Link to='khareji'>
+        شرکت‌های خارجی
+        </Link>
+        <span
+           onMouseEnter={handleMouseEnter2}
+           onMouseLeave={handleMouseLeave2}
         >
           درباره ثبات‌داده
           <img src={isHomepage ? expandmoreicon : expandmore_nothome} alt="expand down" width="24px" height="24px" />
-        </a>
+        </span>
         {(isHovered2 || isListHovered2) && (
           <ul
             className="nav-list-hover2"
             onMouseEnter={handleListMouseEnter2}
             onMouseLeave={handleListMouseLeave2}
           >
-            <li><Link to='/ghavanin'><a onClick={handleItemClick2}>قوانین و مقررات</a></Link></li>
-            <li><Link to='/aboutus'><a onClick={handleItemClick2}>درباره ما</a></Link></li>
-            <li><Link to='/soalatmotadavel'><a onClick={handleItemClick2}>سوالات متداول</a></Link></li>
-            <li><Link to='/contact'><a onClick={handleItemClick2}>تماس با ما</a></Link></li>
+            <li><Link to='/ghavanin' onClick={handleItemClick2}>قوانین و مقررات</Link></li>
+            <li><Link to='/aboutus' onClick={handleItemClick2}>درباره ما</Link></li>
+            <li><Link to='/soalatmotadavel' onClick={handleItemClick2}>سوالات متداول</Link></li>
+            <li><Link to='/contact' onClick={handleItemClick2}>تماس با ما</Link></li>
           </ul>
         )}
         {/* next list items */}
-        <a
+        <span
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           خدمات ما
           <img src={isHomepage ? expandmoreicon : expandmore_nothome} alt="expand down" width="24px" height="24px" />
-        </a>
+        </span>
         {(isHovered || isListHovered) && (
           <ul
             className="nav-list-hover"
             onMouseEnter={handleListMouseEnter}
             onMouseLeave={handleListMouseLeave}
           >
-          <li><Link to='/madreseeghtesad'><a onClick={handleItemClick2}>کسب و کار تو</a></Link></li>
-          <li><Link to='/companies'><a onClick={handleItemClick2}>استعلام شرکت‌ها</a></Link></li>
-          <li><Link to='/khareji'><a onClick={handleItemClick2}>شرکت های خارجی</a></Link></li>
-          <li><Link to='/shenakhtrisk'><a onClick={handleItemClick2}>تخمین ریسک</a></Link></li>
+          <li><Link to='/madreseeghtesad' onClick={handleItemClick2}>کسب و کار تو</Link></li>
+          <li><Link to='/companies' onClick={handleItemClick2}>استعلام شرکت‌ها</Link></li>
+          <li><Link to='/shenakhtrisk' onClick={handleItemClick2}>تخمین ریسک</Link></li>
           </ul>
         )}
+        <Link to='/'>
+        صفحه اصلی
+        </Link>
         <div className='Search-nav'>
           <img src={isHomepage ? Searchicon : Searchicon_nothome} alt="Search icon" />
           <input type="text" placeholder='جست‌وجو در ثبات‌داده....'/>

@@ -10,6 +10,10 @@
     background-position-x: 105%;
     background-image: url('./image/companiesbg.svg');
 }
+.Companies-header-khareji{
+    background-image: none;
+    padding-top: 7%;
+}
 .Companies-center{
     padding-right: 9%;
     padding-left: 9%;
@@ -220,7 +224,14 @@
     border-radius: 20px;
     margin-top: 1%;
     margin-bottom: 4%;
+    transition: all .2s;
     animation: blurAndFadeOut 0.5s forwards;
+}
+.cards2:hover{
+    transition: all .2s;
+    border: 2px solid #FF7F50;
+    box-shadow: 0px 0px 16px 0px #1B2B4E33;
+
 }
 .cards2 .bookmarkicon{
     position: relative;

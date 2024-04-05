@@ -1,7 +1,6 @@
 import './Companies.css'
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-
 // icons
 import Searchiconblack from './Icons/Searchiconblack.svg'
 import locicon from './Icons/locicon.svg'
@@ -14,12 +13,13 @@ import expandleft from './Icons/expandleft.svg'
 import expandright from './Icons/expandright.svg'
 import closeicon from './Icons/closeicon.svg'
 // Images
-import comapnie_logo_def from './image/default_companies_img.png'
+import comapnie_logo_def from './image/default_companies_img.webp'
 
 // json test for api
 import sliderdata from './slidersdata.json'
 import { useState, useEffect } from 'react'
 const Companies = () => {
+  
   // get window width
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -41,13 +41,13 @@ const Companies = () => {
     const [startIndex2, setStartIndex2] = useState(0);
 
     const nextSlide = () => {
-        const newIndex = Math.min(startIndex2 + windowWidth <= 1024 ? 3 : 4, sliderdata.length - windowWidth <= 1024 ? 3 : 4);
-        setStartIndex2(newIndex);
+      const newIndex = Math.min(startIndex2 + (windowWidth <= 1024 ? 3 : 4), sliderdata.length - (windowWidth <= 1024 ? 3 : 4));
+      setStartIndex2(newIndex);
     };
-
+    
     const prevSlide = () => {
-        const newIndex = Math.max(startIndex2 - windowWidth <= 1024 ? 3 : 4, 0);
-        setStartIndex2(newIndex);
+      const newIndex = Math.max(startIndex2 - (windowWidth <= 1024 ? 3 : 4), 0);
+      setStartIndex2(newIndex);
     };
       // Components -----------------
       const Card = ((props)=>{
@@ -140,6 +140,10 @@ const Companies = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const targetElement = document.getElementById('Companies-center-result');
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
         fetchData(searchInput);
     };
     // api to get data
@@ -177,13 +181,13 @@ const Companies = () => {
                     <div className='slider'>
                     <h1>برترین شرکت‌ها</h1>
                     <div className='card-box'>
-                        {sliderdata.slice(startIndex2, startIndex2 + windowWidth <= 1024 ? 3 : 4).map((key, index) => (
-                    <Card2 name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card2>
-                    ))}
-                        <div className='arrow-card'>
-                            <img src={expandright} alt="right icon" className='arrow-card-right' onClick={nextSlide}/>
-                            <img src={expandleft} alt="left icon" className='arrow-card-left' onClick={prevSlide}/>
-                        </div>
+                      {sliderdata.slice(startIndex2, startIndex2 + (windowWidth <= 1024 ? 3 : 4)).map((key, index) => (
+                        <Card2 name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card2>
+                      ))}
+                      <div className='arrow-card'>
+                        <img src={expandright} alt="right icon" className='arrow-card-right' onClick={nextSlide}/>
+                        <img src={expandleft} alt="left icon" className='arrow-card-left' onClick={prevSlide}/>
+                      </div>
                     </div>
                     <div className='slider-showmore'>
                 </div>
@@ -193,7 +197,8 @@ const Companies = () => {
                 <h1>استعلام شرکت‌ها در ثبات‌داده</h1>
                 <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
             </div>
-            <div className="Companies-center">
+            <a href="#Companies-center-result"></a>
+            <div className="Companies-center" id='Companies-center-result'>
                 <div className='Searchbox-main-companies'>
                     <div className='Searchbox-items22'>
                         <select name="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>

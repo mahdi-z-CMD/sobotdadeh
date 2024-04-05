@@ -89,7 +89,7 @@
     padding-top: 2%;
     width: 40%;
 }
-.Madrese-content2-lists h1{
+.Madrese-content2-lists a{
     direction: rtl;
     color: #C2C7D6;
     margin-top: 15%;
@@ -230,7 +230,7 @@
     .Madrese-content2-texts p{
         font-size: 20px;
     }
-    .Madrese-content2-lists h1{
+    .Madrese-content2-lists a{
         font-size: 22px;
     }
 }
@@ -247,7 +247,7 @@
     .Madrese-content2-texts p{
         font-size: 18px;
     }
-    .Madrese-content2-lists h1{
+    .Madrese-content2-lists a{
         font-size: 20px;
     }
     .Madrese-content-texts h1{
@@ -267,7 +267,7 @@
     .Madrese-content2-texts p{
         font-size: 16px;
     }
-    .Madrese-content2-lists h1{
+    .Madrese-content2-lists a{
         font-size: 18px;
     }
 }

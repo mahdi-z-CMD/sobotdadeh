@@ -23,13 +23,13 @@ import arrowmasiricon from './Icons/arrowmasir.svg'
 
 
 // images
-import boximage1 from './image/box1.png' 
-import boximage2 from './image/box2.png' 
-import scrolldownicon from './image/scrolldown.png'
-import majaleimg1 from './image/majale1.png' 
-import majaleimg2 from './image/majale2.png' 
-import majaleimg3 from './image/majale3.png'
-import hadafimg from './image/aboutimg2.jpg'
+import boximage1 from './image/box1.webp' 
+import boximage2 from './image/box2.webp' 
+import scrolldownicon from './image/scrolldown.webp'
+import majaleimg1 from './image/majale1.webp' 
+import majaleimg2 from './image/majale2.webp'
+import majaleimg3 from './image/majale3.webp'
+import hadafimg from './image/aboutimg2.webp'
 
 
 // json test for api
