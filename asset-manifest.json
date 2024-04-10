@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.c27d4a91.css",
-    "main.js": "/sobotdadeh/static/js/main.71fe3e62.js",
+    "main.css": "/sobotdadeh/static/css/main.ae7ac36d.css",
+    "main.js": "/sobotdadeh/static/js/main.8bf1fa69.js",
     "static/media/box2.webp": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.webp",
     "static/media/box1.webp": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.webp",
     "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
@@ -84,11 +84,11 @@
     "static/media/expanddownsoalat.svg": "/sobotdadeh/static/media/expanddownsoalat.0dd9a3b84e33eedbee491bf830935624.svg",
     "static/media/expanddown.svg": "/sobotdadeh/static/media/expanddown.43d82dfbd674bae9436ceb342ae42c09.svg",
     "static/media/leftarrowslider.svg": "/sobotdadeh/static/media/leftarrowslider.9e0d4fc3807540a1b9dfccb702b983ac.svg",
-    "static/media/expandmore_nothome.svg": "/sobotdadeh/static/media/expandmore_nothome.4cab4793c0eef88b2cdc8da4ae9581d4.svg",
+    "static/media/expandmore_nothome.svg": "/sobotdadeh/static/media/expandmore_nothome.e716b42a24e4e846e4177d7bc0743c5e.svg",
     "static/media/Shenkhat_kharid_mark.svg": "/sobotdadeh/static/media/Shenkhat_kharid_mark.327ca2c5fb732ba6fb8ba8c212588bc2.svg",
     "static/media/Profile_rezomeicon.svg": "/sobotdadeh/static/media/Profile_rezomeicon.931ea4f22f990956c8acb4b1386cea2c.svg",
     "static/media/Profile_rezomewhite.svg": "/sobotdadeh/static/media/Profile_rezomewhite.43c8e249888971319a8fef61e20be258.svg",
-    "static/media/search_nothome.svg": "/sobotdadeh/static/media/search_nothome.6afcff043526c8515969a6e1fe0b4502.svg",
+    "static/media/search_nothome.svg": "/sobotdadeh/static/media/search_nothome.3751a9f190ed4340c720dc2c4974a152.svg",
     "static/media/bookmark.svg": "/sobotdadeh/static/media/bookmark.7ad8fe157db21387f2897023015611ba.svg",
     "static/media/scrolldown.webp": "/sobotdadeh/static/media/scrolldown.5612398fde67631d51da.webp",
     "index.html": "/sobotdadeh/index.html",
@@ -97,11 +97,11 @@
     "static/media/telegramicon.svg": "/sobotdadeh/static/media/telegramicon.510f62d76baf0a5e0eac594effcf7268.svg",
     "static/media/companiesbg.svg": "/sobotdadeh/static/media/companiesbg.f9571ec8aa65a19426f6.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.1115cab952894688597fc2eddad7929d.svg",
-    "main.c27d4a91.css.map": "/sobotdadeh/static/css/main.c27d4a91.css.map",
-    "main.71fe3e62.js.map": "/sobotdadeh/static/js/main.71fe3e62.js.map"
+    "main.ae7ac36d.css.map": "/sobotdadeh/static/css/main.ae7ac36d.css.map",
+    "main.8bf1fa69.js.map": "/sobotdadeh/static/js/main.8bf1fa69.js.map"
   },
   "entrypoints": [
-    "static/css/main.c27d4a91.css",
-    "static/js/main.71fe3e62.js"
+    "static/css/main.ae7ac36d.css",
+    "static/js/main.8bf1fa69.js"
   ]
 }
