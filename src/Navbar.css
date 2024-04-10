@@ -33,13 +33,13 @@ nav{
     box-shadow: 0px 4px 12px 0px #2C156126;
 }
 .nav-not-home .Navbar-items2 a,.nav-not-home .Navbar-items2 span{
-    color: #FF7F50;
+    color: #003366;
 }
 .nav-not-home .Navbar-items1 a img{
-    color: #FF7F50;
+    color: #003366;
 }
 .nav-not-home .Navbar-items2 input{
-    border: 1.5px solid #FF7F50;
+    border: 1.5px solid #003366;
     color: black;
     font-size: 16px;
 }
@@ -117,7 +117,6 @@ nav .Navbar-items2 a img{
     justify-content: space-between;
     background-color: transparent;
     width: 233.93px;
-    cursor: pointer;
     height: 37.03px;
     color: #F6F6F6;
     border: 1.5px solid #F6F6F6;
@@ -216,6 +215,12 @@ nav .Navbar-items2 a img{
     justify-content: space-between;
     width: 65%;
     left: 0;
+  }
+  .nav-list-hover2{
+    left: calc(-7% - 10px);
+  }
+  .nav-list-hover{
+    left: calc(12% - 10px);
   }
 }
 @media only screen and (max-width: 1200px) {

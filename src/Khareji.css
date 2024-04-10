@@ -114,3 +114,6 @@
     font-weight: 400;
     margin-top: 5%;
 }
+.filter-khareji{
+    flex-basis: 12% !important;
+}

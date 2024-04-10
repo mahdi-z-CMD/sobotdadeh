@@ -368,11 +368,19 @@ const Companies = () => {
                             />
                           ))
                         }
+                        
 
                         </div>
                     </div>
                 </div>
             )}
+         <div className="Companies-slider">
+                    <div className='slider2'>
+                   {!loading && apiData.length === 0 && searchInput.trim() !== '' && (
+                        <span className='slider2-notfound'>موردی یافت نشد</span>
+                      )}
+                    </div>
+         </div>
         </div>
      );
 }

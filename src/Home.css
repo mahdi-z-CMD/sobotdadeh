@@ -351,7 +351,7 @@ main{
 /* kharid eshterak home */
 .kharid{
     width: 100%;
-    background-color: #FF7F50;
+    background-color: #003366;
     height: auto;
     margin-bottom: 10%;
     direction: rtl;
@@ -361,6 +361,12 @@ main{
     align-items: center;
     margin-top: 5%;
     box-shadow: 0px 0px 24px 0px #2C156199;
+    background-image: url('./image/ghavanin.svg');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+    background-position-x: -10%;
+    position: relative;
 }
 .kharid h1{
     font-size: 36px;
@@ -375,7 +381,8 @@ main{
 .kharid a{
     text-decoration: none;
     color: #FF7F50;
-    padding: 2%;
+    padding: 1%;
+    font-size: 25px;
     font-weight: bold;
     background-color: #F6F6F6;
     margin-top: 3%;

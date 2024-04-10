@@ -7,7 +7,7 @@ import arrowback from './Icons/arrowback.svg'
 // images
 import aboutimg1 from './image/aboutimg1.jpg'
 import aboutimg2 from './image/aboutimg2.webp'
-import aboutimg3 from './image/aboutimg3.jpg'
+import aboutimg3 from './image/aboutimg3.webp'
 import aboutperson1 from './image/aboutperson1.png'
 import aboutperson2 from './image/aboutperson2.png'
 import aboutperson3 from './image/aboutperson3.png'
@@ -55,7 +55,13 @@ const Aboutus = () => {
                     </div> */}
                 </div>         
             </div>
+            <div className="kharid">
+                <h1>به ثبات‌داده اعتماد کن ما کنارتان هستیم ...</h1>
+                <h2>ارائه بهترین شرکت ها در همه حوزه‌ها</h2>
+                <a href="#">خرید اشتراک</a>
+            </div>
             <div className="soalat-aboutus">
+                <h1>سوالات متداول</h1>
             <div className={`box-soalat ${expandedIndex === 0 ? 'active' : ''}`}>
                 <div
                 className="box-soalat-header"

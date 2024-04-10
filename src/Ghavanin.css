@@ -1,8 +1,3 @@
-*{
-    box-sizing: border-box;
-    padding: 0%;
-    margin: 0%;
-}
 /* header */
 .header-ghavanin{
     background-image: url('./image/ghavanin.svg');
@@ -31,7 +26,6 @@
     width: 100%;
     height: 90vh;
     background-color: #FFFFFF;
-    font-family: url;
 }
 .ghavanin-content-back{
     border-radius: 45px 45px 0px 0px;

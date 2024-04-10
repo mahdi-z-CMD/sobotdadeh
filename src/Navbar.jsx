@@ -83,9 +83,11 @@ export const Navbar = () => {
         <Link to={'/Login'}>ورود/ثبت نام<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
       </div>
       <div className="Navbar-items2">
-        <Link to='khareji'>
-        شرکت‌های خارجی
-        </Link>
+          {
+            windowWidth >= 1450 ? (<Link to='khareji'>
+            شرکت‌های خارجی
+            </Link>) : null
+          }
         <span
            onMouseEnter={handleMouseEnter2}
            onMouseLeave={handleMouseLeave2}
@@ -121,6 +123,9 @@ export const Navbar = () => {
           >
           <li><Link to='/madreseeghtesad' onClick={handleItemClick2}>کسب و کار تو</Link></li>
           <li><Link to='/companies' onClick={handleItemClick2}>استعلام شرکت‌ها</Link></li>
+          {
+            windowWidth <= 1450 ? (<li><Link to='/khareji' onClick={handleItemClick2}>شرکت‌های خارجی</Link></li>) : null
+          }
           <li><Link to='/shenakhtrisk' onClick={handleItemClick2}>تخمین ریسک</Link></li>
           </ul>
         )}

@@ -3,16 +3,10 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 // icons
-import markmap from './Icons/khareji_markicon.svg'
-import Searchiconblack from './Icons/Searchiconblack.svg'
-import locicon from './Icons/locicon.svg'
-import pageicon from './Icons/pageinfoicon.svg'
 import searchicon2 from './Icons/searchicon2.svg'
 import leftarrowslider from './Icons/leftarrowslider.svg'
 import bookmarkicon from './Icons/bookmark.svg'
 import bookmarkfillicon from './Icons/bookmarkfill.svg'
-import expandleft from './Icons/expandleft.svg'
-import expandright from './Icons/expandright.svg'
 import closeicon from './Icons/closeicon.svg'
 
 // images
@@ -50,7 +44,6 @@ const Khareji = () => {
     })
     // Search from homepage 
     const [searchInput, setSearchInput] = useState('');
-    const [searchTermInput, setSearchTermInput] = useState('');
     const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [statusFilter, setStatusFilter] = useState('default');
@@ -62,46 +55,43 @@ const Khareji = () => {
     const searchTerm = queryParams.get('search');
 
     useEffect(() => {
-        if (searchTerm) {
-            setSearchTermInput(searchTerm);
-            fetchData(searchTerm);
-        }
-    }, [searchTerm]); // Fetch data when searchTerm changes
+      const fetchData = async () => {
+          setLoading(true);
+          try {
+              const token = 'your_api_token_here';
+              const response = await axios.post(country === 1 ? 'https://api.sobotdadeh.com/v1/iraq_company' : 'https://api.sobotdadeh.com/v1/company',
+                  { title: searchInput },
+                  {
+                      headers: {
+                          'Api-Token': token,
+                          'Content-Type': 'application/json'
+                      }
+                  }
+              );
+              if (response.status === 200) {
+                  setApiData(response.data.data);
+              } else {
+                  console.error('Failed to fetch data');
+              }
+          } catch (error) {
+              console.error('Error fetching data:', error);
+          } finally {
+              setLoading(false);
+          }
+      };
 
-    const fetchData = async (searchTerm) => {
-        setLoading(true);
-        try {
-            const token = 'your_api_token_here';
-            const response = await axios.post(
-                'https://api.sobotdadeh.com/v1/company',
-                { title: searchTerm },
-                {
-                    headers: {
-                        'Api-Token': token,
-                        'Content-Type': 'application/json'
-                    }
-                }
-            );
-            if (response.status === 200) {
-                setApiData(response.data.data);
-            } else {
-                console.error('Failed to fetch data');
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+      const debounceTimer = setTimeout(() => {
+          if (searchInput) {
+              fetchData();
+          }
+      }, 500); // Delay API call by 500ms
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const targetElement = document.getElementById('Companies-center-result');
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
-        fetchData(searchInput);
-    };
+      return () => clearTimeout(debounceTimer); // Cleanup on unmount or input change
+  }, [searchInput]);
+
+  const handleInputChange = (e) => {
+      setSearchInput(e.target.value);
+  };
     // api to get data
     return ( 
         <div className="Khareji">
@@ -145,35 +135,16 @@ const Khareji = () => {
                 </div>
             </div>
             <div className="Companies-header Companies-header-khareji">
-                <div className='Searchbox-main2'>
-                  <form onSubmit={handleSubmit}>
-                    <h1>جستجوی شرکت ها</h1>
-                    <div className='Searchbox-items2'>
-                          <img src={Searchiconblack} alt="Search icon" />
-                          <input type="text" name="Search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} placeholder='عنوان شرکت....'/>
-                          <img src={locicon} alt="Search icon" placeholder="شهر"/>
-                          <select name="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-                            <option value="default">وضعیت</option>
-                            <option value="active">فعال</option>
-                            <option value="notactive">غیر فعال</option>
-                          </select>
-                          <img src={pageicon} alt="Search icon" />
-                          <select name="activity">
-                          <option value="سابقه فعالیت">سابقه فعالیت</option>
-                          <option value="مازندران">مازندران</option>
-                          <option value="خوزستان">خوزستان</option>
-                          <option value="کرمان">کرمان</option>
-                          </select>
-                          <img src={searchicon2} alt="Search icon" className='searchicon2'/>
-                          <button type="submit">جستجو</button>
-                      </div>
-                  </form>
-               
-            </div>
-            <a href="#Companies-center-result"></a>
             <div className="Companies-center" id='Companies-center-result'>
                 <div className='Searchbox-main-companies'>
                     <div className='Searchbox-items22'>
+                          <input
+                              type="text"
+                              name="Search"
+                              value={searchInput}
+                              onChange={handleInputChange}
+                              placeholder="عنوان شرکت...."
+                          />
                         <select name="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
                           <option value="default">وضعیت شرکت</option>
                           <option value="notactive">غیر فعال</option>
@@ -231,7 +202,7 @@ const Khareji = () => {
                           <option value="1330">1330</option>
                         </select>
                         <img src={searchicon2} alt="Search icon" className='searchicon2'/>
-                        <button type="submit">فیلتر</button>
+                        <button type="submit" className='filter-khareji'>فیلتر</button>
                     </div>
             </div>
             </div>
@@ -347,7 +318,14 @@ const Khareji = () => {
                 </div>
             )}
             </div>
-        </div>
+            <div className="Companies-slider">
+                    <div className='slider2'>
+                   {!loading && apiData.length === 0 && searchInput.trim() !== '' && (
+                        <span className='slider2-notfound'>موردی یافت نشد</span>
+                      )}
+                    </div>
+         </div>   
+        </div>        
      );
 }
  
