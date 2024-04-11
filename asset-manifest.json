@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.52643cea.css",
-    "main.js": "/sobotdadeh/static/js/main.8374b845.js",
+    "main.css": "/sobotdadeh/static/css/main.2922f4d1.css",
+    "main.js": "/sobotdadeh/static/js/main.ab4bd9cb.js",
     "static/media/box2.webp": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.webp",
     "static/media/box1.webp": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.webp",
     "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
@@ -101,11 +101,11 @@
     "static/media/telegramicon.svg": "/sobotdadeh/static/media/telegramicon.510f62d76baf0a5e0eac594effcf7268.svg",
     "static/media/companiesbg.svg": "/sobotdadeh/static/media/companiesbg.f9571ec8aa65a19426f6.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.1115cab952894688597fc2eddad7929d.svg",
-    "main.52643cea.css.map": "/sobotdadeh/static/css/main.52643cea.css.map",
-    "main.8374b845.js.map": "/sobotdadeh/static/js/main.8374b845.js.map"
+    "main.2922f4d1.css.map": "/sobotdadeh/static/css/main.2922f4d1.css.map",
+    "main.ab4bd9cb.js.map": "/sobotdadeh/static/js/main.ab4bd9cb.js.map"
   },
   "entrypoints": [
-    "static/css/main.52643cea.css",
-    "static/js/main.8374b845.js"
+    "static/css/main.2922f4d1.css",
+    "static/js/main.ab4bd9cb.js"
   ]
 }
