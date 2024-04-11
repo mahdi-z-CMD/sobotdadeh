@@ -64,7 +64,6 @@ const Blog = () => {
                                 title='مقاله ۴'
                             ></Blogcards>
                         </div>
-
                     </div>
                 </div>
             </div>

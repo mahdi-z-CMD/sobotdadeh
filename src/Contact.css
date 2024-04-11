@@ -153,3 +153,37 @@
     font-size: 14px;
     margin-right: 4%;
 }
+/* reponsive */
+
+/* mobile */
+@media only screen and (max-width: 450px) {
+    .header-Contact{
+        background-image: none;
+        height: 50vh;
+    }
+    .Contact-content{
+        height: 150vh;
+    }
+    .header-Contact h1{
+        margin-right: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .Contact-content-back{
+        bottom: 23%;
+        flex-direction: column;
+        bottom: 240px;
+    }
+    .Contact-poshtiban button{
+        height: 7vh;
+    }
+    .Contact-poshtiban{
+        width: 100%;
+        border: none;
+    }
+    .Contact-location{
+        width: 100%;
+        border: none;
+        margin-top: 10%;
+    }
+}

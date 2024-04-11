@@ -9,7 +9,7 @@ const Contact = () => {
     return ( 
         <div>
         <div className="header-Contact">
-            <h1>سوالات متداول</h1>
+            <h1>تماس با ما</h1>
         </div>
         <div className="Contact-content">
             <div className="Contact-content-back">

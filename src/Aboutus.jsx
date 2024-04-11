@@ -11,6 +11,11 @@ import aboutimg3 from './image/aboutimg3.webp'
 import aboutperson1 from './image/aboutperson1.png'
 import aboutperson2 from './image/aboutperson2.png'
 import aboutperson3 from './image/aboutperson3.png'
+import micon1 from './image/manabeicon1.webp'
+import micon2 from './image/manabeicon2.webp'
+import micon3 from './image/manabeicon3.webp'
+import micon4 from './image/manabeicon4.webp'
+import micon5 from './image/manabeicon5.webp'
 const Aboutus = () => {
      // this section is for box soalat 
   const [expandedIndex, setExpandedIndex] = useState(-1);
@@ -54,6 +59,16 @@ const Aboutus = () => {
                         </div>
                     </div> */}
                 </div>         
+            </div>
+            <div className="manabe-aboutus">
+                <h1>منابع ما</h1>
+                <div className="manabe-aboutus-icons">
+                    <img src={micon1} alt="manabe" />
+                    <img src={micon2} alt="manabe" />
+                    <img src={micon3} alt="manabe" />
+                    <img src={micon4} alt="manabe" />
+                    <img src={micon5} alt="manabe" />
+                </div>
             </div>
             <div className="kharid">
                 <h1>به ثبات‌داده اعتماد کن ما کنارتان هستیم ...</h1>

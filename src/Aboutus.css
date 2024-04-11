@@ -36,7 +36,7 @@
     border-radius: 45px 45px 0px 0px;
     background-color: white;
     position: relative;
-    bottom: 4%;
+    bottom: 50px;
 }
 .content-box{
     display: flex;
@@ -199,4 +199,101 @@
   }
   .additional-text img{
     margin-right: 2%;
+  }
+  .manabe-aboutus{
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    margin-right: 7%;
+    margin-left: 7%;
+    margin-bottom: 10%;
+  }
+  .manabe-aboutus h1{
+    font-size: 25px;
+    font-weight: 700;
+  }
+  .manabe-aboutus-icons{
+    margin-top: 3%;
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+  }
+  .manabe-aboutus-icons img{
+    width: 164px;
+    height: 164px;
+    cursor: pointer;
+  }
+  /* responsive  */
+
+  /* mobile */
+  @media only screen and (max-width: 450px) {
+    .header-about{
+        background-image: none;
+    }
+    .header-about h1{
+        text-align: center;
+        margin-right: 0;
+    }
+    .header-content{
+        height: 100vh;
+    }
+    .header-content-back{
+        bottom: 300px;
+    }
+    .content-box{
+        flex-direction: column-reverse;
+        margin-right: 0;
+    }
+    .content-box-texts{
+        width: 90%;
+    }
+    .content-box-image{
+        margin-top: 5%;
+    }
+    .content-box-image img{
+        width: 90%;
+    }
+    .content-box2{
+        flex-direction: column-reverse;
+        margin-right: 0;
+    }
+    .content-box-texts{
+        width: 90%;
+    }
+    .content-box-image2{
+        margin-top: 5%;
+        justify-content: flex-start;
+    }
+    .content-box-image2 img{
+        width: 90%;
+    }
+    /* manabe */
+    .manabe-aboutus-icons{
+        overflow: scroll;
+        justify-content: flex-start;
+        gap: 5%;
+        width: auto;
+        padding: 1%;
+    }
+    .manabe-aboutus-icons img{
+        width: 99px;
+        height: 99px;
+    }
+    .kharid{
+        background-image: none;
+    }
+    .kharid h1{
+        font-size: 20px;
+    }
+    .kharid h2{
+        font-size: 20px;
+        margin-top: 7%;
+    }
+    .kharid a{
+        margin-top: 7%;
+    }
+    .soalat-aboutus h1{
+        font-size: 16px;
+        margin-bottom: 5%;
+    }
   }
