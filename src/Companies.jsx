@@ -12,6 +12,8 @@ import bookmarkfillicon from './Icons/bookmarkfill.svg'
 import expandleft from './Icons/expandleft.svg'
 import expandright from './Icons/expandright.svg'
 import closeicon from './Icons/closeicon.svg'
+import leftarrow from './Icons/leftarrowslider.svg'
+import rightkey from './Icons/expandright.svg'
 // Images
 import comapnie_logo_def from './image/default_companies_img.webp'
 
@@ -41,12 +43,12 @@ const Companies = () => {
     const [startIndex2, setStartIndex2] = useState(0);
 
     const nextSlide = () => {
-      const newIndex = Math.min(startIndex2 + (windowWidth <= 1024 ? 3 : 4), sliderdata.length - (windowWidth <= 1024 ? 3 : 4));
+      const newIndex = Math.min(startIndex2 + (windowWidth <= 500 ? 1 : windowWidth <= 1024 ? 3 : 4), sliderdata.length - (windowWidth <= 500 ? 1 : windowWidth <= 1024 ? 3 : 4));
       setStartIndex2(newIndex);
     };
     
     const prevSlide = () => {
-      const newIndex = Math.max(startIndex2 - (windowWidth <= 1024 ? 3 : 4), 0);
+      const newIndex = Math.max(startIndex2 - (windowWidth <= 500 ? 1 : windowWidth <= 1024 ? 3 : 4), 0);
       setStartIndex2(newIndex);
     };
       // Components -----------------
@@ -170,8 +172,7 @@ const Companies = () => {
                           <option value="خوزستان">خوزستان</option>
                           <option value="کرمان">کرمان</option>
                           </select>
-                          <img src={searchicon2} alt="Search icon" className='searchicon2'/>
-                          <button type="submit">جستجو</button>
+                          <button type="submit">جستجو<img src={searchicon2} alt="Search icon" className='searchicon2'/></button>
                       </div>
                   </form>
                
@@ -181,7 +182,11 @@ const Companies = () => {
                     <div className='slider'>
                     <h1>برترین شرکت‌ها</h1>
                     <div className='card-box'>
-                      {sliderdata.slice(startIndex2, startIndex2 + (windowWidth <= 1024 ? 3 : 4)).map((key, index) => (
+                      <div className="Blog-Cards-arrows2">
+                                <img src={rightkey} alt="left key" className='Blog-Cards-arrows-right2' onClick={nextSlide}/>
+                                <img src={leftarrow} alt="left key" className='Blog-Cards-arrows-left2' onClick={prevSlide}/>
+                        </div>
+                      {sliderdata.slice(startIndex2, startIndex2 + (windowWidth <= 500 ? 1 : windowWidth <= 1500 ? 3 : 4)).map((key, index) => (
                         <Card2 name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card2>
                       ))}
                       <div className='arrow-card'>

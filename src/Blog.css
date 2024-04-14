@@ -141,3 +141,45 @@
 .Blog-Cards-arrows-right{
     cursor: pointer;
 }
+@media only screen and (max-width: 450px) {
+    .Blog-content-back{
+        bottom: 230px;
+    }
+    .Blog-Header h1{
+        font-size: 24px;
+        font-weight: 700;
+    }
+    .Blog-Header p{
+        font-size: 22px;
+        margin-top: 10%;
+        font-weight: 400;
+    }
+    .Blog-Header img{
+        width: 100%;
+        height: 25vh;
+    }
+    .Blog-middle img{
+        display: none;
+    }
+    .Blog-middle p{
+        width: 100%;
+        font-size: 22px;
+        font-weight: 400;
+    }
+    .Blog-end p{
+        font-size: 22px;
+        font-weight: 400;
+    }
+    .Blog-Cards-arrows{
+        display: none;
+    }
+    /* cards */
+    .Blog-Cards{
+        overflow-x: auto;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .Blog-Cards-box{
+        flex-basis: 100%;
+    }
+}

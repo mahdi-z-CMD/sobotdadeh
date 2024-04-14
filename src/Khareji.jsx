@@ -107,7 +107,7 @@ const Khareji = () => {
                         <h1 className={country === 0 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(0)}>ایران</h1>
                     </div>
                     <div className="Khareji-select-map-country">
-                        <img src={iraqflag} alt="iraq flag" width="100%" height="30%" onClick={()=>setCountry(1)}/>
+                        <img src={iraqflag} alt="iraq flag" width="100%" height="30%" className='Khareji-select-map-country-iraqlogo' onClick={()=>setCountry(1)}/>
                         <h1 className={country === 1 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(1)}>عراق</h1>
                     </div>
                     <div className="Khareji-select-map-country">

@@ -3,7 +3,7 @@
     height: 100vh;
     background-image: url('./image/Madresebg.svg');
     background-repeat: no-repeat;
-    background-position-x: 100vh;
+    background-position-x: 80vh;
     background-position-y: -10vh;
     background-size: cover;
 }
@@ -199,5 +199,72 @@
     .Shenakht-bg{
         background-position-y: 0vh;
         background-position-x: 66vh;
+    }
+}
+/* mobile  */
+@media only screen and (max-width: 450px) {
+    .Shenakht-bg{
+        background-size: cover;
+        background-position-x: -7vh;
+        background-position-y: -23vh;
+    }
+    .Shenakht-content{
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    .Shenakht-content-texts{
+        align-items: center;
+    }
+    .Shenakht-content-texts h1{
+        width: 100%;
+        font-size: 26px;
+        font-weight: 700;
+    }
+    .Shenakht-content-texts p{
+        font-size: 18px;
+        font-weight: 400;
+        width: 90%;
+        text-align: justify;
+        margin-top: 5%;
+    }
+    .Shenakht-content img{
+        margin-top: 15%;
+        width: 100%;
+        height: 40vh;
+    }
+    /* header end */
+    .Shenakht-takhmin-text{
+        align-items: center;
+        margin-top: 0;
+    }
+    .Shenakht-takhmin-text h1{
+        font-size: 30px;
+        font-weight: 700;
+    }
+    .Shenakht-takhmin-text p{
+        font-size: 22px;
+        font-weight: 500;
+    }
+    /* kharid */
+    .Shenakht-kharid h1{
+        display: none;
+    }
+    .Shenakht-kharid-box h1{
+        display: block;
+    }
+    .Shenakht-kharid-row{
+        flex-direction: column;
+        padding-top: 30%;
+        padding-bottom: 30%;
+        gap: 2%;
+    }
+    .Shenakht-kharid-box{
+        margin-right: 10%;
+        margin-left: 10%;
+        align-items: center;
+    }
+    .Shenakht-kharid-box h2{
+        position: relative;
+        left: 7%;
     }
 }

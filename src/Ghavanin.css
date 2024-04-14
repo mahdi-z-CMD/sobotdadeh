@@ -33,3 +33,20 @@
     position: relative;
     bottom: 4%;
 }
+/* mobile */
+@media only screen and (max-width: 450px) {
+    .header-ghavanin{
+        height: 25vh;
+        background-image: none;
+    }
+    .header-ghavanin h1{
+        font-size: 28px;
+        font-weight: 700;
+        margin-right: 0;
+        justify-content: center;
+    }
+    .ghavanin-content-back{
+        bottom: 5%;
+        padding-top: 10%;
+    }
+}

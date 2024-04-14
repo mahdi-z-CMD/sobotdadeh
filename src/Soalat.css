@@ -58,6 +58,9 @@
     margin-right: 2%;
   }
   @media only screen and (max-width: 500px) {
+    .soalat{
+      margin-top: 3%;
+    }
     .box-soalat-header h2 {
       font-size: 14px !important;
     }

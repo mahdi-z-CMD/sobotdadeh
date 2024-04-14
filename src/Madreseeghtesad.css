@@ -106,7 +106,9 @@
 }
 /* sabt darkhast */
 .Madrese-sabt-darkhast{
-    height: 90vh;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    height: 40vh;
     width: 100%;
     background-image: url('./image/Madresebg2.svg');
     background-repeat: no-repeat;
@@ -117,7 +119,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-bottom: 13%;
 }
 .Madrese-sabt-darkhast h1{
     color: #003366;
@@ -132,7 +133,6 @@
     border-radius: 4px;
     font-size: 20px;
     margin-top: 5%;
-    height: 15%;
     cursor: pointer;
     transition: .3s;
     width: 30%;
@@ -217,10 +217,6 @@
 }
 /* responsive ---------- */
 @media only screen and (max-width: 1500px) {
-    .Madrese-sabt-darkhast{
-        padding-bottom: 0%;
-        padding-top: 5%;
-    }
     .Madrese-roadmap-box-texts2 p{
         font-size: 20px;
     }
@@ -235,9 +231,6 @@
     }
 }
 @media only screen and (max-width: 1200px) {
-    .Madrese-sabt-darkhast{
-        padding-top: 15%;
-    }
     .Madrese-roadmap-box-texts2 p{
         font-size: 18px;
     }
@@ -269,5 +262,92 @@
     }
     .Madrese-content2-lists a{
         font-size: 18px;
+    }
+}
+/* mobile */
+@media only screen and (max-width: 450px) {
+    .Madrese-bg{
+        background-position-x: -40px;
+        background-position-y: 20%;
+        height: 80vh;
+    }
+    .Madrese-content{
+        flex-direction: column-reverse;
+    }
+    .Madrese-content img{
+        width: 100%;
+        height: 35vh;
+        margin-top: 15%;
+    }
+    .Madrese-content-texts h1{
+        font-size: 27px;
+        font-weight: 700;
+        width: 80%;
+    }
+    .Madrese-content-texts p{
+        font-size: 18px;
+        text-align: justify;
+        width: 90%;
+    }
+    .Madrese-content2{
+        display: none;
+    }
+    .Madrese-sabt-darkhast{
+        margin-top: 35%;
+        height: 25vh;
+    }
+    .Madrese-sabt-darkhast h1{
+        font-size: 21px;
+        font-weight: 700;
+        margin-top: 1%;
+    }
+    .Madrese-sabt-darkhast button{
+        font-size: 17px;
+        width: 60%;
+        margin-top: 10%;
+        padding: 3%;
+    }
+    .Madrese-roadmap-header{
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .Madrese-roadmap-box{
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        padding-bottom: 5%;
+    }
+    .Madrese-roadmap-box-texts{
+        padding-right: 0;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+    .Madrese-roadmap-box-texts h1{
+        font-size: 32px;
+        font-weight: 700;
+    }
+    .Madrese-roadmap-box-texts p{
+        font-size: 22px;
+        font-weight: 500;
+    }
+    /* box 2 */
+    .Madrese-roadmap-box2{
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        margin-top: 5%;
+    }
+    .Madrese-roadmap-box-texts2{
+        padding-right: 0;
+        margin-right: 5%;
+        padding-bottom: 5%;
+    }
+    .Madrese-roadmap-box-texts2 h1{
+        font-size: 32px;
+        font-weight: 700;
+    }
+    .Madrese-roadmap-box-texts2 p{
+        font-size: 22px;
+        font-weight: 500;
     }
 }

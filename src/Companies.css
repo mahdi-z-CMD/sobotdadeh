@@ -65,9 +65,11 @@
     padding-right: 4%;
 }
 .Searchbox-items2 button{
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
     direction: rtl;
     text-align: right;
-    padding-right: 3%;
     flex-basis: 15%;
     border: none;
     height: auto;
@@ -76,6 +78,11 @@
     border-radius: 8px;
     transition: .3s;
     cursor: pointer;
+    margin-right: 2%;
+}
+.Searchbox-items2 button img{
+    width: 24px;
+    height: 24px;
 }
 .Searchbox-items2 button:hover{
     background-color: #d43800;
@@ -103,7 +110,7 @@
 .Companies-filter-header p{
     color: #3D3D3D;
     font-size: 18px;
-    text-align: center;
+    text-align: justify;
     margin-top: 3%;
     line-height: 30.13px;
 }
@@ -209,6 +216,9 @@
     padding: 2%;
     width: 30%;
     text-align: center;
+}
+.Blog-Cards-arrows2{
+    display: none;
 }
 @keyframes blurAndFadeOut {
     0% {
@@ -390,4 +400,87 @@
     .Searchbox-items2 button{
         flex-basis: 18%;
     }
+}
+/* mobile  */
+@media only screen and (max-width: 450px) {
+    .Companies-header{
+        background-size: contain;
+    }
+    .Companies-header{
+        margin-bottom: 15%;
+    }
+    .Searchbox-items2{
+        flex-direction: column;
+    }
+    .Searchbox-items2 img{
+        top: 34px;
+        width: 24px;
+        height: 24px;
+    }
+    .Searchbox-items2 input{
+        padding-right: 15%;
+        padding-top: 3%;
+        padding-bottom: 3%;
+    }
+    .Searchbox-items2 select{
+        padding-right: 15%;
+        padding-top: 3%;
+        padding-bottom: 3%;
+    }
+    .Searchbox-items2 button{
+        text-align: center;
+        justify-content: space-around;
+        margin-right: 0;
+        padding: 3%;
+        margin-top: 7%;
+    }
+    .Searchbox-items2 button img{
+        top: 0;
+    }
+    .Blog-Cards-arrows2{
+        position: absolute;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 45%;
+        width: 110%;
+    }
+    .Blog-Cards-arrows2 img{
+        width: 44px;
+        height: 44px;
+    }
+    .Blog-Cards-arrows-left2{
+        position: relative;
+        right: 3%;
+        cursor: pointer;
+    }
+    .Blog-Cards-arrows-right2{
+        position: relative;
+        left: 11%;
+        cursor: pointer;
+    }
+    .Companies-filter-header{
+        margin-top: 20%;
+        margin-bottom: 15%;
+    }
+    .Companies-filter-header p{
+        font-size: 16px;
+        margin-top: 5%;
+    }
+    .card-box2{
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        flex-wrap: nowrap;
+    }
+    .cards2{
+        margin-top: 5%;
+        padding-bottom: 5%;
+    }
+    .Companies-center{
+        height: auto;
+    }
+    .Searchbox-items22{
+        flex-direction: column;
+    }
+    
 }

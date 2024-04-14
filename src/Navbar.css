@@ -252,6 +252,11 @@ nav .Navbar-items2 a img{
 /* mobile desing */
 @media only screen and (max-width: 500px) {
   nav{
-      display: none;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .nav-not-home{
+    background-color: transparent;
+    box-shadow: none;
   }
 }

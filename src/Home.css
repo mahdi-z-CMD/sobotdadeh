@@ -348,6 +348,12 @@ main{
     padding-bottom: 7%;
     width: 15%;
 }
+/* Adjust margin for Firefox */
+@-moz-document url-prefix() {
+    .arrow-icon2 {
+      margin-right: -10%;
+    }
+  }
 /* kharid eshterak home */
 .kharid{
     width: 100%;
