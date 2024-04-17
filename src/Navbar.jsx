@@ -1,4 +1,5 @@
 import './Navbar.css'
+import isAuthenticated from './PrivateRoute'; // Import the isAuthenticated function
 import {Link, useLocation} from 'react-router-dom'
 import { useState,useEffect } from 'react'
 import Searchicon from './Icons/search-13-512.png'
@@ -88,7 +89,7 @@ export const Navbar = () => {
             </>) : (<>
               <div className="Navbar-items1">
         <a href="#" className={isHomepage ? 'loc-a1' : 'loc-a2'}>تهران<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></a>
-        <Link to={'/Login'}>ورود/ثبت نام<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
+        <Link to={'/Login'}>{isAuthenticated() ? "پروفایل" : "ورود/ثبت نام"}<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
       </div>
       <div className="Navbar-items2">
           {
@@ -153,7 +154,7 @@ export const Navbar = () => {
         </>) : (<>
         <div className="Navbar-items1">
         <a href="#" className={isHomepage ? 'loc-a1' : 'loc-a2'}>تهران<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></a>
-        <Link to={'/Login'}>ورود/ثبت نام<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
+        <Link to={'/Login'}>{isAuthenticated() ? "پروفایل" : "ورود/ثبت نام"}<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
       </div>
       <div className="Navbar-items2">
           {
