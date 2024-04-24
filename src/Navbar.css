@@ -8,6 +8,16 @@
     margin: 0%;
     font-family: "Sans";
 }
+.accept-cookies{
+  position: fixed;
+  background-color: gray;
+  padding: 2%;
+  border-radius: 8px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
 /* navbar  */
 nav{
     display: flex;
@@ -254,6 +264,7 @@ nav .Navbar-items2 a img{
   nav{
     background-color: transparent;
     box-shadow: none;
+    direction: ltr;
   }
   .nav-not-home{
     background-color: transparent;

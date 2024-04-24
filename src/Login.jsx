@@ -44,12 +44,8 @@ const Login = () => {
         if (getcode === 0) {
             setNextpage(0)
         }else{
-            // sendsingupcode()
+            sendsingupcode()
             setNextpage(1)
-            startTimer(10, () => {
-                console.log('Timer expired!');
-                // Perform any action when the timer expires
-              });
         }
     };
     // input code 
@@ -100,28 +96,28 @@ const Login = () => {
     // show password function
     // api send singup code
     const sendsingupcode = async () => {
-
         try {
             const response = await axios.post('https://api.sobotdadeh.com/v1/auth/code/send', {
                 phone: inputValue,
             });
-
-            if (response.data.success) {
+    
+            console.log('API response:', response);
+    
+            if (response.data.status) {
+                // Check if status is true
                 startTimer(180, () => {
-                    console.log('Timer expired!');
                     // Perform any action when the timer expires
-                  });
+                });
             } else {
                 console.error('API request failed:', response.data.error);
             }
         } catch (error) {
             console.error('Error sending API request:', error);
         }
-    };
+    };    
     // api send singup code
     // api check user code
     const checksendedcode = async () => {
-
         try {
             const response = await axios.post('https://api.sobotdadeh.com/v1/auth/code/check', {
                 phone:inputValue,
@@ -158,7 +154,6 @@ const Login = () => {
         if (coldowncode === 0) {
             // sendsingupcode()
             startTimer(10, () => {
-                console.log('Timer expired!');
                 // Perform any action when the timer expires
               });
         }

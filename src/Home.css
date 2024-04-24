@@ -4,6 +4,29 @@
     margin: 0%;
     font-weight: lighter;
 }
+/* alret demo */
+.alert-demo{
+    position: absolute;
+    z-index: 5;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 2px 2px 2px 0px black;
+    width: 40%;
+    margin-top: 3%;
+    margin-left: 25%;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    height: 10vh;
+    justify-content: flex-end;
+    padding: 3%;
+    gap: 5%;
+    cursor: pointer;
+}
+.alert-demo img{
+    width: 54px;
+}
+/* alret demo */
 header{
     background-image: url('./Icons/background.jpg');
     background-repeat: no-repeat;
@@ -679,6 +702,14 @@ main{
 }
 /* mobile desing */
 @media only screen and (max-width: 500px) {
+    .alert-demo{
+        font-size: 12px;
+        width: 65%;
+        margin-left: 15%;
+    }
+    .alert-demo img{
+        width: 24px;
+    }
     /* header */
     header{
         background-image: url('./Icons/background.jpg');

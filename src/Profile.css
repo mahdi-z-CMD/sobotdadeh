@@ -729,3 +729,337 @@
     margin-right: auto;
     cursor: pointer;
 }
+/* mobile desing */
+.Profile-mobile{
+    height: auto;
+}
+.Profile-mobile-header{
+    background-color: #FF7F50;
+    width: 100%;
+    height: 12vh;
+    border-radius: 0px 0px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 5%;
+    box-shadow: 0px 8px 16px 0px #02091A1A;
+}
+.Profile-mobile-header h1{
+    font-size: 16px;
+    color: #FFFFFF;
+}
+.Profile-mobile-header-name{
+    display: flex;
+    margin-top: 5%;
+    direction: rtl;
+    width: 85%;
+    justify-content: space-between;
+    margin-right: 9%;
+    margin-left: 8%;
+}
+.Profile-mobile-header-name-name{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    gap: 5%;
+}
+.Profile-mobile-header-name-name h1{
+    font-size: 16px;
+    font-weight: 700;
+    color: #4F4F4F;
+}
+.Profile-mobile-header-name-name img{
+    width: 61px;
+    height: 61px;
+    border-radius: 100%;
+}
+.Profile-mobile-header-number{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    direction: rtl;
+    padding-top: 5%;
+}
+.Profile-mobile-header-number h2{
+    font-size: 14px;
+    color: #7A7A7A;
+    direction: rtl;
+    margin-right: 9%;
+    margin-top: 2%;
+    margin-bottom: 10%;
+}
+.Profile-mobile-header-name-account{
+    display: flex;
+    width: 50%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.Profile-mobile-header-name-account h1{
+    font-size: 12px;
+    color: #959595;
+}
+.Profile-mobile-header-name-account h2{
+    border: 2px solid #FFB13C;
+    color: #FF9D0B;
+    border-radius: 100%;
+    padding: 5%;
+    height: 5vh;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    margin-right: 70%;
+}
+.Profile-mobile-header-name-account button{
+    font-size: 12px;
+    border: 1px solid var(--primery, #FF7F50);
+    color: #FF7F50;
+    background-color: transparent;
+    border-radius: 5px;
+    width: 35%;
+    padding: 2%;
+    cursor: pointer;
+}
+.Profile-mobile-row{
+    display: flex;
+    direction: rtl;
+    margin-right: 8%;
+    margin-left: 8%;
+    margin-top: 5%;
+    cursor: pointer;
+}
+.Profile-mobile-row1{
+    margin-top: 10%;
+}
+.Profile-mobile-row img{
+    width: 24px;
+    height: 24px;
+}
+.Profile-mobile-row h1{
+    font-size: 14px;
+    color: #626262;
+    border-bottom: 1px solid #D9D9D9;
+    width: 100%;
+    padding-bottom: 4%;
+    margin-right: 4%;
+}
+.Profile-mobile-row-eshterak{
+    margin-right: 12% !important;
+}
+/* menu profile */
+.Profile-mobile-menu{
+    position: fixed;
+    background-color: white;
+    padding: 2%;
+    border-radius: 8px;
+    bottom: 0;
+    z-index: 2;
+    left: 5%;
+    margin-bottom: 5%;
+    width: 90%;
+    height: 10vh;
+    text-align: center;
+    box-shadow: 0px 0px 20px 0px #02091A33;
+    display: flex;
+    direction: rtl;
+    justify-content: space-around;
+}
+.Profile-mobile-menu a{
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15%;
+    cursor: pointer;
+}
+.Profile-mobile-menu-icons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15%;
+    cursor: pointer;
+}
+.Profile-mobile-menu a img{
+    width: 24px;
+    height: 24px;
+}
+.Profile-mobile-menu a h1{
+    font-size: 10px;
+    color: black;
+}
+.Profile-mobile-logout{
+    display: flex;
+    direction: rtl;
+    margin-right: 8%;
+    margin-left: 8%;
+    margin-top: 60%;
+    cursor: pointer;
+}
+.Profile-mobile-logout h1{
+    font-size: 14px;
+    color: #F10500;
+}
+.Profile-mobile-logout img{
+    width: 24px;
+    height: 24px;
+    margin-left: 5%;
+}
+/* edit section */
+.Profile-mobile-header-name-name-edit{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.Profile-mobile-header-name-name-edit h1{
+    font-size: 16px;
+    font-weight: 700;
+    color: #4F4F4F;
+}
+.Profile-mobile-header-name-name-edit img{
+    width: 61px;
+    height: 61px;
+    border-radius: 100%;
+}
+.Profile-mobile-header-section-edit{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.Profile-mobile-header-section-edit-text{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 40%;
+    cursor: pointer;
+}
+.Profile-mobile-header-section-edit-text h1{
+    font-size: 11px;
+    font-weight: 700;
+    color: #FF7F50;
+}
+.Profile-mobile-header-section-edit-text img{
+    width: 20px;
+    height: 20px;
+}
+.Profile-mobile-select-sex{
+    direction: rtl;
+    margin-top: 10%;
+    margin-right: 8%;
+    margin-left: 8%;
+}
+.Profile-mobile-select-sex h1{
+    font-size: 14px;
+    color: #626262;
+}
+.Profile-mobile-select-sex-radio{
+    display: flex;
+    margin-top: 5%;
+    width: 50%;
+    align-items: center;
+    justify-content: space-around;
+}
+.Profile-mobile-select-sex-radio label{
+    font-size: 16px;
+    color: #4F4F4F;
+}
+.Profile-mobile-select-sex-radio input[type="radio"]{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px; /* Adjust the size of the radio button */
+    height: 20px; /* Adjust the size of the radio button */
+    border-radius: 50%; /* Makes the radio button circle */
+    border: 2px solid #FF7F50; /* Border color of the radio button circle */
+    position: relative; /* Positioning context for the ::before pseudo-element */
+}
+.Profile-mobile-select-sex-radio input[type="radio"]:checked::before{
+    content: ''; /* Required for ::before to work */
+    display: block;
+    width: 12px; /* Size of the inner circle */
+    height: 12px; /* Size of the inner circle */
+    border-radius: 50%; /* Makes the inner circle round */
+    background-color: #FF7F50; /* Color of the inner circle when checked */
+    position: absolute; /* Position the inner circle */
+    top: 50%; /* Center the inner circle vertically */
+    left: 50%; /* Center the inner circle horizontally */
+    transform: translate(-50%, -50%); /* Center the inner circle precisely */
+}
+/* input area */
+.Profile-mobile-inputs{
+    display: flex;
+    direction: rtl;
+    flex-direction: column;
+    height: auto;
+    margin-right: 8%;
+    margin-left: 8%;
+}
+.Profile-mobile-inputs label{
+    font-size: 12px;
+    color: #7A7A7A;
+    margin-top: 10%;
+}
+.Profile-mobile-inputs input{
+    border: 1px solid #BDBDBD;
+    border-radius: 8px;
+    padding: 3%;
+    margin-top: 1%;
+}
+.Profile-mobile-inputs select{
+    border: 1px solid #BDBDBD;
+    border-radius: 8px;
+    padding: 3%;
+    margin-top: 1%;
+    background-color: transparent;
+}
+/* change password area */
+.Profile-mobile-change-pass{
+    display: flex;
+    direction: rtl;
+    flex-direction: column;
+    margin-right:8%;
+    margin-left:8%;
+}
+.Profile-mobile-change-pass label{
+    font-size: 12px;
+    color: #7A7A7A;
+    margin-top: 10%;
+}
+.Profile-mobile-change-pass input{
+    border: 1px solid #BDBDBD;
+    border-radius: 8px;
+    padding: 3%;
+    margin-top: 1%;
+    width: 100%;
+    position: relative;
+    left: 5%;
+    direction: ltr;
+}
+.Profile-mobile-change-pass-row-input{
+    display: flex;
+    align-items: center;
+}
+.Profile-mobile-change-pass-row-input img{
+    width: 24px;
+    height: 24px;
+    position: relative;
+    z-index: 1;
+    left: -5%;
+}
+.Profile-mobile-change-pass button{
+    background-color: #FF7F50;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    padding: 4%;
+    color: white;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 65%;
+    cursor: pointer;
+    font-size: 16px;
+}

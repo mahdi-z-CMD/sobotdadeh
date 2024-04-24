@@ -98,6 +98,9 @@
     margin-left: 7%;
     align-items: center;
 }
+.Khareji-country-about-1{
+    width: 50%;
+}
 .Khareji-country-about-2{
     background-color: #FF7F50;
     display: flex;
@@ -106,7 +109,7 @@
     padding: 2%;
     height: 50%;
     position: relative;
-    left: -7%;
+    left: 0%;
 }
 .Khareji-country-about-2 h1{
     color: white;

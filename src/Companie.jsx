@@ -4,13 +4,13 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 // Images
 import companielogo from './image/compani_logo.jpg'
+import { t } from 'i18next';
 const Companie = () => {
     const [titileactive, setTitileactive] = useState(0);
     const [issub, setIssub] = useState(false);
     // get data from api ------------------------
-    const { companyid } = useParams();
+    const { companyid, type } = useParams();
     const [companyData, setCompanyData] = useState(null);
-  
     useEffect(() => {
       fetchData(companyid);
     }, [companyid]);
@@ -18,13 +18,13 @@ const Companie = () => {
     const fetchData = async (companyid) => {
       try {
         const token = 'your-api-token';
-        const response = await axios.post('https://api.sobotdadeh.com/v1/company/show', {
-          code: companyid
+        const response = await axios.post(type === '0' ? 'https://api.sobotdadeh.com/v1/company/show' : 'https://api.sobotdadeh.com/v1/iraq_company/show', {
+          [type === '0' ? 'code' : 'id']: companyid
         }, {
           headers: {
-            'Api-Token': token,
-            'Content-Type': 'application/json'
-          }
+            'Api-Token': '5a453f72de86cfae46a07bbbb2ab10fc3d44970986652f438f7df75dfbe9843c',
+            'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnNvYm90ZGFkZWguY29tXC92MVwvYXV0aFwvY2hlY2siLCJpYXQiOjE3MTM3NzQ5MDQsImV4cCI6MTcxMzc3ODUwNCwibmJmIjoxNzEzNzc0OTA0LCJqdGkiOiI1ZE5uMm9IaVRwUzJYZlpMIiwic3ViIjo0LCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GH2ORon8NTH6D22QQDGbixynulOAvIAj86yyluawbPY'
+        }
         });
         if (response.status === 200) {
           setCompanyData(response.data.data);
@@ -47,8 +47,8 @@ const Companie = () => {
                     <h1>در حال جستجو...</h1>
                 </div>
                 <div className="companie-content-header-title">
-                    <h1 className={null === 0 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(0)}>درباره شرکت</h1>
-                    <h1 className={null === 1 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(1)}>شناخت ریسک</h1>
+                    <h1 className={titileactive === 0 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(0)}>درباره شرکت</h1>
+                    <h1 className={titileactive === 1 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(1)}>شناخت ریسک</h1>
                 </div>
                 <hr/>
         <div className="companie-content-detail">
@@ -68,12 +68,12 @@ const Companie = () => {
       );
     }
     // get data from api ------------------------
-
     return ( 
         <div className='companie-page'>
             <div className="companie-header-bg">
             </div>
-            <div className="companie-content">
+           {
+            type === '0' ? ( <div className="companie-content">
                 <div className="companie-content-header">
                     <img src={companielogo} alt="companie logo" />
                     <h1>{companyData.title}</h1>
@@ -126,7 +126,61 @@ const Companie = () => {
                     )
                 }
                 
-            </div>
+            </div>) : ( <div className="companie-content">
+                <div className="companie-content-header">
+                    <img src={companielogo} alt="companie logo" />
+                    <h1>{companyData.title}</h1>
+                </div>
+                <div className="companie-content-header-title">
+                    <h1 className={titileactive === 0 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(0)}>درباره شرکت</h1>
+                    <h1 className={titileactive === 1 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(1)}>شناخت ریسک</h1>
+                </div>
+                <hr/>
+                {
+                    titileactive === 0 ? (
+                      <>
+                        <div className="companie-content-detail">
+                        <h2>سال تاسیس</h2>
+                        <span>{companyData.registrationDate}</span>
+                        <h2>نوع شرکت</h2>
+                        <span>{companyData.registrationTypeTitle}</span>
+                        <h2>وضعیت شرکت</h2>
+                        <span>{companyData.status === 1 ? "فعال" : "غیر فعال"}</span>
+                        <h2>شناسه ملی</h2>
+                        <span>{companyData.entityId}</span>
+                        <h2>آخرین سرمایه ثبتی</h2>
+                        <span>{companyData.capital} میلیون ریال</span>
+                    </div>
+                    <div className="companie-content-detail-des">
+                        <h2>درباره {companyData.title}</h2>
+                        <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>
+                    </div>
+                      </>
+                    )
+                    :(
+                        <>
+                        {
+                            issub === false ?
+                                <div className="companie-content-buy">
+                                    <div className="companie-content-buy-main">
+                                        <h1>برای شناخت ریسک تمامی شرکت ها در ثبات‌داده لطفا اشتراک تهیه کنید ...</h1>
+                                        <button type="submit">خرید اشتراک</button>
+                                    </div>
+                                </div>
+                            : null
+                        }
+                        <div className={issub === true ? 'companie-content-detail-des' : 'companie-content-detail-des-sub'}>
+                            <h2>درباره دیجی پی</h2>
+                            <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>
+                            <h2>قدم اول</h2>
+                            <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>
+                        </div>               
+                        </>
+                    )
+                }
+                
+            </div>)
+           }
         </div>
      );
 }

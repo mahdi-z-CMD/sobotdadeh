@@ -49,7 +49,6 @@ export const Homepage = () => {
     // Cleanup the event listener when the component unmounts
     return () => {
       window.removeEventListener('resize', handleResize);
-      console.log(windowWidth)
     };
   }, []);
   // get window width

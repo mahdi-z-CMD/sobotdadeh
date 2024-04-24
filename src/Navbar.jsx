@@ -81,6 +81,10 @@ export const Navbar = () => {
   };
   return (
     <nav className={isHomepage ? '' : 'nav-not-home'}>
+      {/* <div className="accept-cookies">
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi eum, nihil repellat recusandae fugit qui cumque dolores numquam quae quaerat!</p>
+          <button>accept</button>
+      </div> */}
       {
         windowWidth <= 500 ? (<>
           {
@@ -88,7 +92,7 @@ export const Navbar = () => {
             <img src={burgericon} alt="hamburger menu icon" width="34px" height="34px"/>
             </>) : (<>
               <div className="Navbar-items1">
-        <a href="#" className={isHomepage ? 'loc-a1' : 'loc-a2'}>تهران<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></a>
+        <a href="#" className={isHomepage ? 'loc-a1' : 'loc-a2'}>Fa<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></a>
         <Link to={'/Login'}>{isAuthenticated() ? "پروفایل" : "ورود/ثبت نام"}<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
       </div>
       <div className="Navbar-items2">
@@ -153,7 +157,7 @@ export const Navbar = () => {
           }
         </>) : (<>
         <div className="Navbar-items1">
-        <a href="#" className={isHomepage ? 'loc-a1' : 'loc-a2'}>تهران<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></a>
+        <span className={isHomepage ? 'loc-a1' : 'loc-a2'}>Faa<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></span>
         <Link to={'/Login'}>{isAuthenticated() ? "پروفایل" : "ورود/ثبت نام"}<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
       </div>
       <div className="Navbar-items2">

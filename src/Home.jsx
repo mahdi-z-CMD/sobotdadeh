@@ -1,5 +1,5 @@
 import './Home.css'
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import {Route, Routes, useLocation, Navigate} from 'react-router-dom'
 import Navbar from './Navbar';
 import Homepage from './Homepage';
@@ -17,7 +17,10 @@ import Khareji from './Khareji';
 import isAuthenticated from './PrivateRoute'; // Import the isAuthenticated function
 import Shenakhtrisk from './Shenakhtrisk';
 import Blog from './Blog';
+
+import closeicon from './Icons/closeicon.svg'
 export const Home = () => {
+  const [alertshow, setAlertshow] = useState(true) 
   function ScrollToTop() {
     const { pathname } = useLocation();
   
@@ -29,6 +32,10 @@ export const Home = () => {
   }
   return (
     <div>
+      {
+        alertshow ? (<h1 className='alert-demo' onClick={()=>setAlertshow(false)}>وبسایت در حالت تست هست<img src={closeicon} alt="close icon"/></h1>) : null
+      }
+      
       <Navbar></Navbar>
       <ScrollToTop></ScrollToTop>
       <Routes >
@@ -41,7 +48,7 @@ export const Home = () => {
         <Route path="/madreseeghtesad" element={<Madreseeghtesad></Madreseeghtesad>}></Route>
         <Route path="/companies" element={<Companies></Companies>}></Route>
         <Route path="/blog" element={<Blog></Blog>}></Route>
-        <Route path="/companie/:companyid" element={<Companie></Companie>}></Route>
+        <Route path="/companie/:companyid/:type" element={<Companie></Companie>}></Route>
         <Route
           path="/profile"
           element={isAuthenticated() ? <Profile /> : <Navigate to="/login" />}

@@ -199,3 +199,43 @@
     width: 40%;
     border: 2px solid #d0410e;
 }
+/* mobile */
+@media only screen and (max-width: 450px) {
+    .companie-content{
+        top: -320px;
+    }
+    .companie-content-header{
+        margin-bottom: 3%;
+    }
+    .companie-content-header img{
+        width: 50px;
+        height: 50px;
+        top: -3vh;
+    }
+    .companie-content-header h1{
+        font-size: 16px;
+        padding-top: 3%;
+    }
+    .companie-content-header-title h1{
+        font-size: 14px;
+    }
+    .companie-content hr{
+        margin-right: 10%;
+        margin-left: 10%;
+        border: none;
+        height: 0.2vh;
+        /* Set the hr color */
+        color: #FF7F50;  /* old IE */
+        background-color: #FF7F50;  /* Modern Browsers */
+    }
+    .companie-content-detail h2{
+        font-size: 14px;
+        font-weight: 700;
+    }
+    .companie-content-detail span{
+        font-size: 14px;
+    }
+    .companie-content-detail{
+        margin-left: 0;
+    }
+}

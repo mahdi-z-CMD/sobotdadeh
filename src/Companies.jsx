@@ -123,8 +123,8 @@ const Companies = () => {
                 { title: searchTerm },
                 {
                     headers: {
-                        'Api-Token': token,
-                        'Content-Type': 'application/json'
+                        'Api-Token': '5a453f72de86cfae46a07bbbb2ab10fc3d44970986652f438f7df75dfbe9843c',
+                        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnNvYm90ZGFkZWguY29tXC92MVwvYXV0aFwvY2hlY2siLCJpYXQiOjE3MTM3NzQ5MDQsImV4cCI6MTcxMzc3ODUwNCwibmJmIjoxNzEzNzc0OTA0LCJqdGkiOiI1ZE5uMm9IaVRwUzJYZlpMIiwic3ViIjo0LCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GH2ORon8NTH6D22QQDGbixynulOAvIAj86yyluawbPY'
                     }
                 }
             );

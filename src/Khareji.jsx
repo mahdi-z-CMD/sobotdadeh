@@ -31,7 +31,7 @@ const Khareji = () => {
                       <h2>{props.namecompanie}</h2>
                       <div className='cards-info-row2'>
                         <h3>{props.timerelease}</h3>
-                        <Link to={`/companie/${props.url}`}>
+                        <Link to={`/companie/${props.url}/${country === 0 ? '0' : '1'}`}>
                             <div className='cards-info-row-more2'>
                                 <h3>نمایش بیشتر</h3>
                                 <img src={leftarrowslider} alt="left icon"/>
@@ -62,10 +62,10 @@ const Khareji = () => {
               const response = await axios.post(country === 1 ? 'https://api.sobotdadeh.com/v1/iraq_company' : 'https://api.sobotdadeh.com/v1/company',
                   { title: searchInput },
                   {
-                      headers: {
-                          'Api-Token': token,
-                          'Content-Type': 'application/json'
-                      }
+                    headers: {
+                      'Api-Token': '5a453f72de86cfae46a07bbbb2ab10fc3d44970986652f438f7df75dfbe9843c',
+                      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnNvYm90ZGFkZWguY29tXC92MVwvYXV0aFwvY2hlY2siLCJpYXQiOjE3MTM3NzQ5MDQsImV4cCI6MTcxMzc3ODUwNCwibmJmIjoxNzEzNzc0OTA0LCJqdGkiOiI1ZE5uMm9IaVRwUzJYZlpMIiwic3ViIjo0LCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GH2ORon8NTH6D22QQDGbixynulOAvIAj86yyluawbPY'
+                  }
                   }
               );
               if (response.status === 200) {
@@ -307,7 +307,7 @@ const Khareji = () => {
                               namecompanie={item.type.title}
                               img={comapnie_logo_def}
                               timerelease={item.registrationDate}
-                              url={item.code}
+                              url={country === 0 ? item.code : item.id}
                               bookmark="" // Assuming you want to pass this as a prop
                             />
                           ))
