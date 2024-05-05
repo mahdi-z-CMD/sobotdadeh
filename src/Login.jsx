@@ -1,6 +1,9 @@
 import './Login.css'
 import { useState,useRef } from 'react'
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import CryptoJS from 'crypto-js';
+import { setCookie } from './AuthContext'; // Adjust the path as needed
 // Icons 
 import visibiliy from './Icons/Login_visibilityicon.svg'
 import remember from './Icons/Login_remembericon.svg'
@@ -11,6 +14,7 @@ const Login = () => {
     const [loginarea, setLoginarea] = useState(true)
     const [showpass1, setShowpass1] = useState(false)
     const [showpass2, setShowpass2] = useState(false)
+    const [codenotcorrect, setCodenotcorrect] = useState()
     const [getcode, setGetcode] = useState(0)
     const [nextpage, setNextpage] = useState(0)
     const [coldowncode, setColdowncode] = useState(0)
@@ -69,13 +73,54 @@ const Login = () => {
         }
     };
     // input code
-    const okbodcode = ()=>{
-        if (confirmationCode === "verificationCode") {
-            setNextpage(2)
-        }else{
-            console.log('code is not correct')
+    const generateRandomString = (length) => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$#!?';
+        const charactersLength = characters.length;
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
         }
-    }
+        return result;
+    };
+
+    const checksingupcode = async () => {
+        try {
+            // Generate a random string for the IMEI header
+            const randomIMEI = generateRandomString(15); // Implement this function to generate a random string
+            // Set the custom headers including the IMEI header
+            const headers = {
+                'IMEI': randomIMEI
+            };
+    
+            // Send the POST request with custom headers
+            const response = await axios.post('https://api.sobotdadeh.com/v1/auth/code/check', {
+                phone: inputValue,
+                code: confirmationCode
+            }, {
+                headers: headers
+            });
+    
+            console.log('API response:', response);
+    
+            if (response.data.status === true) {
+                // Save API key, token, and IMEI into cookies
+                Cookies.set('api_key', response.data.data.api_key, { expires: 7 });
+                Cookies.set('token', response.data.data.token, { expires: 7 });
+                Cookies.set('IMEI', randomIMEI, { expires: 7 });
+                Cookies.set('user', 'true', { expires: 7 });
+                const encryptedValue = CryptoJS.AES.encrypt(inputValue, 'f2af0b0c9a27d7c893fa5d0ee2887c64').toString();
+                Cookies.set('pn', encryptedValue, { expires: 7 });
+                setCodenotcorrect();
+                setNextpage(2);
+            } else {
+                setCodenotcorrect(false);
+            }
+        } catch (error) {
+            console.error('Error sending API request:', error);
+            return false;
+        }
+    };
+    
     // show password function
     const handleshow = ()=>{
         if (showpass1 === false) {
@@ -116,24 +161,6 @@ const Login = () => {
         }
     };    
     // api send singup code
-    // api check user code
-    const checksendedcode = async () => {
-        try {
-            const response = await axios.post('https://api.sobotdadeh.com/v1/auth/code/check', {
-                phone:inputValue,
-                code:confirmationCode
-            });
-
-            if (response.data.success) {
-                
-            } else {
-                console.error('API request failed:', response.data.error);
-            }
-        } catch (error) {
-            console.error('Error sending API request:', error);
-        }
-    };
-    // api send singup code
     // timer 
     const startTimer = (durationInSeconds, callback) => {
         let timer = durationInSeconds;
@@ -152,13 +179,77 @@ const Login = () => {
     // coldown end 
     const coldownend = () => {
         if (coldowncode === 0) {
-            // sendsingupcode()
-            startTimer(10, () => {
+            sendsingupcode()
+            startTimer(180, () => {
                 // Perform any action when the timer expires
               });
         }
     };
     // coldown end 
+    // check if password is same
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPass, setShowPass] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    };
+
+    const handleConfirmPasswordChange = (event) => {
+        setConfirmPassword(event.target.value);
+    };
+
+    const validatePassword = () => {
+       // Check if passwords match
+        if (password !== confirmPassword) {
+            setErrorMessage('رمز عبور‌ها همخوانی ندارند');
+            return false;
+        }
+
+        // Check if password length is at least 8 characters
+        if (password.length < 8) {
+            setErrorMessage('رمز عبور باید حداقل 8 کاراکتر داشته باشد');
+            return false;
+        }
+
+        // Check if password contains at least one digit
+        if (!/\d/.test(password)) {
+            setErrorMessage('رمز عبور باید حداقل شامل یک عدد باشد');
+            return false;
+        }
+
+        // Check if password contains at least one letter
+        if (!/[a-zA-Z]/.test(password)) {
+            setErrorMessage('رمز عبور باید حداقل شامل یک حرف باشد');
+            return false;
+        }
+
+        // If all checks pass, return true
+        setErrorMessage('');
+        setuers()
+        window.location.href = '/sobotdadeh/#/';
+        window.location.reload();
+        return true;
+
+    };
+    // check if password is same
+    const setuers = async () => {
+        try {
+            const response = await axios.post('https://api.sobotdadeh.com/v1/auth/register', {
+                phone: inputValue,
+                password: password,
+                password_confirmation: password
+            });
+    
+            if (response.data.status === true) {
+                
+            }
+        } catch (error) {
+            console.error('Error sending API request:', error);
+            return false;
+        }
+    };
     return ( 
         <div className="Login-content">
                {
@@ -227,18 +318,31 @@ const Login = () => {
                         />
                     ))}
                     </div>
-                    <button onClick={okbodcode}>تایید</button>
+                    {
+                        codenotcorrect === false ? (<span>کد وارد شده صحیح نیست</span>) : null
+                    }
+                    <button onClick={checksingupcode}>تایید</button>
                     <h4 className={coldowncode !== 0 ? 'singup-items-singup-off' : ''} onClick={coldownend}>ارسال مجدد کد {coldowncode}</h4>
                </div>) : (<div className='singup-items2'>
                         <h1>ثبت رمز عبور</h1>
                         <label htmlFor="">رمز عبور</label>
                         <div className="singup-items2-pass">
-                            <input type={showpass2 === true ? "text" : "password"} />
+                            <input
+                                type={showpass2 ? "text" : "password"}
+                                id="password"
+                                value={password}
+                                onChange={handlePasswordChange}
+                            />
                             <img src={visibiliy} alt="" onClick={handleshow2}/>
                         </div>
                         <label htmlFor="">تکرار رمز عبور</label>
                         <div className="singup-items2-pass">
-                            <input type={showpass2 === true ? "text" : "password"} />
+                            <input
+                                type={showpass2 ? "text" : "password"}
+                                id="confirmPassword"
+                                value={confirmPassword}
+                                onChange={handleConfirmPasswordChange}
+                            />
                             <img src={visibiliy} alt="" onClick={handleshow2}/>
                         </div>
                         <div className="singup-items2-pass2">
@@ -249,7 +353,8 @@ const Login = () => {
                             <h2>شامل حروف و اعداد</h2>
                             <img src={warrningicon} alt="warrning icon" width="24px" height="24px"/>
                         </div>
-                        <button>ایجاد حساب</button>
+                        <span>{errorMessage}</span>
+                        <button onClick={validatePassword}>ایجاد حساب</button>
                </div>)
                 )
                }

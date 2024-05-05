@@ -16,6 +16,7 @@ import Profile from './Profile';
 import Khareji from './Khareji';
 import isAuthenticated from './PrivateRoute'; // Import the isAuthenticated function
 import Shenakhtrisk from './Shenakhtrisk';
+import Tarafeto from './tarafeto';
 import Blog from './Blog';
 
 import closeicon from './Icons/closeicon.svg'
@@ -33,7 +34,7 @@ export const Home = () => {
   return (
     <div>
       {
-        alertshow ? (<h1 className='alert-demo' onClick={()=>setAlertshow(false)}>وبسایت در حالت تست هست<img src={closeicon} alt="close icon"/></h1>) : null
+        alertshow ? (<h1 className='alert-demo' onClick={()=>setAlertshow(false)}>وبسایت نسخه آزمایشی هست<img src={closeicon} alt="close icon"/></h1>) : null
       }
       
       <Navbar></Navbar>
@@ -48,6 +49,7 @@ export const Home = () => {
         <Route path="/madreseeghtesad" element={<Madreseeghtesad></Madreseeghtesad>}></Route>
         <Route path="/companies" element={<Companies></Companies>}></Route>
         <Route path="/blog" element={<Blog></Blog>}></Route>
+        <Route path="/tarafeto" element={<Tarafeto></Tarafeto>}></Route>
         <Route path="/companie/:companyid/:type" element={<Companie></Companie>}></Route>
         <Route
           path="/profile"

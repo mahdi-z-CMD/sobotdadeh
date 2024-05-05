@@ -264,10 +264,70 @@ nav .Navbar-items2 a img{
   nav{
     background-color: transparent;
     box-shadow: none;
-    direction: ltr;
+  }
+  nav img{
+    z-index: 4;
+  }
+  .Searchbox-main{
+    z-index: 2;
   }
   .nav-not-home{
     background-color: transparent;
     box-shadow: none;
+  }
+  /* navbar mobile */
+  .Nav-mobile{
+    background-color: #194775;
+    display: flex;
+    direction: rtl;
+    flex-direction: column;
+    position: fixed;
+    align-items: flex-start;
+    padding: 5%;
+    padding-top: 20%;
+    gap: 3.5%;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+  }
+  .Nav-mobile hr{
+    width: 100%;
+    color: white;
+  }
+  .Nav-mobile a , .Nav-mobile span{
+    font-size: 20px;
+  }
+  .Nav-mobile span{
+    display: flex;
+    justify-content: space-around;
+  }
+  .Nav-mobile-login a{
+    color: #FF7F50;
+  }
+  .Nav-mobile-language a{
+    color: #FF7F50;
+  }
+  .Nav-mobile-khadamat-a{
+    background-color: #003366;
+    border-radius: 8px;
+    padding: 2%;
+    padding-left: 50%;
+  }
+  .Nav-mobile-khadamat-items{
+    display: flex;
+    direction: rtl;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 10%;
+    width: 100%;
+    height: auto;
+  }
+  .Nav-mobile-khadamat-items a{
+    font-size: 20px;
+  }
+  .Nav-mobile-khadamat-items a:not(:first-child){
+    margin-top: 10%;
   }
 }

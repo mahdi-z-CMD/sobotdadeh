@@ -270,6 +270,12 @@
     border-radius: 8px;
     cursor: pointer;
 }
+.singup-items span{
+    color: #ff5c50;
+    font-size: 18px;
+    margin-top: 5%;
+    align-self: center;
+}
 .singup-items h4{
     font-size: 16px;
     color: #FF7F50;
@@ -309,6 +315,12 @@
     background-color: #F6F6F6;
     height: auto;
     padding-bottom: 3%;
+}
+.singup-items2 span{
+    color: #ff5c50;
+    font-size: 18px;
+    margin-top: 5%;
+    align-self: center;
 }
 .singup-items2 h1{
     font-size: 18px;
@@ -460,5 +472,48 @@
         margin-right: auto;
         padding-bottom: 10%;
         margin-top: 10%;
+    }
+    .singup-items2{
+        width: 70%;
+        margin-top: 15%;
+        align-items: center;
+    }
+    .singup-items2 h1{
+        margin-right: 0;
+        margin-right: 0;
+    }
+    .singup-items2-pass{
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 8%;
+        margin-left: 0;
+    }
+    .singup-items2-pass img{
+        width: 24px;
+        height: 24px;
+        margin-top: 5%;
+        right: 8%;
+    }
+    .singup-items2-pass input{
+        margin-left: 0;
+        width: 80%;
+    }
+    .singup-items2 label{
+        margin-right: 0;
+        padding-right: 13%;
+        margin-left: 0;
+        align-self: flex-end;
+    }
+    .singup-items2-pass2 img{
+        width: 24px;
+        height: 24px;
+    }
+    .singup-items2 button{
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .singup-items2 h1{
+        margin-left: 0;
+        padding-right: 0;
     }
 }

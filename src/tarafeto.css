@@ -1,0 +1,21 @@
+.Tarafeto-header-text{
+    display: flex;
+    direction: rtl;
+    margin-top: 5%;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.Tarafeto-header-text p{
+    text-align: justify;
+    font-size: 24px;
+    font-weight: 500;
+}
+@media only screen and (max-width: 450px) {
+    .Tarafeto-header-text{
+        margin-top: 15%;
+    }
+    .Tarafeto-header-text p{
+        font-size: 22px;
+    }
+}

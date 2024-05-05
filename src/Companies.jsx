@@ -1,6 +1,7 @@
 import './Companies.css'
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 // icons
 import Searchiconblack from './Icons/Searchiconblack.svg'
 import locicon from './Icons/locicon.svg'
@@ -62,7 +63,7 @@ const Companies = () => {
                       <h2>{props.namecompanie}</h2>
                       <div className='cards-info-row2'>
                         <h3>{props.timerelease}</h3>
-                        <Link to={`/companie/${props.url}`}>
+                        <Link to={`/companie/${props.url}/0`}>
                             <div className='cards-info-row-more2'>
                                 <h3>نمایش بیشتر</h3>
                                 <img src={leftarrowslider} alt="left icon"/>
@@ -115,30 +116,35 @@ const Companies = () => {
     }, [searchTerm]); // Fetch data when searchTerm changes
 
     const fetchData = async (searchTerm) => {
-        setLoading(true);
-        try {
-            const token = 'your_api_token_here';
-            const response = await axios.post(
-                'https://api.sobotdadeh.com/v1/company',
-                { title: searchTerm },
-                {
-                    headers: {
-                        'Api-Token': '5a453f72de86cfae46a07bbbb2ab10fc3d44970986652f438f7df75dfbe9843c',
-                        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnNvYm90ZGFkZWguY29tXC92MVwvYXV0aFwvY2hlY2siLCJpYXQiOjE3MTM3NzQ5MDQsImV4cCI6MTcxMzc3ODUwNCwibmJmIjoxNzEzNzc0OTA0LCJqdGkiOiI1ZE5uMm9IaVRwUzJYZlpMIiwic3ViIjo0LCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GH2ORon8NTH6D22QQDGbixynulOAvIAj86yyluawbPY'
-                    }
-                }
-            );
-            if (response.status === 200) {
-                setApiData(response.data.data);
-            } else {
-                console.error('Failed to fetch data');
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+      setLoading(true);
+      try {
+          const apiKey = Cookies.get('api_key');
+          const token = Cookies.get('token');
+          const imei = Cookies.get('IMEI');
+  
+          const response = await axios.post(
+              'https://api.sobotdadeh.com/v1/company',
+              { title: searchTerm },
+              {
+                  headers: {
+                      'Api-Token': apiKey,
+                      'Authorization': `Bearer ${token}`,
+                      'IMEI': imei
+                  }
+              }
+          );
+          if (response.status === 200) {
+              setApiData(response.data.data);
+          } else {
+              console.error('Failed to fetch data');
+          }
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      } finally {
+          setLoading(false);
+      }
+  };
+  
 
     const handleSubmit = async (event) => {
         event.preventDefault();

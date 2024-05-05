@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import Soalat from './Soalat';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // icons
 import mostatil from './Icons/mostatil.svg'
 import Searchiconblack from './Icons/Searchiconblack.svg'
@@ -30,6 +30,7 @@ import majaleimg1 from './image/majale1.webp'
 import majaleimg2 from './image/majale2.webp'
 import majaleimg3 from './image/majale3.webp'
 import hadafimg from './image/aboutimg2.webp'
+import hometarafbg from './image/tarafetobg.png'
 
 
 // json test for api
@@ -341,6 +342,17 @@ export const Homepage = () => {
           windowWidth <= 500 ? null : (<h1>هدف از ثبات‌داده</h1>)
         }
         <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+      </div>
+    </div>
+    <div className="home-tarafeto">
+      {
+        windowWidth >= 500 ? (<img src={hometarafbg} alt="tarafeto image" />) : null
+      }
+      <div className="home-tarafeto-text">
+        <h1>طرف قراردادتو بشناس !</h1>
+        <p>
+لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+        <Link to={'/tarafeto'}>بیشتر بخوانید...</Link>
       </div>
     </div>
       <div className="majale-header">

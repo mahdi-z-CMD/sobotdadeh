@@ -426,6 +426,70 @@ main{
     background-color: #ff5e23;
     color: white;
 }
+/* tarafeto beshnas */
+.home-tarafeto{
+    width: 100%;
+    background-color: #FF9872;
+    height: auto;
+    margin-bottom: 10%;
+    direction: rtl;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-top: 5%;
+    box-shadow: 0px 0px 24px 0px #2C156199;
+    background-image: url('./image/ghavanin.svg');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+    background-position-x: -10%;
+    position: relative;
+    padding: 3%;
+    box-shadow: 0px 0px 24px 0px #2C156199;
+}
+.home-tarafeto img{
+    width: 50%;
+    height: 50vh;
+}
+.home-tarafeto-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+    margin-right: 6%;
+}
+.home-tarafeto-text h1{
+    font-size: 36px;
+    color: #002347;
+    font-weight: 400;
+}
+.home-tarafeto-text p{
+    font-size: 22px;
+    text-align: justify;
+    margin-top: 10%;
+    color: #002347;
+    width: 85%;
+}
+.home-tarafeto-text a{
+    text-decoration: none;
+    text-align: center;
+    margin-top: auto;
+    padding: 2%;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #002347;
+    color: #F6F6F6;
+    font-size: 25px;
+    transition: all .3s;
+    cursor: pointer;
+}
+.home-tarafeto-text a:hover{
+    transition: all .3s;
+    background-color: #003a74;
+}
 /* box khadamat */
 .box-khadamat{
     height: 90vh;
@@ -530,7 +594,8 @@ main{
     justify-content: center;
     align-content: center;
     direction: rtl;
-    height: 30vh;
+    height: auto;
+    margin-bottom: 5%;
     text-align: center;
 }
 .majale-header h1{
@@ -608,7 +673,7 @@ main{
 .majale-box2{
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     direction: rtl;
@@ -908,6 +973,31 @@ main{
     }
     .scrollicon-khadamat{
         width: 34px;
+    }
+    /* tarafeto beshnas */
+    .home-tarafeto{
+        background-image: none;
+        margin-top: 15%;
+        margin-bottom: 15%;
+    }
+    .home-tarafeto-text{
+        margin-right: 0;
+        align-items: center;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+    .home-tarafeto-text h1{
+        font-size: 30px;
+    }
+    .home-tarafeto-text p{
+        text-align: justify;
+        font-size: 22px;
+    }
+    .home-tarafeto-text a{
+        font-size: 25px;
+        width: 80%;
+        border: none;
+        margin-top: 10%;
     }
     /* majale */
     .majale-content{

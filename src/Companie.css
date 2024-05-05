@@ -199,6 +199,14 @@
     width: 40%;
     border: 2px solid #d0410e;
 }
+.companie-content-header-bookmark{
+    border: none !important;
+    top: 0 !important;
+    width: 80px !important;
+    height: 80px !important;
+    margin-right: 3% !important;
+    cursor: pointer;
+}
 /* mobile */
 @media only screen and (max-width: 450px) {
     .companie-content{
@@ -237,5 +245,12 @@
     }
     .companie-content-detail{
         margin-left: 0;
+    }
+    .companie-content-buy h1{
+        font-size: 24px;
+    }
+    .companie-content-buy button{
+        width: 60%;
+        font-size: 20px;
     }
 }

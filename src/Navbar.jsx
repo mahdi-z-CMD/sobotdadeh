@@ -12,12 +12,38 @@ import expandmore_nothome from './Icons/expandmore_nothome.svg'
 import loginicon_nothome from './Icons/loginicon_nothome.svg'
 import loginicon from './Icons/loginicon.svg'
 import burgericon from './Icons/hamburger-menu.svg'
+import burgericonclose from './Icons/hamburger-menu-close.svg'
+import expandmore_mobile from './Icons/expandmore_mobile.svg'
 
 export const Navbar = () => {
    // get window width
-   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
+  const [mobilenavbar,setMobilenavbar] = useState(false)
+  const [mobilekhadamat,setMobilekhadamat] = useState(false)
+  const [mobiledarbare,setMobiledarbare] = useState(false)
 
+  const navmobileclick = ()=>{
+    if (mobilenavbar === false) {
+      setMobilenavbar(true)
+    }else{
+      setMobilenavbar(false)
+    }
+  }
+  const navmobilekhadamatclick = ()=>{
+    if (mobilekhadamat === false) {
+      setMobilekhadamat(true)
+    }else{
+      setMobilekhadamat(false)
+    }
+  }
+  const navdarbareclick = ()=>{
+    if (mobiledarbare === false) {
+      setMobiledarbare(true)
+    }else{
+      setMobiledarbare(false)
+    }
+  }
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -89,7 +115,43 @@ export const Navbar = () => {
         windowWidth <= 500 ? (<>
           {
             isMobile === true ? (<>
-            <img src={burgericon} alt="hamburger menu icon" width="34px" height="34px"/>
+            <img src={mobilenavbar ? burgericonclose : burgericon} alt="hamburger menu icon" width="34px" height="34px" onClick={navmobileclick}/>
+            {
+              mobilenavbar ? (
+                <div className='Nav-mobile'>
+                  <Link onClick={navmobileclick} to={'/'}>صفحه اصلی</Link>
+                  <span onClick={navmobilekhadamatclick} className={mobilekhadamat ? 'Nav-mobile-khadamat-a' : ''}>خدمات ما<img src={expandmoreicon} alt="expand more"/></span>
+                    {
+                      mobilekhadamat ? (
+                        <div className="Nav-mobile-khadamat-items">
+                          <Link to='/madreseeghtesad' onClick={navmobileclick}>کسب و کار تو</Link>
+                          <Link to='/companies' onClick={navmobileclick}>استعلام شرکت‌ها</Link>
+                          <Link to='/shenakhtrisk' onClick={navmobileclick}>تخمین ریسک</Link>
+                        </div>
+                      ) : null
+                    }
+                  <span onClick={navdarbareclick} className={mobiledarbare ? 'Nav-mobile-khadamat-a' : ''}>درباره ثبات‌داده<img src={expandmoreicon} alt="expand more"/></span>
+                  {
+                    mobiledarbare ? (
+                      <div className="Nav-mobile-khadamat-items">
+                          <Link to='/ghavanin' onClick={navmobileclick}>قوانین و مقررات</Link>
+                          <Link to='/aboutus' onClick={navmobileclick}>درباره ما</Link>
+                          <Link to='/soalatmotadavel' onClick={navmobileclick}>سوالات متداول</Link>
+                          <Link to='/contact' onClick={navmobileclick}>تماس با ما</Link>
+                        </div>
+                    ) : null
+                  }
+                  <Link onClick={navmobileclick} to={'/khareji'}>شرکت‌های خارجی</Link>
+                  <hr />
+                  <div className="Nav-mobile-login">
+                    <Link onClick={navmobileclick} to={'/login'}>{isAuthenticated() ? "پروفایل" : "ورود/ثبت نام"}<img src={loginicon_nothome} alt="login icon" /></Link>
+                  </div>
+                  <div className="Nav-mobile-language">
+                    <Link>فارسی<img src={expandmore_mobile} alt="" /></Link>
+                  </div>
+                </div>
+              ) : (null)
+            }
             </>) : (<>
               <div className="Navbar-items1">
         <a href="#" className={isHomepage ? 'loc-a1' : 'loc-a2'}>Fa<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></a>
@@ -157,7 +219,7 @@ export const Navbar = () => {
           }
         </>) : (<>
         <div className="Navbar-items1">
-        <span className={isHomepage ? 'loc-a1' : 'loc-a2'}>Faa<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></span>
+        <span className={isHomepage ? 'loc-a1' : 'loc-a2'}>Fa<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></span>
         <Link to={'/Login'}>{isAuthenticated() ? "پروفایل" : "ورود/ثبت نام"}<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
       </div>
       <div className="Navbar-items2">

@@ -1,6 +1,7 @@
 import './Khareji.css'
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 // icons
 import searchicon2 from './Icons/searchicon2.svg'
@@ -17,6 +18,13 @@ import turkeyflag from './image/khareji_turkey.png'
 import aueflag from './image/khareji_aue.png'
 import milad from './image/khareji_milad.jpg'
 import comapnie_logo_def from './image/default_companies_img.webp'
+import iranmap from './image/iranmap.png'
+import iraqmap from './image/iragmap - Copy.jpg'
+import kuwaitmap from './image/kuwaitmap.jpg'
+import turkeymap from './image/turkeymap.jpg'
+import iraqbg from './image/iraqbg.jpg'
+import turkeybg from './image/turkeybg.jpg'
+import kuwaitbg from './image/kuwaitbg.jpg'
 
 const Khareji = () => {
     const [country, setCountry] = useState(1)
@@ -24,7 +32,7 @@ const Khareji = () => {
      const Card = ((props)=>{
         return(
             <div key={props.key} className='cards2'>
-                    <img src={props.bookmark === "true" ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='bookmarkicon'/>
+                    <img src={props.bookmark === true ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='bookmarkicon'/>
                     <div className='cards-info2'>
                       <img src={props.img} alt="profile companie"/>
                       <h1>{props.name}</h1>
@@ -57,19 +65,23 @@ const Khareji = () => {
     useEffect(() => {
       const fetchData = async () => {
           setLoading(true);
-          try {
-              const token = 'your_api_token_here';
+          try {  
+                const apiKey = Cookies.get('api_key');
+                const token = Cookies.get('token');
+                const imei = Cookies.get('IMEI');
               const response = await axios.post(country === 1 ? 'https://api.sobotdadeh.com/v1/iraq_company' : 'https://api.sobotdadeh.com/v1/company',
                   { title: searchInput },
                   {
                     headers: {
-                      'Api-Token': '5a453f72de86cfae46a07bbbb2ab10fc3d44970986652f438f7df75dfbe9843c',
-                      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLnNvYm90ZGFkZWguY29tXC92MVwvYXV0aFwvY2hlY2siLCJpYXQiOjE3MTM3NzQ5MDQsImV4cCI6MTcxMzc3ODUwNCwibmJmIjoxNzEzNzc0OTA0LCJqdGkiOiI1ZE5uMm9IaVRwUzJYZlpMIiwic3ViIjo0LCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.GH2ORon8NTH6D22QQDGbixynulOAvIAj86yyluawbPY'
+                      'Api-Token': apiKey,
+                      'Authorization': `Bearer ${token}`,
+                      'IMEI': imei
                   }
                   }
               );
               if (response.status === 200) {
                   setApiData(response.data.data);
+                  fetchCompanyIds()
               } else {
                   console.error('Failed to fetch data');
               }
@@ -93,6 +105,41 @@ const Khareji = () => {
       setSearchInput(e.target.value);
   };
     // api to get data
+    // GRAB LIST OF BOOKMARKS
+    const [companyIds, setCompanyIds] = useState([]);
+
+    // Fetch the list of company IDs from the API
+    const fetchCompanyIds = async () => {
+        try {
+            const apiKey = Cookies.get('api_key');
+            const token = Cookies.get('token');
+            const imei = Cookies.get('IMEI');
+            
+            const response = await axios.post('https://api.sobotdadeh.com/v1/bookmark', {
+                type: country === 1 ? 'iraq' : 'iran'
+            },{
+                headers: {
+                    'Api-Token': apiKey,
+                    'Authorization': `Bearer ${token}`,
+                    'IMEI': imei
+                }
+            });
+            // Extract the company IDs from the response data
+            let ids;
+            if (country === 1) {
+                ids = response.data.data.map(company => company.id);
+            } else {
+              ids = response.data.data.map(company => company.id);
+            }
+            setCompanyIds(ids);
+        } catch (error) {
+            console.error('Error fetching company IDs:', error);
+        }
+    };
+    const isCompanyIdAvailable = (companyId) => {
+      return companyIds.includes(companyId);
+    };
+    // GRAB LIST OF BOOKMARKS
     return ( 
         <div className="Khareji">
             <div className="Khareji-header">
@@ -101,6 +148,7 @@ const Khareji = () => {
             </div>
             <div className="Khareji-select-country">
                 <h1>کشور مورد نظر را انتخاب نمائید ...</h1>
+                <img className='Khareji-select-country-location' src={country === 0 ? iranmap : country === 1 ? iraqmap : country === 3 ? turkeymap : country === 2 ? kuwaitmap : null} alt="map image" />
                 <div className="Khareji-select-map">
                     <div className="Khareji-select-map-country">
                         <img src={iranflag} alt="iran flag" width="100%" height="30%" onClick={()=>setCountry(0)}/>
@@ -120,14 +168,14 @@ const Khareji = () => {
                     </div>
                 </div>
             </div>
-            <div className="Khareji-country-bg">
+            <div className={country === 0 ? 'Khareji-country-bg' : country === 1 ? 'Khareji-country-bg Khareji-country-bg-iraq' : country === 2 ? 'Khareji-country-bg Khareji-country-bg-turkey' : country === 3 ? 'Khareji-country-bg Khareji-country-bg-kuwait' : null}>
                 <div className="Khareji-country-bg-overlay">
-                     <h1>ایــــــــران</h1>
+                     <h1>{country === 0 ? "ایــــــــران" : country === 1 ? "عــــــــراق" : country === 3 ? "تـــــرکیه" : country === 2 ? "كـــــویت" : null}</h1>
                 </div>
             </div>
             <div className='Khareji-country-about'>
                 <div className="Khareji-country-about-1">
-                    <img src={milad} alt="milad tower" />
+                    <img src={country === 0 ? milad : country === 1 ? iraqbg : country === 3 ? kuwaitbg : country === 2 ? turkeybg : null} alt="milad tower" />
                 </div>
                 <div className="Khareji-country-about-2">
                     <h1>درباره ایران</h1>
@@ -308,7 +356,7 @@ const Khareji = () => {
                               img={comapnie_logo_def}
                               timerelease={item.registrationDate}
                               url={country === 0 ? item.code : item.id}
-                              bookmark="" // Assuming you want to pass this as a prop
+                              bookmark={isCompanyIdAvailable(country === 0 ? item.id : item.id)} // Assuming you want to pass this as a prop
                             />
                           ))
                         }

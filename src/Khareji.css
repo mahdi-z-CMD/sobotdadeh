@@ -23,10 +23,15 @@
 }
 /* select country */
 .Khareji-select-country{
-    height: 80vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 5%;
+}
+.Khareji-select-country img{
+    width: 1094px;
+    height: 754px;
 }
 .Khareji-select-country h1{
     color: black;
@@ -42,7 +47,6 @@
     width: 100%;
     flex-direction: row-reverse;
     justify-content: space-evenly;
-    margin-top: 10%;
 }
 .Khareji-select-map-country{
     display: flex;
@@ -76,6 +80,15 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position-x: center;
+}
+.Khareji-country-bg-iraq{
+    background-image: url('./image/iraqbg.jpg') !important;
+}
+.Khareji-country-bg-turkey{
+    background-image: url('./image/turkeybg.jpg') !important;
+}
+.Khareji-country-bg-kuwait{
+    background-image: url('./image/kuwaitbg.jpg') !important;
 }
 .Khareji-country-bg-overlay{
     width: 100%;
@@ -142,6 +155,10 @@
         font-size: 17px;
         font-weight: 700;
         margin-top: 15%;
+    }
+    .Khareji-select-country-location{
+        width: 340px !important;
+        height: 234px !important;
     }
     .Khareji-select-country h1{
         font-size: 21px;
