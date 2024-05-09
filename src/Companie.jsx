@@ -38,8 +38,9 @@ const Companie = () => {
             window.location.reload(); // You can replace this with any other desired action
         }
     };
-     // CHANGE TOKEN
-     const changeusertoken = async () => {
+    
+    // CHANGE TOKEN
+    const changeusertoken = async () => {
         try {
             const apiKey = Cookies.get('api_key');
             const token = Cookies.get('token');
@@ -60,14 +61,11 @@ const Companie = () => {
                 Cookies.set('api_key', response.data.data.api_key, { expires: 7 });
                 Cookies.set('token', response.data.data.token, { expires: 7 });
                 Cookies.set('user', 'true', { expires: 7 });
-            }
-            else{
-                removeCookies()
-                window.location.href = '/sobotdadeh/#/login';
+                window.location.reload();
             }
         } catch (error) {
-            console.error('Error sending API request:', error);
-            return false;
+            removeCookies()
+            window.location.href = '/sobotdadeh/#/login';
         }
     };
     // CHANGE TOKEN
@@ -101,8 +99,10 @@ const Companie = () => {
       } catch (error) {
         if (error.response && error.response.status === 401) {
             changeusertoken()
+        } else {
+            console.error('Error changing user password:', error); // Handle other errors
         }
-      }
+    }
     };
     // CHECK LIST
     const [companiesIdApi, setCompaniesIdApi] = useState([]);
@@ -125,7 +125,11 @@ const Companie = () => {
             });
             setCompaniesIdApi(response.data.data); // Assuming response.data.data is an array of companies
         } catch (error) {
-            console.error('Error fetching companies:', error);
+            if (error.response && error.response.status === 401) {
+                changeusertoken()
+            } else {
+                console.error('Error changing user password:', error); // Handle other errors
+            }
         }
     };
 
@@ -162,7 +166,11 @@ const Companie = () => {
             else{
             }
         } catch (error) {
-            console.error('Error sending API request:', error);
+            if (error.response && error.response.status === 401) {
+                changeusertoken()
+            } else {
+                console.error('Error changing user password:', error); // Handle other errors
+            }
         }
     };
       // BOOKMARK COMPANY 

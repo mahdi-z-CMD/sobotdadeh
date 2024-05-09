@@ -238,23 +238,6 @@ const Madreseeghtesad = () => {
                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
                 </div>
             </div>
-            <div className="Madrese-slider">
-                    <div className='slider'>
-                    <h1>برترین شرکت‌ها</h1>
-                    <div className='card-box'>
-                        {sliderdata.slice(startIndex, startIndex + (windowWidth <= 500 ? 1 : windowWidth <= 1500 ? 3 : 4)).map((key, index) => (
-                    <Card name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card>
-                    ))}
-                        <div className='arrow-card'>
-                            <img src={expandright} alt="right icon" className='arrow-card-right' onClick={nextSlide}/>
-                            <img src={expandleft} alt="left icon" className='arrow-card-left' onClick={prevSlide}/>
-                        </div>
-                    </div>
-                    <div className='slider-showmore'>
-                </div>
-                </div>
-            </div>
-            
         </div>
      );
 }

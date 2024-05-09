@@ -15,6 +15,8 @@ const Login = () => {
     const [showpass1, setShowpass1] = useState(false)
     const [showpass2, setShowpass2] = useState(false)
     const [codenotcorrect, setCodenotcorrect] = useState()
+    const [usernamelogin, setUsernamelogin] = useState()
+    const [passwordlogin, setPasswordlogin] = useState()
     const [getcode, setGetcode] = useState(0)
     const [nextpage, setNextpage] = useState(0)
     const [coldowncode, setColdowncode] = useState(0)
@@ -228,28 +230,103 @@ const Login = () => {
         // If all checks pass, return true
         setErrorMessage('');
         setuers()
-        window.location.href = '/sobotdadeh/#/';
-        window.location.reload();
         return true;
 
     };
     // check if password is same
     const setuers = async () => {
         try {
-            const response = await axios.post('https://api.sobotdadeh.com/v1/auth/register', {
-                phone: inputValue,
-                password: password,
-                password_confirmation: password
-            });
+            const apiKey = Cookies.get('api_key');
+            const token = Cookies.get('token');
+            const imei = Cookies.get('IMEI');
+    
+            const response = await axios.post(
+                'https://api.sobotdadeh.com/v1/auth/register',
+                {
+                    phone: inputValue,
+                    password: password,
+                    password_confirmation: password
+                },
+                {
+                    headers: {
+                        'Api-Token': apiKey,
+                        'Authorization': `Bearer ${token}`,
+                        'IMEI': imei
+                    }
+                }
+            );
     
             if (response.data.status === true) {
-                
+                setErrorMessage('');
+                window.location.href = '/sobotdadeh/#/';
+                window.location.reload();
             }
-        } catch (error) {
-            console.error('Error sending API request:', error);
+        }  catch (error) {
+            if (error.response && error.response.status === 422 && error.response.data && error.response.data.data && error.response.data.data.phone) {
+                setErrorMessage('');
+                window.location.href = '/sobotdadeh/#/';
+                window.location.reload();
+                // Handle the phone already taken error here
+            } else {
+                console.error('Error sending API request:', error);
+                setErrorMessage('! خطا در ثبت نام');
+                // Handle other errors
+            }
             return false;
         }
     };
+    // LOGIN API 
+    const [loginloading, setLoginloading] = useState(false)
+    const loginUser = async () => {
+        try {
+            setLoginloading(true)
+            // Generate a random string for the IMEI header
+            const randomIMEI = generateRandomString(15); // Implement this function to generate a random string
+    
+            // Set the custom headers including the IMEI header
+            const headers = {
+                'IMEI': randomIMEI
+            };
+    
+            // Make the API request to login
+            const response = await axios.post(
+                'https://api.sobotdadeh.com/v1/auth/login',
+                {
+                    phone: usernamelogin,
+                    password: passwordlogin
+                },
+                { headers: headers } // Pass the headers to the request
+            );
+    
+            // Check if the login was successful
+            if (response.status === 200) {
+                // Store the received API key, token, IMEI, and user information in cookies
+                Cookies.set('api_key', response.data.data.api_key, { expires: 7 });
+                Cookies.set('token', response.data.data.token, { expires: 7 });
+                Cookies.set('IMEI', randomIMEI, { expires: 7 });
+                Cookies.set('user', 'true', { expires: 7 });
+    
+                // Encrypt and store the username in cookies
+                const encryptedValue = CryptoJS.AES.encrypt(usernamelogin, 'f2af0b0c9a27d7c893fa5d0ee2887c64').toString();
+                Cookies.set('pn', encryptedValue, { expires: 7 });
+    
+                // Return null if no error occurred
+                setErrorMessage('');
+                window.location.href = '/sobotdadeh/#/';
+                window.location.reload();
+            } else {
+                // Return the error message if the login was not successful
+                setErrorMessage('خطا در ورود به سایت')
+                setLoginloading(false)
+            }
+        } catch (error) {
+            // Handle any errors that occur during the API request
+            setLoginloading(false)
+            setErrorMessage('خطا در ورود به سایت')
+        }
+    };
+    
+    // LOGIN API 
     return ( 
         <div className="Login-content">
                {
@@ -259,15 +336,32 @@ const Login = () => {
                     <button type="submit" className='Login-items-button-Login' onClick={() => setLoginarea(true)}>ورود</button>
                     <button type="submit" className='Login-items-button-Singup' onClick={() => setLoginarea(false)}>ثبت نام</button>
                     </div>
-                    <div className="Login-items-inputs">
-                        <label htmlFor="">نام کاربری</label>
-                        <input type="text" placeholder='شماره موبایل یا آدرس ایمیل وارد کنید'/>
-                        <label htmlFor="">رمز عبور</label>
-                        <input type={showpass1 === true ? "text" : "password"}/> <img src={visibiliy} alt="visibility icon" width="24px" height="24px"  onClick={handleshow}/>
-                    </div>
-                    <div className="Login-items-b-submit">
-                        <button type="submit">ورود به سایت</button>
-                    </div>
+                <div className="Login-items-inputs">
+                    <label htmlFor="">نام کاربری</label>
+                    <input
+                        type="text"
+                        placeholder="شماره موبایل یا آدرس ایمیل وارد کنید"
+                        value={usernamelogin}
+                        onChange={(e) => setUsernamelogin(e.target.value)}
+                    />
+                    <label htmlFor="">رمز عبور</label>
+                    <input
+                        type={showpass1 ? "text" : "password"}
+                        value={passwordlogin}
+                        onChange={(e) => setPasswordlogin(e.target.value)}
+                    />
+                    <img
+                        src={visibiliy} // Add the visibility icon source
+                        alt="visibility icon"
+                        width="24px"
+                        height="24px"
+                        onClick={handleshow}
+                    />
+                </div>
+                <span>{errorMessage}</span>
+                <div className="Login-items-b-submit">
+                    <button type="submit" onClick={loginloading ? null : loginUser}>{loginloading ? '... ورود به سایت' : 'ورود به سایت'}</button>
+                </div>
                     <div className="Login-items-faramoshi">
                         <span>فراموشی رمز عبور</span>
                         <span className='Login-items-faramoshi-remember'><img src={remember} alt="remember icon" />مرا به خاطر بسپار</span>

@@ -107,6 +107,13 @@
     align-items: flex-start;
     direction: rtl;
 }
+.Profile-content-other span{
+    color: #ff5c50;
+    font-size: 18px;
+    margin-top: 5%;
+    align-self: right;
+    margin-bottom: 0;
+}
 .Profile-content{
     margin-left: 10%;
     height: auto;
@@ -213,7 +220,6 @@
     color: white;
     margin-right: 90%;
     cursor: pointer;
-    margin-top: 13%;
     transition: all .3s;
 }
 .Profile-content-other button:hover{
@@ -300,6 +306,12 @@
     flex-wrap: wrap;
     margin-right: 5%;
     gap: 5%;
+}
+.Profile-changep span{
+    color: #ff5c50;
+    font-size: 18px;
+    margin-top: 5%;
+    align-self: center;
 }
 .Profile-changep-row{
     display: flex;
@@ -624,6 +636,38 @@
     margin-top: 3%;
     width: 100%;
 }
+.Profile-eshterak-now{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3%;
+}
+.Profile-eshterak-now h1{
+    color: #313131;
+    font-size: 20px;
+}
+.Profile-eshterak-now h2{
+    color: #4F4F4F;
+    font-size: 16px;
+    text-align: justify;
+    margin-top: 3%;
+}
+.Profile-eshterak-now-mobile{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 8%;
+    margin-top: 3%;
+}
+.Profile-eshterak-now-mobile h1{
+    color: #313131;
+    font-size: 17px;
+}
+.Profile-eshterak-now-mobile h2{
+    color: #4F4F4F;
+    font-size: 14px;
+    text-align: justify;
+    margin-top: 3%;
+}
 .Profile-eshterak-price{
     display: flex;
     justify-content: space-around;
@@ -756,6 +800,12 @@
 /* mobile desing */
 .Profile-mobile{
     height: auto;
+}
+.Profile-mobile span{
+    color: #ff5c50;
+    font-size: 14px;
+    margin-top: 10%;
+    align-self: right;
 }
 .Profile-mobile-header{
     background-color: #FF7F50;
@@ -1068,6 +1118,12 @@
     margin-right:8%;
     margin-left:8%;
 }
+.Profile-mobile-change-pass span{
+    color: #ff5c50;
+    font-size: 14px;
+    margin-top: 10%;
+    align-self: right;
+}
 .Profile-mobile-change-pass label{
     font-size: 12px;
     color: #7A7A7A;
@@ -1135,6 +1191,7 @@
     padding: 4%;
     justify-content: flex-start;
     margin-top: 5%;
+    text-decoration: none;
 }
 .Profile-mobile-bookmark-box-text{
     margin-right: 5%;

@@ -271,49 +271,35 @@ export const Homepage = () => {
                 <img src={expandright} alt="right icon" className='arrow-card-right' onClick={nextSlide}/>
                 <img src={expandleft} alt="left icon" className='arrow-card-left' onClick={prevSlide}/>
           </div>
-            <h1>برترین شرکت‌ها</h1>
+            <h1>برترین کسب و کار ها</h1>
             <div className='card-box'>
                 {sliderdata.slice(startIndex, startIndex + (windowWidth <= 500 ? 1 : windowWidth <= 1500 ? 3 : 4)).map((key, index) => (
               <Card name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card>
             ))}
             </div>
-          {
-            windowWidth >= 500 ? (<div className='slider-showmore'>
-            <span>مشاهده بیشتر</span>
-            <img src={expanddown} alt="expand down icon" />
-        </div>): null
-          }
           
         </div>
       </main>
-      <div className='masir'>
-          <div className='masir-detail'>
-                  <div className='masir-header'>
-                    <h1>مسیر همکاری با شرکت ها در ثبات‌داده</h1>
-                  </div>
-                  <div className='masir-middle'>
-                    <div className='masir-middle-items'>
-                        <img src={masir1icon} alt="expand down icon" width="100%" height="73px"/>
-                        <h1>عضویت در ثبات‌داده</h1>
-                        <p>با ثبت اطلاعات موردنظرتان در سایت ثبات‌داده قدم اول برای پیدا کردن شرکت مناسب خود را بردارید.</p>
-                    </div>
-                    <img src={arrowmasiricon} alt="expand down icon" className='arrow-icon1'/>
-                    <div className='masir-middle-items'>
-                        <img src={masir2icon} alt="expand down icon" width="100%" height="73px"/>
-                        <h1>ثبت درخواست</h1>
-                        <p>با ثبت یک درخواست کامل در سایت به پیدا کردن شرکت مناسب کار خود نزدیک خواهید شد.</p>
-                    </div>
-                    <img src={arrowmasiricon} alt="expand down icon" className='arrow-icon2'/>
-                    <div className='masir-middle-items'>
-                        <img src={masir3icon} alt="expand down icon" width="100%" height="73px"/>
-                        <h1>ارتباط با شرکت</h1>
-                        <p>مدتی پس از ثبت درخواست وخرید اشتراک شما به شرکت مدنظر متصل خواهید شد.</p>
-                    </div>
-                  </div>
-          </div>
+      <div className="home-tarafeto">
+      {
+        windowWidth >= 500 ? (<img src={hometarafbg} alt="tarafeto image" />) : null
+      }
+      <div className="home-tarafeto-text">
+        <h1>طرف قراردادتو بشناس !</h1>
+        <p>
+لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+        <Link to={'/tarafeto'}>بیشتر بخوانید...</Link>
+      </div>
+    </div>
+      <div className="majale-header">
+        <h1>مجله ثبات‌داده</h1>
+        {
+          windowWidth <= 500 ? (null):(<h2>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است</h2>)
+        }
+        
       </div>
       <div className="kharid">
-        <h1>به ثبات‌داده اعتماد کن ما کنارتان هستیم ...</h1>
+        <h1>کسب و کار پایدار با ثبات‌داده ...</h1>
         <h2>ارائه بهترین شرکت ها در همه حوزه‌ها</h2>
         <a href="#">خرید اشتراک</a>
       </div>
@@ -344,23 +330,31 @@ export const Homepage = () => {
         <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
       </div>
     </div>
-    <div className="home-tarafeto">
-      {
-        windowWidth >= 500 ? (<img src={hometarafbg} alt="tarafeto image" />) : null
-      }
-      <div className="home-tarafeto-text">
-        <h1>طرف قراردادتو بشناس !</h1>
-        <p>
-لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-        <Link to={'/tarafeto'}>بیشتر بخوانید...</Link>
-      </div>
-    </div>
-      <div className="majale-header">
-        <h1>مجله ثبات‌داده</h1>
-        {
-          windowWidth <= 500 ? (null):(<h2>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است</h2>)
-        }
-        
+    <div className='masir'>
+          <div className='masir-detail'>
+                  <div className='masir-header'>
+                    <h1>مسیر همکاری با شرکت ها در ثبات‌داده</h1>
+                  </div>
+                  <div className='masir-middle'>
+                    <div className='masir-middle-items'>
+                        <img src={masir1icon} alt="expand down icon" width="100%" height="73px"/>
+                        <h1>عضویت در ثبات‌داده</h1>
+                        <p>با ثبت اطلاعات موردنظرتان در سایت ثبات‌داده قدم اول برای پیدا کردن شرکت مناسب خود را بردارید.</p>
+                    </div>
+                    <img src={arrowmasiricon} alt="expand down icon" className='arrow-icon1'/>
+                    <div className='masir-middle-items'>
+                        <img src={masir2icon} alt="expand down icon" width="100%" height="73px"/>
+                        <h1>ثبت درخواست</h1>
+                        <p>با ثبت یک درخواست کامل در سایت به پیدا کردن شرکت مناسب کار خود نزدیک خواهید شد.</p>
+                    </div>
+                    <img src={arrowmasiricon} alt="expand down icon" className='arrow-icon2'/>
+                    <div className='masir-middle-items'>
+                        <img src={masir3icon} alt="expand down icon" width="100%" height="73px"/>
+                        <h1>ارتباط با شرکت</h1>
+                        <p>مدتی پس از ثبت درخواست وخرید اشتراک شما به شرکت مدنظر متصل خواهید شد.</p>
+                    </div>
+                  </div>
+          </div>
       </div>
       <div className="majale-content">
         <div className="majale-soton">
@@ -417,12 +411,12 @@ export const Homepage = () => {
       }
       
       </div>
-      <div className="solata-home">
+      {/* <div className="solata-home">
         <h1>سوالات متداول</h1>
       </div>
       <Soalat Soalheader="آیا برای درخواست کار نیاز به رزومه دارم؟" Soalcontent=""></Soalat>
       <Soalat Soalheader="برای ثبت شرکت نیاز به تاییدیه هست؟" Soalcontent="بله تمامی شرکت‌هایی که در ثبات‌داده آگهی ثبت میکنند شرکت‌های ثبت شده هستند."></Soalat>
-      <Soalat Soalheader="چگونه میتوانیم از جدیدترین آگهی‌های استخدام با خبر شوم؟ برای درخواست کار نیاز به رزومه دارم؟" Soalcontent=""></Soalat>
+      <Soalat Soalheader="چگونه میتوانیم از جدیدترین آگهی‌های استخدام با خبر شوم؟ برای درخواست کار نیاز به رزومه دارم؟" Soalcontent=""></Soalat> */}
 	</div>
   )
 }

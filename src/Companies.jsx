@@ -2,6 +2,7 @@ import './Companies.css'
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import CryptoJS from 'crypto-js';
 // icons
 import Searchiconblack from './Icons/Searchiconblack.svg'
 import locicon from './Icons/locicon.svg'
@@ -15,6 +16,7 @@ import expandright from './Icons/expandright.svg'
 import closeicon from './Icons/closeicon.svg'
 import leftarrow from './Icons/leftarrowslider.svg'
 import rightkey from './Icons/expandright.svg'
+import profile_mark from './Icons/Shenkhat_kharid_mark.svg'
 // Images
 import comapnie_logo_def from './image/default_companies_img.webp'
 
@@ -22,7 +24,62 @@ import comapnie_logo_def from './image/default_companies_img.webp'
 import sliderdata from './slidersdata.json'
 import { useState, useEffect } from 'react'
 const Companies = () => {
-  
+  const removeCookies = async () => {
+    try {
+        // Make a logout request to invalidate the user's session on the server
+        await axios.post('https://api.sobotdadeh.com/v1/auth/logout', {
+            // Include any necessary data for the logout request, if required
+        });
+
+        // Remove the cookies from the client side
+        Cookies.remove('api_key');
+        Cookies.remove('token');
+        Cookies.remove('IMEI');
+        Cookies.remove('user');
+
+        // Reload the page or redirect the user to the login page
+        window.location.reload(); // You can replace this with any other desired action
+    } catch (error) {
+        Cookies.remove('api_key');
+        Cookies.remove('token');
+        Cookies.remove('IMEI');
+        Cookies.remove('user');
+
+        // Reload the page or redirect the user to the login page
+        window.location.reload(); // You can replace this with any other desired action
+    }
+};
+
+// CHANGE TOKEN
+const changeusertoken = async () => {
+    try {
+        const apiKey = Cookies.get('api_key');
+        const token = Cookies.get('token');
+        const imei = Cookies.get('IMEI');
+        const decryptedValue = CryptoJS.AES.decrypt(Cookies.get('pn'), 'f2af0b0c9a27d7c893fa5d0ee2887c64').toString(CryptoJS.enc.Utf8);
+        // Send the POST request with custom headers
+        const response = await axios.post('https://api.sobotdadeh.com/v1/auth/check', {
+            phone: decryptedValue,
+            api_key: apiKey
+        }, {
+            headers: {
+                'Api-Token': apiKey,
+                'Authorization': `Bearer ${token}`,
+                'IMEI': imei
+            }
+        });
+        if (response.data.status === true) {
+            Cookies.set('api_key', response.data.data.api_key, { expires: 7 });
+            Cookies.set('token', response.data.data.token, { expires: 7 });
+            Cookies.set('user', 'true', { expires: 7 });
+            window.location.reload();
+        }
+    } catch (error) {
+        removeCookies()
+        window.location.href = '/sobotdadeh/#/login';
+    }
+};
+// CHANGE TOKEN
   // get window width
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -139,8 +196,12 @@ const Companies = () => {
               console.error('Failed to fetch data');
           }
       } catch (error) {
-          console.error('Error fetching data:', error);
-      } finally {
+        if (error.response && error.response.status === 401) {
+            changeusertoken()
+        } else {
+            console.error('Error changing user password:', error); // Handle other errors
+        }
+    } finally {
           setLoading(false);
       }
   };
@@ -391,6 +452,148 @@ const Companies = () => {
                         <span className='slider2-notfound'>موردی یافت نشد</span>
                       )}
                     </div>
+                    {
+                    windowWidth <= 500 ? (
+                      <div className='Profile-mobile'>
+                        <div className="Profile-mobile-sub">
+                            <h1>اشتراک ثبات داده</h1>
+                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+                        </div>
+                        {/* tarefe 1 */}
+                        <div className="Profile-mobile-sub-tarefe">
+                            <h1>اشتراک سطح ۱</h1>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۱</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۱</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۱</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۱</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۱</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۱</h1>
+                            </div>
+                            <span>۵۰,۰۰۰ تومان</span>
+                            <button>خرید اشتراک</button>
+                        </div>
+                        {/* tarefe 2 */}
+                        <div className="Profile-mobile-sub-tarefe tarefe-special">
+                            <div className="tarefe-special-mahbob">
+                                <h1>اشتراک سطح ۲</h1>
+                                <h2>(محبوب کاربران)</h2>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۲</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۲</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۲</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۲</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۲</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۲</h1>
+                            </div>
+                            <span>۸۰,۰۰۰ تومان</span>
+                            <button>خرید اشتراک</button>
+                        </div>
+                        {/* tarefe 3 */}
+                        <div className="Profile-mobile-sub-tarefe">
+                            <h1>اشتراک سطح ۳</h1>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۳</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۳</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۳</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۳</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۳</h1>
+                            </div>
+                            <div className="Profile-mobile-sub-tarefe-row">
+                                <img src={profile_mark} alt="mark icon" />
+                                <h1>امکانات سطح ۳</h1>
+                            </div>
+                            <span>۱۲۰,۰۰۰ تومان</span>
+                            <button>خرید اشتراک</button>
+                        </div>
+                    </div>
+                    ) : (
+                      <div className="Profile-eshterak">
+                      <div className="Profile-eshterak-header">
+                          <h1>اشتراک ثبات‌داده</h1>
+                          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+                      </div>
+                      <div className="Profile-eshterak-price">
+                          <div className="Profile-eshterak-price-cloum">
+                              <h1>اشتراک سطح ۱</h1>
+                              <h2>اشتراک سطح ۱</h2>
+                              <h2>اشتراک سطح ۱</h2>
+                              <h2>اشتراک سطح ۱</h2>
+                              <h2>اشتراک سطح ۱</h2>
+                              <span>۵۰,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
+                              <div className="Profile-eshterak-price-cloum-special-header">
+                                  <h1>امکانات سطح ۲</h1>
+                                  <h2>(محبوب کاربران)</h2>
+                              </div>
+                              <h2>امکانات سطح ۲</h2>
+                              <h2>امکانات سطح ۲</h2>
+                              <h2>امکانات سطح ۲</h2>
+                              <h2>امکانات سطح ۲</h2>
+                              <span>۸۰,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum">
+                              <h1>امکانات سطح ۳</h1>
+                              <h2>امکانات سطح ۳</h2>
+                              <h2>امکانات سطح ۳</h2>
+                              <h2>امکانات سطح ۳</h2>
+                              <h2>امکانات سطح ۳</h2>
+                              <span>۱۲۰,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                      </div>
+                  </div>
+                    )
+                   }
          </div>
         </div>
      );

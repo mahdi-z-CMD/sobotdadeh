@@ -48,13 +48,13 @@ const Footer = () => {
         <div className="footer-pages">
           <div className="footer-namads">
             <div className="namads-place">
-              <img src={namadimage1} alt="e namad" width="112px" height="112px"/>
+              {/* <img src={namadimage1} alt="e namad" width="112px" height="112px"/> */}
             </div>
             <div className="namads-place">
-              <img src={namadimage2} alt="e namad" width="90px" height="90px"/>
+              {/* <img src={namadimage2} alt="e namad" width="90px" height="90px"/> */}
             </div>
             <div className="namads-place">
-              <img src={namadimage3} alt="e namad" width="112px" height="112px"/>
+              {/* <img src={namadimage3} alt="e namad" width="112px" height="112px"/> */}
             </div>
           </div>
           <div className="links">

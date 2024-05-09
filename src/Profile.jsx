@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
 import companielogo from './image/compani_logo.jpg'
 // Images
-import profilepic1 from './image/profilepic1.png'
+import profilepic1 from './image/profile_def.jpg'
 import profile_companie1 from './image/prof1.png'
 import profile_companie2 from './image/prof2.png'
 import profile_companie3 from './image/prof3.jpg'
@@ -57,8 +57,10 @@ const Profile = () => {
     const [profileaddress, setProfileaddress] = useState('');
     const [profilecity, setProfilecity] = useState('');
     const [profiledate, setProfiledate] = useState();
-    const [profilegender, setProfilegender] = useState();
+    const [profilegender, setProfilegender] = useState('');
     const [profileedit, setProfileedit] = useState(false);
+    const [profilesath, setProfilesath] = useState("پایه");
+    const [profilesathtime, setProfilesathtime] = useState("30");
     const changeprofileedit = () =>{
         if (profileedit === false) {
             setProfileedit(true)
@@ -191,14 +193,14 @@ const Profile = () => {
     // bookmark cards
     const Cardbookmark = (prop)=>{
         return(
-            <div className="Profile-mobile-bookmark-box">
-                <img src={prop.img} alt="company logo" />
-                <div className="Profile-mobile-bookmark-box-text">
-                    <h1>{prop.name}</h1>
-                    <h2>{prop.type}</h2>
-                </div>
-                <img src={profile_bookmarkfill} alt="bookmark icon" className='Profile-mobile-bookmark-bookmarkicon'/>
-            </div>
+                <Link className='Profile-mobile-bookmark-box' to={`/companie/${prop.url}/${prop.contry === 0 ? '0' : '1'}`}>
+                    <img src={prop.img} alt="company logo" />
+                    <div className="Profile-mobile-bookmark-box-text">
+                        <h1>{prop.name}</h1>
+                        <h2>{prop.type}</h2>
+                    </div>
+                    <img src={profile_bookmarkfill} alt="bookmark icon" className='Profile-mobile-bookmark-bookmarkicon'/>
+                </Link>
         )
     }
     // bookmark cards
@@ -250,14 +252,11 @@ const Profile = () => {
                 Cookies.set('api_key', response.data.data.api_key, { expires: 7 });
                 Cookies.set('token', response.data.data.token, { expires: 7 });
                 Cookies.set('user', 'true', { expires: 7 });
-            }
-            else{
-                removeCookies()
-                window.location.href = '/sobotdadeh/#/login';
+                window.location.reload();
             }
         } catch (error) {
-            console.error('Error sending API request:', error);
-            return false;
+            removeCookies()
+            window.location.href = '/sobotdadeh/#/login';
         }
     };
     // CHANGE TOKEN
@@ -284,6 +283,8 @@ const Profile = () => {
                 setProfilecity(response.data.data.city)
                 setProfiledate(response.data.data.birth)
                 setProfilegender(response.data.data.gender)
+                setProfilesath(response.data.data.package.title)
+                setProfilesathtime(response.data.data.package.attributes.value[0])
                 setImageSrc(response.data.data.image); // Update image source
             }else if(response.data.data.error === "Unauthorized"){
                 changeusertoken()
@@ -297,7 +298,11 @@ const Profile = () => {
                 setProfilecity('اطلاعات یافت نشد')
             }
         } catch (error) {
-            changeusertoken()
+            if (error.response && error.response.status === 401) {
+                changeusertoken()
+            } else {
+                console.error('Error changing user password:', error); // Handle other errors
+            }
         }
     };
     useEffect(() => {
@@ -306,7 +311,10 @@ const Profile = () => {
     //   GETTING USER DATA
     //  EDITING USER INFO
     const [loadingEdite, setLoadingEdite] = useState(false);
-
+    const [fnameError, setFnameError] = useState(''); // State for first name error
+    const [lnameError, setLnameError] = useState(''); // State for last name error
+    const [birthError, setBirthError] = useState(''); // State for birth date error
+    
     const changinguserdatainfo = async () => {
         try {
             setLoadingEdite(true); // Set loading state to true when the API request starts
@@ -314,6 +322,29 @@ const Profile = () => {
             const apiKey = Cookies.get('api_key');
             const token = Cookies.get('token');
             const imei = Cookies.get('IMEI');
+    
+            // Check if required fields are empty
+            if (!profilename) {
+                setFnameError('نام خود را وارد کنید ! ');
+                return; // Exit the function early if first name is empty
+            }else{
+                setFnameError('')
+            }
+            
+            if (!profilefamily) {
+                setLnameError('نام خانوادگی خود را وارد کنید ! ');
+                return; // Exit the function early if last name is empty
+            }else{
+                setLnameError('')
+            }
+            
+            if (!profiledate) {
+                setBirthError('تاریخ تولد خود را وارد کنید ! ');
+                return; // Exit the function early if birth date is empty
+            }else{
+                setBirthError('')
+            }
+            
     
             const formData = new FormData();
             formData.append('fname', profilename);
@@ -348,13 +379,16 @@ const Profile = () => {
                 changeusertoken();
             }
         } catch (error) {
-            console.error('Error sending API request:', error);
-            return false;
+            if (error.response && error.response.status === 401) {
+                changeusertoken();
+            } else {
+                console.error('Error updating user information:', error); // Handle other errors
+            }
         } finally {
             setLoadingEdite(false); // Set loading state to false after the API request is complete
         }
     };
-    
+        
     
       
     // Function to handle file input change
@@ -395,7 +429,11 @@ const Profile = () => {
             });
             setBookmarkCompaniesData(response.data.data);
         } catch (error) {
-            console.error('Error fetching companies:', error);
+            if (error.response && error.response.status === 401) {
+                changeusertoken()
+            } else {
+                console.error('Error changing user password:', error); // Handle other errors
+            }
         }
     };
     // GET BOOKMARK COMPANY irani
@@ -420,7 +458,11 @@ const Profile = () => {
             });
             setBookmarkCompaniesData2(response.data.data);
         } catch (error) {
-            console.error('Error fetching companies:', error);
+            if (error.response && error.response.status === 401) {
+                changeusertoken()
+            } else {
+                console.error('Error getting bookmarks:', error); // Handle other errors
+            }
         }
     };
     // GET BOOKMARK COMPANY iraqi
@@ -446,12 +488,34 @@ const Profile = () => {
         setConfirmPass(e.target.value);
     };
     // CHANGE PASS
+    const [loadingpass, setLoadingpass] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const changeUserPassword = async () => {
         try {
+            setLoadingpass(true);
+    
+            // Check if passwords match...
             if (newPass !== confirmPass) {
-                // Display an error message or handle the mismatch
-                console.error('New password and confirmation do not match');
-                return;
+                setErrorMessage('رمز عبور‌ها همخوانی ندارند');
+                return false;
+            }
+    
+            // Check if password length is at least 8 characters
+            if (newPass.length < 8) {
+                setErrorMessage('رمز عبور باید حداقل 8 کاراکتر داشته باشد');
+                return false;
+            }
+    
+            // Check if password contains at least one digit
+            if (!/\d/.test(newPass)) {
+                setErrorMessage('رمز عبور باید حداقل شامل یک عدد باشد');
+                return false;
+            }
+    
+            // Check if password contains at least one letter
+            if (!/[a-zA-Z]/.test(newPass)) {
+                setErrorMessage('رمز عبور باید حداقل شامل یک حرف باشد');
+                return false;
             }
     
             const apiKey = Cookies.get('api_key');
@@ -459,7 +523,7 @@ const Profile = () => {
             const imei = Cookies.get('IMEI');
     
             const response = await axios.post(
-                'https://api.sobotdadeh.com/v1/auth/change-password',
+                'https://api.sobotdadeh.com/v1/auth/password',
                 {
                     old_password: currentPass,
                     password: newPass,
@@ -473,9 +537,31 @@ const Profile = () => {
                     }
                 }
             );
-            console.log(response.data); // Handle successful response
+    
+            setLoadingpass(false);
+            setErrorMessage('');
+    
+            // Check if password change was successful
+            if (response.data.status === true) {
+                // Password changed successfully, handle accordingly
+                setErrorMessage('رمز عبور با موفقیعت  تغییر کرد');
+            } else {
+                // Password change failed, check if old password was incorrect
+                if (response.data.data && response.data.data.old_password) {
+                    setErrorMessage(response.data.data.old_password[0]);
+                } else {
+                    // Handle other errors
+                    console.error('Error changing user password:', response.data);
+                }
+            }
         } catch (error) {
-            console.error('Error changing user password:', error); // Handle error
+            if (error.response && error.response.status === 401) {
+                changeusertoken();
+            } else {
+                console.error('Error changing user password:', error); // Handle other errors
+            }
+        } finally {
+            setLoadingpass(false);
         }
     };
     
@@ -626,6 +712,9 @@ const Profile = () => {
                   </select>
                   <input type="email" name="" id="profile-address" value={profileaddress}  required {...(profileedit === false ? { disabled: true } : {})} onChange={(e) => setProfileaddress(e.target.value)}/>
               </div>
+              <span>{fnameError}</span>
+              <span>{lnameError}</span>
+              <span>{birthError}</span>
               <button type="button" onClick={changeprofileedit}>ویرایش پروفایل<img src={profile_edit} alt="edit profile icon" width="24px" height="24px"/></button>
               {
                 profileedit ? (<button type="button" onClick={loadingEdite ? null  : changinguserdatainfo} className='Profile-content-edit-submite'>{loadingEdite ? 'در حال ثبت ...'  : 'ثبت'}</button>) : null
@@ -700,7 +789,8 @@ const Profile = () => {
                             <img src={showpassicon} alt="show password" width="24px" height="24px" onClick={show3}/>
                         </div>
                     </div>
-                    <button type="submit" onClick={changeUserPassword}>ثبت تغییرات</button>
+                    <span>{errorMessage}</span>
+                    <button type="submit" onClick={loadingpass ? null : changeUserPassword}>{loadingpass ? 'ثبت تغییرات ...' : 'ثبت تغییرات'}</button>
 
                   </div>
               ) : activespan === 3 ? (
@@ -768,6 +858,10 @@ const Profile = () => {
                           <h1>اشتراک ثبات‌داده</h1>
                           <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
                       </div>
+                      <div className="Profile-eshterak-now">
+                        <h1>اشتراک فعلی : {profilesath}</h1>
+                        <h2>مدت زمان : {profilesathtime} روز</h2>
+                      </div>
                       <div className="Profile-eshterak-price">
                           <div className="Profile-eshterak-price-cloum">
                               <h1>اشتراک سطح ۱</h1>
@@ -822,6 +916,7 @@ const Profile = () => {
           {/* <span onClick={()=>setActivespan(6)} className={activespan === 6 ? 'Profile-category-active-span' : ''}><img src={activespan === 6 ? profile_rezomeiconblue : profile_rezomeiconwhite} alt="bookmark icon" width="24px" height="24px"/>رزومه من</span> */}
           <h2 onClick={removeCookies}>خروج از حساب</h2>
       </div>
+      {/* mobile --------------- */}
   </div>) : (
             mobilepage === 0 ? (<div className='Profile-mobile'>
             {/* MENU AREA */}
@@ -855,7 +950,7 @@ const Profile = () => {
                     {
                         accounttype === 0 ? (
                         <>
-                        <h1>حساب معمولی</h1>
+                        <h1>حساب {profilesath}</h1>
                         <button>ارتقا</button>
                         </>
                         ) : 
@@ -875,7 +970,7 @@ const Profile = () => {
                 <img src={profile_lockicon} alt="edit icon" />
                 <h1>تغییر رمز عبور</h1>
             </div>
-            <div className="Profile-mobile-row" onClick={() => setMobilepage(3)}>
+            <div className="Profile-mobile-row" onClick={() => {setMobilepage(3);getBookmarkCompanies();getBookmarkCompanies2();}}>
                 <img src={profile_bookmarkicon} alt="edit icon" />
                 <h1>شرکت‌های نشان شده</h1>
             </div> 
@@ -884,7 +979,7 @@ const Profile = () => {
             </div>
             <div className="Profile-mobile-logout">
                 <img src={profile_logouticon} alt="logout icon" />
-                <h1>خروج از حساب</h1>
+                <h1 onClick={removeCookies}>خروج از حساب</h1>
             </div>
         </div>) : mobilepage === 1 ? (<div className='Profile-mobile'>
              {/* MENU AREA */}
@@ -908,15 +1003,13 @@ const Profile = () => {
             {/* MENU AREA */}
             <div className="Profile-mobile-header-name">
                 <div className="Profile-mobile-header-name-name-edit">
-                    <img src={profilepic1} alt="profile pic" />
+                    <img src={imageSrc || profilepic1} alt="profile pic" />
                     <div className="Profile-mobile-header-section-edit">
                         <div className="Profile-mobile-header-section-edit-text">
                             <h1>آپلود تصویر</h1>
                             <img src={profile_uploadicon} alt="upload icon" />
                         </div>
                         <div className="Profile-mobile-header-section-edit-text">
-                            <h1>خذف تصویر</h1>
-                            <img src={profile_deleteicon} alt="delete icon" />
                         </div>
                     </div>
                 </div>
@@ -925,9 +1018,23 @@ const Profile = () => {
                     <h1>جنسیت</h1>
                     <div className="Profile-mobile-select-sex-radio">
                         <label htmlFor="Profile-mobile-agha">آقا</label>
-                        <input type="radio" name="gender" id="Profile-mobile-agha" />
+                        <input
+                            type="radio"
+                            name="gender"
+                            id="Profile-mobile-agha"
+                            checked={profilegender === 'male'}
+                            onChange={() => setProfilegender('male')}
+                            {...(profileedit === false ? { disabled: true } : {})}
+                        />
                         <label htmlFor="Profile-mobile-khanom">خانم</label>
-                        <input type="radio" name="gender" id="Profile-mobile-khanom" />
+                        <input
+                            type="radio"
+                            name="gender"
+                            id="Profile-mobile-khanom"
+                            checked={profilegender === 'female'}
+                            onChange={() => setProfilegender('female')}
+                            {...(profileedit === false ? { disabled: true } : {})}
+                        />
                     </div>
             </div>
             <div className="Profile-mobile-inputs">
@@ -956,9 +1063,12 @@ const Profile = () => {
             
             <label htmlFor="useraddress">آدرس</label>
             <input type="text" id="useraddress" value={profileaddress} onChange={(e) => setProfileaddress(e.target.value)} {...(profileedit === false ? { disabled: true } : {})}/>
+            <span>{fnameError}</span>
+            <span>{lnameError}</span>
+            <span>{birthError}</span>
             <button onClick={changeprofileedit}>ویرایش پروفایل<img src={profile_edit} alt="edit icon" /></button>
             {
-                profileedit ? (<button onClick={changeprofileedit} className='Profile-mobile-submit-b'>ثبت</button>) : null
+                profileedit ? (<button onClick={loadingEdite ? null  : changinguserdatainfo} className='Profile-mobile-submit-b'>{loadingEdite ? 'در حال ثبت ...'  : 'ثبت'}</button>) : null
             }
             </div>
         </div>) : mobilepage === 2 ? (<div className='Profile-mobile'>
@@ -985,16 +1095,16 @@ const Profile = () => {
             <div className="Profile-mobile-header-name">
                 <div className="Profile-mobile-header-name-name">
                     <img src={profilepic1} alt="profile pic" />
-                    <div className="Profile-mobile-header-number">
-                        <h1>سعید صفاپیشه</h1>
-                        <h2>۰۹۱۲۳۴۵۶۷۸۹</h2>
-                    </div>
+                        <div className="Profile-mobile-header-number">
+                            <h1>{profilename} {profilefamily}</h1>
+                            <h2>{profilephone}</h2>
+                        </div>
                 </div>
                 <div className="Profile-mobile-header-name-account">
                     {
                         accounttype === 0 ? (
                         <>
-                        <h1>حساب معمولی</h1>
+                        <h1>حساب {profilesath}</h1>
                         <button>ارتقا</button>
                         </>
                         ) : 
@@ -1010,21 +1120,39 @@ const Profile = () => {
                     <label htmlFor="">رمز عبور فعلی</label>
                     <div className="Profile-mobile-change-pass-row-input">
                         <img src={profile_showpass2} alt="show password icon" onClick={handleshowcurrent}/>
-                        <input type={showcurrentpass === true ? "text" : "password"} />
+                        <input 
+                                type={showcurrentpass ? "text" : "password"} 
+                                name="currentpass" 
+                                id="currentpass" 
+                                value={currentPass} 
+                                onChange={handleCurrentPassChange} 
+                            />
                     </div>
                     <label htmlFor="">رمز عبور جدید</label>
                     <div className="Profile-mobile-change-pass-row-input">
                         <img src={profile_showpass1} alt="show password icon" onClick={handleshowrepeat}/>
-                        <input type={showrepeatpass === true ? "text" : "password"} />
+                        <input 
+                                type={showrepeatpass ? "text" : "password"} 
+                                name="newpass" 
+                                id="newpass" 
+                                value={newPass} 
+                                onChange={handleNewPassChange} 
+                            />
 
                     </div>
                     <label htmlFor="">تکرار رمز عبور جدید</label>
                     <div className="Profile-mobile-change-pass-row-input">
                         <img src={profile_showpass1} alt="show password icon" onClick={handleshowrepeat}/>
-                        <input type={showrepeatpass === true ? "text" : "password"} />
-
+                        <input 
+                                type={showrepeatpass ? "text" : "password"} 
+                                name="confirmpass" 
+                                id="confirmpass" 
+                                value={confirmPass} 
+                                onChange={handleConfirmPassChange} 
+                            />
                     </div>
-                    <button type="submit">ثبت تغییرات</button>
+                    <span>{errorMessage}</span>
+                    <button type="submit" onClick={loadingpass ? null : changeUserPassword}>{loadingpass ? 'ثبت تغییرات ...' : 'ثبت تغییرات'}</button>
             </div>
         </div>) : mobilepage === 3 ? (<div className='Profile-mobile'>
              {/* MENU AREA */}
@@ -1050,21 +1178,24 @@ const Profile = () => {
                 <h1>شرکت‌ها</h1>
             </div>
             <div className="Profile-mobile-bookmark">
-                <Cardbookmark
-                    name='اسنپ فود'
-                    img={profile_companie4}
-                    type='ایرانی'
-                ></Cardbookmark>
-                 <Cardbookmark
-                    name='تبسی'
-                    img={profile_companie2}
-                    type='ایرانی'
-                ></Cardbookmark>
-                 <Cardbookmark
-                    name='گلنار'
-                    img={profile_companie3}
-                    type='ایرانی'
-                ></Cardbookmark>
+                 {bookmarkCompaniesData.map(company => (
+                        <Cardbookmark
+                        name={company.title}
+                        img={company.profile_companie1 || companielogo}
+                        type='ایرانی'
+                        url={company.code}
+                        contry={0}
+                        ></Cardbookmark>
+                    ))}
+                    {bookmarkCompaniesData2.map(company => (
+                        <Cardbookmark
+                        name={company.title}
+                        img={company.profile_companie1 || companielogo}
+                        type='عراقی'
+                        url={company.id}
+                        contry={1}
+                        ></Cardbookmark>
+                    ))}
             </div>
         </div>) : mobilepage === 4 ? (<div className='Profile-mobile'>
              {/* MENU AREA */}
@@ -1090,6 +1221,10 @@ const Profile = () => {
                 <h1>اشتراک ثبات داده</h1>
                 <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
             </div>
+            <div className="Profile-eshterak-now-mobile">
+                        <h1>اشتراک فعلی : {profilesath}</h1>
+                        <h2>مدت زمان : {profilesathtime} روز</h2>
+                      </div>
             {/* tarefe 1 */}
             <div className="Profile-mobile-sub-tarefe">
                 <h1>اشتراک سطح ۱</h1>
