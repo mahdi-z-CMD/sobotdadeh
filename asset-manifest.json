@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.4a5fa50d.css",
-    "main.js": "/sobotdadeh/static/js/main.7480daac.js",
+    "main.css": "/sobotdadeh/static/css/main.4118960f.css",
+    "main.js": "/sobotdadeh/static/js/main.58ddda8a.js",
     "static/media/box2.webp": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.webp",
     "static/media/box1.webp": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.webp",
     "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
@@ -121,11 +121,11 @@
     "static/media/hamburger-menu.svg": "/sobotdadeh/static/media/hamburger-menu.2c037419d5d5bc29a7e7759e9a0e037a.svg",
     "static/media/Profile_uploadicon.svg": "/sobotdadeh/static/media/Profile_uploadicon.75357b407fd8d4929fe03b10c70c9a65.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.1115cab952894688597fc2eddad7929d.svg",
-    "main.4a5fa50d.css.map": "/sobotdadeh/static/css/main.4a5fa50d.css.map",
-    "main.7480daac.js.map": "/sobotdadeh/static/js/main.7480daac.js.map"
+    "main.4118960f.css.map": "/sobotdadeh/static/css/main.4118960f.css.map",
+    "main.58ddda8a.js.map": "/sobotdadeh/static/js/main.58ddda8a.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a5fa50d.css",
-    "static/js/main.7480daac.js"
+    "static/css/main.4118960f.css",
+    "static/js/main.58ddda8a.js"
   ]
 }
