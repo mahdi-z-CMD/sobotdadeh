@@ -1,5 +1,5 @@
 import './Khareji.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -45,7 +45,6 @@ const Khareji = () => {
      };
    }, []);
    // get window width
-    const [country, setCountry] = useState(1)
      // Components -----------------
      const Card = ((props)=>{
         return(
@@ -128,57 +127,64 @@ const Khareji = () => {
     const [searchInput, setSearchInput] = useState('');
     const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [statusFilter, setStatusFilter] = useState('default');
     const [companietypeFilter, setCompanietypeFilter] = useState('default');
     const [afterYearFilter, setAfterYearFilter] = useState('default');
     const [beforeYearFilter, setBeforeYearFilter] = useState('default');
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const searchTerm = queryParams.get('search');
+    const countryurl = queryParams.get('country');
+    const statusurl = queryParams.get('status');
+    const [statusFilter, setStatusFilter] = useState(statusurl === "0" ? "notactive" : statusurl === "1" ? "active" : "default");
+    const [country, setCountry] = useState(parseInt(countryurl, 10)); // Convert countryurl to an integer
+    const companiesCenterResultRef = useRef(null); // Create a ref for the target element
 
     useEffect(() => {
-      const fetchData = async () => {
-          setLoading(true);
-          try {  
-                const apiKey = Cookies.get('api_key');
-                const token = Cookies.get('token');
-                const imei = Cookies.get('IMEI');
-              const response = await axios.post(country === 1 ? 'https://api.sobotdadeh.com/v1/iraq_company' : 'https://api.sobotdadeh.com/v1/company',
-                  { title: searchInput },
-                  {
-                    headers: {
-                      'Api-Token': apiKey,
-                      'Authorization': `Bearer ${token}`,
-                      'IMEI': imei
-                  }
-                  }
-              );
-              if (response.status === 200) {
-                  setApiData(response.data.data);
-                  fetchCompanyIds()
-              } else {
-                  console.error('Failed to fetch data');
-              }
-          } catch (error) {
-            if (error.response && error.response.status === 401) {
-                changeusertoken()
-            } else {
-                console.error('Error changing user password:', error); // Handle other errors
-            }
-        } finally {
-              setLoading(false);
-          }
-      };
+        if (searchTerm) { // Check if searchTerm is not empty
+            const fetchData = async () => {
+                setLoading(true);
+                try {
+                    companiesCenterResultRef.current.scrollIntoView({ behavior: 'smooth' });
 
-      const debounceTimer = setTimeout(() => {
-          if (searchInput) {
-              fetchData();
-          }
-      }, 500); // Delay API call by 500ms
+                    const apiKey = Cookies.get('api_key');
+                    const token = Cookies.get('token');
+                    const imei = Cookies.get('IMEI');
+                    const response = await axios.post(country === 1 ? 'https://api.sobotdadeh.com/v1/iraq_company' : 'https://api.sobotdadeh.com/v1/company',
+                        { title: searchTerm }, // Use searchTerm instead of searchInput
+                        {
+                            headers: {
+                                'Api-Token': apiKey,
+                                'Authorization': `Bearer ${token}`,
+                                'IMEI': imei
+                            }
+                        }
+                    );
+                    if (response.status === 200) {
+                        setApiData(response.data.data);
+                        fetchCompanyIds();
+                        // Scroll to the target element after data is loaded
+                    } else {
+                        console.error('Failed to fetch data');
+                    }
+                } catch (error) {
+                    if (error.response && error.response.status === 401) {
+                        changeusertoken();
+                    } else {
+                        console.error('Error changing user password:', error); // Handle other errors
+                    }
+                } finally {
+                    setLoading(false);
+                }
+            };
 
-      return () => clearTimeout(debounceTimer); // Cleanup on unmount or input change
-  }, [searchInput]);
+            const debounceTimer = setTimeout(() => {
+                fetchData();
+            }, 500); // Delay API call by 500ms
 
+            return () => clearTimeout(debounceTimer); // Cleanup on unmount or input change
+        }
+    }, [searchTerm, country]); // Include country in the dependencies array
+    
   const handleInputChange = (e) => {
       setSearchInput(e.target.value);
   };
@@ -265,7 +271,7 @@ const Khareji = () => {
                 </div>
             </div>
             <div className="Companies-header Companies-header-khareji">
-            <div className="Companies-center" id='Companies-center-result'>
+            <div className="Companies-center" id='Companies-center-result' ref={companiesCenterResultRef}>
                 <div className='Searchbox-main-companies'>
                     <div className='Searchbox-items22'>
                           <input

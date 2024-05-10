@@ -11,6 +11,31 @@
     font-size: 24px;
     font-weight: 500;
 }
+.Tarafeto-box-download{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-right: 8%;
+    margin-left: 8%;
+    direction: rtl;
+    justify-content: center;
+    margin-top: 5%;
+}
+.Tarafeto-box-download h1{
+    align-items: center;
+    color: #003366;
+    font-size: 30px;
+    font-weight: 700;
+}
+.Tarafeto-box-download-row{
+    display: flex;
+    direction: rtl;
+
+}
+.Tarafeto-box-download-row img{
+    width: 70px;
+    height: 70px;
+}
 @media only screen and (max-width: 450px) {
     .Tarafeto-header-text{
         margin-top: 15%;

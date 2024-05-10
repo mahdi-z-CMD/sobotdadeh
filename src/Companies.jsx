@@ -161,16 +161,6 @@ const changeusertoken = async () => {
     const [companietypeFilter, setCompanietypeFilter] = useState('default');
     const [afterYearFilter, setAfterYearFilter] = useState('default');
     const [beforeYearFilter, setBeforeYearFilter] = useState('default');
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const searchTerm = queryParams.get('search');
-
-    useEffect(() => {
-        if (searchTerm) {
-            setSearchTermInput(searchTerm);
-            fetchData(searchTerm);
-        }
-    }, [searchTerm]); // Fetch data when searchTerm changes
 
     const fetchData = async (searchTerm) => {
       setLoading(true);
@@ -227,11 +217,20 @@ const changeusertoken = async () => {
                           <img src={Searchiconblack} alt="Search icon" />
                           <input type="text" name="Search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} placeholder='عنوان شرکت....'/>
                           <img src={locicon} alt="Search icon" placeholder="شهر"/>
-                          <select name="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-                            <option value="default">وضعیت</option>
-                            <option value="active">فعال</option>
-                            <option value="notactive">غیر فعال</option>
-                          </select>
+                        <select name="companietype" value={companietypeFilter} onChange={(e) => setCompanietypeFilter(e.target.value)}>
+                          <option value="default">نوع شرکت</option>
+                          <option value="سهامی خاص">سهامی خاص</option>
+                          <option value="شرکت بامسیولیت محدود">شرکت بامسیولیت محدود</option>
+                          <option value="تعاونی">تعاونی</option>
+                          <option value="بامسئولیت محدود">بامسئولیت محدود</option>
+                          <option value="موسسه">موسسه</option>
+                          <option value="نامشخص">نامشخص</option>
+                          <option value="تضامنی">تضامنی</option>
+                          <option value="شعبه شرکت خارجی">شعبه شرکت خارجی</option>
+                          <option value="نسبی">نسبی</option>
+                          <option value="سهامی عام">سهامی عام</option>
+                          <option value="مختلط سهامی">مختلط سهامی</option>
+                        </select>
                           <img src={pageicon} alt="Search icon" />
                           <select name="activity">
                           <option value="سابقه فعالیت">سابقه فعالیت</option>

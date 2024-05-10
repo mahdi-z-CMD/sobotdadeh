@@ -1,5 +1,5 @@
 import './Madreseeghtesad.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 // Icons
 import leftarrowslider from './Icons/leftarrowslider.svg'
 import bookmarkicon from './Icons/bookmark.svg'
@@ -36,19 +36,6 @@ const Madreseeghtesad = () => {
     };
   }, []);
   // get window width
-    // scroll to item
-    const handleSectionClick2 = (e, sectionId) => {
-        e.preventDefault(); // Prevent the default behavior of anchor tag
-      
-        setActiveSection(sectionId); // Update the active section state
-      
-        // Scroll to the corresponding section
-        const sectionElement = document.getElementById(sectionId);
-        if (sectionElement) {
-          sectionElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      };
-    // scroll to item
     const [activeSection, setActiveSection] = useState(0);
 
     const handleSectionClick = (index) => {
@@ -122,6 +109,20 @@ const Madreseeghtesad = () => {
                 </div>
         )
     })
+    const sectionRefs = [
+      useRef(null),
+      useRef(null),
+      useRef(null),
+      useRef(null),
+      useRef(null),
+      useRef(null)
+  ];
+  const handleSectionClick2 = (e, index) => {
+    e.preventDefault();
+    sectionRefs[index].current.scrollIntoView({ behavior: 'smooth' });
+    setActiveSection(index); // Assuming setActiveSection is a state updater function
+};
+
     return ( 
         <div>
             <div className="Madrese-bg">
@@ -173,12 +174,12 @@ const Madreseeghtesad = () => {
                 )}
             </div>
                 <div className="Madrese-content2-lists">
-                <a href='m1' className={activeSection === 0 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 0)}>ارائه Buseiness plan</a>
-                <a href='m2' className={activeSection === 1 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 1)}>تحلیل بازارهای رقیب</a>
-                <a href='m3' className={activeSection === 2 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 2)}>مشاوره مالیاتی</a>
-                <a href='m4' className={activeSection === 3 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 3)}>مشاوره حقوقی</a>
-                <a href='m5' className={activeSection === 4 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 4)}>مشاوره مالی</a>
-                <a href='m6' className={activeSection === 5 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 5)}>مشاوره IT</a>
+                  <a className={activeSection === 0 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 0)}>ارائه Buseiness plan</a>
+                  <a className={activeSection === 1 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 1)}>تحلیل بازارهای رقیب</a>
+                  <a className={activeSection === 2 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 2)}>مشاوره مالیاتی</a>
+                  <a className={activeSection === 3 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 3)}>مشاوره حقوقی</a>
+                  <a className={activeSection === 4 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 4)}>مشاوره مالی</a>
+                  <a className={activeSection === 5 ? 'Madrese-active-list' : ''} onClick={(e) => handleSectionClick2(e, 5)}>مشاوره IT</a>
                 </div>
             </div>
             <div className='Madrese-sabt-darkhast'>
@@ -186,14 +187,14 @@ const Madreseeghtesad = () => {
                 <button type="submit">ثبت درخواست مشاوره</button>
             </div>
             <h1 className='Madrese-roadmap-header'>ثبات‌داده قراره دقیقا چیکار کنه ؟</h1>
-            <div className='Madrese-roadmap-box' id='m1'>
+            <div className='Madrese-roadmap-box' id='m1' ref={sectionRefs[0]}>
                 <img src={madrese2} alt="icon" width="60%"/>
                 <div className='Madrese-roadmap-box-texts'>
                     <h1>ارائه Buseiness plan</h1>
                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
                 </div>
             </div>
-            <div className='Madrese-roadmap-box2' id='m2'>
+            <div className='Madrese-roadmap-box2' id='m2' ref={sectionRefs[1]}>
                 <img src={madrese3} alt="icon"/>
                 <div className='Madrese-roadmap-box-texts2'>
                     <h1>تحلیل بازارهای رقیب</h1>
@@ -201,14 +202,14 @@ const Madreseeghtesad = () => {
                 </div>
             </div>
             {/* next row */}
-            <div className='Madrese-roadmap-box' id='m3'>
+            <div className='Madrese-roadmap-box' id='m3' ref={sectionRefs[2]}>
                 <img src={madrese4} alt="icon"/>
                 <div className='Madrese-roadmap-box-texts'>
                     <h1>مشاوره مالیاتی</h1>
                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
                 </div>
             </div>
-            <div className='Madrese-roadmap-box2' id='m4'>
+            <div className='Madrese-roadmap-box2' id='m4' ref={sectionRefs[3]}>
                 <img src={madrese5} alt="icon"/>
                 <div className='Madrese-roadmap-box-texts2'>
                     <h1>مشاوره حقوقی</h1>
@@ -216,14 +217,14 @@ const Madreseeghtesad = () => {
                 </div>
             </div>
             {/* next row */}
-            <div className='Madrese-roadmap-box' id='m5'>
+            <div className='Madrese-roadmap-box' id='m5' ref={sectionRefs[4]}>
                 <img src={madrese6} alt="icon"/>
                 <div className='Madrese-roadmap-box-texts'>
                     <h1>مشاوره مالی</h1>
                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
                 </div>
             </div>
-            <div className='Madrese-roadmap-box2' id='m6'>
+            <div className='Madrese-roadmap-box2' id='m6' ref={sectionRefs[5]}>
                 <img src={madrese7} alt="icon"/>
                 <div className='Madrese-roadmap-box-texts2'>
                     <h1>مشاوره IT</h1>
@@ -231,7 +232,7 @@ const Madreseeghtesad = () => {
                 </div>
             </div>
             {/* next row */}
-            <div className='Madrese-roadmap-box' id='m5'>
+            <div className='Madrese-roadmap-box' id='m5' ref={sectionRefs[6]}>
                 <img src={madrese7} alt="icon"/>
                 <div className='Madrese-roadmap-box-texts'>
                     <h1>مشاوره ویژه اقتصادی</h1>

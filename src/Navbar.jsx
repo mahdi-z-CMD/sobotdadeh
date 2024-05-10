@@ -127,6 +127,7 @@ export const Navbar = () => {
                           <Link to='/madreseeghtesad' onClick={navmobileclick}>کسب و کار تو</Link>
                           <Link to='/companies' onClick={navmobileclick}>استعلام شرکت‌ها</Link>
                           <Link to='/shenakhtrisk' onClick={navmobileclick}>تخمین ریسک</Link>
+                          <Link to='/tarafeto' onClick={navmobileclick}>طرف قرارداد تو بشناس</Link>
                         </div>
                       ) : null
                     }
@@ -267,6 +268,7 @@ export const Navbar = () => {
             windowWidth <= 1450 ? (<li><Link to='/khareji' onClick={handleItemClick2}>شرکت‌های خارجی</Link></li>) : null
           }
           <li><Link to='/shenakhtrisk' onClick={handleItemClick2}>تخمین ریسک</Link></li>
+          <li><Link to='/tarafeto' onClick={navmobileclick}>طرف قرارداد تو بشناس</Link></li>
           </ul>
         )}
         <Link to='/'>

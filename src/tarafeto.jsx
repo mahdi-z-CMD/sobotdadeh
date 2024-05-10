@@ -8,6 +8,13 @@ import bookmarkfillicon from './Icons/bookmarkfill.svg'
 import expandleft from './Icons/expandleft.svg'
 import expandright from './Icons/expandright.svg'
 import expanddown from './Icons/expanddown.svg'
+import flagSaudi from './Icons/flag-saudi.svg'
+import flagFrance from './Icons/flag-france.svg'
+import flagIran from './Icons/flag-iran.svg'
+import flagSpania from './Icons/flag-spania.svg'
+import flagJapan from './Icons/flag-japan.svg'
+import flagUnitedkingdom from './Icons/flag-unitedkingdom.svg'
+import downloadicon from './Icons/downloadicon.svg'
 // Images
 import madrese1 from './image/madrese1.png'
 import madrese2 from './image/madrese2.jpg'
@@ -187,6 +194,14 @@ const Tarafeto = () => {
                     <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
                 </div>
             </div>
+            <div className="Tarafeto-box-download">
+              <h1>باکس دانلود شرکت های ثبات‌داده</h1>
+              <div className="Tarafeto-box-download-row">
+                <img src={flagIran} alt="Flag iran" />
+                <h1>فایل شماره ۱</h1>
+                <button><img src={downloadicon} alt="" />دانلود</button>
+              </div>
+            </div>
             <div className="Madrese-slider">
                     <div className='slider'>
                     <h1>برترین شرکت‌ها</h1>
@@ -203,7 +218,6 @@ const Tarafeto = () => {
                 </div>
                 </div>
             </div>
-            
         </div>
      );
 }

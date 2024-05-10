@@ -192,7 +192,7 @@ export const Homepage = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       // Redirect to the search page with the search term as a query parameter
-      navigate(`/companies?search=${searchTerm}&city=${selectedCity}&sabeghe=${selectedSabeghe}`);
+      navigate(`/khareji?search=${searchTerm}&country=${selectedCity}&status=${selectedSabeghe}`);
     };
 
     // Search to companies page
@@ -223,20 +223,18 @@ export const Homepage = () => {
                             </div>
                             <div className="Searchbox-items-mobile">
                               <img src={locicon} alt="Search icon" placeholder="شهر"/>
-                              <select name="city" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
-                                <option value="تهران">انتخاب شهر</option>
-                                <option value="مازندران">مازندران</option>
-                                <option value="خوزستان">خوزستان</option>
-                                <option value="کرمان">کرمان</option>
+                              <select name="country" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+                                <option value="default">انتخاب کشور</option>
+                                <option value="0">ایران</option>
+                                <option value="1">عراق</option>
                               </select>
                             </div>
                             <div className="Searchbox-items-mobile">
                               <img src={pageicon} alt="Search icon" />
-                              <select name="activity" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
-                                <option value="سابقه فعالیت">سابقه فعالیت</option>
-                                <option value="مازندران">مازندران</option>
-                                <option value="خوزستان">خوزستان</option>
-                                <option value="کرمان">کرمان</option>
+                              <select name="status" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
+                                <option value="default">وضعیت شرکت</option>
+                                <option value="1">فعال</option>
+                                <option value="0">غیر فعال</option>
                               </select>
                             </div>
                       <button type="submit">جستجو</button>
@@ -246,18 +244,16 @@ export const Homepage = () => {
                         <img src={Searchiconblack} alt="Search icon" />
                         <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} name="Search" placeholder='عنوان شرکت....'/>
                         <img src={locicon} alt="Search icon" placeholder="شهر"/>
-                        <select name="city" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
-                        <option value="تهران">انتخاب شهر</option>
-                        <option value="مازندران">مازندران</option>
-                        <option value="خوزستان">خوزستان</option>
-                        <option value="کرمان">کرمان</option>
+                        <select name="status" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+                        <option value="default">انتخاب کشور</option>
+                        <option value="0">ایران</option>
+                        <option value="1">عراق</option>
                         </select>
                         <img src={pageicon} alt="Search icon" />
-                        <select name="activity" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
-                        <option value="سابقه فعالیت">سابقه فعالیت</option>
-                        <option value="مازندران">مازندران</option>
-                        <option value="خوزستان">خوزستان</option>
-                        <option value="کرمان">کرمان</option>
+                        <select name="status" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
+                        <option value="default">وضعیت شرکت</option>
+                        <option value="1">فعال</option>
+                        <option value="0">غیر فعال</option>
                         </select>
                         <img src={searchicon2} alt="Search icon" className='searchicon2'/>
                         <button type="submit">جستجو</button>
