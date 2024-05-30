@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.0235b3dd.css",
+    "main.css": "/sobotdadeh/static/css/main.d9a051dd.css",
     "main.js": "/sobotdadeh/static/js/main.42db18a6.js",
     "static/media/box2.webp": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.webp",
     "static/media/box1.webp": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.webp",
@@ -127,11 +127,11 @@
     "static/media/hamburger-menu.svg": "/sobotdadeh/static/media/hamburger-menu.2c037419d5d5bc29a7e7759e9a0e037a.svg",
     "static/media/Profile_uploadicon.svg": "/sobotdadeh/static/media/Profile_uploadicon.75357b407fd8d4929fe03b10c70c9a65.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.1115cab952894688597fc2eddad7929d.svg",
-    "main.0235b3dd.css.map": "/sobotdadeh/static/css/main.0235b3dd.css.map",
+    "main.d9a051dd.css.map": "/sobotdadeh/static/css/main.d9a051dd.css.map",
     "main.42db18a6.js.map": "/sobotdadeh/static/js/main.42db18a6.js.map"
   },
   "entrypoints": [
-    "static/css/main.0235b3dd.css",
+    "static/css/main.d9a051dd.css",
     "static/js/main.42db18a6.js"
   ]
 }
