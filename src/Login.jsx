@@ -20,6 +20,8 @@ const Login = () => {
     const [getcode, setGetcode] = useState(0)
     const [nextpage, setNextpage] = useState(0)
     const [coldowncode, setColdowncode] = useState(0)
+    const [loginwithcode, setLoginwithcode] = useState(false)
+    const [loginforgetpass, setLoginforgetpass] = useState(false)
     // check the code 
     const checkNumberDigits = (number) => {
         const numberString = number.toString();
@@ -113,7 +115,16 @@ const Login = () => {
                 const encryptedValue = CryptoJS.AES.encrypt(inputValue, 'f2af0b0c9a27d7c893fa5d0ee2887c64').toString();
                 Cookies.set('pn', encryptedValue, { expires: 7 });
                 setCodenotcorrect();
-                setNextpage(2);
+                if (loginwithcode) {
+                    if (loginforgetpass) {
+                        setNextpage(2)
+                    }else{
+                        window.location.href = '/sobotdadeh/#/';
+                        window.location.reload();
+                    }
+                }else{
+                    setNextpage(2);
+                }
             } else {
                 setCodenotcorrect(false);
             }
@@ -229,7 +240,11 @@ const Login = () => {
 
         // If all checks pass, return true
         setErrorMessage('');
-        setuers()
+        if (loginforgetpass) {
+            forgetpass()
+        }else{
+            setuers()
+        }
         return true;
 
     };
@@ -325,8 +340,49 @@ const Login = () => {
             setErrorMessage('خطا در ورود به سایت')
         }
     };
-    
     // LOGIN API 
+    
+    // FORGOT PASSWORD
+    const forgetpass = async () => {
+        try {
+            const token = Cookies.get('token');
+            const imei = Cookies.get('IMEI');
+    
+            const response = await axios.post(
+                'https://api.sobotdadeh.com/v1/auth/forget',
+                {
+                    phone: inputValue,
+                    password: password,
+                    password_confirmation: password
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'IMEI': imei
+                    }
+                }
+            );
+    
+            if (response.data.status === true) {
+                setErrorMessage('');
+                window.location.href = '/sobotdadeh/#/';
+                window.location.reload();
+            }
+        }  catch (error) {
+            if (error.response && error.response.status === 422 && error.response.data && error.response.data.data && error.response.data.data.phone) {
+                setErrorMessage('');
+                window.location.href = '/sobotdadeh/#/';
+                window.location.reload();
+                // Handle the phone already taken error here
+            } else {
+                console.error('Error sending API request:', error);
+                setErrorMessage('! خطا در تغییر رمز عبور');
+                // Handle other errors
+            }
+            return false;
+        }
+    };
+    // FORGOT PASSWORD
     return ( 
         <div className="Login-content">
                {
@@ -334,7 +390,7 @@ const Login = () => {
                     <div className="Login-items">
                          <div className="Login-items-button">
                     <button type="submit" className='Login-items-button-Login' onClick={() => setLoginarea(true)}>ورود</button>
-                    <button type="submit" className='Login-items-button-Singup' onClick={() => setLoginarea(false)}>ثبت نام</button>
+                    <button type="submit" className='Login-items-button-Singup' onClick={() => { setLoginarea(false); setLoginforgetpass(false); setLoginwithcode(false)}}>ثبت نام</button>
                     </div>
                 <div className="Login-items-inputs">
                     <label htmlFor="">نام کاربری</label>
@@ -363,11 +419,11 @@ const Login = () => {
                     <button type="submit" onClick={loginloading ? null : loginUser}>{loginloading ? '... ورود به سایت' : 'ورود به سایت'}</button>
                 </div>
                     <div className="Login-items-faramoshi">
-                        <span>فراموشی رمز عبور</span>
+                        <span onClick={() => { setLoginarea(false); setLoginwithcode(true); setLoginforgetpass(true)}}>فراموشی رمز عبور</span>
                         <span className='Login-items-faramoshi-remember'><img src={remember} alt="remember icon" />مرا به خاطر بسپار</span>
                     </div>
                     <div className="Login-items-faramoshi">
-                        <span className='Login-items-faramoshi-last'>ورود با رمز یک بار مصرف</span>
+                        <span className='Login-items-faramoshi-last' onClick={() => { setLoginarea(false); setLoginwithcode(true); setLoginforgetpass(false)}}>ورود با رمز یک بار مصرف</span>
                     </div>
                     <hr />
                     <div className="Login-items-google">
@@ -380,7 +436,7 @@ const Login = () => {
                     nextpage === 0 ? (<div className="Login-items">
                     <div className="Login-items-button">
                    <button type="submit" className='Login-items-button-Login2' onClick={() => setLoginarea(true)}>ورود</button>
-                   <button type="submit" className='Login-items-button-Singup2' onClick={() => setLoginarea(false)}>ثبت نام</button>
+                   <button type="submit" className='Login-items-button-Singup2'>{loginwithcode && loginforgetpass === false ? 'ورود با کد' : loginwithcode && loginforgetpass ? 'فراموشی رمز عبور' : 'ثبت نام'}</button>
                </div>
                <div className="Login-items-inputs-singup">
                    <label htmlFor="">شماره موبایل</label>

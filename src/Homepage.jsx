@@ -201,8 +201,7 @@ export const Homepage = () => {
       <header>
       <div className="overlay">
         <div className='overlaynotrow'>
-            <h1>با ما به دنبال فرصت های مشارکتی جدید باشید</h1>
-            <h2>فقط <span>۳</span> مرحله تا پیدا کردن شرکت فاصله دارید</h2>      
+            <h1>تسهیل سرمایه گذاری داده محور</h1> 
         </div>
         <div className='overlaym'>
             <div className="overlaym-bg">

@@ -26,15 +26,50 @@
     color: #003366;
     font-size: 30px;
     font-weight: 700;
+    margin-bottom: 2%;
 }
 .Tarafeto-box-download-row{
     display: flex;
     direction: rtl;
-
+    align-items: center;
+    width: 70%;
+    margin-top: 3%;
+}
+.Tarafeto-box-download-row h1{
+    color: #003366;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 0;
+    margin-right: 5%;
 }
 .Tarafeto-box-download-row img{
-    width: 70px;
-    height: 70px;
+    width: 6%;
+    height: 6%;
+}
+.Tarafeto-box-download-row button{
+    display: flex;
+    align-items: center;
+    width: 20%;
+    justify-content: center;
+    margin-right: auto;
+    direction: ltr;
+    font-size: 30px;
+    color: #FFFFFF;
+    background-color: #FF7F50;
+    border-radius: 8px;
+    border: none;
+    padding: 1%;
+    cursor: pointer;
+    transition: all .3s;
+}
+.Tarafeto-box-download-row button:hover{
+    transition: all .3s;
+    background-color: #fb5c21;
+}
+.Tarafeto-box-download-row button img{
+    width: 15%;
+    height: 15%;
+    margin-right: 20%;
 }
 @media only screen and (max-width: 450px) {
     .Tarafeto-header-text{
@@ -42,5 +77,28 @@
     }
     .Tarafeto-header-text p{
         font-size: 22px;
+    }
+    .Tarafeto-box-download h1{
+        font-size: 24px;
+        margin-bottom: 7%;
+    }
+    .Tarafeto-box-download-row h1{
+        margin-bottom: 0;
+        font-size: 18px;
+    }
+    .Tarafeto-box-download-row{
+        width: 100%;
+        margin-top: 10%;
+    }
+    .Tarafeto-box-download-row img{
+        width: 10%;
+        height: 10%;
+    }
+    .Tarafeto-box-download-row button{
+        font-size: 16px;
+        width: 30%;
+    }
+    .Tarafeto-box-download{
+        margin-bottom: 15%;
     }
 }

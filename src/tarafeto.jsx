@@ -201,6 +201,26 @@ const Tarafeto = () => {
                 <h1>فایل شماره ۱</h1>
                 <button><img src={downloadicon} alt="" />دانلود</button>
               </div>
+              <div className="Tarafeto-box-download-row">
+                <img src={flagFrance} alt="Flag iran" />
+                <h1>فایل شماره ۱</h1>
+                <button><img src={downloadicon} alt="" />دانلود</button>
+              </div>
+              <div className="Tarafeto-box-download-row">
+                <img src={flagJapan} alt="Flag iran" />
+                <h1>فایل شماره ۱</h1>
+                <button><img src={downloadicon} alt="" />دانلود</button>
+              </div>
+              <div className="Tarafeto-box-download-row">
+                <img src={flagSaudi} alt="Flag iran" />
+                <h1>فایل شماره ۱</h1>
+                <button><img src={downloadicon} alt="" />دانلود</button>
+              </div>
+              <div className="Tarafeto-box-download-row">
+                <img src={flagUnitedkingdom} alt="Flag iran" />
+                <h1>فایل شماره ۱</h1>
+                <button><img src={downloadicon} alt="" />دانلود</button>
+              </div>
             </div>
             <div className="Madrese-slider">
                     <div className='slider'>
