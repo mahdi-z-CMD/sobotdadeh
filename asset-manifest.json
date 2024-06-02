@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.31721aea.css",
-    "main.js": "/sobotdadeh/static/js/main.3ea31a62.js",
+    "main.css": "/sobotdadeh/static/css/main.1adff698.css",
+    "main.js": "/sobotdadeh/static/js/main.c35e3f46.js",
     "static/media/box2.webp": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.webp",
     "static/media/box1.webp": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.webp",
     "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
@@ -53,6 +53,7 @@
     "static/media/compani_logo.jpg": "/sobotdadeh/static/media/compani_logo.c80ea49b77af30667a7e.jpg",
     "static/media/namad1.png": "/sobotdadeh/static/media/namad1.c4d3320e93ec053c9116.png",
     "static/media/khareji_aue.png": "/sobotdadeh/static/media/khareji_aue.10e350431aa118dd4b39.png",
+    "static/media/italogo.png": "/sobotdadeh/static/media/italogo.ee7e05917370237045b9.png",
     "static/media/Profile_sabtagahi1.svg": "/sobotdadeh/static/media/Profile_sabtagahi1.fd56980990c6b169a4855cd3f04dfd99.svg",
     "static/media/arrowmasir.svg": "/sobotdadeh/static/media/arrowmasir.79f81a4413b55579a44c4fc5c8486f18.svg",
     "static/media/flag-saudi.svg": "/sobotdadeh/static/media/flag-saudi.8316fddb22f47ffd9b4d7b194f5a3ccc.svg",
@@ -127,11 +128,11 @@
     "static/media/hamburger-menu.svg": "/sobotdadeh/static/media/hamburger-menu.2c037419d5d5bc29a7e7759e9a0e037a.svg",
     "static/media/Profile_uploadicon.svg": "/sobotdadeh/static/media/Profile_uploadicon.75357b407fd8d4929fe03b10c70c9a65.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.1115cab952894688597fc2eddad7929d.svg",
-    "main.31721aea.css.map": "/sobotdadeh/static/css/main.31721aea.css.map",
-    "main.3ea31a62.js.map": "/sobotdadeh/static/js/main.3ea31a62.js.map"
+    "main.1adff698.css.map": "/sobotdadeh/static/css/main.1adff698.css.map",
+    "main.c35e3f46.js.map": "/sobotdadeh/static/js/main.c35e3f46.js.map"
   },
   "entrypoints": [
-    "static/css/main.31721aea.css",
-    "static/js/main.3ea31a62.js"
+    "static/css/main.1adff698.css",
+    "static/js/main.c35e3f46.js"
   ]
 }
