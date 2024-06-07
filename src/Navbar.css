@@ -57,8 +57,11 @@ nav{
     color: #194775;
     font-size: 11px;
 }
-.nav-not-home .Navbar-items1 a{
+.nav-not-home .Navbar-items1 a , .nav-not-home .Navbar-items1 span{
     color: #FF7F50;
+}
+.Navbar-items1 span img , .nav-not-home .Navbar-items1 span img{
+  margin-right: 10%;
 }
 .nav-not-home .Navbar-items1 .loc-a2{
     color: #002347;
@@ -116,7 +119,15 @@ nav .Navbar-items2 a img{
     left: 5%;
     flex-direction: row-reverse;
     justify-content: space-evenly;
-    width: 60%;
+    width: 65%;
+}
+.Navbar-items3{
+  display: flex;
+  position: relative;
+  left: 5%;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  width: 35%;
 }
 /* search box */
 .Navbar-items2 input{
@@ -176,7 +187,7 @@ nav .Navbar-items2 a img{
     display: none;
     position: absolute;
     top: calc(100% - 1px);
-    left: calc(20% - 10px);
+    left: calc(0% - 10px);
     padding: 10px;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -201,6 +212,39 @@ nav .Navbar-items2 a img{
   .Navbar-items2:hover .nav-list-hover2 {
     display: block;
   }
+  /* --------------- */
+  .nav-list-hover3 {
+    display: none;
+    position: absolute;
+    top: calc(60% - 1px);
+    left: calc(10.5% - 5px);
+    padding: 3px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .nav-list-hover3 li {
+    list-style: none;
+  }
+  
+  .nav-list-hover3 li a {
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .nav-list-hover3 li a:hover {
+    text-decoration: underline;
+  }
+  
+  .Navbar-items1:hover .nav-list-hover3 {
+    display: block;
+  }
+.Nav-logo{
+  margin-left: 105% !important;
+}
 /* search box icon */
 .Search-nav img{
     width: 24px;

@@ -2,8 +2,9 @@ import './Home.css'
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Soalat from './Soalat';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 // icons
 import mostatil from './Icons/mostatil.svg'
 import Searchiconblack from './Icons/Searchiconblack.svg'
@@ -36,7 +37,8 @@ import hometarafbg from './image/tarafetobg.png'
 // json test for api
 import sliderdata from './slidersdata.json'
 
-export const Homepage = () => {
+export const Homepage = () => {  
+  const { t } = useTranslation();
   // get window width
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -117,50 +119,34 @@ export const Homepage = () => {
   }, []); 
   // this section is for api images ----------------------------------------------
   const [startIndex, setStartIndex] = useState(0);
-  const [autoSlideIntervalId, setAutoSlideIntervalId] = useState(null);
 
-  // Function to start automatic sliding
-  const startAutoSlide = () => {
-    const id = setInterval(() => {
-      const newIndex = (startIndex + 1) % sliderdata.length; // Calculate the next index and loop back to 0 if it reaches the end
-      setStartIndex(newIndex);
-    }, 2000); // Change slide every 1 second
-    setAutoSlideIntervalId(id);
-  };
-
-  // Function to stop automatic sliding
-  const stopAutoSlide = () => {
-    clearInterval(autoSlideIntervalId);
-    setAutoSlideIntervalId(null);
-  };
-
-  // Start automatic sliding when component mounts or when startIndex changes
   useEffect(() => {
-    if (windowWidth <= 500) {
-      startAutoSlide();
-    } else {
-      stopAutoSlide(); // Stop automatic sliding on larger screens
-    }
+    const intervalId = setInterval(() => {
+      setStartIndex(prevIndex => (prevIndex + 1) % sliderdata.length);
+    }, 5000);
 
-    // Clean up function to stop automatic sliding when component unmounts or when startIndex changes
-    return () => {
-      if (autoSlideIntervalId) {
-        clearInterval(autoSlideIntervalId);
-      }
-    };
-  }, [startIndex, windowWidth]); // Re-run effect when startIndex or windowWidth changes
+    return () => clearInterval(intervalId);
+  }, [sliderdata.length]);
 
-  // Function to handle next slide
   const nextSlide = () => {
-    const newIndex = (startIndex + (windowWidth <= 500 ? 1 : 4)) % sliderdata.length; // Calculate the next index and loop back to 0 if it reaches the end
-    setStartIndex(newIndex);
+    setStartIndex(prevIndex => (prevIndex + 1) % sliderdata.length);
   };
 
-  // Function to handle previous slide
   const prevSlide = () => {
-    const newIndex = (startIndex - (windowWidth <= 500 ? 1 : 4) + sliderdata.length) % sliderdata.length; // Calculate the previous index and loop back to the end if it reaches 0
-    setStartIndex(newIndex);
+    setStartIndex(prevIndex => (prevIndex - 1 + sliderdata.length) % sliderdata.length);
   };
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
 
   // Components -----------------
@@ -173,9 +159,8 @@ export const Homepage = () => {
                       <h1>{props.name}</h1>
                       <h2>{props.namecompanie}</h2>
                       <div className='cards-info-row'>
-                        <h3>{props.timerelease}</h3>
                         <div className='cards-info-row-more'>
-                          <h3>نمایش بیشتر</h3>
+                          <h3>{t('مشاهده بیشتر')}</h3>
                           <img src={leftarrowslider} alt="left icon"/>
                         </div>
                       </div>
@@ -196,12 +181,67 @@ export const Homepage = () => {
     };
 
     // Search to companies page
+
+  //  --------------- animation slider ----------------------
+  const scrollContainer = useRef(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startPosition, setStartPosition] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+    const scrollSpeed = 1; // Adjust scroll speed
+    const autoScrollInterval = useRef(null);
+
+    const handleMouseDown = (e) => {
+        setIsDragging(true);
+        setStartPosition(e.pageX - scrollContainer.current.offsetLeft);
+        setScrollLeft(scrollContainer.current.scrollLeft);
+        clearInterval(autoScrollInterval.current); // Stop auto-scroll on drag start
+    };
+
+    const handleMouseLeave = () => {
+        setIsDragging(false);
+        restartAutoScroll(); // Restart auto-scroll on drag end
+    };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+        restartAutoScroll(); // Restart auto-scroll on drag end
+    };
+
+    const handleMouseMove = (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - scrollContainer.current.offsetLeft;
+        const walk = (x - startPosition) * 3; // Multiply by 3 to increase scroll speed
+        scrollContainer.current.scrollLeft = scrollLeft - walk;
+    };
+
+    const startAutoScroll = () => {
+        autoScrollInterval.current = setInterval(() => {
+            if (scrollContainer.current) {
+                scrollContainer.current.scrollLeft += scrollSpeed;
+                if (scrollContainer.current.scrollLeft + scrollContainer.current.clientWidth >= scrollContainer.current.scrollWidth) {
+                    scrollContainer.current.scrollLeft = 0; // Reset to start when end is reached
+                }
+            }
+        }, 20); // Approximately 60 frames per second
+    };
+
+    const restartAutoScroll = () => {
+        clearInterval(autoScrollInterval.current);
+        setTimeout(startAutoScroll, 2000); // Restart after 2 seconds
+    };
+
+    useEffect(() => {
+        startAutoScroll();
+        return () => clearInterval(autoScrollInterval.current); // Clean up on unmount
+    }, []);
+  //  --------------- animation slider ----------------------
   return (
     <div>
       <header>
       <div className="overlay">
         <div className='overlaynotrow'>
-            <h1>تسهیل سرمایه گذاری داده محور</h1> 
+            <h1>{t('تسهیل سرمایه گذاری داده محور')}</h1> 
         </div>
         <div className='overlaym'>
             <div className="overlaym-bg">
@@ -212,67 +252,75 @@ export const Homepage = () => {
       <main>
         <div className='Searchbox-main'>
             <form onSubmit={handleSubmit}>
-              <h1>جستجوی شرکت ها</h1>
+              <h1>{t('جستجوی شرکت ها')}</h1>
               {
                     windowWidth <= 500 ? (
                       <div className='Searchbox-items'>
                             <div className="Searchbox-items-mobile">
                               <img src={Searchiconblack} alt="Search icon" />
-                              <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} name="Search" placeholder='عنوان شرکت....'/>
+                              <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} name="Search" placeholder={t('عنوان شرکت....')}/>
                             </div>
                             <div className="Searchbox-items-mobile">
                               <img src={locicon} alt="Search icon" placeholder="شهر"/>
                               <select name="country" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
-                                <option value="default">انتخاب کشور</option>
-                                <option value="0">ایران</option>
-                                <option value="1">عراق</option>
+                                <option value="default">{t('انتخاب کشور')}</option>
+                                <option value="0">{t('ایران')}</option>
+                                <option value="1">{t('عراق')}</option>
                               </select>
                             </div>
                             <div className="Searchbox-items-mobile">
                               <img src={pageicon} alt="Search icon" />
                               <select name="status" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
-                                <option value="default">وضعیت شرکت</option>
-                                <option value="1">فعال</option>
-                                <option value="0">غیر فعال</option>
+                                <option value="default">{t('وضعیت شرکت')}</option>
+                                <option value="1">{t('فعال')}</option>
+                                <option value="0">{t('غیر فعال')}</option>
                               </select>
                             </div>
-                      <button type="submit">جستجو</button>
+                      <button type="submit">{t('جستجو')}</button>
                   </div>  
                     ) : (
                       <div className='Searchbox-items'>
                         <img src={Searchiconblack} alt="Search icon" />
-                        <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} name="Search" placeholder='عنوان شرکت....'/>
+                        <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} name="Search" placeholder={t('عنوان شرکت....')}/>
                         <img src={locicon} alt="Search icon" placeholder="شهر"/>
                         <select name="status" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
-                        <option value="default">انتخاب کشور</option>
-                        <option value="0">ایران</option>
-                        <option value="1">عراق</option>
+                        <option value="default">{t('انتخاب کشور')}</option>
+                        <option value="0">{t('ایران')}</option>
+                        <option value="1">{t('عراق')}</option>
                         </select>
                         <img src={pageicon} alt="Search icon" />
                         <select name="status" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
-                        <option value="default">وضعیت شرکت</option>
-                        <option value="1">فعال</option>
-                        <option value="0">غیر فعال</option>
+                        <option value="default">{t('وضعیت شرکت')}</option>
+                        <option value="1">{t('فعال')}</option>
+                        <option value="0">{t('غیر فعال')}</option>
                         </select>
                         <img src={searchicon2} alt="Search icon" className='searchicon2'/>
-                        <button type="submit">جستجو</button>
+                        <button type="submit">{t('جستجو')}</button>
                     </div>  
                     )
                   } 
             </form>       
         </div>
         <div className='slider'>
-          <div className='arrow-card'>
-                <img src={expandright} alt="right icon" className='arrow-card-right' onClick={nextSlide}/>
-                <img src={expandleft} alt="left icon" className='arrow-card-left' onClick={prevSlide}/>
-          </div>
-            <h1>برترین کسب و کار ها</h1>
-            <div className='card-box'>
-                {sliderdata.slice(startIndex, startIndex + (windowWidth <= 500 ? 1 : windowWidth <= 1500 ? 3 : 4)).map((key, index) => (
-              <Card name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card>
-            ))}
+            <h1>{t('برترین کسب و کار ها')}</h1>
+            <div
+                className='card-box'
+                ref={scrollContainer}
+                onMouseDown={handleMouseDown}
+                onMouseLeave={handleMouseLeave}
+                onMouseUp={handleMouseUp}
+                onMouseMove={handleMouseMove}
+            >
+                {sliderdata.map((item, index) => (
+                    <Card
+                        key={index}
+                        name={item.name}
+                        namecompanie={item.description}
+                        img={item.imageUrl}
+                        bookmark=""
+                    />
+                ))}
             </div>
-          
         </div>
       </main>
       <div className="home-tarafeto">
@@ -280,34 +328,26 @@ export const Homepage = () => {
         windowWidth >= 500 ? (<img src={hometarafbg} alt="tarafeto image" />) : null
       }
       <div className="home-tarafeto-text">
-        <h1>طرف قراردادتو بشناس !</h1>
-        <p>
-لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
-        <Link to={'/tarafeto'}>بیشتر بخوانید...</Link>
+        <h1>{t('طرف قراردادتو بشناس !')}</h1>
+        <p>{t('در ثبات تلاش می‌کنیم با رائله جامع‌ترین اطلاعات سرمایه‌گذاری مسیری مناسب را برای کسب و کار خود ترسیم کنید.')}</p>
+        <Link to={'/tarafeto'}>{t('بیشتر بخوانید...')}</Link>
       </div>
     </div>
-      <div className="majale-header">
-        <h1>مجله ثبات‌داده</h1>
-        {
-          windowWidth <= 500 ? (null):(<h2>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است</h2>)
-        }
-        
-      </div>
       <div className="kharid">
-        <h1>کسب و کار پایدار با ثبات‌داده ...</h1>
-        <h2>ارائه بهترین شرکت ها در همه حوزه‌ها</h2>
-        <a href="#">خرید اشتراک</a>
+        <h1>{t('کسب و کار پایدار با ثبات‌داده ...')}</h1>
+        <h2>{t('ارائه بهترین شرکت ها در همه حوزه‌ها')}</h2>
+        <a href="#">{t('خرید اشتراک')}</a>
       </div>
       <div className={`box-khadamat ${scrolled ? 'scrolled' : ''}`}>
       {
-          windowWidth <= 500 ? (<h1 className='box-khadamat-text-h1'>{scrolled ? 'باکس خدمات 2' : 'باکس خدمات'}</h1>):null
+          windowWidth <= 500 ? (<h1 className='box-khadamat-text-h1'>{scrolled ? t('باکس خدمات 2') : t('باکس خدمات')}</h1>):null
       }
       <div className="box-khadamat-img">
         <img src={scrolled ? boximage2 : boximage1} alt="box image" />
       </div>
       <div className="box-khadamat-text">
         {
-            windowWidth >= 500 ? (<h1>{scrolled ? 'باکس خدمات 2' : 'باکس خدمات'}</h1>):null
+            windowWidth >= 500 ? (<h1>{scrolled ? t('باکس خدمات 2') : t('باکس خدمات')}</h1>):null
         }
         <p>{scrolled ? 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است' : 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است'}</p>  
         <img src={scrolldownicon} alt="scroll icon" className='scrollicon-khadamat'/>
@@ -315,66 +355,73 @@ export const Homepage = () => {
     </div>
     <div className="hadaf-sobot">
         {
-          windowWidth >= 500 ? null : (<h1>هدف از ثبات‌داده</h1>)
+          windowWidth >= 500 ? null : (<h1>{t('هدف از ثبات‌داده')}</h1>)
         }
       <img src={hadafimg} alt="hadaf image" />
       <div className="hadaf-sobot-text">
         {
-          windowWidth <= 500 ? null : (<h1>هدف از ثبات‌داده</h1>)
+          windowWidth <= 500 ? null : (<h1>{t('هدف از ثبات‌داده')}</h1>)
         }
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+        <p>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد')}</p>
       </div>
     </div>
     <div className='masir'>
           <div className='masir-detail'>
                   <div className='masir-header'>
-                    <h1>مسیر همکاری با شرکت ها در ثبات‌داده</h1>
+                    <h1>{t('مسیر همکاری با شرکت ها در ثبات‌داده')}</h1>
                   </div>
                   <div className='masir-middle'>
                     <div className='masir-middle-items'>
                         <img src={masir1icon} alt="expand down icon" width="100%" height="73px"/>
-                        <h1>عضویت در ثبات‌داده</h1>
-                        <p>با ثبت اطلاعات موردنظرتان در سایت ثبات‌داده قدم اول برای پیدا کردن شرکت مناسب خود را بردارید.</p>
+                        <h1>{t('عضویت در ثبات‌داده')}</h1>
+                        <p>{t('با ثبت اطلاعات موردنظرتان در سایت ثبات‌داده قدم اول برای پیدا کردن شرکت مناسب خود را بردارید.')}</p>
                     </div>
                     <img src={arrowmasiricon} alt="expand down icon" className='arrow-icon1'/>
                     <div className='masir-middle-items'>
                         <img src={masir2icon} alt="expand down icon" width="100%" height="73px"/>
-                        <h1>ثبت درخواست</h1>
-                        <p>با ثبت یک درخواست کامل در سایت به پیدا کردن شرکت مناسب کار خود نزدیک خواهید شد.</p>
+                        <h1>{t('ثبت درخواست')}</h1>
+                        <p>{t('با ثبت یک درخواست کامل در سایت به پیدا کردن شرکت مناسب کار خود نزدیک خواهید شد.')}</p>
                     </div>
                     <img src={arrowmasiricon} alt="expand down icon" className='arrow-icon2'/>
                     <div className='masir-middle-items'>
                         <img src={masir3icon} alt="expand down icon" width="100%" height="73px"/>
-                        <h1>ارتباط با شرکت</h1>
-                        <p>مدتی پس از ثبت درخواست وخرید اشتراک شما به شرکت مدنظر متصل خواهید شد.</p>
+                        <h1>{t('ارتباط با شرکت')}</h1>
+                        <p>{t('مدتی پس از ثبت درخواست وخرید اشتراک شما به شرکت مدنظر متصل خواهید شد.')}</p>
                     </div>
                   </div>
           </div>
+      </div>
+      <div className="majale-header">
+        <h1>{t('مجله ثبات‌داده')}</h1>
+        {
+          windowWidth <= 500 ? (null):(<h2>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است')}</h2>)
+        }
+        
       </div>
       <div className="majale-content">
         <div className="majale-soton">
           <div className="majale-box">
             <img src={imageURL1} alt="majale image" width="50%" height="100%"/>
             {
-              windowWidth <= 500 ? (<h1>عنوان مجله</h1>) : null
+              windowWidth <= 500 ? (<h1>{t('عنوان مجله')}</h1>) : null
             }
             <div className="majale-text">
               {
                 windowWidth <= 500 ? null : (<p>{majale.des}</p>) 
               }
-              <span>مشاهده بیشتر<img src={windowWidth <=500 ? leftarrowslider : expanddown} alt="expand donw" /></span>
+              <span>{t('مشاهده بیشتر')}<img src={windowWidth <=500 ? leftarrowslider : expanddown} alt="expand donw" /></span>
             </div>
           </div>
           <div className="majale-box">
             <img src={imageURL2} alt="majale image" width="50%" height="100%"/>
             {
-              windowWidth <= 500 ? (<h1>عنوان مجله</h1>) : null
+              windowWidth <= 500 ? (<h1>{t('عنوان مجله')}</h1>) : null
             }
             <div className="majale-text">
               {
                 windowWidth <= 500 ? null : (<p>{majale.des}</p>) 
               }
-              <span>مشاهده بیشتر<img src={windowWidth <=500 ? leftarrowslider : expanddown} alt="expand donw" /></span>
+              <span>{t('مشاهده بیشتر')}<img src={windowWidth <=500 ? leftarrowslider : expanddown} alt="expand donw" /></span>
             </div>
           </div>
           {
@@ -382,10 +429,10 @@ export const Homepage = () => {
               <div className="majale-box">
                 <img src={imageURL3} alt="majale image" width="50%" height="100%"/>
                 {
-                  windowWidth <= 500 ? (<h1>عنوان مجله</h1>) : null
+                  windowWidth <= 500 ? (<h1>{t('عنوان مجله')}</h1>) : null
                 }
                 <div className="majale-text">
-                  <span>مشاهده بیشتر<img src={leftarrowslider} alt="expand donw" /></span>
+                  <span>{t('مشاهده بیشتر')}<img src={leftarrowslider} alt="expand donw" /></span>
                 </div>
               </div>
             ) : null
@@ -398,7 +445,7 @@ export const Homepage = () => {
               <img src={imageURL3} alt="majale image" width="100%" height="60%"/>
               <div className="majale-text">
                 <p>{majale.des}</p>
-                <span>مشاهده بیشتر<img src={expanddown} alt="expand donw" /></span>
+                <span>{t('مشاهده بیشتر')}<img src={expanddown} alt="expand donw" /></span>
               </div>
             </div>
           </div>

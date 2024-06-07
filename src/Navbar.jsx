@@ -14,8 +14,12 @@ import loginicon from './Icons/loginicon.svg'
 import burgericon from './Icons/hamburger-menu.svg'
 import burgericonclose from './Icons/hamburger-menu-close.svg'
 import expandmore_mobile from './Icons/expandmore_mobile.svg'
+import { useTranslation } from 'react-i18next';
 
+// translate 
 export const Navbar = () => {
+  const { i18n } = useTranslation();
+  const { t } = useTranslation();
    // get window width
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
@@ -105,6 +109,37 @@ export const Navbar = () => {
   const handleItemClick2 = (e) => {
     e.stopPropagation(); // Prevent click event from propagating to the parent link
   };
+  // nav 3
+
+  const [isHovered3, setHovered3] = useState(false);
+  const [isListHovered3, setListHovered3] = useState(false);
+
+  const handleMouseEnter3 = () => {
+    setHovered3(true);
+  };
+
+  const handleMouseLeave3 = () => {
+    setHovered3(false);
+  };
+
+  const handleListMouseEnter3 = () => {
+    setListHovered3(true);
+  };
+
+  const handleListMouseLeave3 = () => {
+    setListHovered3(false);
+  };
+
+  const handleItemClick3 = (lng) => {
+    console.log(`Changing language to: ${lng}`);
+    if (typeof i18n.changeLanguage === 'function') {
+      i18n.changeLanguage(lng);
+    } else {
+      console.error('i18n.changeLanguage is not a function');
+    }
+    setHovered3(false);
+    setListHovered3(false);
+  };
   return (
     <nav className={isHomepage ? '' : 'nav-not-home'}>
       {/* <div className="accept-cookies">
@@ -119,33 +154,34 @@ export const Navbar = () => {
             {
               mobilenavbar ? (
                 <div className='Nav-mobile'>
-                  <Link onClick={navmobileclick} to={'/'}>صفحه اصلی</Link>
-                  <span onClick={navmobilekhadamatclick} className={mobilekhadamat ? 'Nav-mobile-khadamat-a' : ''}>خدمات ما<img src={expandmoreicon} alt="expand more"/></span>
+                  <Link onClick={navmobileclick} to={'/'}>{t('صفحه اصلی')}</Link>
+                  <span onClick={navmobilekhadamatclick} className={mobilekhadamat ? 'Nav-mobile-khadamat-a' : ''}>{t('خدمات ما')}<img src={expandmoreicon} alt="expand more"/></span>
                     {
                       mobilekhadamat ? (
                         <div className="Nav-mobile-khadamat-items">
-                          <Link to='/madreseeghtesad' onClick={navmobileclick}>کسب و کار تو</Link>
-                          <Link to='/companies' onClick={navmobileclick}>استعلام شرکت‌ها</Link>
-                          <Link to='/shenakhtrisk' onClick={navmobileclick}>تخمین ریسک</Link>
-                          <Link to='/tarafeto' onClick={navmobileclick}>طرف قرارداد تو بشناس</Link>
+                          <Link to='/madreseeghtesad' onClick={navmobileclick}>{t('کسب و کار تو')}</Link>
+                          <Link to='/companies' onClick={navmobileclick}>{t('استعلام شرکت‌ها')}</Link>
+                          <Link to='/shenakhtrisk' onClick={navmobileclick}>{t('تخمین ریسک')}</Link>
+                          <Link to='/tarafeto' onClick={navmobileclick}>{t('طرف قرارداد تو بشناس')}</Link>
                         </div>
                       ) : null
                     }
-                  <span onClick={navdarbareclick} className={mobiledarbare ? 'Nav-mobile-khadamat-a' : ''}>درباره ثبات‌داده<img src={expandmoreicon} alt="expand more"/></span>
+                  <span onClick={navdarbareclick} className={mobiledarbare ? 'Nav-mobile-khadamat-a' : ''}>{t('درباره ثبات‌داده')}<img src={expandmoreicon} alt="expand more"/></span>
                   {
                     mobiledarbare ? (
                       <div className="Nav-mobile-khadamat-items">
-                          <Link to='/ghavanin' onClick={navmobileclick}>قوانین و مقررات</Link>
-                          <Link to='/aboutus' onClick={navmobileclick}>درباره ما</Link>
-                          <Link to='/soalatmotadavel' onClick={navmobileclick}>سوالات متداول</Link>
-                          <Link to='/contact' onClick={navmobileclick}>تماس با ما</Link>
+                          <Link to='/ghavanin' onClick={navmobileclick}>{t('قوانین و مقررات')}</Link>
+                          <li><Link to='/blog' onClick={handleItemClick2}>{t('مجله ثبات‌داده')}</Link></li>
+                          <Link to='/soalatmotadavel' onClick={navmobileclick}>{t('سوالات متداول')}</Link>
+                          <Link to='/aboutus' onClick={navmobileclick}>{t('درباره ما')}</Link>
+                          <Link to='/contact' onClick={navmobileclick}>{t('تماس با ما')}</Link>
                         </div>
                     ) : null
                   }
-                  <Link onClick={navmobileclick} to={'/khareji'}>شرکت‌های خارجی</Link>
+                  <Link onClick={navmobileclick} to={'/khareji'}>{t('شرکت‌های خارجی')}</Link>
                   <hr />
                   <div className="Nav-mobile-login">
-                    <Link onClick={navmobileclick} to={'/login'}>{isAuthenticated() ? "پروفایل" : "ورود/ثبت نام"}<img src={loginicon_nothome} alt="login icon" /></Link>
+                    <Link onClick={navmobileclick} to={'/login'}>{isAuthenticated() ? t('پروفایل') : t('ورود/ثبت نام')}<img src={loginicon_nothome} alt="login icon" /></Link>
                   </div>
                   <div className="Nav-mobile-language">
                     <Link>فارسی<img src={expandmore_mobile} alt="" /></Link>
@@ -156,19 +192,19 @@ export const Navbar = () => {
             </>) : (<>
               <div className="Navbar-items1">
         <a href="#" className={isHomepage ? 'loc-a1' : 'loc-a2'}>Fa<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></a>
-        <Link to={'/Login'}>{isAuthenticated() ? "پروفایل" : "ورود/ثبت نام"}<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
+        <Link to={'/Login'}>{isAuthenticated() ? t('پروفایل') : t('ورود/ثبت نام')}<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
       </div>
       <div className="Navbar-items2">
           {
             windowWidth >= 1450 ? (<Link to='khareji'>
-            شرکت‌های خارجی
+            {t('شرکت‌های خارجی')}
             </Link>) : null
           }
         <span
            onMouseEnter={handleMouseEnter2}
            onMouseLeave={handleMouseLeave2}
         >
-          درباره ثبات‌داده
+          {t('درباره ثبات‌داده')}
           <img src={isHomepage ? expandmoreicon : expandmore_nothome} alt="expand down" width="24px" height="24px" />
         </span>
         {(isHovered2 || isListHovered2) && (
@@ -177,10 +213,11 @@ export const Navbar = () => {
             onMouseEnter={handleListMouseEnter2}
             onMouseLeave={handleListMouseLeave2}
           >
-            <li><Link to='/ghavanin' onClick={handleItemClick2}>قوانین و مقررات</Link></li>
-            <li><Link to='/aboutus' onClick={handleItemClick2}>درباره ما</Link></li>
-            <li><Link to='/soalatmotadavel' onClick={handleItemClick2}>سوالات متداول</Link></li>
-            <li><Link to='/contact' onClick={handleItemClick2}>تماس با ما</Link></li>
+            <li><Link to='/ghavanin' onClick={handleItemClick2}>{t('قوانین و مقررات')}</Link></li>
+            <li><Link to='/blog' onClick={handleItemClick2}>{t('مجله ثبات‌داده')}</Link></li>
+            <li><Link to='/soalatmotadavel' onClick={handleItemClick2}>{t('سوالات متداول')}</Link></li>
+            <li><Link to='/aboutus' onClick={handleItemClick2}>{t('درباره ما')}</Link></li>
+            <li><Link to='/contact' onClick={handleItemClick2}>{t('تماس با ما')}</Link></li>
           </ul>
         )}
         {/* next list items */}
@@ -188,7 +225,7 @@ export const Navbar = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          خدمات ما
+          {t('خدمات ما')}
           <img src={isHomepage ? expandmoreicon : expandmore_nothome} alt="expand down" width="24px" height="24px" />
         </span>
         {(isHovered || isListHovered) && (
@@ -197,55 +234,74 @@ export const Navbar = () => {
             onMouseEnter={handleListMouseEnter}
             onMouseLeave={handleListMouseLeave}
           >
-          <li><Link to='/madreseeghtesad' onClick={handleItemClick2}>کسب و کار تو</Link></li>
-          <li><Link to='/companies' onClick={handleItemClick2}>استعلام شرکت‌ها</Link></li>
+          <li><Link to='/madreseeghtesad' onClick={handleItemClick2}>{t('کسب و کار تو')}</Link></li>
+          <li><Link to='/companies' onClick={handleItemClick2}>{t('استعلام شرکت‌ها')}</Link></li>
           {
-            windowWidth <= 1450 ? (<li><Link to='/khareji' onClick={handleItemClick2}>شرکت‌های خارجی</Link></li>) : null
+            windowWidth <= 1450 ? (<li><Link to='/khareji' onClick={handleItemClick2}>{t('شرکت‌های خارجی')}</Link></li>) : null
           }
-          <li><Link to='/shenakhtrisk' onClick={handleItemClick2}>تخمین ریسک</Link></li>
+          <li><Link to='/shenakhtrisk' onClick={handleItemClick2}>{t('تخمین ریسک')}</Link></li>
           </ul>
         )}
         <Link to='/'>
-        صفحه اصلی
+        {t('صفحه اصلی')}
         </Link>
         <div className='Search-nav'>
           <img src={isHomepage ? Searchicon : Searchicon_nothome} alt="Search icon" />
-          <input type="text" placeholder='جست‌وجو در ثبات‌داده....'/>
+          <input type="text" placeholder={t('جست‌وجو در ثبات‌داده....')}/>
         </div>
       </div>
       {
-        windowWidth <= 1200 ? null : (<Link to={'/'}><img src={logo} alt="Logo" width="61px" height="62px"/></Link>)
+        windowWidth <= 1200 ? null : (<Link to={'/'}><img className='Nav-logo' src="https://sobotdadeh.com/bestco/logost.png" alt="Logo" width="101px" height="62px"/></Link>)
       }
             </>)
           }
         </>) : (<>
         <div className="Navbar-items1">
-        <span className={isHomepage ? 'loc-a1' : 'loc-a2'}>Fa<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></span>
-        <Link to={'/Login'}>{isAuthenticated() ? "پروفایل" : "ورود/ثبت نام"}<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
+           {/* select language */}
+            <span
+              onMouseEnter={handleMouseEnter3}
+              onMouseLeave={handleMouseLeave3}
+            >
+              {i18n.language === 'fa' ? 'فارسی' : 'العربية'}
+              <img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px" />
+            </span>
+            {(isHovered3 || isListHovered3) && (
+              <ul
+                className="nav-list-hover3"
+                onMouseEnter={handleListMouseEnter3}
+                onMouseLeave={handleListMouseLeave3}
+              >
+                <li><a href="#" onClick={() => handleItemClick3('fa')}>فارسی</a></li>
+                <li><a href="#" onClick={() => handleItemClick3('ar')}>العربية</a></li>
+              </ul>
+            )}
+          {/* select language */}
+        <Link to={'/Login'}>{isAuthenticated() ? t('پروفایل') : t('ورود/ثبت نام')}<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
       </div>
       <div className="Navbar-items2">
-          {
-            windowWidth >= 1450 ? (<Link to='khareji'>
-            شرکت‌های خارجی
-            </Link>) : null
-          }
-        <span
+      <span
            onMouseEnter={handleMouseEnter2}
            onMouseLeave={handleMouseLeave2}
         >
-          درباره ثبات‌داده
+          {t('درباره ثبات‌داده')}
           <img src={isHomepage ? expandmoreicon : expandmore_nothome} alt="expand down" width="24px" height="24px" />
         </span>
+          {
+            windowWidth >= 1450 ? (<Link to='khareji'>
+            {t('شرکت‌های خارجی')}
+            </Link>) : null
+          }
         {(isHovered2 || isListHovered2) && (
           <ul
             className="nav-list-hover2"
             onMouseEnter={handleListMouseEnter2}
             onMouseLeave={handleListMouseLeave2}
           >
-            <li><Link to='/ghavanin' onClick={handleItemClick2}>قوانین و مقررات</Link></li>
-            <li><Link to='/aboutus' onClick={handleItemClick2}>درباره ما</Link></li>
-            <li><Link to='/soalatmotadavel' onClick={handleItemClick2}>سوالات متداول</Link></li>
-            <li><Link to='/contact' onClick={handleItemClick2}>تماس با ما</Link></li>
+            <li><Link to='/ghavanin' onClick={handleItemClick2}>{t('قوانین و مقررات')}</Link></li>
+            <li><Link to='/blog' onClick={handleItemClick2}>{t('مجله ثبات‌داده')}</Link></li>
+            <li><Link to='/soalatmotadavel' onClick={handleItemClick2}>{t('سوالات متداول')}</Link></li>
+            <li><Link to='/aboutus' onClick={handleItemClick2}>{t('درباره ما')}</Link></li>
+            <li><Link to='/contact' onClick={handleItemClick2}>{t('تماس با ما')}</Link></li>
           </ul>
         )}
         {/* next list items */}
@@ -253,7 +309,7 @@ export const Navbar = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          خدمات ما
+          {t('خدمات ما')}
           <img src={isHomepage ? expandmoreicon : expandmore_nothome} alt="expand down" width="24px" height="24px" />
         </span>
         {(isHovered || isListHovered) && (
@@ -262,25 +318,25 @@ export const Navbar = () => {
             onMouseEnter={handleListMouseEnter}
             onMouseLeave={handleListMouseLeave}
           >
-          <li><Link to='/madreseeghtesad' onClick={handleItemClick2}>کسب و کار تو</Link></li>
-          <li><Link to='/companies' onClick={handleItemClick2}>استعلام شرکت‌ها</Link></li>
+          <li><Link to='/madreseeghtesad' onClick={handleItemClick2}>{t('کسب و کار تو')}</Link></li>
+          <li><Link to='/companies' onClick={handleItemClick2}>{t('استعلام شرکت‌ها')}</Link></li>
           {
-            windowWidth <= 1450 ? (<li><Link to='/khareji' onClick={handleItemClick2}>شرکت‌های خارجی</Link></li>) : null
+            windowWidth <= 1450 ? (<li><Link to='/khareji' onClick={handleItemClick2}>{t('شرکت‌های خارجی')}</Link></li>) : null
           }
-          <li><Link to='/shenakhtrisk' onClick={handleItemClick2}>تخمین ریسک</Link></li>
-          <li><Link to='/tarafeto' onClick={navmobileclick}>طرف قرارداد تو بشناس</Link></li>
+          <li><Link to='/shenakhtrisk' onClick={handleItemClick2}>{t('تخمین ریسک')}</Link></li>
+          <li><Link to='/tarafeto' onClick={navmobileclick}>{t('طرف قرارداد تو بشناس')}</Link></li>
           </ul>
         )}
         <Link to='/'>
-        صفحه اصلی
+        {t('صفحه اصلی')}
         </Link>
         <div className='Search-nav'>
           <img src={isHomepage ? Searchicon : Searchicon_nothome} alt="Search icon" />
-          <input type="text" placeholder='جست‌وجو در ثبات‌داده....'/>
+          <input type="text" placeholder={t('جست‌وجو در ثبات‌داده....')}/>
         </div>
       </div>
       {
-        windowWidth <= 1200 ? null : (<Link to={'/'}><img src={logo} alt="Logo" width="61px" height="62px"/></Link>)
+        windowWidth <= 1200 ? null : (<Link to={'/'}><img className='Nav-logo' src="https://sobotdadeh.com/bestco/logost.png" alt="Logo" width="111px" height="72px"/></Link>)
       }
         </>)
       }

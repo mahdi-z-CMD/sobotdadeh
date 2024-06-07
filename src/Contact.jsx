@@ -53,7 +53,7 @@ const Contact = () => {
                     <div className="Contact-loc-row">
                         <img src={Contactemailicon} alt="" />
                         <h1>ایمیل:</h1>
-                        <span>info@sobotdadeh.ir</span>
+                        <span>sobotdadeh@gmail.com</span>
                     </div>
                     <div className="Contact-loc-row">
                         <img src={Contactwarninglicon} alt="" />

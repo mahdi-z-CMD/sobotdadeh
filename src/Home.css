@@ -70,10 +70,47 @@ header{
 .overlaynotrow h1{
     color: white;
     font-size: 52px;
+    animation: blurAnimationhome 1s ease-out;
+    will-change: filter; /* Hint to browsers for optimization */
 }
 .overlaynotrow h2{
     color: white;
 }
+@keyframes blurAnimationhome {
+    0% {
+        filter: blur(10px);
+      }
+      10% {
+        filter: blur(9px);
+      }
+      20% {
+        filter: blur(8px);
+      }
+      30% {
+        filter: blur(7px);
+      }
+      40% {
+        filter: blur(6px);
+      }
+      50% {
+        filter: blur(5px);
+      }
+      60% {
+        filter: blur(4px);
+      }
+      70% {
+        filter: blur(3px);
+      }
+      80% {
+        filter: blur(2px);
+      }
+      90% {
+        filter: blur(1px);
+      }
+      100% {
+        filter: blur(0);
+      }
+  }
 .overlaym{
     width: 30%;
     direction: rtl;
@@ -169,7 +206,8 @@ main{
 }
 
 /* slider  */
-.slider{
+/* animation slider */
+.slider {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -178,39 +216,40 @@ main{
     height: auto;
     justify-content: none !important;
 }
-@keyframes blurAndFadeOut {
-    0% {
-      filter: blur(5px);
-      opacity: 0;
-    }
-    100% {
-      filter: blur(0px);
-      opacity: 1;
-    }
-  }
-.slider h1{
+
+.slider h1 {
     font-size: 26px;
     font-weight: 700;
     color: #3D3D3D;
 }
-.card-box{
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
+
+.card-box {
+    overflow-x: hidden; /* Allow horizontal scrolling */
+    white-space: nowrap;
     width: 100%;
     height: auto;
+    display: flex;
+    justify-content: flex-start;
+    direction: ltr;
+    padding: 0 5vw; /* Add padding to create space for blurred areas */
+    position: relative; /* Ensure relative positioning for the pseudo-elements */
+    cursor: grab; /* Indicate draggable area */
 }
-.cards{
-    overflow: hidden;
-    flex-basis: 23.5%;
-    width: 264px;
+
+.card-box:active {
+    cursor: grabbing; /* Change cursor when dragging */
+}
+
+.cards {
+    flex-shrink: 0;
+    width: 25%;
     height: auto;
     border: 2px solid #002347;
     border-radius: 20px;
-    margin-top: 4%;
-    margin-bottom: 4%;
-    animation: blurAndFadeOut 0.5s forwards;
+    margin: 4% 2%;
 }
+
+  /* animation slider */
 .cards h1{
     font-size: 18px;
     font-weight: 500;
@@ -218,7 +257,7 @@ main{
 .cards .bookmarkicon{
     position: relative;
     top: 5%;
-    margin-right: 85%;
+    margin-left: 5%;
     cursor: pointer;
     z-index: 2;
 }
@@ -283,6 +322,7 @@ main{
     align-items: center;
     z-index: 2;
     cursor: pointer;
+    margin-right: auto;
 }
 .cards-info-row h3{
     font-size: 12px;
@@ -456,7 +496,7 @@ main{
     box-shadow: 0px 0px 24px 0px #2C156199;
 }
 .home-tarafeto img{
-    width: 50%;
+    width: 30%;
     height: 50vh;
 }
 .home-tarafeto-text{

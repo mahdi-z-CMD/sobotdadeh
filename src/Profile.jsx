@@ -97,19 +97,21 @@ const Profile = () => {
     // section mobile page
     const [mobilepage, setMobilepage] = useState(0);
     
-    const [selectedProvince, setSelectedProvince] = useState('');
+    const [profileCity, setProfileCity] = useState('default');
+
+    // List of provinces
     const provinces = [
-        "البرز", "اردبیل", "بوشهر", "چهارمحال و بختیاری", "آذربایجان شرقی",
-        "اصفهان", "فارس", "گیلان", "گلستان", "همدان",
-        "هرمزگان", "ایلام", "کرمان", "کرمانشاه", "خوزستان",
-        "کهگیلویه و بویراحمد", "کردستان", "لرستان", "مرکزی", "مازندران",
-        "خراسان شمالی", "قزوین", "قم", "خراسان رضوی", "سمنان",
-        "سیستان و بلوچستان", "خراسان جنوبی", "تهران", "آذربایجان غربی", "یزد", "زنجان"
+        "آذربایجان شرقی", "آذربایجان غربی", "اردبیل", "اصفهان", "البرز",
+        "ایلام", "بوشهر", "تهران", "چهارمحال و بختیاری", "خراسان جنوبی",
+        "خراسان رضوی", "خراسان شمالی", "خوزستان", "زنجان", "سمنان",
+        "سیستان و بلوچستان", "فارس", "قزوین", "قم", "کردستان",
+        "کرمان", "کرمانشاه", "کهگیلویه و بویراحمد", "گلستان", "لرستان",
+        "گیلان", "مازندران", "مرکزی", "هرمزگان", "همدان", "یزد"
     ];
 
     const handleChange = (event) => {
-    setSelectedProvince(event.target.value);
-  };
+        setProfileCity(event.target.value);
+    };
     // section mobile page
     // see the password function 
     const show1 = () => {
@@ -400,15 +402,34 @@ const Profile = () => {
     //  EDITING USER INFO
 
     // Event handler for date input change
-    const [isValidDate, setIsValidDate] = useState(true);
+    const [isValidDate, setIsValidDate] = useState(true); // Define isValidDate state
+
     const handleDateChange = (e) => {
         const value = e.target.value;
         // Allow only numbers and slash character
         const sanitizedValue = value.replace(/[^0-9/]/g, '');
         setProfiledate(sanitizedValue);
-        // Check if the input matches the pattern
-        setIsValidDate(/^\d{4}\/\d{2}\/\d{2}$/.test(sanitizedValue));
-      };
+        
+        // Check if the input matches the pattern YYYY/MM/DD
+        const isValidFormat = /^\d{4}\/\d{2}\/\d{2}$/.test(sanitizedValue);
+
+        if (isValidFormat) {
+            // Split the date into year, month, and day parts
+            const [year, month, day] = sanitizedValue.split('/').map(Number);
+            
+            // Check if the month is within the range of 1 to 12
+            const isValidMonth = month >= 1 && month <= 12;
+            
+            // Check if the day is within the range of 1 to 31 (considering all months for now)
+            const isValidDay = day >= 1 && day <= 31;
+            
+            // If both month and day are valid, set isValidDate to true
+            setIsValidDate(isValidMonth && isValidDay);
+        } else {
+            setIsValidDate(false); // If the format is invalid, set isValidDate to false
+        }
+    };
+    
     // GET BOOKMARK COMPANY irani
     const [bookmarkCompaniesData, setBookmarkCompaniesData] = useState([]);
 
@@ -440,7 +461,7 @@ const Profile = () => {
 
     // GET BOOKMARK COMPANY iraqi
     const [bookmarkCompaniesData2, setBookmarkCompaniesData2] = useState([]);
-
+    const hasBookmarks = bookmarkCompaniesData.length > 0 || bookmarkCompaniesData2.length > 0;
     const getBookmarkCompanies2 = async () => {
         try {
             const apiKey = Cookies.get('api_key');
@@ -648,68 +669,21 @@ const Profile = () => {
                   <label for="profile-address">آدرس</label>
               </div>
               <div className="Profile-content-row">
-                  <select name="" id="profile-city" value={profilecity} required {...(profileedit === false ? { disabled: true } : {})} >
-                      <option value="default">انتخاب</option>
-                      <option value="tehran">تهران</option>
-                      <option value="mashhad">مشهد</option>
-                      <option value="isfahan">اصفهان</option>
-                      <option value="karaj">کرج</option>
-                      <option value="tabriz">تبریز</option>
-                      <option value="shiraz">شیراز</option>
-                      <option value="qom">قم</option>
-                      <option value="ahvaz">اهواز</option>
-                      <option value="kermanshah">کرمانشاه</option>
-                      <option value="urmia">ارومیه</option>
-                      <option value="rasht">رشت</option>
-                      <option value="zahedan">زاهدان</option>
-                      <option value="hamedan">همدان</option>
-                      <option value="kerman">کرمان</option>
-                      <option value="yazd">یزد</option>
-                      <option value="ardabil">اردبیل</option>
-                      <option value="bandar_abbas">بندرعباس</option>
-                      <option value="arak">اراک</option>
-                      <option value="eslamshahr">اسلام‌شهر</option>
-                      <option value="neyshabur">نیشابور</option>
-                      <option value="babol">بابل</option>
-                      <option value="amol">آمل</option>
-                      <option value="sari">ساری</option>
-                      <option value="qazvin">قزوین</option>
-                      <option value="khorramabad">خرم‌آباد</option>
-                      <option value="qarchak">قرچک</option>
-                      <option value="borujerd">بروجرد</option>
-                      <option value="mahabad">مهاباد</option>
-                      <option value="sanandaj">سنندج</option>
-                      <option value="gorgan">گرگان</option>
-                      <option value="shahriar">شهریار</option>
-                      <option value="varamin">ورامین</option>
-                      <option value="bandar_anzali">بندر انزلی</option>
-                      <option value="behshahr">بهشهر</option>
-                      <option value="zanjan">زنجان</option>
-                      <option value="saveh">ساوه</option>
-                      <option value="maragheh">مراغه</option>
-                      <option value="semnan">سمنان</option>
-                      <option value="shirvan">شیروان</option>
-                      <option value="gonbad_kavus">گنبدکاووس</option>
-                      <option value="andimeshk">اندیمشک</option>
-                      <option value="abadan">آبادان</option>
-                      <option value="dezful">دزفول</option>
-                      <option value="masjed_soleyman">مسجد سلیمان</option>
-                      <option value="shush">شوش</option>
-                      <option value="ilam">ایلام</option>
-                      <option value="malayer">ملایر</option>
-                      <option value="sarpol_zahab">سرپل ذهاب</option>
-                      <option value="kangavar">کنگاور</option>
-                      <option value="farsan">فارسان</option>
-                      <option value="lahijan">لاهیجان</option>
-                      <option value="shahroud">شاهرود</option>
-                      <option value="mahabad">مهاباد</option>
-                      <option value="saghez">سقز</option>
-                      <option value="borazjan">برازجان</option>
-                      <option value="khorramshahr">خرمشهر</option>
-                      <option value="naqadeh">نقده</option>
-                      <option value="rudsar">رودسر</option>
-                      <option value="sabzevar">سبزوار</option>
-                  </select>
+                    <select
+                        name=""
+                        id="profile-city"
+                        value={profileCity}
+                        required
+                        onChange={handleChange}
+                        disabled={!profileedit}
+                    >
+                        <option value="default">انتخاب</option>
+                        {provinces.map((province, index) => (
+                            <option key={index} value={province}>
+                                {province}
+                            </option>
+                        ))}
+                    </select>
                   <input type="email" name="" id="profile-address" value={profileaddress}  required {...(profileedit === false ? { disabled: true } : {})} onChange={(e) => setProfileaddress(e.target.value)}/>
               </div>
               <span>{fnameError}</span>
@@ -723,7 +697,9 @@ const Profile = () => {
                   </>
               ) : activespan === 1 ? (
                   <div className="Profile-bookmark">
-                      {bookmarkCompaniesData.map(company => (
+                      {hasBookmarks ? (
+                <>
+                    {bookmarkCompaniesData.map(company => (
                         <Bookmarkcard
                             key={company.id}
                             img={company.profile_companie1 || companielogo}
@@ -747,6 +723,10 @@ const Profile = () => {
                             contry={1}
                         />
                     ))}
+                </>
+            ) : (
+                <p>آگهی نشان نشده</p>
+            )}
                   </div>
                   
                   
@@ -1054,13 +1034,21 @@ const Profile = () => {
             <input type="text" id="useremail" value={profilemail} onChange={(e) => setProfilemail(e.target.value)} {...(profileedit === false ? { disabled: true } : {})}/>
 
             <label htmlFor="provinceSelect">شهر</label>
-            <select id="provinceSelect" value={profilecity} onChange={setProfilecity} {...(profileedit === false ? { disabled: true } : {})}>
-                <option value="">{selectedProvince === '' ? "انتخاب کنید ..." : selectedProvince}</option>
-                {provinces.map((province, index) => (
-                <option key={index} value={province}>{province}</option>
-                ))}
-            </select>
-            
+                <select
+                    name=""
+                    id="profile-city"
+                    value={profileCity}
+                    required
+                    onChange={handleChange}
+                    disabled={!profileedit}
+                >
+                    <option value="default">انتخاب</option>
+                    {provinces.map((province, index) => (
+                        <option key={index} value={province}>
+                            {province}
+                        </option>
+                    ))}
+                </select>
             <label htmlFor="useraddress">آدرس</label>
             <input type="text" id="useraddress" value={profileaddress} onChange={(e) => setProfileaddress(e.target.value)} {...(profileedit === false ? { disabled: true } : {})}/>
             <span>{fnameError}</span>

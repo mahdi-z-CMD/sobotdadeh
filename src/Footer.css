@@ -80,7 +80,7 @@
     font-size: 14px;
     color: #7A7A7A;
     margin-top: 2%;
-    line-height: 17.29px;
+    line-height: 29px;
     width: 60%;
  }
  .footer h1{
@@ -131,6 +131,8 @@
     cursor: pointer;
     color: #2D69E5;
     margin-right: 9%;
+    text-decoration: none;
+    flex-basis: 100%;
  }
  .links-row a:not(:first-child){
     margin-right: 20%;
@@ -152,6 +154,9 @@
     justify-content: space-between;
     width: 15%;
     margin-top: 1%;
+}
+.social-icon img{
+   cursor: pointer;
 }
 .hoghogh{
     width: 75%;

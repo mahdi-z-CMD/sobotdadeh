@@ -29,13 +29,14 @@
 .soalatm-content{
     position: relative;
     width: 100%;
-    height: 230vh;
+    height: auto;
     background-color: #FFFFFF;
     font-family: url;
 }
 .soalatm-content-back{
     border-radius: 45px 45px 0px 0px;
     background-color: white;
+    top: -50px !important;
     position: relative;
     bottom: 4%;
 }

@@ -18,9 +18,11 @@ import isAuthenticated from './PrivateRoute'; // Import the isAuthenticated func
 import Shenakhtrisk from './Shenakhtrisk';
 import Tarafeto from './tarafeto';
 import Blog from './Blog';
+import { useTranslation } from 'react-i18next';
 
 import closeicon from './Icons/closeicon.svg'
 export const Home = () => {
+  const { t } = useTranslation();
   const [alertshow, setAlertshow] = useState(true) 
   function ScrollToTop() {
     const { pathname } = useLocation();
@@ -34,7 +36,7 @@ export const Home = () => {
   return (
     <div>
       {
-        alertshow ? (<h1 className='alert-demo' onClick={()=>setAlertshow(false)}>وبسایت نسخه آزمایشی هست<img src={closeicon} alt="close icon"/></h1>) : null
+        alertshow ? (<h1 className='alert-demo' onClick={()=>setAlertshow(false)}>{t('وبسایت نسخه آزمایشی هست')}<img src={closeicon} alt="close icon"/></h1>) : null
       }
       
       <Navbar></Navbar>

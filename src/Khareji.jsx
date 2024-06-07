@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { removeCookies, changeusertoken } from './Profile.jsx';
 import CryptoJS from 'crypto-js';
+import { useTranslation } from 'react-i18next';
 // icons
 import searchicon2 from './Icons/searchicon2.svg'
 import leftarrowslider from './Icons/leftarrowslider.svg'
@@ -29,7 +30,8 @@ import turkeybg from './image/turkeybg.jpg'
 import kuwaitbg from './image/kuwaitbg.jpg'
 
 const Khareji = () => {
-   // get window width
+  const { t } = useTranslation();
+  // get window width
    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
    useEffect(() => {
@@ -58,7 +60,7 @@ const Khareji = () => {
                         <h3>{props.timerelease}</h3>
                         <Link to={`/companie/${props.url}/${country === 0 ? '0' : '1'}`}>
                             <div className='cards-info-row-more2'>
-                                <h3>نمایش بیشتر</h3>
+                                <h3>{t('نمایش بیشتر')}</h3>
                                 <img src={leftarrowslider} alt="left icon"/>
                             </div>
                         </Link>

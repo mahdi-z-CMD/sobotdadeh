@@ -297,6 +297,19 @@
 .Profile-bookmark-3 img{
     cursor: pointer;
 }
+.Profile-bookmark p{
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 5%;
+    background-color: #2454B7;
+    color: white;
+    padding: 2%;
+    padding-right: 5%;
+    padding-left: 5%;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
 /* change password */
 .Profile-changep{
     display: flex;

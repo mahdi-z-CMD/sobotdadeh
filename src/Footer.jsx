@@ -1,16 +1,23 @@
 import './Footer.css'
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';
 // icons
 import aparaticon from './Icons/aparaticon.svg'
 import telegramicon from './Icons/telegramicon.svg'
 import instagramicon from './Icons/instagramicon.svg'
+import whatsappicon from './Icons/whatsapp.png'
+import rubikaicon from './Icons/rubialogo.png'
+import itaicon from './Icons/italogo.png'
+
 import logoicon from './Icons/logo.svg'
 // images
 import namadimage1 from './image/namad1.png'
 import namadimage2 from './image/namad2.png'
 import namadimage3 from './image/namad3.png'
 import foterimg from './image/foter.svg'
+import { Link } from 'react-router-dom'
 const Footer = () => {
+  const { t } = useTranslation();
    // get window width
    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -34,21 +41,21 @@ const Footer = () => {
           }
       <div className="footet-detail">
         <div className="signup">
-          <h1>برای استفاده از امکانات ثبات داده، ثبت‌نام کنید</h1>
+          <h1>{t('برای استفاده از امکانات ثبات داده، ثبت‌نام کنید')}</h1>
           <div className="singup-submit">
-            <input type="email" name="email" placeholder='پست الکترونیکی را وارد نمایید ...'/>
-            <button type="submit">ثبت درخواست</button>
+            <input type="email" name="email" placeholder={t('أدخل عنوان بريدك الالكتروني...')}/>
+            <button type="submit">{t('ثبت درخواست')}</button>
           </div>
         </div>
         <div className="footer-about">
-          <h2>ثبات داده، پلتفرمی برای تمامی شرکت ها{windowWidth <= 500 ? (<img src={logoicon} alt="logo icon" />):null}</h2>
-          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+          <h2>{t('تسهیل سرمایه گذاری داده محور')}{windowWidth <= 500 ? (<img src={logoicon} alt="logo icon" />):null}</h2>
+          <p>{t('ثبات داده همراه شما در سرمایه گذاری مبتنی بر علم و تجربه است.  در مجموعه ما تلاش می شود تا با تلفیق تجربه تجارت مدرن و شناخت پیچیدگی های تجارت در خاورمیانه نقش راه گویایی از خلق کسب و کار پویا در اختیار شما قرار دهیم')}</p>
         </div>
-        <h1>دسترسی سریع</h1>
+        <h1>{t('دسترسی سریع')}</h1>
         <div className="footer-pages">
           <div className="footer-namads">
             <div className="namads-place">
-              {/* <img src={namadimage1} alt="e namad" width="112px" height="112px"/> */}
+              <img src={namadimage1} alt="e namad" width="112px" height="112px"/>
             </div>
             <div className="namads-place">
               {/* <img src={namadimage2} alt="e namad" width="90px" height="90px"/> */}
@@ -62,33 +69,27 @@ const Footer = () => {
                 windowWidth <= 500 ? (
                   <div className="links-cloum">
                       <div className="links-cloum-list">
-                        <a>سوالات متداول</a>
-                        <a>پشتیبانی</a>
-                        <a>درباره ثبات‌داده</a>
-                        <a>ثبت آگهی شغلی</a>
+                        <Link to='/soalatmotadavel'>{t('سوالات متداول')}</Link>
+                        <Link to='/soalatmotadavel'>{t('پشتیبانی')}</Link>
+                        <Link to='/aboutus'>{t('درباره ثبات‌داده')}</Link>
                       </div>
                       <div className="links-cloum-list">
-                        <a>قوانین</a>
-                        <a>ارتباط با ما</a>
-                        <a>دانلود اپلیکیشن</a>
-                        <a>بلاگ</a>
+                        <Link to='/ghavanin'>{t('قوانین')}</Link>
+                        <Link to='/contact'>{t('ارتباط با ما')}</Link>
+                        <Link to='/blog'>{t('مجله ثبات‌داده')}</Link>
                       </div>
                   </div>
                 ):(
                   <>
                     <div className="links-row">
-                      <a>سوالات متداول</a>
-                      <a>پشتیبانی</a>
-                      <a>درباره ثبات‌داده</a>
+                    <Link to='/soalatmotadavel'>{t('سوالات متداول')}</Link>
+                        <Link to='/soalatmotadavel'>{t('پشتیبانی')}</Link>
+                        <Link to='/aboutus'>{t('درباره ثبات‌داده')}</Link>
                     </div>
                     <div className="links-row">
-                      <a>ثبت آگهی شغلی</a>
-                      <a>قوانین</a>
-                      <a>ارتباط با ما</a>
-                    </div>
-                    <div className="links-row">
-                      <a>دانلود اپلیکیشن</a>
-                      <a>بلاگ</a>
+                    <Link to='/ghavanin'>{t('قوانین')}</Link>
+                        <Link to='/contact'>{t('ارتباط با ما')}</Link>
+                        <Link to='/blog'>{t('مجله ثبات‌داده')}</Link>
                     </div>
                   </>
                 )
@@ -102,9 +103,12 @@ const Footer = () => {
             <img src={aparaticon} alt="aparat icon" width="24px" height="24px"/>
             <img src={instagramicon} alt="instagram icon" width="24px" height="24px"/>
             <img src={telegramicon} alt="telegram icon" width="24px" height="24px"/>
+            <img src={itaicon} alt="telegram icon" width="24px" height="24px"/>
+            <img src={whatsappicon} alt="telegram icon" width="24px" height="24px"/>
+            <img src={rubikaicon} alt="telegram icon" width="24px" height="24px"/>
           </div>
           <div className="hoghogh">
-            <h1>تمامی حقوق این سایت متعلق به سایت sobotdadeh می‌باشد.</h1>
+            <h1>{t('تمامی حقوق این سایت متعلق به سایت sobotdadeh می‌باشد.')}</h1>
           </div>
         </div>
       </div>

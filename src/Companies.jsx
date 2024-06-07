@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
+import { useTranslation } from 'react-i18next';
 // icons
 import Searchiconblack from './Icons/Searchiconblack.svg'
 import locicon from './Icons/locicon.svg'
@@ -22,8 +23,9 @@ import comapnie_logo_def from './image/default_companies_img.webp'
 
 // json test for api
 import sliderdata from './slidersdata.json'
-import { useState, useEffect } from 'react'
+import { useState, useEffect , useRef } from 'react'
 const Companies = () => {
+  const { t } = useTranslation();
   const removeCookies = async () => {
     try {
         // Make a logout request to invalidate the user's session on the server
@@ -99,16 +101,6 @@ const changeusertoken = async () => {
   // get window width
 
     const [startIndex2, setStartIndex2] = useState(0);
-
-    const nextSlide = () => {
-      const newIndex = Math.min(startIndex2 + (windowWidth <= 500 ? 1 : windowWidth <= 1024 ? 3 : 4), sliderdata.length - (windowWidth <= 500 ? 1 : windowWidth <= 1024 ? 3 : 4));
-      setStartIndex2(newIndex);
-    };
-    
-    const prevSlide = () => {
-      const newIndex = Math.max(startIndex2 - (windowWidth <= 500 ? 1 : windowWidth <= 1024 ? 3 : 4), 0);
-      setStartIndex2(newIndex);
-    };
       // Components -----------------
       const Card = ((props)=>{
         return(
@@ -122,7 +114,7 @@ const changeusertoken = async () => {
                         <h3>{props.timerelease}</h3>
                         <Link to={`/companie/${props.url}/0`}>
                             <div className='cards-info-row-more2'>
-                                <h3>نمایش بیشتر</h3>
+                                <h3>{t('نمایش بیشتر')}</h3>
                                 <img src={leftarrowslider} alt="left icon"/>
                             </div>
                         </Link>
@@ -132,26 +124,25 @@ const changeusertoken = async () => {
         )
     })
     // bartarin 
-    // Components -----------------
-    const Card2 = ((props)=>{
-        return(
-            <div key={props.key} className='cards'>
-                    <img src={props.bookmark === "true" ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='bookmarkicon'/>
-                    <div className='cards-info'>
-                      <img src={props.img} alt="profile companie"/>
-                      <h1>{props.name}</h1>
-                      <h2>{props.namecompanie}</h2>
-                      <div className='cards-info-row'>
-                        <h3>{props.timerelease}</h3>
-                        <div className='cards-info-row-more'>
-                          <h3>نمایش بیشتر</h3>
-                          <img src={leftarrowslider} alt="left icon"/>
-                        </div>
-                      </div>
+   // Components -----------------
+   const Card2 = ((props)=>{
+    return(
+        <div key={props.key} className='cards'>
+                <img src={props.bookmark == "true" ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='bookmarkicon'/>
+                <div className='cards-info'>
+                  <img src={props.img} alt="profile companie"/>
+                  <h1>{props.name}</h1>
+                  <h2>{props.namecompanie}</h2>
+                  <div className='cards-info-row'>
+                    <div className='cards-info-row-more'>
+                      <h3>{t('مشاهده بیشتر')}</h3>
+                      <img src={leftarrowslider} alt="left icon"/>
                     </div>
+                  </div>
                 </div>
-        )
-    })
+            </div>
+    )
+})
     // Search from homepage 
     const [searchInput, setSearchInput] = useState('');
     const [searchTermInput, setSearchTermInput] = useState('');
@@ -206,94 +197,149 @@ const changeusertoken = async () => {
         fetchData(searchInput);
     };
     // api to get data
+     //  --------------- animation slider ----------------------
+  const scrollContainer = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startPosition, setStartPosition] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const scrollSpeed = 1; // Adjust scroll speed
+  const autoScrollInterval = useRef(null);
 
+  const handleMouseDown = (e) => {
+      setIsDragging(true);
+      setStartPosition(e.pageX - scrollContainer.current.offsetLeft);
+      setScrollLeft(scrollContainer.current.scrollLeft);
+      clearInterval(autoScrollInterval.current); // Stop auto-scroll on drag start
+  };
+
+  const handleMouseLeave = () => {
+      setIsDragging(false);
+      restartAutoScroll(); // Restart auto-scroll on drag end
+  };
+
+  const handleMouseUp = () => {
+      setIsDragging(false);
+      restartAutoScroll(); // Restart auto-scroll on drag end
+  };
+
+  const handleMouseMove = (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - scrollContainer.current.offsetLeft;
+      const walk = (x - startPosition) * 3; // Multiply by 3 to increase scroll speed
+      scrollContainer.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const startAutoScroll = () => {
+      autoScrollInterval.current = setInterval(() => {
+          if (scrollContainer.current) {
+              scrollContainer.current.scrollLeft += scrollSpeed;
+              if (scrollContainer.current.scrollLeft + scrollContainer.current.clientWidth >= scrollContainer.current.scrollWidth) {
+                  scrollContainer.current.scrollLeft = 0; // Reset to start when end is reached
+              }
+          }
+      }, 20); // Approximately 60 frames per second
+  };
+
+  const restartAutoScroll = () => {
+      clearInterval(autoScrollInterval.current);
+      setTimeout(startAutoScroll, 2000); // Restart after 2 seconds
+  };
+
+  useEffect(() => {
+      startAutoScroll();
+      return () => clearInterval(autoScrollInterval.current); // Clean up on unmount
+  }, []);
+//  --------------- animation slider ----------------------
     return ( 
         <div>
             <div className="Companies-header">
                 <div className='Searchbox-main2'>
                   <form onSubmit={handleSubmit}>
-                    <h1>جستجوی شرکت ها</h1>
+                    <h1>{t('جستجوی شرکت ها')}</h1>
                     <div className='Searchbox-items2'>
                           <img src={Searchiconblack} alt="Search icon" />
-                          <input type="text" name="Search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} placeholder='عنوان شرکت....'/>
+                          <input type="text" name="Search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} placeholder={t('عنوان شرکت....')}/>
                           <img src={locicon} alt="Search icon" placeholder="شهر"/>
                         <select name="companietype" value={companietypeFilter} onChange={(e) => setCompanietypeFilter(e.target.value)}>
-                          <option value="default">نوع شرکت</option>
-                          <option value="سهامی خاص">سهامی خاص</option>
-                          <option value="شرکت بامسیولیت محدود">شرکت بامسیولیت محدود</option>
-                          <option value="تعاونی">تعاونی</option>
-                          <option value="بامسئولیت محدود">بامسئولیت محدود</option>
-                          <option value="موسسه">موسسه</option>
-                          <option value="نامشخص">نامشخص</option>
-                          <option value="تضامنی">تضامنی</option>
-                          <option value="شعبه شرکت خارجی">شعبه شرکت خارجی</option>
-                          <option value="نسبی">نسبی</option>
-                          <option value="سهامی عام">سهامی عام</option>
-                          <option value="مختلط سهامی">مختلط سهامی</option>
+                          <option value="default">{t('نوع شرکت')}</option>
+                          <option value="سهامی خاص">{t('سهامی خاص')}</option>
+                          <option value="شرکت بامسیولیت محدود">{t('شرکت بامسیولیت محدود')}</option>
+                          <option value="تعاونی">{t('تعاونی')}</option>
+                          <option value="بامسئولیت محدود">{t('بامسئولیت محدود')}</option>
+                          <option value="موسسه">{t('موسسه')}</option>
+                          <option value="نامشخص">{t('نامشخص')}</option>
+                          <option value="تضامنی">{t('تضامنی')}</option>
+                          <option value="شعبه شرکت خارجی">{t('شعبه شرکت خارجی')}</option>
+                          <option value="نسبی">{t('نسبی')}</option>
+                          <option value="سهامی عام">{t('سهامی عام')}</option>
+                          <option value="مختلط سهامی">{t('مختلط سهامی')}</option>
                         </select>
                           <img src={pageicon} alt="Search icon" />
-                          <select name="activity">
-                          <option value="سابقه فعالیت">سابقه فعالیت</option>
-                          <option value="مازندران">مازندران</option>
-                          <option value="خوزستان">خوزستان</option>
-                          <option value="کرمان">کرمان</option>
+                          <select name="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+                            <option value="default">{t('وضعیت شرکت')}</option>
+                            <option value="notactive">{t('غیر فعال')}</option>
+                            <option value="active">{t('فعال')}</option>
                           </select>
-                          <button type="submit">جستجو<img src={searchicon2} alt="Search icon" className='searchicon2'/></button>
+                          <button type="submit">{t('جستجو')}<img src={searchicon2} alt="Search icon" className='searchicon2'/></button>
                       </div>
                   </form>
                
             </div>
             </div>
             <div className="Madrese-slider">
-                    <div className='slider'>
-                    <h1>برترین شرکت‌ها</h1>
-                    <div className='card-box'>
-                      <div className="Blog-Cards-arrows2">
-                                <img src={rightkey} alt="left key" className='Blog-Cards-arrows-right2' onClick={nextSlide}/>
-                                <img src={leftarrow} alt="left key" className='Blog-Cards-arrows-left2' onClick={prevSlide}/>
-                        </div>
-                      {sliderdata.slice(startIndex2, startIndex2 + (windowWidth <= 500 ? 1 : windowWidth <= 1500 ? 3 : 4)).map((key, index) => (
-                        <Card2 name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card2>
-                      ))}
-                      <div className='arrow-card'>
-                        <img src={expandright} alt="right icon" className='arrow-card-right' onClick={nextSlide}/>
-                        <img src={expandleft} alt="left icon" className='arrow-card-left' onClick={prevSlide}/>
-                      </div>
-                    </div>
-                    <div className='slider-showmore'>
+              <div className='slider'>
+                <h1>{t('برترین کسب و کار ها')}</h1>
+                <div
+                    className='card-box'
+                    ref={scrollContainer}
+                    onMouseDown={handleMouseDown}
+                    onMouseLeave={handleMouseLeave}
+                    onMouseUp={handleMouseUp}
+                    onMouseMove={handleMouseMove}
+                >
+                    {sliderdata.map((item, index) => (
+                        <Card2
+                            key={index}
+                            name={item.name}
+                            namecompanie={item.description}
+                            img={item.imageUrl}
+                            bookmark=""
+                        />
+                    ))}
                 </div>
-                </div>
+        </div>
             </div>
             <div className="Companies-filter-header">
-                <h1>استعلام شرکت‌ها در ثبات‌داده</h1>
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+                <h1>{t('استعلام شرکت‌ها در ثبات‌داده')}</h1>
+                <p>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد')}</p>
             </div>
             <a href="#Companies-center-result"></a>
             <div className="Companies-center" id='Companies-center-result'>
                 <div className='Searchbox-main-companies'>
                     <div className='Searchbox-items22'>
-                        <select name="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-                          <option value="default">وضعیت شرکت</option>
-                          <option value="notactive">غیر فعال</option>
-                          <option value="active">فعال</option>
-                        </select>
+                          <select name="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+                            <option value="default">{t('وضعیت شرکت')}</option>
+                            <option value="notactive">{t('غیر فعال')}</option>
+                            <option value="active">{t('فعال')}</option>
+                          </select>
                         <select name="companietype" value={companietypeFilter} onChange={(e) => setCompanietypeFilter(e.target.value)}>
-                          <option value="default">نوع شرکت</option>
-                          <option value="سهامی خاص">سهامی خاص</option>
-                          <option value="شرکت بامسیولیت محدود">شرکت بامسیولیت محدود</option>
-                          <option value="تعاونی">تعاونی</option>
-                          <option value="بامسئولیت محدود">بامسئولیت محدود</option>
-                          <option value="موسسه">موسسه</option>
-                          <option value="نامشخص">نامشخص</option>
-                          <option value="تضامنی">تضامنی</option>
-                          <option value="شعبه شرکت خارجی">شعبه شرکت خارجی</option>
-                          <option value="نسبی">نسبی</option>
-                          <option value="سهامی عام">سهامی عام</option>
-                          <option value="مختلط سهامی">مختلط سهامی</option>
+                          <option value="default">{t('نوع شرکت')}</option>
+                          <option value="سهامی خاص">{t('سهامی خاص')}</option>
+                          <option value="شرکت بامسیولیت محدود">{t('شرکت بامسیولیت محدود')}</option>
+                          <option value="تعاونی">{t('تعاونی')}</option>
+                          <option value="بامسئولیت محدود">{t('بامسئولیت محدود')}</option>
+                          <option value="موسسه">{t('موسسه')}</option>
+                          <option value="نامشخص">{t('نامشخص')}</option>
+                          <option value="تضامنی">{t('تضامنی')}</option>
+                          <option value="شعبه شرکت خارجی">{t('شعبه شرکت خارجی')}</option>
+                          <option value="نسبی">{t('نسبی')}</option>
+                          <option value="سهامی عام">{t('سهامی عام')}</option>
+                          <option value="مختلط سهامی">{t('مختلط سهامی')}</option>
                         </select>
 
                         <select name="afteryear" value={afterYearFilter} onChange={(e) => setAfterYearFilter(e.target.value)}>
-                          <option value="default">بعد از سال ...</option>
+                          <option value="default">{t('بعد از سال ...')}</option>
                           <option value="1400">1400</option>
                           <option value="1395">1395</option>
                           <option value="1390">1390</option>
@@ -311,7 +357,7 @@ const changeusertoken = async () => {
                           <option value="1330">1330</option>
                       </select>
                         <select name="beforeyear" value={beforeYearFilter} onChange={(e) => setBeforeYearFilter(e.target.value)}>
-                        <option value="default">قبل از سال ...</option>
+                        <option value="default">{t('قبل از سال ...')}</option>
                           <option value="1400">1400</option>
                           <option value="1395">1395</option>
                           <option value="1390">1390</option>
@@ -329,7 +375,7 @@ const changeusertoken = async () => {
                           <option value="1330">1330</option>
                         </select>
                         <img src={searchicon2} alt="Search icon" className='searchicon2'/>
-                        <button type="submit">فیلتر</button>
+                        <button type="submit">{t('فیلتر')}</button>
                     </div>
             </div>
             </div>
@@ -337,35 +383,35 @@ const changeusertoken = async () => {
               <div className="slider2">
                 <div className="card-box2">
                 <Card
-                                    name="در حال جستجو..."
-                                    namecompanie="در حال جستجو..."
+                                    name={t('در حال جستجو...')}
+                                    namecompanie={t('در حال جستجو...')}
                                     img={comapnie_logo_def}
-                                    timerelease="در حال جستجو..."
-                                    url="در حال جستجو..."
+                                    timerelease={t('در حال جستجو...')}
+                                    url={t('در حال جستجو...')}
                                     bookmark="" // Assuming you want to pass this as a prop
                                 />
                 <Card
-                                    name="در حال جستجو..."
-                                    namecompanie="در حال جستجو..."
+                                    name={t('در حال جستجو...')}
+                                    namecompanie={t('در حال جستجو...')}
                                     img={comapnie_logo_def}
-                                    timerelease="در حال جستجو..."
-                                    url="در حال جستجو..."
+                                    timerelease={t('در حال جستجو...')}
+                                    url={t('در حال جستجو...')}
                                     bookmark="" // Assuming you want to pass this as a prop
                                 />
                 <Card
-                                    name="در حال جستجو..."
-                                    namecompanie="در حال جستجو..."
+                                    name={t('در حال جستجو...')}
+                                    namecompanie={t('در حال جستجو...')}
                                     img={comapnie_logo_def}
-                                    timerelease="در حال جستجو..."
-                                    url="در حال جستجو..."
+                                    timerelease={t('در حال جستجو...')}
+                                    url={t('در حال جستجو...')}
                                     bookmark="" // Assuming you want to pass this as a prop
                                 />
                 <Card
-                                    name="در حال جستجو..."
-                                    namecompanie="در حال جستجو..."
+                                    name={t('در حال جستجو...')}
+                                    namecompanie={t('در حال جستجو...')}
                                     img={comapnie_logo_def}
-                                    timerelease="در حال جستجو..."
-                                    url="در حال جستجو..."
+                                    timerelease={t('در حال جستجو...')}
+                                    url={t('در حال جستجو...')}
                                     bookmark="" // Assuming you want to pass this as a prop
                                 />
                 </div>
@@ -448,15 +494,15 @@ const changeusertoken = async () => {
          <div className="Companies-slider">
                     <div className='slider2'>
                    {!loading && apiData.length === 0 && searchInput.trim() !== '' && (
-                        <span className='slider2-notfound'>موردی یافت نشد</span>
+                        <span className='slider2-notfound'>{t('موردی یافت نشد')}</span>
                       )}
                     </div>
                     {
                     windowWidth <= 500 ? (
                       <div className='Profile-mobile'>
                         <div className="Profile-mobile-sub">
-                            <h1>اشتراک ثبات داده</h1>
-                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+                            <h1>{t('اشتراک ثبات داده')}</h1>
+                            <p>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. ')}</p>
                         </div>
                         {/* tarefe 1 */}
                         <div className="Profile-mobile-sub-tarefe">
@@ -555,8 +601,8 @@ const changeusertoken = async () => {
                     ) : (
                       <div className="Profile-eshterak">
                       <div className="Profile-eshterak-header">
-                          <h1>اشتراک ثبات‌داده</h1>
-                          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+                          <h1>{t('اشتراک ثبات داده')}</h1>
+                          <p>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. ')}</p>
                       </div>
                       <div className="Profile-eshterak-price">
                           <div className="Profile-eshterak-price-cloum">
