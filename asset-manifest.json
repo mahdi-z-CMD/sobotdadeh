@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.ad63548f.css",
-    "main.js": "/sobotdadeh/static/js/main.b4b29dd2.js",
+    "main.css": "/sobotdadeh/static/css/main.8e710799.css",
+    "main.js": "/sobotdadeh/static/js/main.69100bcc.js",
     "static/media/box2.webp": "/sobotdadeh/static/media/box2.644352e356e55bc9333b.webp",
     "static/media/box1.webp": "/sobotdadeh/static/media/box1.bedcf859752ffd5ba150.webp",
     "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
@@ -30,17 +30,10 @@
     "static/media/turkeymap.jpg": "/sobotdadeh/static/media/turkeymap.348a26fe5cf24f400e9c.jpg",
     "static/media/iragmap - Copy.jpg": "/sobotdadeh/static/media/iragmap - Copy.9af3e6b76f83236c1395.jpg",
     "static/media/kuwaitmap.jpg": "/sobotdadeh/static/media/kuwaitmap.650ea63b06b9b99be629.jpg",
-    "static/media/manabeicon4.webp": "/sobotdadeh/static/media/manabeicon4.f29be3a86b662410558c.webp",
-    "static/media/manabeicon5.webp": "/sobotdadeh/static/media/manabeicon5.93dc4b0b2e8b3876bd31.webp",
     "static/media/iranmap.png": "/sobotdadeh/static/media/iranmap.5838d86c5b0458758eb2.png",
-    "static/media/manabeicon1.webp": "/sobotdadeh/static/media/manabeicon1.a43d7274dcafb817dbfe.webp",
-    "static/media/aboutperson3.png": "/sobotdadeh/static/media/aboutperson3.536b7418a6aa78892844.png",
-    "static/media/manabeicon2.webp": "/sobotdadeh/static/media/manabeicon2.7b134bd34bc239c28143.webp",
     "static/media/khareji_turkey.png": "/sobotdadeh/static/media/khareji_turkey.3a32f07f9262e8ea80ab.png",
-    "static/media/aboutperson2.png": "/sobotdadeh/static/media/aboutperson2.47e57387bc9cfccb89fe.png",
     "static/media/khareji_iranbg.jpg": "/sobotdadeh/static/media/khareji_iranbg.2079e5c4c32a48b4c5b8.jpg",
     "static/media/ghavanin.svg": "/sobotdadeh/static/media/ghavanin.58c599e6518e6fa73a72.svg",
-    "static/media/manabeicon3.webp": "/sobotdadeh/static/media/manabeicon3.3aa3e0aa5b73eb3ad809.webp",
     "static/media/khareji_iraq.png": "/sobotdadeh/static/media/khareji_iraq.86d71cc90d887ec8a710.png",
     "static/media/prof1.png": "/sobotdadeh/static/media/prof1.a32fae99c678fbcdb29c.png",
     "static/media/namad3.png": "/sobotdadeh/static/media/namad3.1dfccd1c68b02608cd53.png",
@@ -48,7 +41,6 @@
     "static/media/mostatil.svg": "/sobotdadeh/static/media/mostatil.5c62e4a148f2e1a7afc857a0c79ace70.svg",
     "static/media/mostatil_mobile.svg": "/sobotdadeh/static/media/mostatil_mobile.7a51c4a0fedeaf09df8c.svg",
     "static/media/khareji_iran.png": "/sobotdadeh/static/media/khareji_iran.6d81125c820b1aa36e7b.png",
-    "static/media/aboutperson1.png": "/sobotdadeh/static/media/aboutperson1.26aaa2b07031d28ccae3.png",
     "static/media/profile_sabtagahi2.svg": "/sobotdadeh/static/media/profile_sabtagahi2.ed78dbcd6dd96626d30c947a9402311c.svg",
     "static/media/compani_logo.jpg": "/sobotdadeh/static/media/compani_logo.c80ea49b77af30667a7e.jpg",
     "static/media/namad1.png": "/sobotdadeh/static/media/namad1.c4d3320e93ec053c9116.png",
@@ -84,8 +76,6 @@
     "static/media/bookmarkfill.svg": "/sobotdadeh/static/media/bookmarkfill.b0c98aa0809e8b0eab6a2ee2e8c8ec99.svg",
     "static/media/masir2.svg": "/sobotdadeh/static/media/masir2.c01536f12a0ca233a2ae3bf19bba1d46.svg",
     "static/media/Contactlocicon.svg": "/sobotdadeh/static/media/Contactlocicon.e86d17be11267e6d5214ec30f5067166.svg",
-    "static/media/loc_nothome.svg": "/sobotdadeh/static/media/loc_nothome.f867e15cb603596a264bb97876de87fe.svg",
-    "static/media/locationicon.svg": "/sobotdadeh/static/media/locationicon.3297f8dadf55131f233c0f28ee07b387.svg",
     "static/media/locicon.svg": "/sobotdadeh/static/media/locicon.4b78b0dcc49a8e2dcebf69eb45850512.svg",
     "static/media/Contacttelicon.svg": "/sobotdadeh/static/media/Contacttelicon.1fbe7ce8c101826936860ba7f95cba3b.svg",
     "static/media/Profile_edit.svg": "/sobotdadeh/static/media/Profile_edit.5653016087c28dc2d511272a39992ddc.svg",
@@ -110,6 +100,7 @@
     "static/media/expanddownsoalat.svg": "/sobotdadeh/static/media/expanddownsoalat.0dd9a3b84e33eedbee491bf830935624.svg",
     "static/media/expanddown.svg": "/sobotdadeh/static/media/expanddown.43d82dfbd674bae9436ceb342ae42c09.svg",
     "static/media/leftarrowslider.svg": "/sobotdadeh/static/media/leftarrowslider.9e0d4fc3807540a1b9dfccb702b983ac.svg",
+    "static/media/languageiconsefid.svg": "/sobotdadeh/static/media/languageiconsefid.e1e010ca6e6a9fa41b973952acdfa799.svg",
     "static/media/expandmore_nothome.svg": "/sobotdadeh/static/media/expandmore_nothome.e716b42a24e4e846e4177d7bc0743c5e.svg",
     "static/media/Shenkhat_kharid_mark.svg": "/sobotdadeh/static/media/Shenkhat_kharid_mark.327ca2c5fb732ba6fb8ba8c212588bc2.svg",
     "static/media/Profile_editicon.svg": "/sobotdadeh/static/media/Profile_editicon.933bb0d572104bfb8c43a113b39e5bae.svg",
@@ -117,6 +108,7 @@
     "static/media/search_nothome.svg": "/sobotdadeh/static/media/search_nothome.3751a9f190ed4340c720dc2c4974a152.svg",
     "static/media/bookmark.svg": "/sobotdadeh/static/media/bookmark.7ad8fe157db21387f2897023015611ba.svg",
     "static/media/scrolldown.webp": "/sobotdadeh/static/media/scrolldown.5612398fde67631d51da.webp",
+    "static/media/languageicon.svg": "/sobotdadeh/static/media/languageicon.2f45cb43248525ad9daf0f5c84622947.svg",
     "static/media/flag-france.svg": "/sobotdadeh/static/media/flag-france.df383015a537693ceba2a5b9395696de.svg",
     "index.html": "/sobotdadeh/index.html",
     "static/media/Profile_bookmark.svg": "/sobotdadeh/static/media/Profile_bookmark.e59e35e086fbf501ed069139d6fca01f.svg",
@@ -128,11 +120,11 @@
     "static/media/hamburger-menu.svg": "/sobotdadeh/static/media/hamburger-menu.2c037419d5d5bc29a7e7759e9a0e037a.svg",
     "static/media/Profile_uploadicon.svg": "/sobotdadeh/static/media/Profile_uploadicon.75357b407fd8d4929fe03b10c70c9a65.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.1115cab952894688597fc2eddad7929d.svg",
-    "main.ad63548f.css.map": "/sobotdadeh/static/css/main.ad63548f.css.map",
-    "main.b4b29dd2.js.map": "/sobotdadeh/static/js/main.b4b29dd2.js.map"
+    "main.8e710799.css.map": "/sobotdadeh/static/css/main.8e710799.css.map",
+    "main.69100bcc.js.map": "/sobotdadeh/static/js/main.69100bcc.js.map"
   },
   "entrypoints": [
-    "static/css/main.ad63548f.css",
-    "static/js/main.b4b29dd2.js"
+    "static/css/main.8e710799.css",
+    "static/js/main.69100bcc.js"
   ]
 }
