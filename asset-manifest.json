@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.12d5d44d.css",
-    "main.js": "/sobotdadeh/static/js/main.d7667fa1.js",
+    "main.css": "/sobotdadeh/static/css/main.139238eb.css",
+    "main.js": "/sobotdadeh/static/js/main.91e3fbc9.js",
     "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
     "static/media/madrese6.jpg": "/sobotdadeh/static/media/madrese6.37c084883cc525301f6c.jpg",
     "static/media/madrese5.jpg": "/sobotdadeh/static/media/madrese5.10636edfc32541ea3c0c.jpg",
@@ -122,12 +122,12 @@
     "static/media/hamburger-menu-close.svg": "/sobotdadeh/static/media/hamburger-menu-close.6e60ebb2bf395f53d01c7d180e8b30f5.svg",
     "static/media/hamburger-menu.svg": "/sobotdadeh/static/media/hamburger-menu.2c037419d5d5bc29a7e7759e9a0e037a.svg",
     "static/media/Profile_uploadicon.svg": "/sobotdadeh/static/media/Profile_uploadicon.75357b407fd8d4929fe03b10c70c9a65.svg",
-    "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.1115cab952894688597fc2eddad7929d.svg",
-    "main.12d5d44d.css.map": "/sobotdadeh/static/css/main.12d5d44d.css.map",
-    "main.d7667fa1.js.map": "/sobotdadeh/static/js/main.d7667fa1.js.map"
+    "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.5c5198a00f41435cfcd1daa88bce3e45.svg",
+    "main.139238eb.css.map": "/sobotdadeh/static/css/main.139238eb.css.map",
+    "main.91e3fbc9.js.map": "/sobotdadeh/static/js/main.91e3fbc9.js.map"
   },
   "entrypoints": [
-    "static/css/main.12d5d44d.css",
-    "static/js/main.d7667fa1.js"
+    "static/css/main.139238eb.css",
+    "static/js/main.91e3fbc9.js"
   ]
 }
