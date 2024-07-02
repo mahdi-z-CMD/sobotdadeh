@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.e3bf7f01.css",
-    "main.js": "/sobotdadeh/static/js/main.4812bb5d.js",
+    "main.css": "/sobotdadeh/static/css/main.12d5d44d.css",
+    "main.js": "/sobotdadeh/static/js/main.d7667fa1.js",
     "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
     "static/media/madrese6.jpg": "/sobotdadeh/static/media/madrese6.37c084883cc525301f6c.jpg",
     "static/media/madrese5.jpg": "/sobotdadeh/static/media/madrese5.10636edfc32541ea3c0c.jpg",
@@ -101,7 +101,8 @@
     "static/media/expanddownsoalat.svg": "/sobotdadeh/static/media/expanddownsoalat.0dd9a3b84e33eedbee491bf830935624.svg",
     "static/media/expanddown.svg": "/sobotdadeh/static/media/expanddown.43d82dfbd674bae9436ceb342ae42c09.svg",
     "static/media/leftarrowslider.svg": "/sobotdadeh/static/media/leftarrowslider.9e0d4fc3807540a1b9dfccb702b983ac.svg",
-    "static/media/languageiconsefid.svg": "/sobotdadeh/static/media/languageiconsefid.e1e010ca6e6a9fa41b973952acdfa799.svg",
+    "static/media/languageicon.svg": "/sobotdadeh/static/media/languageicon.ca77fe95c97fead956a6094300b3b310.svg",
+    "static/media/languageiconsefid.svg": "/sobotdadeh/static/media/languageiconsefid.c492b803f9933f06f8cdebd61a7aad8b.svg",
     "static/media/expandmore_nothome.svg": "/sobotdadeh/static/media/expandmore_nothome.e716b42a24e4e846e4177d7bc0743c5e.svg",
     "static/media/Shenkhat_kharid_mark.svg": "/sobotdadeh/static/media/Shenkhat_kharid_mark.327ca2c5fb732ba6fb8ba8c212588bc2.svg",
     "static/media/Profile_editicon.svg": "/sobotdadeh/static/media/Profile_editicon.933bb0d572104bfb8c43a113b39e5bae.svg",
@@ -109,23 +110,24 @@
     "static/media/search_nothome.svg": "/sobotdadeh/static/media/search_nothome.3751a9f190ed4340c720dc2c4974a152.svg",
     "static/media/bookmark.svg": "/sobotdadeh/static/media/bookmark.7ad8fe157db21387f2897023015611ba.svg",
     "static/media/scrolldown.webp": "/sobotdadeh/static/media/scrolldown.5612398fde67631d51da.webp",
-    "static/media/languageicon.svg": "/sobotdadeh/static/media/languageicon.2f45cb43248525ad9daf0f5c84622947.svg",
     "static/media/flag-france.svg": "/sobotdadeh/static/media/flag-france.df383015a537693ceba2a5b9395696de.svg",
     "index.html": "/sobotdadeh/index.html",
     "static/media/Profile_bookmark.svg": "/sobotdadeh/static/media/Profile_bookmark.e59e35e086fbf501ed069139d6fca01f.svg",
     "static/media/Profile_bookmark_selected.svg": "/sobotdadeh/static/media/Profile_bookmark_selected.f906cb666be7a279ed475f9de080c2b1.svg",
     "static/media/flag-japan.svg": "/sobotdadeh/static/media/flag-japan.9acea5fee912379bcd634b58260f1c58.svg",
+    "static/media/logedin.svg": "/sobotdadeh/static/media/logedin.053f918df6bfc91bd8a9d786ba3fa2bb.svg",
+    "static/media/logedin_nothome.svg": "/sobotdadeh/static/media/logedin_nothome.0d12e79b8fbf35fa1562f22ed876036d.svg",
     "static/media/telegramicon.svg": "/sobotdadeh/static/media/telegramicon.510f62d76baf0a5e0eac594effcf7268.svg",
     "static/media/companiesbg.svg": "/sobotdadeh/static/media/companiesbg.f9571ec8aa65a19426f6.svg",
     "static/media/hamburger-menu-close.svg": "/sobotdadeh/static/media/hamburger-menu-close.6e60ebb2bf395f53d01c7d180e8b30f5.svg",
     "static/media/hamburger-menu.svg": "/sobotdadeh/static/media/hamburger-menu.2c037419d5d5bc29a7e7759e9a0e037a.svg",
     "static/media/Profile_uploadicon.svg": "/sobotdadeh/static/media/Profile_uploadicon.75357b407fd8d4929fe03b10c70c9a65.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.1115cab952894688597fc2eddad7929d.svg",
-    "main.e3bf7f01.css.map": "/sobotdadeh/static/css/main.e3bf7f01.css.map",
-    "main.4812bb5d.js.map": "/sobotdadeh/static/js/main.4812bb5d.js.map"
+    "main.12d5d44d.css.map": "/sobotdadeh/static/css/main.12d5d44d.css.map",
+    "main.d7667fa1.js.map": "/sobotdadeh/static/js/main.d7667fa1.js.map"
   },
   "entrypoints": [
-    "static/css/main.e3bf7f01.css",
-    "static/js/main.4812bb5d.js"
+    "static/css/main.12d5d44d.css",
+    "static/js/main.d7667fa1.js"
   ]
 }
