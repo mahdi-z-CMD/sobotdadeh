@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.bc9b24e5.css",
+    "main.css": "/sobotdadeh/static/css/main.9a327b66.css",
     "main.js": "/sobotdadeh/static/js/main.702a2160.js",
     "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
     "static/media/madrese6.jpg": "/sobotdadeh/static/media/madrese6.37c084883cc525301f6c.jpg",
@@ -123,11 +123,11 @@
     "static/media/hamburger-menu.svg": "/sobotdadeh/static/media/hamburger-menu.2c037419d5d5bc29a7e7759e9a0e037a.svg",
     "static/media/Profile_uploadicon.svg": "/sobotdadeh/static/media/Profile_uploadicon.75357b407fd8d4929fe03b10c70c9a65.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.5c5198a00f41435cfcd1daa88bce3e45.svg",
-    "main.bc9b24e5.css.map": "/sobotdadeh/static/css/main.bc9b24e5.css.map",
+    "main.9a327b66.css.map": "/sobotdadeh/static/css/main.9a327b66.css.map",
     "main.702a2160.js.map": "/sobotdadeh/static/js/main.702a2160.js.map"
   },
   "entrypoints": [
-    "static/css/main.bc9b24e5.css",
+    "static/css/main.9a327b66.css",
     "static/js/main.702a2160.js"
   ]
 }
