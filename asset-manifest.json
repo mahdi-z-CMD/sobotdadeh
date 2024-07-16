@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.251d6cd7.css",
-    "main.js": "/sobotdadeh/static/js/main.31c35414.js",
+    "main.css": "/sobotdadeh/static/css/main.ff8199cf.css",
+    "main.js": "/sobotdadeh/static/js/main.04c50596.js",
     "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
     "static/media/default_companies_icon.gif": "/sobotdadeh/static/media/default_companies_icon.0a1596629f23d1cbf0ca.gif",
     "static/media/madrese6.jpg": "/sobotdadeh/static/media/madrese6.37c084883cc525301f6c.jpg",
@@ -123,11 +123,11 @@
     "static/media/hamburger-menu.svg": "/sobotdadeh/static/media/hamburger-menu.2c037419d5d5bc29a7e7759e9a0e037a.svg",
     "static/media/Profile_uploadicon.svg": "/sobotdadeh/static/media/Profile_uploadicon.75357b407fd8d4929fe03b10c70c9a65.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.5c5198a00f41435cfcd1daa88bce3e45.svg",
-    "main.251d6cd7.css.map": "/sobotdadeh/static/css/main.251d6cd7.css.map",
-    "main.31c35414.js.map": "/sobotdadeh/static/js/main.31c35414.js.map"
+    "main.ff8199cf.css.map": "/sobotdadeh/static/css/main.ff8199cf.css.map",
+    "main.04c50596.js.map": "/sobotdadeh/static/js/main.04c50596.js.map"
   },
   "entrypoints": [
-    "static/css/main.251d6cd7.css",
-    "static/js/main.31c35414.js"
+    "static/css/main.ff8199cf.css",
+    "static/js/main.04c50596.js"
   ]
 }
