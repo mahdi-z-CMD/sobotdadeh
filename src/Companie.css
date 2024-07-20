@@ -1,6 +1,6 @@
 .companie-page{
     width: 100%;
-    height: 140vh;
+    height: auto;
     margin-bottom: 10%;
 }
 .companie-header-bg{
@@ -9,7 +9,7 @@
     background-repeat: no-repeat;
     position: relative;
     padding-top: 10%;
-    height: 55vh;
+    height: 35vh;
     background-color: #003366;
 }
 /* content */
@@ -17,7 +17,7 @@
     height: auto;
     width: 100%;
     position: relative;
-    top: -15%;
+    top: -20px;
     z-index: 2;
     background-color: white;
     border-radius: 30px;
@@ -100,23 +100,79 @@
     padding-top: 5%;
     flex-basis: 30%;
 }
-.companie-content-detail-des{
+.companie-content-detail-des {
     display: flex;
     flex-direction: column;
     direction: rtl;
     margin-right: 10%;
     margin-left: 10%;
     margin-top: 5%;
-    margin-bottom: 20%;
-}
+    backdrop-filter: blur(5px); /* Apply a blur effect */
+    background-color: rgba(255, 255, 255, 0.5); /* Adjust opacity for blur effect */
+    border-radius: 10px; /* Rounded corners for container */
+    padding: 20px; /* Add padding to container */
+    position: relative; /* Make the container position relative */
+  }
+  
+  .companie-content-detail-des p {
+    filter: blur(5px); /* Apply blur effect to <p> elements only */
+  }
+  
+  .companie-content-detail-des-button {
+    position: absolute; /* Position the button absolutely */
+    bottom: 50%; /* Align the button to the vertical middle */
+    left: 50%; /* Align the button to the horizontal middle */
+    transform: translate(-50%, 50%); /* Adjust position to center */
+  }
+  
+  .companie-content-detail-des-button button {
+    width: 200%;
+    background-color: #FF7F50;
+    border: none;
+    color: white;
+    padding: 15%;
+    text-align: center;     
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+  }
+  .companie-content-detail-des-button button:hover {
+    background-color: #FF6347; /* New background color on hover */
+    transition: all 0.3s ease-in-out;
+    padding: 30%;
+  }
 .companie-content-detail-des h2{
     color: #4F4F4F;
     font-size: 18px;
+    filter: none; /* Ensure h2 elements are not blurred */
     font-weight: bold;
 }
 .companie-content-detail-des h2:not(:first-child){
     margin-top: 5%;
 }
+.companie-content-loading {
+    background-color: #959595;
+    border: 1px solid rgb(156, 156, 156);
+    height: 100%;
+    padding: 5px; /* Adjust padding as needed */
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden; /* Ensures the animation doesn't overflow */
+    animation: colorShift 1s ease-in-out infinite alternate; /* Color shift animation */
+}
+
+@keyframes colorShift {
+    0% {
+        background-color: #959595; /* Starting color */
+    }
+    100% {
+        background-color: #CCCCCC; /* Ending color */
+    }
+}
+
 .companie-content-detail-des p{
     color: #3D3D3D;
     font-size: 18px;
@@ -134,7 +190,7 @@
     margin-left: 10%;
     margin-top: 5%;
     margin-bottom: 20%;
-    filter: blur(2px);
+    filter: blur(4px);
 }
 .companie-content-detail-des-sub h2{
     color: #4F4F4F;
@@ -204,7 +260,8 @@
     top: 0 !important;
     width: 80px !important;
     height: 80px !important;
-    margin-right: 3% !important;
+    margin-right: auto !important;
+    margin-left: 10%;
     cursor: pointer;
 }
 /* mobile */
@@ -241,6 +298,7 @@
         font-weight: 700;
     }
     .companie-content-detail span{
+        flex-basis: 50%;
         font-size: 14px;
     }
     .companie-content-detail{
@@ -260,5 +318,17 @@
         height: 50px !important;
         margin-right: 3% !important;
         cursor: pointer;
+    }
+    .companie-content-detail-des-button{
+        margin-left: 13%;
+      }
+    .companie-content-loading {
+      margin-top: 5%;
+    }
+    .companie-content-loading :last-child{
+        margin-bottom: 10%;
+    }
+    .companie-header-bg{
+        height: 50vh;
     }
 }

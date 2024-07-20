@@ -10,7 +10,7 @@
     position: relative;
     display: flex;
     justify-content: space-evenly;
-    bottom: 70px;
+    bottom: 90px;
 }
 .Blog-content-main{
     display: flex;
@@ -39,10 +39,10 @@
     text-align: justify;
 }
 .Blog-Header img{
-    width: 70%;
+    width: 60%;
     margin-right: auto;
     margin-left: auto;
-    height: 70vh;
+    height: 50vh;
     margin-top: 5%;
     border-radius: 10px;
 }
@@ -90,7 +90,7 @@
     justify-content: space-around;
     margin-top: 3%;
 }
-.Blog-Cards-box{
+.Blog-Cards a{
     border: 2px solid var(--secondary-darker, #002347);
     border-radius: 20px;
     box-shadow: 0px 0px 16px 0px #1B2B4E33;
@@ -99,7 +99,9 @@
     flex-direction: column;
     direction: rtl;
     flex-basis: 22%;
+    text-decoration: none !important;
 }
+
 .Blog-Cards-box img{
     width: 100%;
     height: 20vh;
@@ -117,6 +119,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    color: #FF7F50;
 }
 .Blog-Cards-box span img{
     width: 24px;
@@ -141,12 +144,20 @@
 .Blog-Cards-arrows-right{
     cursor: pointer;
 }
+.Blog-Header div p strong{
+    font-size: 30px;
+    font-weight: 700;
+    color: black !important;
+}
+.Blog-Header div p{
+    font-size: 23px;
+}
 @media only screen and (max-width: 450px) {
     .Blog-content-back{
         bottom: 230px;
     }
     .Blog-Header h1{
-        font-size: 24px;
+        font-size: 22px;
         font-weight: 700;
     }
     .Blog-Header p{
@@ -181,5 +192,11 @@
     }
     .Blog-Cards-box{
         flex-basis: 100%;
+    }
+    .Blog-Header div p strong{
+        font-size: 22px;
+    }
+    .Blog-Header div p{
+        font-size: 22px;
     }
 }

@@ -1,9 +1,12 @@
 import './Login.css'
-import { useState,useRef } from 'react'
+import { useState,useRef,useEffect } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
 import { setCookie } from './AuthContext'; // Adjust the path as needed
+import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
+
 // Icons 
 import visibiliy from './Icons/Login_visibilityicon.svg'
 import remember from './Icons/Login_remembericon.svg'
@@ -41,6 +44,22 @@ const Login = () => {
     // check the code
     // State to hold the input value
     const [inputValue, setInputValue] = useState('');
+    const location = useLocation();
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const phoneNumber = queryParams.get('phone');
+        const loginAreaParam = queryParams.get('loginarea');
+        
+        if (phoneNumber) {
+          setInputValue(phoneNumber);
+        }
+        if (loginAreaParam === 'false') {
+          setLoginarea(false);
+          setGetcode(1)
+        }
+      }, [location.search]);
+
 
     // Handler for input change
     const handleInputChange = (e) => {
@@ -385,6 +404,9 @@ const Login = () => {
     // FORGOT PASSWORD
     return ( 
         <div className="Login-content">
+            <Helmet>
+                <title>ثبات داده - ورود/ثبت نام</title>
+            </Helmet>
                {
                 loginarea ?(
                     <div className="Login-items">
@@ -396,7 +418,7 @@ const Login = () => {
                     <label htmlFor="">نام کاربری</label>
                     <input
                         type="text"
-                        placeholder="شماره موبایل یا آدرس ایمیل وارد کنید"
+                        placeholder="شماره موبایل وارد کنید"
                         value={usernamelogin}
                         onChange={(e) => setUsernamelogin(e.target.value)}
                     />

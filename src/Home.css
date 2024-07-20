@@ -23,6 +23,40 @@
     gap: 5%;
     cursor: pointer;
 }
+/* WebKit Browsers (Chrome, Safari) */
+/* Smooth scrolling behavior */
+html {
+    scroll-behavior: auto;
+  }
+  
+  /* Custom scrollbar styles for WebKit (Chrome, Safari) */
+  /* Note: These will only apply to browsers that support ::-webkit-scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    background-color: #f5f5f5;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+  
+  /* Custom scrollbar styles for Firefox */
+  /* Note: Firefox supports scrollbar-width and scrollbar-color */
+  html {
+    scrollbar-width: thin; /* "auto" can be used for a platform-specific scrollbar width */
+    scrollbar-color: #888 #f5f5f5; /* thumb and track colors */
+  }
+  
+  html:hover {
+    scrollbar-color: #555 #f5f5f5;
+  }
+  
+  
 .alert-demo img{
     width: 54px;
 }
@@ -134,7 +168,7 @@ header{
 
 /* main content */
 main{
-    height: 85vh;
+    height: 70vh;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -221,10 +255,11 @@ main{
     font-size: 26px;
     font-weight: 700;
     color: #3D3D3D;
+    margin-right: 5vw; /* Adjust margin for better alignment */
 }
-
 .card-box {
     overflow-x: hidden; /* Allow horizontal scrolling */
+    overflow-y: hidden !important; /* Hide vertical scrolling */
     white-space: nowrap;
     width: 100%;
     height: auto;
@@ -234,7 +269,9 @@ main{
     padding: 0 5vw; /* Add padding to create space for blurred areas */
     position: relative; /* Ensure relative positioning for the pseudo-elements */
     cursor: grab; /* Indicate draggable area */
-}
+    -webkit-overflow-scrolling: touch; /* Enable momentum scrolling on iOS */
+    touch-action: manipulation; /* Improve touch responsiveness */
+  }
 
 .card-box:active {
     cursor: grabbing; /* Change cursor when dragging */
@@ -242,14 +279,14 @@ main{
 
 .cards {
     flex-shrink: 0;
-    width: 25%;
+    width: 25%; /* Adjust width based on your design */
     height: auto;
     border: 2px solid #002347;
     border-radius: 20px;
-    margin: 4% 2%;
-}
-
-  /* animation slider */
+    margin: 4% 2%; /* Adjust margins for spacing between cards */
+  }
+  
+/* animation slider */
 .cards h1{
     font-size: 18px;
     font-weight: 500;
@@ -289,8 +326,8 @@ main{
     padding: 5%;
 }
 .cards-info img{
-    width: 30%;
-    height: 10vh;
+    width: 40%;
+    height: 115px;
     border-radius: 100px;
     border: 1px solid #959595;
     margin-right: auto;
@@ -484,7 +521,7 @@ main{
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
-    margin-top: 5%;
+    margin-top: 10%;
     box-shadow: 0px 0px 24px 0px #2C156199;
     background-image: url('./image/ghavanin.svg');
     background-size: auto;
@@ -539,16 +576,43 @@ main{
     background-color: #003a74;
 }
 /* box khadamat */
-.box-khadamat{
+.box-khadamat {
     height: 90vh;
     margin-right: 9%;
     margin-left: 9%;
     display: flex;
     justify-content: space-between;
-    transition: all 0.5s ease;
+    opacity: 1; /* Initially invisible */
+    transition: opacity 0.5s ease; /* Fade-in transition */
 }
+
+.box-khadamat.scrolled {
+  opacity: 1; /* Initially hidden */
+  animation: fadeInBlur 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; /* Animation name: fadeIn, duration: 0.5 seconds, easing function: ease */
+}
+@keyframes fadeInBlur {
+    0% {
+      opacity: 0;
+      filter: blur(10px);
+    }
+    25% {
+      opacity: 0.25;
+      filter: blur(8px);
+    }
+    50% {
+      opacity: 0.5;
+      filter: blur(6px);
+    }
+    75% {
+      opacity: 0.75;
+      filter: blur(4px);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0px);
+    }
+  }
 .box-khadamat-img{
-    background-color: #93DAD3;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -557,8 +621,9 @@ main{
     animation: fadeInUp 1.5s ease forwards; /* Add fadeInUp animation */
 }
 .box-khadamat-img img{
-    width: 421.87px;
+    width: 561.87px;
     height: 478.52px;
+    border-radius: 8px;
 }
 .box-khadamat-text{
     direction: rtl;
@@ -577,7 +642,7 @@ main{
     font-size: 25px;
     margin-top: 5%;
     color: #4F4F4F;
-    line-height: 30.87px;
+    line-height:40.87px;
 }
 .scrollicon-khadamat{
     position: relative;
@@ -604,7 +669,7 @@ main{
 }
 /* hadaf */
 .hadaf-sobot{
-    margin-top: 10%;
+    margin-top: 5%;
     margin-bottom: 8%;
     display: flex;
     height: auto;
@@ -612,8 +677,9 @@ main{
     margin-left: 9%;
     justify-content: space-between;
 }
+
 .hadaf-sobot img{
-    width: 50%;
+    width: 45%;
     border-radius: 14px;
     height: 100%;
 }
@@ -626,11 +692,11 @@ main{
     width: 45%;
 }
 .hadaf-sobot-text h1{
-    font-size: 25px;
+    font-size: 30px;
     font-weight: 700;
 }
 .hadaf-sobot-text p{
-    font-size: 18px;
+    font-size: 20px;
     margin-top: 5%;
     color: #3D3D3D;
     text-align: justify;
@@ -664,6 +730,7 @@ main{
     height: 70vh;
     margin-right: 9%;
     margin-left: 9%;
+    margin-bottom: 5%;
 }
 .majale-soton{
     display: flex;
@@ -672,7 +739,8 @@ main{
     justify-content: space-between;
     padding-right: 3%;
 }
-.majale-box{
+
+.majale-soton a{
     width: 100%;
     display: flex;
     justify-content: center;
@@ -681,9 +749,16 @@ main{
     border-radius: 15px;
     box-shadow: 0px 0px 16px 0px #1B2B4E33;
     height: 47%;
+    transition: all .3s;
     padding: 1%;
+    text-decoration: none !important;
 }
-.majale-box img{
+.majale-soton a:hover{
+    border: 2px solid #034b92;
+    box-shadow: 0px 0px 16px 20px #1B2B4E33;
+    transition: all .3s;
+}
+.majale-soton img{
     border-radius: 25px;
     padding: 1%;
 }
@@ -718,7 +793,7 @@ main{
     position: relative;
     top: 10%;
 }
-.majale-box2{
+.majale-soton2 a{
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -730,19 +805,26 @@ main{
     box-shadow: 0px 0px 16px 0px #1B2B4E33;
     height: fit-content;
     padding: 1%;
+    transition: all .3s;
     margin-left: 1%;
     height: 100%;
+    text-decoration: none !important;
 }
-.majale-box2 img{
+.majale-soton2 a:hover{
+    border: 2px solid #034b92;
+    box-shadow: 0px 0px 16px 20px #1B2B4E33;
+    transition: all .3s;
+}
+.majale-soton2 img{
     border-radius: 25px;
     position: relative;
     top: 1%;
     padding: 2%;
 }
-.majale-box2 p{
+.majale-soton2 p{
     margin-top: 5%;
 }
-.majale-box2 span{
+.majale-soton2 span{
     display: flex;
     justify-content: center;
     width: 100%;
@@ -781,10 +863,16 @@ main{
     .Searchbox-items img{
         right: 3.5%;
     }
+    .majale-text p{
+        font-size: 15px;
+    }
+    .majale-text span{
+        font-size: 16px;
+    }
 }
 @media only screen and (max-width: 1200px) {
     main{
-        height: 75vh;
+        height: 65vh;
     }
     .overlaym{
         width: 27%;
@@ -815,6 +903,13 @@ main{
 }
 /* mobile desing */
 @media only screen and (max-width: 500px) {
+    .card-box {
+        overflow-x: scroll;
+    }
+    .slider h1 {
+        margin-top: 5%;
+        margin-bottom: 10%;
+    }
     .alert-demo{
         font-size: 12px;
         width: 65%;
@@ -844,10 +939,10 @@ main{
         direction: rtl;
         margin-top: 45%;
         margin-right: 45%;
-        width: 55%;
+        width: 50%;
     }
     .overlay h1{
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 700;
         width: 100%;
         text-align: right;
@@ -866,7 +961,7 @@ main{
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-image: url('./image/mostatil_mobile.svg');
+        background-image: url('./Icons/mostatil.svg');
         width: 35%;
         height: 60vh;
         margin-right: 0%;
@@ -931,6 +1026,9 @@ main{
     .arrow-card{
         display: none;
     }
+    .cards-info img{
+        height: 100px;
+    }
     /* masir section */
     .masir{
         height: auto;
@@ -971,11 +1069,11 @@ main{
         padding-bottom: 5%;
     }
     .kharid h1{
-        font-size: 20px;
+        font-size: 22px !important;
         margin-top: 3%;
     }
     .kharid h2{
-        font-size: 20px;
+        font-size: 16px !important;
     }
     .kharid a{
         font-size: 25px;
@@ -985,18 +1083,22 @@ main{
     }
     /* box khadamat */
     .box-khadamat{
-        height: 90vh;
+        height: auto;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        margin-left: 5%;
+        margin-left: 8%;
+        margin-right: 8%;
         transition: all 0.5s ease;
     }
     .box-khadamat-text-h1{
         text-align: center;
         direction: rtl;
         color: #FF7F50;
-        font-size: 20px;
+        font-size: 28px;
+        font-weight: 500;
+        margin-bottom: 8%;
+        margin-top: 10%;
     }
     .box-khadamat-text{
         width: 100%;
@@ -1008,7 +1110,7 @@ main{
     }
     .box-khadamat-img img{
         width: 100%;
-        width: 244px;
+        width: 100%;
         height: 282px;
     }
     .box-khadamat-text span{
@@ -1022,10 +1124,13 @@ main{
     .scrollicon-khadamat{
         width: 34px;
     }
+    .box-khadamat-text p{
+        font-size: 18px;
+    }
     /* tarafeto beshnas */
     .home-tarafeto{
         background-image: none;
-        margin-top: 15%;
+        margin-top:50%;
         margin-bottom: 15%;
     }
     .home-tarafeto-text{
@@ -1048,44 +1153,53 @@ main{
         margin-top: 10%;
     }
     /* majale */
-    .majale-content{
-        display: flex; /* Add this line */
-        justify-content: flex-start; /* Add this line */
-        overflow-x: auto; /* Add this line */
-        height: 60vh !important;
-    }
-    .majale-soton{
-        flex-direction: row-reverse;
-        width: 100%;
+    .majale-content {
+        display: flex;
+        justify-content: flex-start;
         overflow-x: auto;
-        align-items: flex-start;
-        padding: 2%;
-        box-sizing: border-box;
-        gap: 10%;
-        height: auto;
+        height: 50vh !important;
     }
-    .majale-box{
+    
+    .majale-soton {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-right: 3%;
+        width: 100%;
+    }
+    
+    .majale-soton a {
         border: 2px solid #ABC3F5;
         box-shadow: 0px 1px 5px 0px #2C156133;
         margin-right: 5%;
         height: 100%;
         width: 100%;
+        min-width: 100%;
         box-sizing: border-box;
-        white-space: nowrap;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-between;
         padding: 2%;
-        min-width: 90%; /* Set a minimum width for each box */
+        flex-shrink: 0; /* Prevent flex items from shrinking */
+        /* Remove white-space: nowrap; */
+        white-space: normal; /* Ensure normal white-space behavior */
     }
-    .majale-box h1{
-        font-size: 21px;
+    
+    .majale-soton a h1 {
+        font-size: 18px;
+        width: 90% !important;
         color: #4F4F4F;
-        margin-right: 10%;
         margin-top: 5%;
+        margin-right: 5%;
+        margin-left: 5%;
+        /* Ensure the text can wrap */
+        white-space: normal; /* Ensure text wraps inside h1 */
+        word-wrap: break-word; /* Handle long words */
     }
-    .majale-box img{
+    
+    
+    .majale-soton a img{
         width: 100%;
         height: 50%;
     }
@@ -1099,9 +1213,10 @@ main{
     .majale-text span{
         font-size: 14px;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
+        margin-bottom: 5%;
     }
-    .majale-text img{
+    .majale-text span img{
         width: 24px;
         height: 24px;
     }
@@ -1110,11 +1225,13 @@ main{
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-    }
-    .hadaf-sobot{
         color: #FF7F50;
         font-size: 25px;
         font-weight: 700;
+    }
+    .hadaf-sobot h1{
+        font-size: 32px;
+        margin-top: 10%;
     }
     .hadaf-sobot img{
         width: 100%;
@@ -1123,5 +1240,6 @@ main{
     .hadaf-sobot-text{
         width: 100%;
         margin-top: 5%;
+        line-height: 40.87px;
     }
   }

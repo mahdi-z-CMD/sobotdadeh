@@ -3,7 +3,7 @@ import { useState,useEffect,useRef } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
-import companielogo from './image/compani_logo.jpg'
+import companielogo from './Icons/default_companies_icon.gif'
 // Images
 import profilepic1 from './image/profile_def.jpg'
 import profile_companie1 from './image/prof1.png'
@@ -33,6 +33,7 @@ import profile_showpass2 from './Icons/Profile_show.svg'
 import profile_bookmarkfill from './Icons/bookmarkfill.svg'
 import profile_mark from './Icons/Shenkhat_kharid_mark.svg'
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 const Profile = () => {
     const [imageSrc, setImageSrc] = useState(null);
     const fileInputRef = useRef(null);
@@ -124,23 +125,26 @@ const Profile = () => {
         setShowpass3(!showpass3);
       };
     // bookmark cards   
-    const Bookmarkcard = (props)=>{
+    const Bookmarkcard = (props) => {
         return (
-                        <Link className='Profile-bookmark-box' to={`/companie/${props.url}/${props.contry === 0 ? '0' : '1'}`}>
-                            <div className="Profile-bookmark-1">
-                                <img src={props.img} alt="companie logo" width="55px" height="55px"/>
-                            </div>
-                            <div className="Profile-bookmark-2">
-                                <h1>{props.companiename}</h1>
-                                <h2>{props.companiedes}</h2>
-                                <span>{props.companieprice}</span>
-                                <h3>{props.companiedate}</h3>     
-                            </div>
-                            <div className="Profile-bookmark-3">
-                                <img src={bookmarked} alt="bookmark icon" width="24px" height="24px"/>
-                            </div>
-                        </Link>
-        )
+            <Link
+                className={`Profile-bookmark-box ${props.className || ''}`}
+                to={`/companie/${props.url}/${props.contry === 0 ? '0' : '1'}`}
+            >
+                <div className="Profile-bookmark-1">
+                    <img src={props.img} alt="companie logo" width="55px" height="55px"/>
+                </div>
+                <div className="Profile-bookmark-2">
+                    <h1>{props.companiename}</h1>
+                    <h2>{props.companiedes}</h2>
+                    <span>{props.companieprice}</span>
+                    <h3>{props.companiedate}</h3>     
+                </div>
+                <div className="Profile-bookmark-3">
+                    <img src={bookmarked} alt="bookmark icon" width="24px" height="24px"/>
+                </div>
+            </Link>
+        );
     }
     // agahi cards 
     const Agahicard = (props)=>{
@@ -263,12 +267,17 @@ const Profile = () => {
     };
     // CHANGE TOKEN
     //   GETTING USER DATA
+    const [loadinguser, setLoadinguser] = useState(false);
+    const [showMessage, setShowMessage] = useState(false);
+    const [messageContent, setMessageContent] = useState('');
+    const [messageClass, setMessageClass] = useState('');
+
     const checkuserdatas = async () => {
+        setLoadinguser(true);
         try {
             const apiKey = Cookies.get('api_key');
             const token = Cookies.get('token');
             const imei = Cookies.get('IMEI');
-            // Send the POST request with custom headers
             const response = await axios.post('https://api.sobotdadeh.com/v1/auth/init', {}, {
                 headers: {
                     'Api-Token': apiKey,
@@ -277,39 +286,69 @@ const Profile = () => {
                 }
             });
             if (response.data.status === true) {
-                setProfilename(response.data.data.fname)
-                setProfilefamily(response.data.data.lname)
-                setProfilephone(response.data.data.phone)
-                setProfilemail(response.data.data.email)
-                setProfileaddress(response.data.data.address)
-                setProfilecity(response.data.data.city)
-                setProfiledate(response.data.data.birth)
-                setProfilegender(response.data.data.gender)
-                setProfilesath(response.data.data.package.title)
-                setProfilesathtime(response.data.data.package.attributes.value[0])
+                setProfilename(response.data.data.fname);
+                setProfilefamily(response.data.data.lname);
+                setProfilephone(response.data.data.phone);
+                setProfilemail(response.data.data.email);
+                setProfileaddress(response.data.data.address);
+                setProfilecity(response.data.data.city);
+                setProfiledate(response.data.data.birth);
+                setProfilegender(response.data.data.gender);
+                setProfilesath(response.data.data.package.title);
+
+                // Ensure attributes is an array and has at least one element
+                if (Array.isArray(response.data.data.package.attributes) && response.data.data.package.attributes.length > 0) {
+                    setProfilesathtime(response.data.data.package.attributes[0].value);
+                } else {
+                    setProfilesathtime('No data available');
+                }
                 setImageSrc(response.data.data.image); // Update image source
-            }else if(response.data.data.error === "Unauthorized"){
-                changeusertoken()
-            }
-            else{
-                setProfilename('اطلاعات یافت نشد')
-                setProfilefamily('اطلاعات یافت نشد')
-                setProfilephone('اطلاعات یافت نشد')
-                setProfilemail('اطلاعات یافت نشد')
-                setProfileaddress('اطلاعات یافت نشد')
-                setProfilecity('اطلاعات یافت نشد')
+
+
+            } else if (response.data.data.error === "Unauthorized") {
+                changeusertoken();
+            } else {
+                // Show failure message
+                setMessageContent('Failed to load data!');
+                setMessageClass('show');
+                setShowMessage(true);
+                setTimeout(() => {
+                    setMessageClass('hide');
+                    setTimeout(() => {
+                        setShowMessage(false);
+                    }, 500); // Duration of the slide-out animation
+                }, 5000); // Hide after 5 seconds
+
+                setProfilename('اطلاعات یافت نشد');
+                setProfilefamily('اطلاعات یافت نشد');
+                setProfilephone('اطلاعات یافت نشد');
+                setProfilemail('اطلاعات یافت نشد');
+                setProfileaddress('اطلاعات یافت نشد');
+                setProfilecity('اطلاعات یافت نشد');
             }
         } catch (error) {
+            // Show failure message
+            setMessageContent('Failed to load data!');
+            setMessageClass('show');
+            setShowMessage(true);
+            setTimeout(() => {
+                setMessageClass('hide');
+                setTimeout(() => {
+                    setShowMessage(false);
+                }, 500); // Duration of the slide-out animation
+            }, 5000); // Hide after 5 seconds
+
             if (error.response && error.response.status === 401) {
-                changeusertoken()
-            } else {
-                console.error('Error changing user password:', error); // Handle other errors
+                changeusertoken();
             }
+        } finally {
+            setLoadinguser(false);
         }
     };
+
     useEffect(() => {
         checkuserdatas();
-      }, []);
+    }, []);
     //   GETTING USER DATA
     //  EDITING USER INFO
     const [loadingEdite, setLoadingEdite] = useState(false);
@@ -329,24 +368,23 @@ const Profile = () => {
             if (!profilename) {
                 setFnameError('نام خود را وارد کنید ! ');
                 return; // Exit the function early if first name is empty
-            }else{
-                setFnameError('')
+            } else {
+                setFnameError('');
             }
-            
+    
             if (!profilefamily) {
                 setLnameError('نام خانوادگی خود را وارد کنید ! ');
                 return; // Exit the function early if last name is empty
-            }else{
-                setLnameError('')
+            } else {
+                setLnameError('');
             }
-            
+    
             if (!profiledate) {
                 setBirthError('تاریخ تولد خود را وارد کنید ! ');
                 return; // Exit the function early if birth date is empty
-            }else{
-                setBirthError('')
+            } else {
+                setBirthError('');
             }
-            
     
             const formData = new FormData();
             formData.append('fname', profilename);
@@ -375,7 +413,18 @@ const Profile = () => {
             );
     
             if (response.data.status === true) {
-                setProfileedit(false);
+               // Show success message
+               setProfileedit(false)
+               setMessageContent('تغییرات با موفقیت ثبت شد');
+               setMessageClass('show');
+               setShowMessage(true);
+               setTimeout(() => {
+                   setMessageClass('hide');
+                   setTimeout(() => {
+                       setShowMessage(false);
+                   }, 500); // Duration of the slide-out animation
+               }, 5000); // Hide after 5 seconds
+                // Refresh user data after successful update
                 checkuserdatas();
             } else {
                 changeusertoken();
@@ -390,6 +439,7 @@ const Profile = () => {
             setLoadingEdite(false); // Set loading state to false after the API request is complete
         }
     };
+    
         
     
       
@@ -434,6 +484,7 @@ const Profile = () => {
     const [bookmarkCompaniesData, setBookmarkCompaniesData] = useState([]);
 
     const getBookmarkCompanies = async (type) => {
+        setLoadinguser(true)
         try {
             const apiKey = Cookies.get('api_key');
             const token = Cookies.get('token');
@@ -455,6 +506,9 @@ const Profile = () => {
             } else {
                 console.error('Error changing user password:', error); // Handle other errors
             }
+        }finally{
+        setLoadinguser(false)
+
         }
     };
     // GET BOOKMARK COMPANY irani
@@ -463,6 +517,7 @@ const Profile = () => {
     const [bookmarkCompaniesData2, setBookmarkCompaniesData2] = useState([]);
     const hasBookmarks = bookmarkCompaniesData.length > 0 || bookmarkCompaniesData2.length > 0;
     const getBookmarkCompanies2 = async () => {
+        setLoadinguser(true)
         try {
             const apiKey = Cookies.get('api_key');
             const token = Cookies.get('token');
@@ -484,6 +539,9 @@ const Profile = () => {
             } else {
                 console.error('Error getting bookmarks:', error); // Handle other errors
             }
+        }finally{
+        setLoadinguser(false)
+
         }
     };
     // GET BOOKMARK COMPANY iraqi
@@ -596,6 +654,14 @@ const Profile = () => {
               </>
           ) : null
       }
+      <Helmet>
+          <title>ثبات داده - پروفایل</title>
+        </Helmet>
+        {showMessage && (
+                <div className={`message-box ${messageContent === 'Failed to load data!' ? 'error' : 'success'} ${messageClass}`}>
+                    {messageContent}
+                </div>
+            )}
       <div className="Profile-content">
           {
               activespan === 0 ? (
@@ -634,8 +700,8 @@ const Profile = () => {
                   <label for="profile-family">نام‌خانوادگی</label>
               </div>
               <div className="Profile-content-row">
-                  <input type="text" name="" id="profile-name" value={profilename} required {...(profileedit === false ? { disabled: true } : {})} onChange={(e) => setProfilename(e.target.value)}/>
-                  <input type="text" name="" id="profile-family" value={profilefamily} required {...(profileedit === false ? { disabled: true } : {})} onChange={(e) => setProfilefamily(e.target.value)}/>
+                  <input className={loadinguser ? 'companie-content-loading' : ''} type="text" name="" id="profile-name" value={profilename} required {...(profileedit === false ? { disabled: true } : {})} onChange={(e) => setProfilename(e.target.value)}/>
+                  <input className={loadinguser ? 'companie-content-loading' : ''} type="text" name="" id="profile-family" value={profilefamily} required {...(profileedit === false ? { disabled: true } : {})} onChange={(e) => setProfilefamily(e.target.value)}/>
               </div>
               {/* next row */}
               <div className="Profile-content-row">
@@ -651,6 +717,7 @@ const Profile = () => {
                     onChange={handleDateChange}
                     placeholder="yyyy/mm/dd"
                     pattern="\d{4}/\d{2}/\d{2}"
+                    className={loadinguser ? 'companie-content-loading' : ''}
                 />
                 {!isValidDate && <small>لطفاً یک تاریخ معتبر با فرمت زیر وارد کنید: xxxx/xx/xx</small>}
               </div>
@@ -660,8 +727,8 @@ const Profile = () => {
                   <label for="profile-email">ایمیل</label>
               </div>
               <div className="Profile-content-row">
-                  <input type="text" name="" id="profile-phone" value={profilephone} required {...(profileedit === false ? { disabled: true } : {})} disabled/>
-                  <input type="email" name="" id="profile-email" value={profilemail} required {...(profileedit === false ? { disabled: true } : {})} onChange={(e) => setProfilemail(e.target.value)}/>
+                  <input className={loadinguser ? 'companie-content-loading' : ''} type="text" name="" id="profile-phone" value={profilephone} required {...(profileedit === false ? { disabled: true } : {})} disabled/>
+                  <input className={loadinguser ? 'companie-content-loading' : ''} type="email" name="" id="profile-email" value={profilemail} required {...(profileedit === false ? { disabled: true } : {})} onChange={(e) => setProfilemail(e.target.value)}/>
               </div>
               {/* next row */}
               <div className="Profile-content-row">
@@ -676,6 +743,7 @@ const Profile = () => {
                         required
                         onChange={handleChange}
                         disabled={!profileedit}
+                        className={loadinguser ? 'companie-content-loading' : ''}
                     >
                         <option value="default">انتخاب</option>
                         {provinces.map((province, index) => (
@@ -684,7 +752,7 @@ const Profile = () => {
                             </option>
                         ))}
                     </select>
-                  <input type="email" name="" id="profile-address" value={profileaddress}  required {...(profileedit === false ? { disabled: true } : {})} onChange={(e) => setProfileaddress(e.target.value)}/>
+                  <input className={loadinguser ? 'companie-content-loading' : ''} type="email" name="" id="profile-address" value={profileaddress}  required {...(profileedit === false ? { disabled: true } : {})} onChange={(e) => setProfileaddress(e.target.value)}/>
               </div>
               <span>{fnameError}</span>
               <span>{lnameError}</span>
@@ -696,40 +764,52 @@ const Profile = () => {
           </div>
                   </>
               ) : activespan === 1 ? (
-                  <div className="Profile-bookmark">
-                      {hasBookmarks ? (
-                <>
-                    {bookmarkCompaniesData.map(company => (
-                        <Bookmarkcard
-                            key={company.id}
-                            img={company.profile_companie1 || companielogo}
-                            companiename={company.title}
-                            companiedes='ایرانی'
-                            companieprice={company.status === 1 ? 'فعال' : 'غیر فعال'}
-                            companiedate={company.registrationDate}
-                            url={company.code}
-                            contry={0}
-                        />
-                    ))}
-                    {bookmarkCompaniesData2.map(company => (
-                        <Bookmarkcard
-                            key={company.id}
-                            img={company.profile_companie1 || companielogo}
-                            companiename={company.title}
-                            companiedes='عراقی'
-                            companieprice={company.status === 1 ? 'فعال' : 'غیر فعال'}
-                            companiedate={company.registrationDate}
-                            url={company.id}
-                            contry={1}
-                        />
-                    ))}
-                </>
-            ) : (
-                <p>آگهی نشان نشده</p>
-            )}
-                  </div>
-                  
-                  
+                <div className="Profile-bookmark">
+                {loadinguser ? (
+                Array(4).fill(null).map((_, index) => (
+                    <Bookmarkcard
+                        key={index}
+                        img={companielogo}
+                        companiename={''}
+                        companiedes=''
+                        companieprice={''}
+                        companiedate={''}
+                        url={''}
+                        contry={0}
+                        className="companie-content-loading"
+                    />
+                ))
+            ) : hasBookmarks ? (
+                    <>
+                        {bookmarkCompaniesData.map(company => (
+                            <Bookmarkcard
+                                key={company.id}
+                                img={company.profile_companie1 || companielogo}
+                                companiename={company.title}
+                                companiedes='ایرانی'
+                                companieprice={company.status === 1 ? 'فعال' : 'غیر فعال'}
+                                companiedate={company.registrationDate}
+                                url={company.code}
+                                contry={0}
+                            />
+                        ))}
+                        {bookmarkCompaniesData2.map(company => (
+                            <Bookmarkcard
+                                key={company.id}
+                                img={company.profile_companie1 || companielogo}
+                                companiename={company.title}
+                                companiedes='عراقی'
+                                companieprice={company.status === 1 ? 'فعال' : 'غیر فعال'}
+                                companiedate={company.registrationDate}
+                                url={company.id}
+                                contry={1}
+                            />
+                        ))}
+                    </>
+                ) : (
+                    <p>آگهی نشان نشده</p>
+                )}
+            </div>              
               ) : activespan === 2 ? (
                   <div className="Profile-changep">
                     <div className="Profile-changep-row">
@@ -842,38 +922,77 @@ const Profile = () => {
                         <h1>اشتراک فعلی : {profilesath}</h1>
                         <h2>مدت زمان : {profilesathtime} روز</h2>
                       </div>
+                      <div className="Profile-eshterak-now">
+                        <h1>اشتراک سریع :</h1>
+                      </div>
+                      <div className="Profile-eshterak-price">
+                          <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
+                              <h2>استعلام شرکت‌های ایرانی</h2>
+                              <h2>تعداد استعلام در روز : 5</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۳۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۱۵,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum">
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>تعداد استعلام در روز : 11</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۴۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۲۷,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>تعداد استعلام در روز : 17</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۹۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۴۲,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                      </div>
+                      <div className="Profile-eshterak-now">
+                        <h1>اشتراک پایه :</h1>
+                      </div>
                       <div className="Profile-eshterak-price">
                           <div className="Profile-eshterak-price-cloum">
-                              <h1>اشتراک سطح ۱</h1>
-                              <h2>اشتراک سطح ۱</h2>
-                              <h2>اشتراک سطح ۱</h2>
-                              <h2>اشتراک سطح ۱</h2>
-                              <h2>اشتراک سطح ۱</h2>
-                              <span>۵۰,۰۰۰ تومان</span>
+                              <h1>ارائه کاربردی</h1>
+                              <h2>استعلام شرکت‌های ایرانی</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : 10</h2>
+                              <h2>نشانه دار کردن شرکت ها</h2>
+                              <h2>نمایش شرکت های پیشنهادی</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۱,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۵۰۰,۰۰۰ تومان</span>
                               <button type="submit">خرید اشتراک</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
                               <div className="Profile-eshterak-price-cloum-special-header">
-                                  <h1>امکانات سطح ۲</h1>
+                                  <h1>ارائه حرفه ای</h1>
                                   <h2>(محبوب کاربران)</h2>
                               </div>
-                              <h2>امکانات سطح ۲</h2>
-                              <h2>امکانات سطح ۲</h2>
-                              <h2>امکانات سطح ۲</h2>
-                              <h2>امکانات سطح ۲</h2>
-                              <span>۸۰,۰۰۰ تومان</span>
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : 40</h2>
+                              <h2>ارائه گزارش اختصاصی شرکت ها</h2>
+                              <h2>نمایش شرکت های پیشنهادی ایرانی و منطقه</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۳,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۱,۵۰۰,۰۰۰ تومان</span>
                               <button type="submit">خرید اشتراک</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum">
-                              <h1>امکانات سطح ۳</h1>
-                              <h2>امکانات سطح ۳</h2>
-                              <h2>امکانات سطح ۳</h2>
-                              <h2>امکانات سطح ۳</h2>
-                              <h2>امکانات سطح ۳</h2>
-                              <span>۱۲۰,۰۰۰ تومان</span>
+                                 <div className="Profile-eshterak-price-cloum-special-header">
+                                    <h1>ارائه اختصاصی</h1>
+                                    <h2>(پیشنهادی ثبات داده)</h2>
+                                </div>
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : نامحدود</h2>
+                              <h2>طرف قرارداد تو بشناس</h2>
+                              <h2>ارائه گزارش اختصاصی و برسی ریسک معاملاتی</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۷,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۵,۰۰۰,۰۰۰ تومان</span>
                               <button type="submit">خرید اشتراک</button>
                           </div>
                       </div>
+                     
                   </div>
               ) : (
                   <div className="Profile-rezome">

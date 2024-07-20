@@ -244,8 +244,8 @@
 }
 .cards2{
     overflow: hidden;
-    flex-basis: 23.5%;
     width: 264px;
+    flex-basis: 23.3%;
     height: auto;
     border: 2px solid #002347;
     border-radius: 20px;
@@ -474,13 +474,98 @@
     }
     .cards2{
         margin-top: 5%;
+        flex-basis: auto;
         padding-bottom: 5%;
+    }
+    .Searchbox-main-companies{
+        display: flex;
+        direction: rtl;
+        width: 100%;
+        margin-top: 2%;
+        background-color: rgba(217, 217, 217,0.5);
+        border-radius: 16px;
+        border: 1px solid white;
+        box-shadow: 0px 0px 4px 0px #1B2B4E33;
+        padding: 2%;
     }
     .Companies-center{
         height: auto;
     }
     .Searchbox-items22{
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
-    
+    .Searchbox-items22 select:not(:first-child){
+        margin-right: 0;
+    }
+    .Searchbox-items22 select{
+        font-family: "Sans";
+        margin-top: 5%;
+        flex-basis: 20%;
+        padding: 3%;
+        width: 75%;
+        height: 48px;
+        border: 1px solid #BDBDBD;
+        border-radius: 8px;
+        padding-right: 3%;
+        background-color: white;
+        appearance: none; /* Remove default appearance */
+        -webkit-appearance: none; /* Remove default appearance for WebKit browsers */
+        -moz-appearance: none; /* Remove default appearance for Firefox */
+        background-image: url('./Icons/expanddownsoalat.svg'); /* Add custom expand down icon */
+        background-repeat: no-repeat; /* Prevent repeating the background image */
+        background-position: left; /* Position the background image to the right center */
+        background-position-x: 5%;
+        background-size: 20px; /* Set the size of the background image */
+    }
+    .Searchbox-items22 input{
+        font-family: "Sans";
+        margin-top: 5%;
+        padding: 3%;
+        width: 85%;
+        margin-bottom: 10%;
+        height: 48px;
+        border: 1px solid #BDBDBD;
+        border-radius: 8px;
+        padding-right: 3%;
+        background-color: white;
+    }
+    .Searchbox-items22 button{
+        direction: rtl;
+        text-align: center;
+        margin-top: 10%;
+        margin-bottom: 5%;
+        font-size: 18px;
+        width: 85%;
+        padding: 2%;
+        border: none;
+        height: 48px;
+        background-color: #FF7F50;
+        color: #FFFFFF;
+        border-radius: 8px;
+        transition: .3s;
+        cursor: pointer;
+    }
+    .Searchbox-items22 .searchicon2{
+        display: none;
+    }
+    .Companies-delete-filter-items{
+        margin-right: 0%;
+    }
+    .Companies-delete-filter-items span{
+        flex-basis: 45%;
+        margin-top: 5%;
+        padding: 3%;
+    }
+    .slider2-notfound{
+        margin-right: auto;
+        margin-left: auto;
+        font-size: 25px;
+        border: 1px solid #7A7A7A;
+        border-radius: 8px;
+        padding: 2%;
+        width: 90%;
+        text-align: center;
+    }
 }

@@ -1,10 +1,15 @@
 import './Ghavanin.css'
+import { Helmet } from 'react-helmet';
+
 // Icons
 import ghavaninpolicyicon from './Icons/ghavaninpolicyicon.svg'
 import Soalat from './Soalat';
 const Ghavanin = () => {
     return ( 
         <div>
+            <Helmet>
+                <title>ثبات داده - قوانین و مقررات</title>
+            </Helmet>
             <div className="header-ghavanin">
                 <h1><img src={ghavaninpolicyicon} alt="icon ghavanin" />قوانین و مقررات</h1>
             </div>

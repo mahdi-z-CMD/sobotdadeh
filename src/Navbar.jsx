@@ -1,21 +1,23 @@
 import './Navbar.css'
 import isAuthenticated from './PrivateRoute'; // Import the isAuthenticated function
-import {Link, useLocation} from 'react-router-dom'
+import {Link, useLocation , useNavigate} from 'react-router-dom'
 import { useState,useEffect } from 'react'
 import Searchicon from './Icons/search-13-512.png'
 import Searchicon_nothome from './Icons/search_nothome.svg'
 import logo from './Icons/logo.svg'
-import locationicon from './Icons/locationicon.svg'
-import loc_nothome from './Icons/loc_nothome.svg'
+import locationicon from './Icons/languageiconsefid.svg'
+import loc_nothome from './Icons/languageicon.svg'
 import expandmoreicon from './Icons/expandmoreicon.svg'
 import expandmore_nothome from './Icons/expandmore_nothome.svg'
 import loginicon_nothome from './Icons/loginicon_nothome.svg'
+import loginicon_login from './Icons/logedin.svg'
+import loginicon_login_nothome from './Icons/logedin_nothome.svg'
 import loginicon from './Icons/loginicon.svg'
 import burgericon from './Icons/hamburger-menu.svg'
 import burgericonclose from './Icons/hamburger-menu-close.svg'
 import expandmore_mobile from './Icons/expandmore_mobile.svg'
 import { useTranslation } from 'react-i18next';
-
+import closeicon from './Icons/closeicon.svg'
 // translate 
 export const Navbar = () => {
   const { i18n } = useTranslation();
@@ -63,7 +65,6 @@ export const Navbar = () => {
   }, []);
    // get window width
   const location = useLocation();
-  const isHomepage = location.pathname === '/';
   const [isHovered, setHovered] = useState(false);
   const [isListHovered, setListHovered] = useState(false);
 
@@ -140,6 +141,90 @@ export const Navbar = () => {
     setHovered3(false);
     setListHovered3(false);
   };
+  // search bar 
+  const navigate = useNavigate();
+    const [searchInput, setSearchInput] = useState('');
+    const [isHomepage, setIsHomepage] = useState(true);
+    useEffect(() => {
+      if (location.pathname === '/') {
+          setIsHomepage(true);
+      } else {
+          setIsHomepage(false);
+      }
+  }, [location.pathname]);
+    const [searchResults, setSearchResults] = useState([]);
+
+    const pageContents = {
+        'درباره ما': "هدف از ثبات‌داده لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد",
+        'طرف قرارداد تو بشناس': "طرف قرارداد تو بشناس لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد",
+        'استعلام شرکت‌ها': "جستجوی شرکت ها استعلام شرکت‌ها لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد",
+        'شرکت‌های خارجی': "شرکت‌های خارجی استعلام شرکت‌ها ایران عراق امارات ترکیه کشور مورد نظر",
+        'کسب و کار تو': "کسب و کار تو اهمیت کسب و کار تو از نگاه ثبات‌داده در عصر هوش مصنوعی و داده محور شدن تمامی کسب و کارها، ثبات داده تلاش می کند تا مشاوره ای اقتصادی را بر پایه استاندارد های جهانی را برای تجارت شما به ارمغان سازد. طرح جامع کسب و کار تحلیل بازارهای رقیب مشاوره مالیاتی مشاوره حقوقی مشاوره سرمایه گذاری مشاوره IT مشاوره ویژه اقتصادی",
+        // Add more page contents here
+    };
+
+    const searchPages = (searchTerm) => {
+        const results = [];
+
+        for (const [page, content] of Object.entries(pageContents)) {
+            if (content.toLowerCase().includes(searchTerm.toLowerCase())) {
+                results.push(page);
+            }
+        }
+
+        return results;
+    };
+
+    const handleSearch = (e) => {
+        setSearchInput(e.target.value);
+    };
+
+    useEffect(() => {
+        if (searchInput.trim() !== '') {
+            const results = searchPages(searchInput);
+            setSearchResults(results);
+        } else {
+            setSearchResults([]);
+        }
+    }, [searchInput]);
+
+    const handleResultClick = (page) => {
+        switch (page) {
+            case 'درباره ما':
+                navigate('/درباره-ما');
+                break;
+            case 'طرف قرارداد تو بشناس':
+                navigate('/طرف-قرارداد-تو-بشناس');
+                break;
+            case 'استعلام شرکت‌ها':
+                navigate('/استعلام-شرکت');
+                break;
+            case 'شرکت‌های خارجی':
+                navigate('/استعلام-شرکت-خارجی');
+                break;
+            case 'کسب و کار تو':
+                navigate('/کسب-و-کار');
+                break;
+            
+            // Add more cases as needed
+            default:
+                console.log('Page not found');
+        }
+    };
+
+  // search bar 
+  // show language in mobile 
+  const [isLanguageListOpen, setIsLanguageListOpen] = useState(false);
+
+  const toggleLanguageList = () => {
+    setIsLanguageListOpen(!isLanguageListOpen);
+  };
+
+  const handleLanguageChange = (language) => {
+    i18n.changeLanguage(language);
+    setIsLanguageListOpen(false); // Optionally close the list after selection
+  };
+  // show language in mobile 
   return (
     <nav className={isHomepage ? '' : 'nav-not-home'}>
       {/* <div className="accept-cookies">
@@ -159,10 +244,10 @@ export const Navbar = () => {
                     {
                       mobilekhadamat ? (
                         <div className="Nav-mobile-khadamat-items">
-                          <Link to='/madreseeghtesad' onClick={navmobileclick}>{t('کسب و کار تو')}</Link>
-                          <Link to='/companies' onClick={navmobileclick}>{t('استعلام شرکت‌ها')}</Link>
-                          <Link to='/shenakhtrisk' onClick={navmobileclick}>{t('تخمین ریسک')}</Link>
-                          <Link to='/tarafeto' onClick={navmobileclick}>{t('طرف قرارداد تو بشناس')}</Link>
+                          <Link to='/کسب-و-کار' onClick={navmobileclick}>{t('کسب و کار تو')}</Link>
+                          <Link to='/استعلام-شرکت' onClick={navmobileclick}>{t('استعلام شرکت‌ها')}</Link>
+                          <Link to='/تخمین-ریسک' onClick={navmobileclick}>{t('تخمین ریسک')}</Link>
+                          <Link to='/طرف-قرارداد-تو-بشناس' onClick={navmobileclick}>{t('طرف قرارداد تو بشناس')}</Link>
                         </div>
                       ) : null
                     }
@@ -170,33 +255,42 @@ export const Navbar = () => {
                   {
                     mobiledarbare ? (
                       <div className="Nav-mobile-khadamat-items">
-                          <Link to='/ghavanin' onClick={navmobileclick}>{t('قوانین و مقررات')}</Link>
-                          <li><Link to='/blog' onClick={handleItemClick2}>{t('مجله ثبات‌داده')}</Link></li>
-                          <Link to='/soalatmotadavel' onClick={navmobileclick}>{t('سوالات متداول')}</Link>
-                          <Link to='/aboutus' onClick={navmobileclick}>{t('درباره ما')}</Link>
-                          <Link to='/contact' onClick={navmobileclick}>{t('تماس با ما')}</Link>
+                          <Link to='/قوانین-و-مقررات' onClick={navmobileclick}>{t('قوانین و مقررات')}</Link>
+                          <Link to='/blog' onClick={navmobileclick}>{t('مجله ثبات‌داده')}</Link>
+                          <Link to='/سوالات-متداول' onClick={navmobileclick}>{t('سوالات متداول')}</Link>
+                          <Link to='/درباره-ما' onClick={navmobileclick}>{t('درباره ما')}</Link>
+                          <Link to='/تماس-با-ما' onClick={navmobileclick}>{t('تماس با ما')}</Link>
                         </div>
                     ) : null
                   }
-                  <Link onClick={navmobileclick} to={'/khareji'}>{t('شرکت‌های خارجی')}</Link>
+                  <Link onClick={navmobileclick} to={'/استعلام-شرکت-خارجی'}>{t('شرکت‌های خارجی')}</Link>
                   <hr />
                   <div className="Nav-mobile-login">
                     <Link onClick={navmobileclick} to={'/login'}>{isAuthenticated() ? t('پروفایل') : t('ورود/ثبت نام')}<img src={loginicon_nothome} alt="login icon" /></Link>
                   </div>
-                  <div className="Nav-mobile-language">
-                    <Link>فارسی<img src={expandmore_mobile} alt="" /></Link>
-                  </div>
+                  {/* select language */}
+                  <span onClick={toggleLanguageList} className='Nav-mobile-language-head'>
+                    {i18n.language === 'fa' ? 'فارسی' : 'العربية'}
+                    <img src={expandmore_mobile} alt="Logo" width="24px" height="24px" />
+                  </span>
+                  {isLanguageListOpen && (
+                    <ul className="Nav-mobile-language-items">
+                      <a href="#" onClick={() => handleLanguageChange('fa')}>فارسی</a>
+                      <a href="#" onClick={() => handleLanguageChange('ar')}>العربية</a>
+                    </ul>
+                  )}
+                  {/* select language */}
                 </div>
               ) : (null)
             }
             </>) : (<>
               <div className="Navbar-items1">
         <a href="#" className={isHomepage ? 'loc-a1' : 'loc-a2'}>Fa<img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px"/></a>
-        <Link to={'/Login'}>{isAuthenticated() ? t('پروفایل') : t('ورود/ثبت نام')}<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
+        <Link to={'/Login'}>{isAuthenticated() ? t('پروفایل') : t('ورود/ثبت نام')}<img src={isHomepage ? isAuthenticated() ? loginicon_login : loginicon : isAuthenticated() ? loginicon_login_nothome : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
       </div>
       <div className="Navbar-items2">
           {
-            windowWidth >= 1450 ? (<Link to='khareji'>
+            windowWidth >= 1450 ? (<Link to='استعلام-شرکت-خارجی'>
             {t('شرکت‌های خارجی')}
             </Link>) : null
           }
@@ -213,11 +307,11 @@ export const Navbar = () => {
             onMouseEnter={handleListMouseEnter2}
             onMouseLeave={handleListMouseLeave2}
           >
-            <li><Link to='/ghavanin' onClick={handleItemClick2}>{t('قوانین و مقررات')}</Link></li>
+            <li><Link to='/قوانین-و-مقررات' onClick={handleItemClick2}>{t('قوانین و مقررات')}</Link></li>
             <li><Link to='/blog' onClick={handleItemClick2}>{t('مجله ثبات‌داده')}</Link></li>
-            <li><Link to='/soalatmotadavel' onClick={handleItemClick2}>{t('سوالات متداول')}</Link></li>
-            <li><Link to='/aboutus' onClick={handleItemClick2}>{t('درباره ما')}</Link></li>
-            <li><Link to='/contact' onClick={handleItemClick2}>{t('تماس با ما')}</Link></li>
+            <li><Link to='/سوالات-متداول' onClick={handleItemClick2}>{t('سوالات متداول')}</Link></li>
+            <li><Link to='/درباره-ما' onClick={handleItemClick2}>{t('درباره ما')}</Link></li>
+            <li><Link to='/تماس-با-ما' onClick={handleItemClick2}>{t('تماس با ما')}</Link></li>
           </ul>
         )}
         {/* next list items */}
@@ -234,24 +328,48 @@ export const Navbar = () => {
             onMouseEnter={handleListMouseEnter}
             onMouseLeave={handleListMouseLeave}
           >
-          <li><Link to='/madreseeghtesad' onClick={handleItemClick2}>{t('کسب و کار تو')}</Link></li>
-          <li><Link to='/companies' onClick={handleItemClick2}>{t('استعلام شرکت‌ها')}</Link></li>
+          <li><Link to='/کسب-و-کار' onClick={handleItemClick2}>{t('کسب و کار تو')}</Link></li>
+          <li><Link to='/استعلام-شرکت' onClick={handleItemClick2}>{t('استعلام شرکت‌ها')}</Link></li>
           {
-            windowWidth <= 1450 ? (<li><Link to='/khareji' onClick={handleItemClick2}>{t('شرکت‌های خارجی')}</Link></li>) : null
+            windowWidth <= 1450 ? (<li><Link to='/استعلام-شرکت-خارجی' onClick={handleItemClick2}>{t('شرکت‌های خارجی')}</Link></li>) : null
           }
-          <li><Link to='/shenakhtrisk' onClick={handleItemClick2}>{t('تخمین ریسک')}</Link></li>
+          <li><Link to='/تخمین-ریسک' onClick={handleItemClick2}>{t('تخمین ریسک')}</Link></li>
           </ul>
         )}
         <Link to='/'>
         {t('صفحه اصلی')}
         </Link>
         <div className='Search-nav'>
-          <img src={isHomepage ? Searchicon : Searchicon_nothome} alt="Search icon" />
-          <input type="text" placeholder={t('جست‌وجو در ثبات‌داده....')}/>
+        <img src={isHomepage ? Searchicon : Searchicon_nothome} alt="Search icon" />
+            <input
+                type="text"
+                placeholder="جست‌وجو در ثبات‌داده...."
+                value={searchInput}
+                onChange={handleSearch}
+            />
+         {searchInput.trim() !== '' && (
+            <div className='search-results'>
+                <img src={closeicon} alt="close icon" onClick={() => setSearchInput('')}/>
+                {searchResults.length > 0 ? (
+                    searchResults.map((result) => (
+                        <div key={result} onClick={() => handleResultClick(result)} className='search-results-show'>
+                            <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در صفحه `}
+                            <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
+                            {` است.`}
+                        </p>
+                        </div>
+                    ))
+                ) : (
+                    <div className='search-results-show'>
+                        <p>{`هیچ نتیجه‌ای برای `}<span className='search-results-show-text'>{searchInput}</span>{` یافت نشد.`}</p>
+                    </div>
+                )}
+            </div>
+        )}
         </div>
       </div>
       {
-        windowWidth <= 1200 ? null : (<Link to={'/'}><img className='Nav-logo' src="https://sobotdadeh.com/bestco/logost.png" alt="Logo" width="101px" height="62px"/></Link>)
+        windowWidth <= 1200 ? null : (<Link to={'/'}><img className='Nav-logo' src="https://sobotdadeh.com/bestco/logost.png" alt="Logo" width="140px" height="152px"/></Link>)
       }
             </>)
           }
@@ -276,7 +394,7 @@ export const Navbar = () => {
               </ul>
             )}
           {/* select language */}
-        <Link to={'/Login'}>{isAuthenticated() ? t('پروفایل') : t('ورود/ثبت نام')}<img src={isHomepage ? loginicon : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
+        <Link to={'/Login'}>{isAuthenticated() ? t('پروفایل') : t('ورود/ثبت نام')}<img src={isHomepage ? isAuthenticated() ? loginicon_login : loginicon : isAuthenticated() ? loginicon_login_nothome : loginicon_nothome} alt="Logo" width="24px" height="24px"/></Link>
       </div>
       <div className="Navbar-items2">
       <span
@@ -287,7 +405,7 @@ export const Navbar = () => {
           <img src={isHomepage ? expandmoreicon : expandmore_nothome} alt="expand down" width="24px" height="24px" />
         </span>
           {
-            windowWidth >= 1450 ? (<Link to='khareji'>
+            windowWidth >= 1450 ? (<Link to='استعلام-شرکت-خارجی'>
             {t('شرکت‌های خارجی')}
             </Link>) : null
           }
@@ -297,11 +415,11 @@ export const Navbar = () => {
             onMouseEnter={handleListMouseEnter2}
             onMouseLeave={handleListMouseLeave2}
           >
-            <li><Link to='/ghavanin' onClick={handleItemClick2}>{t('قوانین و مقررات')}</Link></li>
+            <li><Link to='/قوانین-و-مقررات' onClick={handleItemClick2}>{t('قوانین و مقررات')}</Link></li>
             <li><Link to='/blog' onClick={handleItemClick2}>{t('مجله ثبات‌داده')}</Link></li>
-            <li><Link to='/soalatmotadavel' onClick={handleItemClick2}>{t('سوالات متداول')}</Link></li>
-            <li><Link to='/aboutus' onClick={handleItemClick2}>{t('درباره ما')}</Link></li>
-            <li><Link to='/contact' onClick={handleItemClick2}>{t('تماس با ما')}</Link></li>
+            <li><Link to='/سوالات-متداول' onClick={handleItemClick2}>{t('سوالات متداول')}</Link></li>
+            <li><Link to='/درباره-ما' onClick={handleItemClick2}>{t('درباره ما')}</Link></li>
+            <li><Link to='/تماس-با-ما' onClick={handleItemClick2}>{t('تماس با ما')}</Link></li>
           </ul>
         )}
         {/* next list items */}
@@ -318,25 +436,49 @@ export const Navbar = () => {
             onMouseEnter={handleListMouseEnter}
             onMouseLeave={handleListMouseLeave}
           >
-          <li><Link to='/madreseeghtesad' onClick={handleItemClick2}>{t('کسب و کار تو')}</Link></li>
-          <li><Link to='/companies' onClick={handleItemClick2}>{t('استعلام شرکت‌ها')}</Link></li>
+          <li><Link to='/کسب-و-کار' onClick={handleItemClick2}>{t('کسب و کار تو')}</Link></li>
+          <li><Link to='/استعلام-شرکت' onClick={handleItemClick2}>{t('استعلام شرکت‌ها')}</Link></li>
           {
-            windowWidth <= 1450 ? (<li><Link to='/khareji' onClick={handleItemClick2}>{t('شرکت‌های خارجی')}</Link></li>) : null
+            windowWidth <= 1450 ? (<li><Link to='/استعلام-شرکت-خارجی' onClick={handleItemClick2}>{t('شرکت‌های خارجی')}</Link></li>) : null
           }
-          <li><Link to='/shenakhtrisk' onClick={handleItemClick2}>{t('تخمین ریسک')}</Link></li>
-          <li><Link to='/tarafeto' onClick={navmobileclick}>{t('طرف قرارداد تو بشناس')}</Link></li>
+          <li><Link to='/تخمین-ریسک' onClick={handleItemClick2}>{t('تخمین ریسک')}</Link></li>
+          <li><Link to='/طرف-قرارداد-تو-بشناس' onClick={navmobileclick}>{t('طرف قرارداد تو بشناس')}</Link></li>
           </ul>
         )}
         <Link to='/'>
         {t('صفحه اصلی')}
         </Link>
         <div className='Search-nav'>
-          <img src={isHomepage ? Searchicon : Searchicon_nothome} alt="Search icon" />
-          <input type="text" placeholder={t('جست‌وجو در ثبات‌داده....')}/>
+        <img src={isHomepage ? Searchicon : Searchicon_nothome} alt="Search icon" />
+            <input
+                type="text"
+                placeholder="جست‌وجو در ثبات‌داده...."
+                value={searchInput}
+                onChange={handleSearch}
+            />
+         {searchInput.trim() !== '' && (
+            <div className='search-results'>
+                <img src={closeicon} alt="close icon" onClick={() => setSearchInput('')}/>
+                {searchResults.length > 0 ? (
+                    searchResults.map((result) => (
+                        <div key={result} onClick={() => handleResultClick(result)} className='search-results-show'>
+                            <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در صفحه `}
+                            <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
+                            {` است.`}
+                        </p>
+                        </div>
+                    ))
+                ) : (
+                    <div className='search-results-show'>
+                        <p>{`هیچ نتیجه‌ای برای `}<span className='search-results-show-text'>{searchInput}</span>{` یافت نشد.`}</p>
+                    </div>
+                )}
+            </div>
+        )}
         </div>
       </div>
       {
-        windowWidth <= 1200 ? null : (<Link to={'/'}><img className='Nav-logo' src="https://sobotdadeh.com/bestco/logost.png" alt="Logo" width="111px" height="72px"/></Link>)
+        windowWidth <= 1200 ? null : (<Link to={'/'}><img className='Nav-logo' src="https://sobotdadeh.com/bestco/logost.png" alt="Logo" width="151px" height="92px"/></Link>)
       }
         </>)
       }

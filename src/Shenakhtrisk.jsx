@@ -1,4 +1,5 @@
 import './Shenakhtrisk.css'
+import { Helmet } from 'react-helmet';
 // icons
 import markgreen from './Icons/Shenkhat_kharid_mark.svg'
 // images
@@ -7,6 +8,9 @@ import madrese1 from './image/shenakht_img1.png'
 const Shenakhtrisk = () => {
     return ( 
         <>
+        <Helmet>
+          <title>ثبات داده - تخمین ریسک</title>
+        </Helmet>
             <div className="Shenakht-bg">
                 <div className='Shenakht-content'>
                     <img src={madrese1} alt="icon" />

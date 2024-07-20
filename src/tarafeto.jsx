@@ -1,6 +1,9 @@
 import './Madreseeghtesad.css'
 import './tarafeto.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect , useRef } from 'react'
+import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
+
 // Icons
 import leftarrowslider from './Icons/leftarrowslider.svg'
 import bookmarkicon from './Icons/bookmark.svg'
@@ -28,6 +31,7 @@ import tarafbg from './image/tarafetobg.png'
 // json test for api
 import sliderdata from './slidersdata.json'
 const Tarafeto = () => {
+  const { t } = useTranslation();
     // get window width
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -45,71 +49,72 @@ const Tarafeto = () => {
     };
   }, []);
   // get window width
-    // scroll to item
-    const handleSectionClick2 = (e, sectionId) => {
-        e.preventDefault(); // Prevent the default behavior of anchor tag
-      
-        setActiveSection(sectionId); // Update the active section state
-      
-        // Scroll to the corresponding section
-        const sectionElement = document.getElementById(sectionId);
-        if (sectionElement) {
-          sectionElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      };
-    // scroll to item
-    const [activeSection, setActiveSection] = useState(0);
-
-    const handleSectionClick = (index) => {
-        setActiveSection(index);
-    };
-    let i = 1;
     // this section is for api images ----------------------------------------------
-  const [startIndex, setStartIndex] = useState(0);
-  const [autoSlideIntervalId, setAutoSlideIntervalId] = useState(null);
+    const scrollContainer = useRef(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startPosition, setStartPosition] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+    const scrollSpeed = 1; // Adjust scroll speed
+    const autoScrollInterval = useRef(null);
+    const autoScrollTimeout = useRef(null);
 
-  // Function to start automatic sliding
-  const startAutoSlide = () => {
-    const id = setInterval(() => {
-      const newIndex = (startIndex + 1) % sliderdata.length; // Calculate the next index and loop back to 0 if it reaches the end
-      setStartIndex(newIndex);
-    }, 2000); // Change slide every 1 second
-    setAutoSlideIntervalId(id);
-  };
-
-  // Function to stop automatic sliding
-  const stopAutoSlide = () => {
-    clearInterval(autoSlideIntervalId);
-    setAutoSlideIntervalId(null);
-  };
-
-  // Start automatic sliding when component mounts or when startIndex changes
-  useEffect(() => {
-    if (windowWidth <= 500) {
-      startAutoSlide();
-    } else {
-      stopAutoSlide(); // Stop automatic sliding on larger screens
-    }
-
-    // Clean up function to stop automatic sliding when component unmounts or when startIndex changes
-    return () => {
-      if (autoSlideIntervalId) {
-        clearInterval(autoSlideIntervalId);
-      }
+    const handleMouseDown = (e) => {
+        setIsDragging(true);
+        setStartPosition(e.pageX - scrollContainer.current.offsetLeft);
+        setScrollLeft(scrollContainer.current.scrollLeft);
+        clearInterval(autoScrollInterval.current); // Stop auto-scroll on drag start
     };
-  }, [startIndex, windowWidth]); // Re-run effect when startIndex or windowWidth changes
 
-  // Function to handle next slide
-  const nextSlide = () => {
-    const newIndex = (startIndex + (windowWidth <= 500 ? 1 : 4)) % sliderdata.length; // Calculate the next index and loop back to 0 if it reaches the end
-    setStartIndex(newIndex);
-  };
+    const handleMouseLeave = () => {
+        setIsDragging(false);
+        restartAutoScroll(); // Restart auto-scroll on drag end
+    };
 
-  // Function to handle previous slide
-  const prevSlide = () => {
-    const newIndex = (startIndex - (windowWidth <= 500 ? 1 : 4) + sliderdata.length) % sliderdata.length; // Calculate the previous index and loop back to the end if it reaches 0
-    setStartIndex(newIndex);
-  };
+    const handleMouseUp = () => {
+        setIsDragging(false);
+        restartAutoScroll(); // Restart auto-scroll on drag end
+    };
+
+    const handleMouseMove = (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - scrollContainer.current.offsetLeft;
+        const walk = (x - startPosition) * 3; // Multiply by 3 to increase scroll speed
+        scrollContainer.current.scrollLeft = scrollLeft - walk;
+    };
+
+    const startAutoScroll = () => {
+        autoScrollInterval.current = setInterval(() => {
+            if (scrollContainer.current) {
+                scrollContainer.current.scrollLeft += scrollSpeed;
+                if (scrollContainer.current.scrollLeft + scrollContainer.current.clientWidth >= scrollContainer.current.scrollWidth) {
+                    scrollContainer.current.scrollLeft = 0; // Reset to start when end is reached
+                }
+            }
+        }, 20); // Approximately 60 frames per second
+    };
+
+    const restartAutoScroll = () => {
+        clearInterval(autoScrollInterval.current);
+        autoScrollTimeout.current = setTimeout(startAutoScroll, 2000); // Restart after 2 seconds
+    };
+
+    const handleMouseEnter = () => {
+        clearInterval(autoScrollInterval.current); // Pause auto-scroll on hover
+        clearTimeout(autoScrollTimeout.current);
+    };
+
+    const handleMouseLeaveContainer = () => {
+        if (!isDragging) restartAutoScroll(); // Restart auto-scroll when leaving the container if not dragging
+    };
+
+    useEffect(() => {
+        startAutoScroll();
+        return () => {
+            clearInterval(autoScrollInterval.current); // Clean up on unmount
+            clearTimeout(autoScrollTimeout.current);
+        };
+    }, []);
 
       // Components -----------------
       const Card = ((props)=>{
@@ -133,6 +138,9 @@ const Tarafeto = () => {
     })
     return ( 
         <div>
+            <Helmet>
+             <title>ثبات داده - طرف قرارداد تو بشناس</title>
+            </Helmet>
             <div className="Madrese-bg">
                 <div className='Madrese-content'>
                     <img src={tarafbg} alt="icon" />
@@ -223,20 +231,30 @@ const Tarafeto = () => {
               </div>
             </div>
             <div className="Madrese-slider">
-                    <div className='slider'>
-                    <h1>برترین شرکت‌ها</h1>
-                    <div className='card-box'>
-                        {sliderdata.slice(startIndex, startIndex + (windowWidth <= 500 ? 1 : windowWidth <= 1500 ? 3 : 4)).map((key, index) => (
-                    <Card name={key.name} namecompanie={key.description} img={key.imageUrl} timerelease="لحظاتی پیش، تهران" bookmark="" key={index}></Card>
+            <div className='slider'>
+                <h1>{t('برترین کسب و کار ها')}</h1>
+                <div
+                    className='card-box'
+                    ref={scrollContainer}
+                    onMouseDown={handleMouseDown}
+                    onMouseLeave={handleMouseLeave}
+                    onMouseUp={handleMouseUp}
+                    onMouseMove={handleMouseMove}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeaveContainer} // Restart auto-scroll when leaving the container
+                    style={{ overflow: 'auto', whiteSpace: 'nowrap' }}
+                >
+                    {sliderdata.map((item, index) => (
+                        <Card
+                            key={index}
+                            name={item.name}
+                            namecompanie={item.description}
+                            img={item.imageUrl}
+                            bookmark=""
+                        />
                     ))}
-                        <div className='arrow-card'>
-                            <img src={expandright} alt="right icon" className='arrow-card-right' onClick={nextSlide}/>
-                            <img src={expandleft} alt="left icon" className='arrow-card-left' onClick={prevSlide}/>
-                        </div>
-                    </div>
-                    <div className='slider-showmore'>
                 </div>
-                </div>
+            </div>
             </div>
         </div>
      );

@@ -8,7 +8,7 @@ import CryptoJS from 'crypto-js';
 import bookmarkicon from './Icons/bookmark.svg'
 import bookmarkfillicon from './Icons/bookmarkfill.svg'
 // Images
-import companielogo from './image/compani_logo.jpg'
+import companielogo from './Icons/default_companies_icon.gif'
 const Companie = () => {
     const [titileactive, setTitileactive] = useState(0);
     const [issub, setIssub] = useState(false);
@@ -140,12 +140,27 @@ const Companie = () => {
     }, [companiesIdApi, companyid]);
     // CHECK LIST
     // BOOKMARK COMPANY 
+    const [showMessage, setShowMessage] = useState(false);
+    const [messageContent, setMessageContent] = useState('');
+    const [messageClass, setMessageClass] = useState('');
+    const [loadingBookmark, setLoadingBookmark] = useState(false);
     const addbookmark = async () => {
         try {
+            setLoadingBookmark(true); // Set loading state to true
+              // Show success message
+              setMessageContent('... در حال ثبت');
+              setMessageClass('show');
+              setShowMessage(true);
+              setTimeout(() => {
+                  setMessageClass('hide');
+                  setTimeout(() => {
+                      setShowMessage(false);
+                  }, 500); // Duration of the slide-out animation
+              }, 5000); // Hide after 5 seconds
             const apiKey = Cookies.get('api_key');
             const token = Cookies.get('token');
             const imei = Cookies.get('IMEI');
-            // Send the POST request with custom headers
+    
             const response = await axios.post('https://api.sobotdadeh.com/v1/bookmark/create', {
                 company_id: type === '0' ? companyData.id : companyid,
                 type: type === '0' ? 'iran' : 'iraq'
@@ -156,23 +171,64 @@ const Companie = () => {
                     'IMEI': imei
                 }
             });
+    
             if (response.data.status === true) {
                 if (companyIdBook) {
-                    setCompanyIdBook(false)
-                }else{
-                    setCompanyIdBook(true)
+                    // Show success message
+                    setMessageContent('شرکت با موفقیت حذف نشان شد');
+                    setMessageClass('show');
+                    setShowMessage(true);
+                    setTimeout(() => {
+                        setMessageClass('hide');
+                        setTimeout(() => {
+                            setShowMessage(false);
+                        }, 500); // Duration of the slide-out animation
+                    }, 5000); // Hide after 5 seconds
+                    setCompanyIdBook(false);
+                } else {
+                    // Show success message
+                    setMessageContent('شرکت با موفقیت نشان شد');
+                    setMessageClass('show');
+                    setShowMessage(true);
+                    setTimeout(() => {
+                        setMessageClass('hide');
+                        setTimeout(() => {
+                            setShowMessage(false);
+                        }, 500); // Duration of the slide-out animation
+                    }, 5000); // Hide after 5 seconds
+                    setCompanyIdBook(true);
                 }
-            }
-            else{
+            } else {
+                // Show failure message
+                setMessageContent('! شرکت نشان نشد');
+                setMessageClass('show');
+                setShowMessage(true);
+                setTimeout(() => {
+                    setMessageClass('hide');
+                    setTimeout(() => {
+                        setShowMessage(false);
+                    }, 500); // Duration of the slide-out animation
+                }, 5000); // Hide after 5 seconds
             }
         } catch (error) {
             if (error.response && error.response.status === 401) {
-                changeusertoken()
+                changeusertoken();
             } else {
-                console.error('Error changing user password:', error); // Handle other errors
+                setMessageContent('! شرکت نشان نشد');
+                setMessageClass('show');
+                setShowMessage(true);
+                setTimeout(() => {
+                    setMessageClass('hide');
+                    setTimeout(() => {
+                        setShowMessage(false);
+                    }, 500); // Duration of the slide-out animation
+                }, 5000); // Hide after 5 seconds
             }
+        } finally {
+            setLoadingBookmark(false); // Set loading state to false
         }
     };
+    
       // BOOKMARK COMPANY 
     if (!companyData) {
       return (
@@ -191,15 +247,15 @@ const Companie = () => {
                 <hr/>
         <div className="companie-content-detail">
             <h2>سال تاسیس</h2>
-            <span>در حال جستجو...</span>
+            <span className='companie-content-loading'></span>
             <h2>نوع شرکت</h2>
-            <span>در حال جستجو...</span>
+            <span className='companie-content-loading'></span>
             <h2>وضعیت شرکت</h2>
-            <span>در حال جستجو...</span>
+            <span className='companie-content-loading'></span>
             <h2>شناسه ملی</h2>
-            <span>در حال جستجو...</span>
+            <span className='companie-content-loading'></span>
             <h2>آخرین سرمایه ثبتی</h2>
-            <span> میلیون ریال در حال جستجو...</span>
+            <span className='companie-content-loading'></span>
         </div>
         </div>
         </>
@@ -208,6 +264,11 @@ const Companie = () => {
     // get data from api ------------------------
     return ( 
         <div className='companie-page'>
+                    {showMessage && (
+                        <div className={`message-box ${messageContent === '! شرکت نشان نشد' ? 'error' : 'success'} ${messageClass}`}>
+                            {messageContent}
+                        </div>
+                    )}
             <div className="companie-header-bg">
             </div>
            {
@@ -230,6 +291,8 @@ const Companie = () => {
                         <span>{companyData.registrationDate}</span>
                         <h2>نوع شرکت</h2>
                         <span>{companyData.registrationTypeTitle}</span>
+                        <h2>نوع فعالیت</h2>
+                        <span>{companyData.type.title}</span>
                         <h2>وضعیت شرکت</h2>
                         <span>{companyData.status === 1 ? "فعال" : "غیر فعال"}</span>
                         <h2>شناسه ملی</h2>
@@ -240,6 +303,9 @@ const Companie = () => {
                     <div className="companie-content-detail-des">
                         <h2>درباره {companyData.title}</h2>
                         <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>
+                        <div className="companie-content-detail-des-button">
+                                <button className="companie-content-detail-des-button-blur">خرید اشتراک</button>
+                            </div>
                     </div>
                       </>
                     )
@@ -292,6 +358,9 @@ const Companie = () => {
                     <div className="companie-content-detail-des">
                         <h2>درباره {companyData.title}</h2>
                         <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>
+                        <div className="companie-content-detail-des-button">
+                                <button className="companie-content-detail-des-button-blur">خرید اشتراک</button>
+                            </div>
                     </div>
                       </>
                     )

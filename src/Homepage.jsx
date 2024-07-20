@@ -2,6 +2,8 @@ import './Home.css'
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Soalat from './Soalat';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -24,13 +26,13 @@ import arrowmasiricon from './Icons/arrowmasir.svg'
 
 
 // images
-import boximage1 from './image/box1.webp' 
-import boximage2 from './image/box2.webp' 
+import boximage2 from './image/box1.webp' 
+import boximage1 from './image/box2.webp' 
 import scrolldownicon from './image/scrolldown.webp'
 import majaleimg1 from './image/majale1.webp' 
 import majaleimg2 from './image/majale2.webp'
 import majaleimg3 from './image/majale3.webp'
-import hadafimg from './image/aboutimg2.webp'
+import hadafimg from './image/hadaf.webp'
 import hometarafbg from './image/tarafetobg.png'
 
 
@@ -57,28 +59,28 @@ export const Homepage = () => {
   // get window width
   // thie section is for box khadamat animation 
   const [scrolled, setScrolled] = useState(false);
-  const [majale, setMajale] = useState({
-    des: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است',
-    image: majaleimg3
-  });
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const boxKhadamat = document.querySelector(`.${windowWidth <= 500 ? 'kharid' : 'box-khadamat'}`);
-      const boxKhadamatOffset = boxKhadamat.offsetTop;
-      const boxKhadamatHeight = boxKhadamat.clientHeight;
 
-      if (scrollTop >= boxKhadamatOffset && scrollTop  < boxKhadamatOffset + boxKhadamatHeight) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const boxKhadamat = document.querySelector(`.${window.innerWidth <= 400 ? 'kharid' : 'box-khadamat'}`);
+            const boxKhadamatOffset = boxKhadamat.offsetTop;
+            const boxKhadamatHeight = boxKhadamat.clientHeight;
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+            // Check if .box-khadamat is scrolled into view
+            if (scrollTop >= boxKhadamatOffset && scrollTop < boxKhadamatOffset + boxKhadamatHeight) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
 
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
   // thie section is for box khadamat animation
   // this section is for api images ------------------------
   const [imageURL1, setImageURL1] = useState('');
@@ -177,65 +179,220 @@ export const Homepage = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       // Redirect to the search page with the search term as a query parameter
-      navigate(`/khareji?search=${searchTerm}&country=${selectedCity}&status=${selectedSabeghe}`);
+      navigate(`/استعلام-شرکت-خارجی?search=${searchTerm}&country=${selectedCity}&status=${selectedSabeghe}`);
     };
 
     // Search to companies page
 
   //  --------------- animation slider ----------------------
-  const scrollContainer = useRef(null);
-    const [isDragging, setIsDragging] = useState(false);
-    const [startPosition, setStartPosition] = useState(0);
-    const [scrollLeft, setScrollLeft] = useState(0);
-    const scrollSpeed = 1; // Adjust scroll speed
-    const autoScrollInterval = useRef(null);
+  const scrollContainerRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startPosition, setStartPosition] = useState(0);
+  const [startScrollLeft, setStartScrollLeft] = useState(0);
+  const scrollSpeed = 1; // Adjust scroll speed
+  const autoScrollInterval = useRef(null);
 
-    const handleMouseDown = (e) => {
-        setIsDragging(true);
-        setStartPosition(e.pageX - scrollContainer.current.offsetLeft);
-        setScrollLeft(scrollContainer.current.scrollLeft);
-        clearInterval(autoScrollInterval.current); // Stop auto-scroll on drag start
+  const handleMouseDown = (e) => {
+    e.preventDefault(); // Prevent default action
+    setIsDragging(true);
+    setStartPosition(e.pageX - scrollContainerRef.current.offsetLeft);
+    setStartScrollLeft(scrollContainerRef.current.scrollLeft);
+    clearInterval(autoScrollInterval.current); // Stop auto-scroll on drag start
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault(); // Prevent default action
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startPosition) * 3; // Multiply by 3 to increase scroll speed
+    scrollContainerRef.current.scrollLeft = startScrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    startAutoScroll(); // Restart auto-scroll on drag end
+  };
+
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    setStartPosition(e.touches[0].pageX - scrollContainerRef.current.offsetLeft);
+    setStartScrollLeft(scrollContainerRef.current.scrollLeft);
+    clearInterval(autoScrollInterval.current); // Stop auto-scroll on drag start
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startPosition) * 3; // Multiply by 3 to increase scroll speed
+    scrollContainerRef.current.scrollLeft = startScrollLeft - walk;
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    startAutoScroll(); // Restart auto-scroll on drag end
+  };
+
+  const handleMouseEnter = () => {
+    clearInterval(autoScrollInterval.current); // Stop auto-scroll on hover
+  };
+
+  const handleMouseLeaveContainer = () => {
+    startAutoScroll(); // Restart auto-scroll when mouse leaves container
+  };
+
+  const startAutoScroll = () => {
+    clearInterval(autoScrollInterval.current);
+    autoScrollInterval.current = setInterval(() => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollLeft += scrollSpeed;
+        if (
+          scrollContainerRef.current.scrollLeft +
+            scrollContainerRef.current.clientWidth >=
+          scrollContainerRef.current.scrollWidth
+        ) {
+          scrollContainerRef.current.scrollLeft = 0; // Reset to start when end is reached
+        }
+      }
+    }, 25); // Approximately 60 frames per second
+  };
+
+  useEffect(() => {
+    startAutoScroll();
+
+    return () => {
+      clearInterval(autoScrollInterval.current); // Clean up on unmount
     };
-
-    const handleMouseLeave = () => {
-        setIsDragging(false);
-        restartAutoScroll(); // Restart auto-scroll on drag end
-    };
-
-    const handleMouseUp = () => {
-        setIsDragging(false);
-        restartAutoScroll(); // Restart auto-scroll on drag end
-    };
-
-    const handleMouseMove = (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.pageX - scrollContainer.current.offsetLeft;
-        const walk = (x - startPosition) * 3; // Multiply by 3 to increase scroll speed
-        scrollContainer.current.scrollLeft = scrollLeft - walk;
-    };
-
-    const startAutoScroll = () => {
-        autoScrollInterval.current = setInterval(() => {
-            if (scrollContainer.current) {
-                scrollContainer.current.scrollLeft += scrollSpeed;
-                if (scrollContainer.current.scrollLeft + scrollContainer.current.clientWidth >= scrollContainer.current.scrollWidth) {
-                    scrollContainer.current.scrollLeft = 0; // Reset to start when end is reached
-                }
-            }
-        }, 20); // Approximately 60 frames per second
-    };
-
-    const restartAutoScroll = () => {
-        clearInterval(autoScrollInterval.current);
-        setTimeout(startAutoScroll, 2000); // Restart after 2 seconds
-    };
-
-    useEffect(() => {
-        startAutoScroll();
-        return () => clearInterval(autoScrollInterval.current); // Clean up on unmount
-    }, []);
+  }, []);
   //  --------------- animation slider ----------------------
+  //  --------------- animation slider ----------------------
+  const scrollContainerRef2 = useRef(null);
+  const [isDragging2, setIsDragging2] = useState(false);
+  const [startPosition2, setStartPosition2] = useState(0);
+  const [scrollLeft2, setScrollLeft2] = useState(0);
+  const scrollSpeed2 = 1; // Adjust scroll speed
+  const autoScrollIntervalRef2 = useRef(null);
+
+  const handleMouseDown2 = (e) => {
+    setIsDragging2(true);
+    setStartPosition2(e.pageX - scrollContainerRef2.current.offsetLeft);
+    setScrollLeft2(scrollContainerRef2.current.scrollLeft);
+    clearInterval(autoScrollIntervalRef2.current); // Stop auto-scroll on drag start
+  };
+
+  const handleTouchStart2 = (e) => {
+    setIsDragging2(true);
+    setStartPosition2(e.touches[0].pageX - scrollContainerRef2.current.offsetLeft);
+    setScrollLeft2(scrollContainerRef2.current.scrollLeft);
+    clearInterval(autoScrollIntervalRef2.current); // Stop auto-scroll on touch start
+  };
+
+  const handleMouseMove2 = (e) => {
+    if (!isDragging2) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef2.current.offsetLeft;
+    const walk = (x - startPosition2) * 3; // Adjust scroll speed for smoothness
+    scrollContainerRef2.current.scrollLeft = scrollLeft2 - walk;
+  };
+
+  const handleTouchMove2 = (e) => {
+    if (!isDragging2) return;
+    const x = e.touches[0].pageX - scrollContainerRef2.current.offsetLeft;
+    const walk = (x - startPosition2) * 3; // Adjust scroll speed for smoothness
+    scrollContainerRef2.current.scrollLeft = scrollLeft2 - walk;
+  };
+
+  const handleMouseUp2 = () => {
+    setIsDragging2(false);
+    startAutoScroll2(); // Restart auto-scroll on drag end
+  };
+
+  const handleTouchEnd2 = () => {
+    setIsDragging2(false);
+    startAutoScroll2(); // Restart auto-scroll on touch end
+  };
+
+  const handleMouseEnter2 = () => {
+    clearInterval(autoScrollIntervalRef2.current); // Stop auto-scroll on hover
+  };
+
+  const handleMouseLeaveContainer2 = () => {
+    if (!isDragging2) {
+      startAutoScroll2(); // Restart auto-scroll when mouse leaves container
+    }
+  };
+
+  const preventImageDrag = (e) => {
+    e.preventDefault();
+  };
+
+  const startAutoScroll2 = () => {
+    clearInterval(autoScrollIntervalRef2.current);
+    autoScrollIntervalRef2.current = setInterval(() => {
+      if (scrollContainerRef2.current) {
+        const maxScrollLeft = scrollContainerRef2.current.scrollWidth - scrollContainerRef2.current.clientWidth;
+        if (scrollContainerRef2.current.scrollLeft >= maxScrollLeft) {
+          scrollContainerRef2.current.scrollLeft = 0; // Reset to start when end is reached
+        } else {
+          scrollContainerRef2.current.scrollLeft += scrollSpeed2; // Move the slider
+        }
+      }
+    }, 25); // Approximately 40 frames per second
+  };
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef2.current;
+    const images = scrollContainer.querySelectorAll('a');
+
+    // Clone images for infinite scroll effect
+    images.forEach(image => {
+      const clone = image.cloneNode(true);
+      scrollContainer.appendChild(clone);
+    });
+
+    startAutoScroll2();
+
+    // Prevent image dragging
+    scrollContainer.querySelectorAll('img').forEach(img => {
+      img.addEventListener('dragstart', preventImageDrag);
+      img.addEventListener('touchmove', preventImageDrag);
+    });
+
+    return () => {
+      clearInterval(autoScrollIntervalRef2.current); // Clean up on unmount
+      scrollContainer.querySelectorAll('img').forEach(img => {
+        img.removeEventListener('dragstart', preventImageDrag);
+        img.removeEventListener('touchmove', preventImageDrag);
+      });
+    };
+  }, []);
+  //  --------------- animation slider ----------------------
+  // --------------- majale api ----------------------
+  const [articles, setArticles] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiKey = Cookies.get('api_key');
+        const token = Cookies.get('token');
+        const imei = Cookies.get('IMEI');
+
+        const response = await axios.post('https://api.sobotdadeh.com/v1/article', {}, {
+          headers: {
+            'Api-Token': apiKey,
+            'Authorization': `Bearer ${token}`,
+            'IMEI': imei,
+          },
+        });
+
+        const allArticles = response.data.data;
+        setArticles(allArticles.slice(-3)); // Store the last three articles in state
+      } catch (error) {
+        console.error('Error fetching articles:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  // --------------- majale api ----------------------
   return (
     <div>
       <header>
@@ -251,76 +408,114 @@ export const Homepage = () => {
       </header>
       <main>
         <div className='Searchbox-main'>
-            <form onSubmit={handleSubmit}>
-              <h1>{t('جستجوی شرکت ها')}</h1>
-              {
-                    windowWidth <= 500 ? (
-                      <div className='Searchbox-items'>
-                            <div className="Searchbox-items-mobile">
-                              <img src={Searchiconblack} alt="Search icon" />
-                              <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} name="Search" placeholder={t('عنوان شرکت....')}/>
-                            </div>
-                            <div className="Searchbox-items-mobile">
-                              <img src={locicon} alt="Search icon" placeholder="شهر"/>
-                              <select name="country" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
-                                <option value="default">{t('انتخاب کشور')}</option>
-                                <option value="0">{t('ایران')}</option>
-                                <option value="1">{t('عراق')}</option>
-                              </select>
-                            </div>
-                            <div className="Searchbox-items-mobile">
-                              <img src={pageicon} alt="Search icon" />
-                              <select name="status" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
-                                <option value="default">{t('وضعیت شرکت')}</option>
-                                <option value="1">{t('فعال')}</option>
-                                <option value="0">{t('غیر فعال')}</option>
-                              </select>
-                            </div>
-                      <button type="submit">{t('جستجو')}</button>
-                  </div>  
-                    ) : (
-                      <div className='Searchbox-items'>
+        <form onSubmit={handleSubmit}>
+            <h1>{t('جستجوی شرکت ها')}</h1>
+            {windowWidth <= 500 ? (
+                <div className='Searchbox-items'>
+                    <div className="Searchbox-items-mobile">
                         <img src={Searchiconblack} alt="Search icon" />
-                        <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} name="Search" placeholder={t('عنوان شرکت....')}/>
-                        <img src={locicon} alt="Search icon" placeholder="شهر"/>
-                        <select name="status" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)}>
+                        <input 
+                            type="text" 
+                            value={searchTerm} 
+                            onChange={(e) => setSearchTerm(e.target.value)} 
+                            name="Search" 
+                            placeholder={t('عنوان شرکت....')} 
+                        />
+                    </div>
+                    <div className="Searchbox-items-mobile">
+                        <img src={locicon} alt="Search icon" />
+                        <select 
+                            name="country" 
+                            value={selectedCity} 
+                            onChange={(e) => setSelectedCity(e.target.value)}
+                        >
+                            <option value="default">{t('انتخاب کشور')}</option>
+                            <option value="0">{t('ایران')}</option>
+                            <option value="1">{t('عراق')}</option>
+                        </select>
+                    </div>
+                    <div className="Searchbox-items-mobile">
+                        <img src={pageicon} alt="Search icon" />
+                        <select 
+                            name="status" 
+                            value={selectedSabeghe} 
+                            onChange={(e) => setSelectedSabeghe(e.target.value)}
+                        >
+                            <option value="default">{t('وضعیت شرکت')}</option>
+                            <option value="1">{t('فعال')}</option>
+                            <option value="0">{t('غیر فعال')}</option>
+                        </select>
+                    </div>
+                    <button type="submit">{t('جستجو')}</button>
+                </div>
+            ) : (
+                <div className='Searchbox-items'>
+                    <img src={Searchiconblack} alt="Search icon" />
+                    <input 
+                        type="text" 
+                        value={searchTerm} 
+                        onChange={(e) => setSearchTerm(e.target.value)} 
+                        name="Search" 
+                        placeholder={t('عنوان شرکت....')} 
+                    />
+                    <img src={locicon} alt="Search icon" />
+                    <select 
+                        name="country" 
+                        value={selectedCity} 
+                        onChange={(e) => setSelectedCity(e.target.value)}
+                    >
                         <option value="default">{t('انتخاب کشور')}</option>
                         <option value="0">{t('ایران')}</option>
                         <option value="1">{t('عراق')}</option>
-                        </select>
-                        <img src={pageicon} alt="Search icon" />
-                        <select name="status" value={selectedSabeghe} onChange={(e) => setSelectedSabeghe(e.target.value)}>
+                    </select>
+                    <img src={pageicon} alt="Search icon" />
+                    <select 
+                        name="status" 
+                        value={selectedSabeghe} 
+                        onChange={(e) => setSelectedSabeghe(e.target.value)}
+                    >
                         <option value="default">{t('وضعیت شرکت')}</option>
                         <option value="1">{t('فعال')}</option>
                         <option value="0">{t('غیر فعال')}</option>
-                        </select>
-                        <img src={searchicon2} alt="Search icon" className='searchicon2'/>
-                        <button type="submit">{t('جستجو')}</button>
-                    </div>  
-                    )
-                  } 
-            </form>       
+                    </select>
+                    <img src={searchicon2} alt="Search icon" className='searchicon2' />
+                    <button type="submit">{t('جستجو')}</button>
+                </div>
+            )}
+        </form>   
         </div>
-        <div className='slider'>
-            <h1>{t('برترین کسب و کار ها')}</h1>
-            <div
-                className='card-box'
-                ref={scrollContainer}
-                onMouseDown={handleMouseDown}
-                onMouseLeave={handleMouseLeave}
-                onMouseUp={handleMouseUp}
-                onMouseMove={handleMouseMove}
-            >
-                {sliderdata.map((item, index) => (
-                    <Card
-                        key={index}
-                        name={item.name}
-                        namecompanie={item.description}
-                        img={item.imageUrl}
-                        bookmark=""
-                    />
-                ))}
-            </div>
+        <div className="slider">
+          <h1>برترین کسب و کار ها</h1>
+          <div
+            className="card-box"
+            ref={scrollContainerRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeaveContainer}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{
+          whiteSpace: 'nowrap',
+          userSelect: 'none',
+          cursor: isDragging ? 'grabbing' : 'grab',
+          WebkitOverflowScrolling: 'touch', // Enable momentum scrolling on iOS
+          touchAction: 'manipulation', // Improve touch responsiveness
+          padding: '0 5vw', // Adjust padding for your design
+        }}
+          >
+            {sliderdata.map((item, index) => (
+              <Card
+                key={index}
+                name={item.name}
+                namecompanie={item.description}
+                img={item.imageUrl}
+                bookmark=""
+              />
+            ))}
+          </div>
         </div>
       </main>
       <div className="home-tarafeto">
@@ -329,7 +524,7 @@ export const Homepage = () => {
       }
       <div className="home-tarafeto-text">
         <h1>{t('طرف قراردادتو بشناس !')}</h1>
-        <p>{t('در ثبات تلاش می‌کنیم با رائله جامع‌ترین اطلاعات سرمایه‌گذاری مسیری مناسب را برای کسب و کار خود ترسیم کنید.')}</p>
+        <p>{t('در ثبات تلاش می‌کنیم با ارائه جامع‌ترین اطلاعات سرمایه‌گذاری مسیری مناسب را برای کسب و کار خود ترسیم کنید.')}</p>
         <Link to={'/tarafeto'}>{t('بیشتر بخوانید...')}</Link>
       </div>
     </div>
@@ -338,18 +533,18 @@ export const Homepage = () => {
         <h2>{t('ارائه بهترین شرکت ها در همه حوزه‌ها')}</h2>
         <a href="#">{t('خرید اشتراک')}</a>
       </div>
-      <div className={`box-khadamat ${scrolled ? 'scrolled' : ''}`}>
+    <div className={`box-khadamat ${scrolled ? 'scrolled' : ''}`}>
       {
-          windowWidth <= 500 ? (<h1 className='box-khadamat-text-h1'>{scrolled ? t('باکس خدمات 2') : t('باکس خدمات')}</h1>):null
+          windowWidth <= 500 ? (<h1 className='box-khadamat-text-h1'>{scrolled ? t('استعلام شرکت ها') : t('شناخت ریسک معاملات ')}</h1>):null
       }
       <div className="box-khadamat-img">
         <img src={scrolled ? boximage2 : boximage1} alt="box image" />
       </div>
       <div className="box-khadamat-text">
         {
-            windowWidth >= 500 ? (<h1>{scrolled ? t('باکس خدمات 2') : t('باکس خدمات')}</h1>):null
+            windowWidth >= 500 ? (<h1>{scrolled ? t('استعلام شرکت ها') : t('شناخت ریسک معاملات ')}</h1>):null
         }
-        <p>{scrolled ? 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است' : 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است'}</p>  
+        <p>{scrolled ? 'بعضی افراد سودجو می توانند به اسم یک شرکت جعلی که به ثبت نرسیده است اقدام به معامله با شرکت ها یا افراد عادی کنند و از آن ها کلاهبرداری کنند. وقتی این نوع از کلاهبرداری با مبالغ کلان اتفاق افتاد و افراد مال باخته اقدام به شکایت کردند، تازه متوجه خواهند شد که چنبن شرکتی وجود ندارد و دسترسی به افراد کلاهبردار برای شکایت و پیگیری جرم کلاهبرداری برای آنان بسیار دشوار خواهد بود. برای افراد این سوال ممکن است به وجود بی آید ' : 'ریسک امری غیرقابل انکار در معاملات است و هر فرد با توجه به استراتژی معاملاتی و ریسک پذیری خود به معامله یک دارایی می‌پردازد. استفاده از ابزارهای مختلف اقتصادی منجر به کنترل ریسک معامله می‌شود و این امر بدون دانش و تجربه امکان‌پذیر نخواهد بود. با توجه به اهمیت ریسک پذیری و شناخت درجات ریسک پذیری در ثبات داده  قصد داریم به کاهش ریسک پذیری تجارت شما و دسته ‌بندی طرفین معاملاتی بر اساس میزان ریسک‌ پذیری بپردازیم.'}</p>  
         <img src={scrolldownicon} alt="scroll icon" className='scrollicon-khadamat'/>
       </div>
     </div>
@@ -362,7 +557,7 @@ export const Homepage = () => {
         {
           windowWidth <= 500 ? null : (<h1>{t('هدف از ثبات‌داده')}</h1>)
         }
-        <p>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد')}</p>
+        <p>{t('با گسترش روزافزون اقتصاد مدرن نیاز به داده ای پایدار و صورت بندی شده کسب و کارها را با نیازهای جدید مواجه ساخته است. ثبات داده طرحی نو برای اقتصاد ایران و منطقه است که تلاش می کند نقشه راهی دقیق برای تجارت شما ترسیم کند.')}</p>
       </div>
     </div>
     <div className='masir'>
@@ -391,68 +586,109 @@ export const Homepage = () => {
                   </div>
           </div>
       </div>
+      {/* majale */}
       <div className="majale-header">
         <h1>{t('مجله ثبات‌داده')}</h1>
-        {
-          windowWidth <= 500 ? (null):(<h2>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است')}</h2>)
-        }
-        
+        {windowWidth <= 500 ? null : <h2>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است')}</h2>}
       </div>
       <div className="majale-content">
         <div className="majale-soton">
-          <div className="majale-box">
-            <img src={imageURL1} alt="majale image" width="50%" height="100%"/>
-            {
-              windowWidth <= 500 ? (<h1>{t('عنوان مجله')}</h1>) : null
-            }
-            <div className="majale-text">
-              {
-                windowWidth <= 500 ? null : (<p>{majale.des}</p>) 
-              }
-              <span>{t('مشاهده بیشتر')}<img src={windowWidth <=500 ? leftarrowslider : expanddown} alt="expand donw" /></span>
-            </div>
-          </div>
-          <div className="majale-box">
-            <img src={imageURL2} alt="majale image" width="50%" height="100%"/>
-            {
-              windowWidth <= 500 ? (<h1>{t('عنوان مجله')}</h1>) : null
-            }
-            <div className="majale-text">
-              {
-                windowWidth <= 500 ? null : (<p>{majale.des}</p>) 
-              }
-              <span>{t('مشاهده بیشتر')}<img src={windowWidth <=500 ? leftarrowslider : expanddown} alt="expand donw" /></span>
-            </div>
-          </div>
-          {
-            windowWidth <= 500 ? (
-              <div className="majale-box">
-                <img src={imageURL3} alt="majale image" width="50%" height="100%"/>
-                {
-                  windowWidth <= 500 ? (<h1>{t('عنوان مجله')}</h1>) : null
-                }
-                <div className="majale-text">
-                  <span>{t('مشاهده بیشتر')}<img src={leftarrowslider} alt="expand donw" /></span>
-                </div>
-              </div>
-            ) : null
-          }
-      </div>
-      {
-        windowWidth >= 500 ? (
+          {articles.length > 0 && (
+            <>
+                <Link to={`/blog/${articles[2].id}`}>
+                  <img src={articles[2].image} alt="majale image" width="50%" height="100%" />
+                  {windowWidth <= 500 ? <h1>{articles[2].title}</h1> : null}
+                  <div className="majale-text">
+                    {windowWidth <= 500 ? null : <p>{articles[2].excerpt}</p>}
+                    <span>{t('مشاهده بیشتر')}<img src={windowWidth <= 500 ? leftarrowslider : expanddown} alt="expand down" /></span>
+                  </div>
+                </Link>
+                <Link to={`/blog/${articles[1].id}`}>
+                  <img src={articles[1].image} alt="majale image" width="50%" height="100%" />
+                  {windowWidth <= 500 ? <h1>{articles[1].title}</h1> : null}
+                  <div className="majale-text">
+                    {windowWidth <= 500 ? null : <p>{articles[1].excerpt}</p>}
+                    <span>{t('مشاهده بیشتر')}<img src={windowWidth <= 500 ? leftarrowslider : expanddown} alt="expand down" /></span>
+                  </div>
+                </Link>
+              {windowWidth <= 500 ? (
+                  <Link to={`/blog/${articles[0].id}`}>
+                    <img src={articles[0].image} alt="majale image" width="50%" height="100%" />
+                    {windowWidth <= 500 ? <h1>{articles[0].title}</h1> : null}
+                    <div className="majale-text">
+                      <span>{t('مشاهده بیشتر')}<img src={leftarrowslider} alt="expand down" /></span>
+                    </div>
+                  </Link>
+              ) : null}
+            </>
+          )}
+        </div>
+        {windowWidth >= 500 && articles.length > 2 && (
           <div className="majale-soton2">
-            <div className={"majale-box2"}>
-              <img src={imageURL3} alt="majale image" width="100%" height="60%"/>
-              <div className="majale-text">
-                <p>{majale.des}</p>
-                <span>{t('مشاهده بیشتر')}<img src={expanddown} alt="expand donw" /></span>
-              </div>
-            </div>
+              <Link to={`/blog/${articles[0].id}`}>
+                <img src={articles[0].image} alt="majale image" width="100%" height="60%" />
+                <div className="majale-text">
+                  <p>{articles[0].excerpt}</p>
+                  <span>{t('مشاهده بیشتر')}<img src={expanddown} alt="expand down" /></span>
+                </div>
+              </Link>
           </div>
-        ) : null
-      }
-      
+        )}
       </div>
+      {/* majale */}
+      <div className="manabe-aboutus">
+      <h1>منابع ما</h1>
+      <div
+        className="manabe-aboutus-icons"
+        ref={scrollContainerRef2}
+        onMouseDown={handleMouseDown2}
+        onMouseMove={handleMouseMove2}
+        onMouseUp={handleMouseUp2}
+        onMouseEnter={handleMouseEnter2}
+        onMouseLeave={handleMouseLeaveContainer2}
+        onTouchStart={handleTouchStart2}
+        onTouchMove={handleTouchMove2}
+        onTouchEnd={handleTouchEnd2}
+        style={{ overflow: 'hidden', whiteSpace: 'nowrap', cursor: isDragging2 ? 'grabbing' : 'grab', transition: 'scroll-left 0.2s linear' }} // Add CSS transition for smooth scrolling
+      >
+        <a href="https://bmn.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh1.webp" alt="بنیاد ملی نخبگان" />
+        </a>
+        <a href="https://daneshbonyan.isti.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh2.webp" alt="مرکز شرکت ها و موسسات دانش بنیان" />
+        </a>
+        <a href="https://evand.com/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh3.webp" alt="بنیاد ملی توسعه فناوری" />
+        </a>
+        <a href="https://mstfdn.org/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh4.webp" alt="بنیاد علم و فناوری مصطفی" />
+        </a>
+        <a href="https://jamilifoundation.com/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh5.webp" alt="بنیاد علم و فناوری جمیلی" />
+        </a>
+        <a href="https://utf.ut.ac.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh6.webp" alt="بنیاد حامیان دانشگاه تهران" />
+        </a>
+        <a href="https://dolat.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh7.webp" alt="دولت جمهوری اسلامی ایران" />
+        </a>
+        <a href="https://eadl.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh8.webp" alt="قوه قضاییه" />
+        </a>
+        <a href="https://www.ict.gov.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh9.webp" alt="وزارت ارتباطات" />
+        </a>
+        <a href="https://www.mfa.gov.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh10.webp" alt="وزارت امور خارجه" />
+        </a>
+        <a href="https://ssaa.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh11.webp" alt="سازمان ثبت اسناد و املاک کشور" />
+        </a>
+        <a href="https://www.maj.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh12.webp" alt="جهاد کشاورزی" />
+        </a>
+      </div>
+    </div>
       {/* <div className="solata-home">
         <h1>سوالات متداول</h1>
       </div>

@@ -6,6 +6,8 @@ import axios from 'axios';
 import { removeCookies, changeusertoken } from './Profile.jsx';
 import CryptoJS from 'crypto-js';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
+
 // icons
 import searchicon2 from './Icons/searchicon2.svg'
 import leftarrowslider from './Icons/leftarrowslider.svg'
@@ -137,12 +139,26 @@ const Khareji = () => {
     const searchTerm = queryParams.get('search');
     const countryurl = queryParams.get('country');
     const statusurl = queryParams.get('status');
-    const [statusFilter, setStatusFilter] = useState(statusurl === "0" ? "notactive" : statusurl === "1" ? "active" : "default");
-    const [country, setCountry] = useState(parseInt(countryurl, 10)); // Convert countryurl to an integer
+    const [statusFilter, setStatusFilter] = useState(
+        statusurl === "0" ? "notactive" : statusurl === "1" ? "active" : "default"
+    );
+    const [country, setCountry] = useState(() => {
+        const parsedCountry = parseInt(countryurl, 10);
+        return isNaN(parsedCountry) ? 1 : parsedCountry;
+    });
+
     const companiesCenterResultRef = useRef(null); // Create a ref for the target element
 
+    // Update searchInput with searchTerm from queryParams
     useEffect(() => {
-        if (searchTerm) { // Check if searchTerm is not empty
+        if (searchTerm) {
+            setSearchInput(searchTerm);
+        }
+    }, [searchTerm]);
+
+    // Fetch data when searchInput or country changes
+    useEffect(() => {
+        if (searchInput) { // Check if searchInput is not empty
             const fetchData = async () => {
                 setLoading(true);
                 try {
@@ -151,8 +167,11 @@ const Khareji = () => {
                     const apiKey = Cookies.get('api_key');
                     const token = Cookies.get('token');
                     const imei = Cookies.get('IMEI');
-                    const response = await axios.post(country === 1 ? 'https://api.sobotdadeh.com/v1/iraq_company' : 'https://api.sobotdadeh.com/v1/company',
-                        { title: searchTerm }, // Use searchTerm instead of searchInput
+                    const response = await axios.post(
+                        country === 1
+                            ? 'https://api.sobotdadeh.com/v1/iraq_company'
+                            : 'https://api.sobotdadeh.com/v1/company',
+                        { title: searchInput },
                         {
                             headers: {
                                 'Api-Token': apiKey,
@@ -163,8 +182,7 @@ const Khareji = () => {
                     );
                     if (response.status === 200) {
                         setApiData(response.data.data);
-                        fetchCompanyIds();
-                        // Scroll to the target element after data is loaded
+                        // fetchCompanyIds(); // This function is not defined in your provided code
                     } else {
                         console.error('Failed to fetch data');
                     }
@@ -172,7 +190,7 @@ const Khareji = () => {
                     if (error.response && error.response.status === 401) {
                         changeusertoken();
                     } else {
-                        console.error('Error changing user password:', error); // Handle other errors
+                        console.error('Error fetching data:', error);
                     }
                 } finally {
                     setLoading(false);
@@ -185,11 +203,11 @@ const Khareji = () => {
 
             return () => clearTimeout(debounceTimer); // Cleanup on unmount or input change
         }
-    }, [searchTerm, country]); // Include country in the dependencies array
-    
-  const handleInputChange = (e) => {
-      setSearchInput(e.target.value);
-  };
+    }, [searchInput, country]); // Include country in the dependencies array
+
+    const handleInputChange = (e) => {
+        setSearchInput(e.target.value);
+    };
     // api to get data
     // GRAB LIST OF BOOKMARKS
     const [companyIds, setCompanyIds] = useState([]);
@@ -232,13 +250,16 @@ const Khareji = () => {
     // GRAB LIST OF BOOKMARKS
     return ( 
         <div className="Khareji">
+            <Helmet>
+                <title>ثبات داده - شرکت‌های خارجی</title>
+            </Helmet>
             <div className="Khareji-header">
                 <h1>تجربه ارتباطی جهانی و بدون مرز با ثبات‌داده ...</h1>
                 <img src={curusimg} alt="scroll down image" width="52px" height="60px"/>
             </div>
             <div className="Khareji-select-country">
                 <h1>کشور مورد نظر را انتخاب نمائید ...</h1>
-                <img className='Khareji-select-country-location' src={country === 0 ? iranmap : country === 1 ? iraqmap : country === 3 ? turkeymap : country === 2 ? kuwaitmap : null} alt="map image" />
+                <img className='Khareji-select-country-location' src={country === 0 ? "https://sobotdadeh.com/bestco/map1.svg" : country === 1 ? "https://sobotdadeh.com/bestco/map2.svg" : country === 3 ? "https://sobotdadeh.com/bestco/map3.svg" : country === 2 ? "https://sobotdadeh.com/bestco/map4.svg" : null} alt="map image" />
                 <div className="Khareji-select-map">
                     <div className="Khareji-select-map-country">
                         <img src={iranflag} alt="iran flag" width="100%" height="30%" onClick={()=>setCountry(0)}/>
@@ -344,6 +365,27 @@ const Khareji = () => {
                     </div>
             </div>
             </div>
+            {
+                statusFilter !== 'default' || companietypeFilter !== 'default' || afterYearFilter !== 'default' || beforeYearFilter !== 'default' ? (
+                  <div className="Companies-delete-filter">
+                      <h1>حذف فیلترها :</h1>
+                      <div className="Companies-delete-filter-items">
+                        {
+                          statusFilter !== 'default' ? (<span onClick={()=>setStatusFilter('default')}>وضعیت شرکت<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
+                        }
+                         {
+                          companietypeFilter !== 'default' ? (<span onClick={()=>setCompanietypeFilter('default')}>نوع شرکت<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
+                        }
+                         {
+                          afterYearFilter !== 'default' ? (<span onClick={()=>setAfterYearFilter('default')}>بعد از سال<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
+                        }
+                         {
+                          beforeYearFilter !== 'default' ? (<span onClick={()=>setBeforeYearFilter('default')}>قبل از سال<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
+                        }
+                      </div>
+              </div>
+                ) : null
+              }
             {loading && <div className='Companies-slider'>
               <div className="slider2">
                 <div className="card-box2">
@@ -382,27 +424,6 @@ const Khareji = () => {
                 </div>
               </div>
               </div>}
-              {
-                statusFilter !== 'default' || companietypeFilter !== 'default' || afterYearFilter !== 'default' || beforeYearFilter !== 'default' ? (
-                  <div className="Companies-delete-filter">
-                      <h1>حذف فیلترها :</h1>
-                      <div className="Companies-delete-filter-items">
-                        {
-                          statusFilter !== 'default' ? (<span onClick={()=>setStatusFilter('default')}>وضعیت شرکت<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
-                        }
-                         {
-                          companietypeFilter !== 'default' ? (<span onClick={()=>setCompanietypeFilter('default')}>نوع شرکت<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
-                        }
-                         {
-                          afterYearFilter !== 'default' ? (<span onClick={()=>setAfterYearFilter('default')}>بعد از سال<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
-                        }
-                         {
-                          beforeYearFilter !== 'default' ? (<span onClick={()=>setBeforeYearFilter('default')}>قبل از سال<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
-                        }
-                      </div>
-              </div>
-                ) : null
-              }
               {!loading && apiData.length > 0 && (
                   <div className="Companies-slider">
                     <div className='slider2'>
@@ -462,148 +483,72 @@ const Khareji = () => {
                         <span className='slider2-notfound'>موردی یافت نشد</span>
                       )}
                     </div>
-                   {
-                    windowWidth <= 500 ? (
-                      <div className='Profile-mobile'>
-                        <div className="Profile-mobile-sub">
-                            <h1>اشتراک ثبات داده</h1>
-                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
-                        </div>
-                        {/* tarefe 1 */}
-                        <div className="Profile-mobile-sub-tarefe">
-                            <h1>اشتراک سطح ۱</h1>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <span>۵۰,۰۰۰ تومان</span>
-                            <button>خرید اشتراک</button>
-                        </div>
-                        {/* tarefe 2 */}
-                        <div className="Profile-mobile-sub-tarefe tarefe-special">
-                            <div className="tarefe-special-mahbob">
-                                <h1>اشتراک سطح ۲</h1>
-                                <h2>(محبوب کاربران)</h2>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <span>۸۰,۰۰۰ تومان</span>
-                            <button>خرید اشتراک</button>
-                        </div>
-                        {/* tarefe 3 */}
-                        <div className="Profile-mobile-sub-tarefe">
-                            <h1>اشتراک سطح ۳</h1>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <span>۱۲۰,۰۰۰ تومان</span>
-                            <button>خرید اشتراک</button>
-                        </div>
-                    </div>
-                    ) : (
-                      <div className="Profile-eshterak">
-                      <div className="Profile-eshterak-header">
-                          <h1>اشتراک ثبات‌داده</h1>
-                          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+                    <div className="Profile-eshterak">
+                      <div className="Profile-eshterak-price">
+                          <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
+                              <h2>استعلام شرکت‌های ایرانی</h2>
+                              <h2>تعداد استعلام در روز : 5</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۳۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۱۵,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum">
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>تعداد استعلام در روز : 11</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۴۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۲۷,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>تعداد استعلام در روز : 17</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۹۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۴۲,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
                       </div>
                       <div className="Profile-eshterak-price">
                           <div className="Profile-eshterak-price-cloum">
-                              <h1>اشتراک سطح ۱</h1>
-                              <h2>اشتراک سطح ۱</h2>
-                              <h2>اشتراک سطح ۱</h2>
-                              <h2>اشتراک سطح ۱</h2>
-                              <h2>اشتراک سطح ۱</h2>
-                              <span>۵۰,۰۰۰ تومان</span>
+                              <h1>ارائه کاربردی</h1>
+                              <h2>استعلام شرکت‌های ایرانی</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : 10</h2>
+                              <h2>نشانه دار کردن شرکت ها</h2>
+                              <h2>نمایش شرکت های پیشنهادی</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۱,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۵۰۰,۰۰۰ تومان</span>
                               <button type="submit">خرید اشتراک</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
                               <div className="Profile-eshterak-price-cloum-special-header">
-                                  <h1>امکانات سطح ۲</h1>
+                                  <h1>ارائه حرفه ای</h1>
                                   <h2>(محبوب کاربران)</h2>
                               </div>
-                              <h2>امکانات سطح ۲</h2>
-                              <h2>امکانات سطح ۲</h2>
-                              <h2>امکانات سطح ۲</h2>
-                              <h2>امکانات سطح ۲</h2>
-                              <span>۸۰,۰۰۰ تومان</span>
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : 40</h2>
+                              <h2>ارائه گزارش اختصاصی شرکت ها</h2>
+                              <h2>نمایش شرکت های پیشنهادی ایرانی و منطقه</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۳,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۱,۵۰۰,۰۰۰ تومان</span>
                               <button type="submit">خرید اشتراک</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum">
-                              <h1>امکانات سطح ۳</h1>
-                              <h2>امکانات سطح ۳</h2>
-                              <h2>امکانات سطح ۳</h2>
-                              <h2>امکانات سطح ۳</h2>
-                              <h2>امکانات سطح ۳</h2>
-                              <span>۱۲۰,۰۰۰ تومان</span>
+                                 <div className="Profile-eshterak-price-cloum-special-header">
+                                    <h1>ارائه اختصاصی</h1>
+                                    <h2>(پیشنهادی ثبات داده)</h2>
+                                </div>
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : نامحدود</h2>
+                              <h2>طرف قرارداد تو بشناس</h2>
+                              <h2>ارائه گزارش اختصاصی و برسی ریسک معاملاتی</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۷,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۵,۰۰۰,۰۰۰ تومان</span>
                               <button type="submit">خرید اشتراک</button>
                           </div>
                       </div>
                   </div>
-                    )
-                   }
          </div>
         </div>        
      );

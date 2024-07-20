@@ -1,21 +1,14 @@
 import './Aboutus.css'
-import React, { useState } from 'react';
+import React, { useState , useRef , useEffect } from 'react';
+import { Helmet } from 'react-helmet';
+
 // icons 
 import expanddownsoalat from './Icons/expanddownsoalat.svg'
 import expandmoresolat from './Icons/expandmoresolat.svg'
 import arrowback from './Icons/arrowback.svg'
 // images
-import aboutimg1 from './image/aboutimg1.jpg'
+import aboutimg1 from './image/aboutimg1.webp'
 import aboutimg2 from './image/aboutimg2.webp'
-import aboutimg3 from './image/aboutimg3.webp'
-import aboutperson1 from './image/aboutperson1.png'
-import aboutperson2 from './image/aboutperson2.png'
-import aboutperson3 from './image/aboutperson3.png'
-import micon1 from './image/manabeicon1.webp'
-import micon2 from './image/manabeicon2.webp'
-import micon3 from './image/manabeicon3.webp'
-import micon4 from './image/manabeicon4.webp'
-import micon5 from './image/manabeicon5.webp'
 const Aboutus = () => {
      // this section is for box soalat 
   const [expandedIndex, setExpandedIndex] = useState(-1);
@@ -24,8 +17,80 @@ const Aboutus = () => {
     setExpandedIndex(prevIndex => (prevIndex === index ? -1 : index));
   };  
   // this section is for box soalat 
+  //  --------------- animation slider ----------------------
+  const scrollContainerRef2 = useRef(null);
+  const [isDragging2, setIsDragging2] = useState(false);
+  const [startPosition2, setStartPosition2] = useState(0);
+  const [scrollLeft2, setScrollLeft2] = useState(0);
+  const scrollSpeed2 = 1; // Adjust scroll speed
+  const autoScrollIntervalRef2 = useRef(null);
+
+  const handleMouseDown2 = (e) => {
+      setIsDragging2(true);
+      setStartPosition2(e.pageX - scrollContainerRef2.current.offsetLeft);
+      setScrollLeft2(scrollContainerRef2.current.scrollLeft);
+      clearInterval(autoScrollIntervalRef2.current); // Stop auto-scroll on drag start
+  };
+
+  const handleMouseLeave2 = () => {
+      setIsDragging2(false);
+  };
+
+  const handleMouseUp2 = () => {
+      setIsDragging2(false);
+      startAutoScroll2(); // Restart auto-scroll on drag end
+  };
+
+  const handleMouseMove2 = (e) => {
+      if (!isDragging2) return;
+      e.preventDefault();
+      const x = e.pageX - scrollContainerRef2.current.offsetLeft;
+      const walk = (x - startPosition2) * 3; // Multiply by 3 to increase scroll speed
+      scrollContainerRef2.current.scrollLeft = scrollLeft2 - walk;
+  };
+
+  const handleMouseEnter2 = () => {
+      clearInterval(autoScrollIntervalRef2.current); // Stop auto-scroll on hover
+  };
+
+  const handleMouseLeaveContainer2 = () => {
+      startAutoScroll2(); // Restart auto-scroll when mouse leaves container
+  };
+
+  const startAutoScroll2 = () => {
+      clearInterval(autoScrollIntervalRef2.current);
+      autoScrollIntervalRef2.current = setInterval(() => {
+          if (scrollContainerRef2.current) {
+              const maxScrollLeft = scrollContainerRef2.current.scrollWidth / 2;
+              if (scrollContainerRef2.current.scrollLeft >= maxScrollLeft) {
+                  scrollContainerRef2.current.scrollLeft -= maxScrollLeft;
+              }
+              scrollContainerRef2.current.scrollLeft += scrollSpeed2; // Move the slider
+          }
+      }, 25); // Approximately 60 frames per second
+  };
+
+  useEffect(() => {
+      // Clone images for infinite scroll effect
+      const scrollContainer = scrollContainerRef2.current;
+      const images = scrollContainer.querySelectorAll('a');
+      images.forEach(image => {
+          const clone = image.cloneNode(true);
+          scrollContainer.appendChild(clone);
+      });
+
+      startAutoScroll2();
+
+      return () => {
+          clearInterval(autoScrollIntervalRef2.current); // Clean up on unmount
+      };
+  }, []);
+  //  --------------- animation slider ----------------------
     return ( 
         <div>
+            <Helmet>
+                <title>ثبات داده - درباره ما</title>
+            </Helmet>
             <div className='header-about'>
                 <h1>درباره ثبات‌داده</h1>
             </div>
@@ -37,7 +102,7 @@ const Aboutus = () => {
                         </div>
                         <div className="content-box-texts">
                             <h1>هدف از ثبات‌داده</h1>
-                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+                            <p>مهم ترین هدف ما در ثبات داده ایجاد شفافیت در عرصه های مختلف تجارت می باشد که فعالین اقتصادی بتوانند در بستری امن و شناخت دقیق از ریسک های موجود به تجارت خود بپردازند. با بررسی ساختار اقتصادی، تجارتی و پولی منطقه غرب آسیا این ماموریت را تعریف کردیم که تمامی تلاش خود را برای کم خطر شدن مبادلات اقتصادی در این منطقه باستانی تعریف کنیم. این امر در پرتو همگرایی دانش و تجربه است که معنا پیدا کرده و با نوآوری و خلاقیت نسلی جوان از ایران سربلند به ارمغان می نشیند. </p>
                         </div>
                     </div>
                     <div className="content-box2">
@@ -45,8 +110,8 @@ const Aboutus = () => {
                             <img src={aboutimg2} alt="image" />
                         </div>
                         <div className="content-box-texts">
-                            <h1>تاریخچه فعالیت</h1>
-                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+                            <h1>چرا ثبات داده</h1>
+                            <p> در سال های اخیر خاورمیانه یکی از مهم ترین مقاصد سرمایه گذاری فعالان اقتصادی جهانی شناخته می شود و با توجه به ضرورت تجارت پایدار مبتنی بر دادگان پایدار اجتناب ناپذیر است از ریسک معاملات تصویر مناسبی داشته باشیم. ما در ثبات داده با بهره گیری از طیف گسترده ای از منابع داده محور در سطح منطقه و کشور به پالایش و واکاوری داده های متناسب برای تجارت شما می پردازیم. این امر در گرو تیم های مهندسی داده ما بوده که با استفاده از ابزار های هوش مصنوعی برای پویایی و پایداری دادگان ما کوشش می کنند. از سوی دیگر با برخورداری از تیم های کارشناسی مجرب در عرصه های مختلف سرمایه گذاری برای تحقق فضای کم ریسک در تجارت خاورمیانه تلاش می کنیم.</p>
                         </div>
                     </div>
                     {/* <div className="content-box">
@@ -61,52 +126,60 @@ const Aboutus = () => {
                 </div>         
             </div>
             <div className="manabe-aboutus">
-                <h1>منابع ما</h1>
-                <div className="manabe-aboutus-icons">
-                    <img src={micon1} alt="manabe" />
-                    <img src={micon2} alt="manabe" />
-                    <img src={micon3} alt="manabe" />
-                    <img src={micon4} alt="manabe" />
-                    <img src={micon5} alt="manabe" />
-                </div>
+            <h1>منابع ما</h1>
+            <div
+                className="manabe-aboutus-icons"
+                ref={scrollContainerRef2}
+                onMouseDown={handleMouseDown2}
+                onMouseLeave={handleMouseLeave2}
+                onMouseUp={handleMouseUp2}
+                onMouseMove={handleMouseMove2}
+                onMouseEnter={handleMouseEnter2}
+                onMouseLeave={handleMouseLeaveContainer2}
+                style={{ overflow: 'hidden', whiteSpace: 'nowrap', cursor: isDragging2 ? 'grabbing' : 'grab' }}
+            >
+                <a href="https://bmn.ir/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh1.webp" alt="بنیاد ملی نخبگان" />
+                </a>
+                <a href="https://daneshbonyan.isti.ir/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh2.webp" alt="مرکز شرکت ها و موسسات دانش بنیان" />
+                </a>
+                <a href="https://evand.com/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh3.webp" alt="بنیاد ملی توسعه فناوری" />
+                </a>
+                <a href="https://mstfdn.org/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh4.webp" alt="بنیاد علم و فناوری مصطفی" />
+                </a>
+                <a href="https://jamilifoundation.com/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh5.webp" alt="بنیاد علم و فناوری جمیلی" />
+                </a>
+                <a href="https://utf.ut.ac.ir/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh6.webp" alt="بنیاد حامیان دانشگاه تهران" />
+                </a>
+                <a href="https://dolat.ir/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh7.webp" alt="دولت جمهوری اسلامی ایران" />
+                </a>
+                <a href="https://eadl.ir/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh8.webp" alt="قوه قضاییه" />
+                </a>
+                <a href="https://www.ict.gov.ir/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh9.webp" alt="وزارت ارتباطات" />
+                </a>
+                <a href="https://www.mfa.gov.ir/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh10.webp" alt="وزارت امور خارجه" />
+                </a>
+                <a href="https://ssaa.ir/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh11.webp" alt="سازمان ثبت اسناد و املاک کشور" />
+                </a>
+                <a href="https://www.maj.ir/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://sobotdadeh.com/manabeimg/danesh12.webp" alt="جهاد کشاورزی" />
+                </a>
             </div>
+        </div>
             <div className="kharid">
                 <h1>به ثبات‌داده اعتماد کن ما کنارتان هستیم ...</h1>
                 <h2>ارائه بهترین شرکت ها در همه حوزه‌ها</h2>
                 <a href="#">خرید اشتراک</a>
-            </div>
-            <div className="soalat-aboutus">
-                <h1>سوالات متداول</h1>
-            <div className={`box-soalat ${expandedIndex === 0 ? 'active' : ''}`}>
-                <div
-                className="box-soalat-header"
-                onClick={() => handleBoxClick(0)}
-                >
-                <h2>محصولات و خدمات</h2>
-                <img src={expandedIndex === 0 ? expandmoresolat : expanddownsoalat} alt="expand down" />
-                </div>
-                {expandedIndex === 0 && (
-                <div className="additional-text">
-                    <img src={arrowback} alt="arrow back" />
-                    <p>محصولات و خدمات</p>
-                </div>
-                )}
-                </div>
-                <div className={`box-soalat ${expandedIndex === 0 ? 'active' : ''}`}>
-                <div
-                className="box-soalat-header"
-                onClick={() => handleBoxClick(0)}
-                >
-                <h2>دستاورد‌های ثبات‌داده</h2>
-                <img src={expandedIndex === 1 ? expandmoresolat : expanddownsoalat} alt="expand down" />
-                </div>
-                {expandedIndex === 1 && (
-                <div className="additional-text">
-                    <img src={arrowback} alt="arrow back" />
-                    <p>محصولات و خدمات</p>
-                </div>
-                )}
-                </div>
             </div>
         </div>
      );

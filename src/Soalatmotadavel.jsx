@@ -1,5 +1,7 @@
 import './Soalatmotadavel.css'
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
+
 // icon
 import soalatmotadavelicon from './Icons/soalatmotadavelicon.svg'
 import Soalat from './Soalat';
@@ -7,6 +9,9 @@ const Soalatmotadavel = () => {
     const { t } = useTranslation();
     return ( 
         <div>
+            <Helmet>
+                <title>ثبات داده - سوالات متداول</title>
+            </Helmet>
             <div className="header-soalatm">
                 <h1><img src={soalatmotadavelicon} alt="icon soalatm" />{t('سوالات متداول')}</h1>
             </div>

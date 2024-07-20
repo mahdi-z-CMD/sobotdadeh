@@ -4,6 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 // icons
 import Searchiconblack from './Icons/Searchiconblack.svg'
 import locicon from './Icons/locicon.svg'
@@ -156,103 +157,126 @@ const changeusertoken = async () => {
     const fetchData = async (searchTerm) => {
       setLoading(true);
       try {
-          const apiKey = Cookies.get('api_key');
-          const token = Cookies.get('token');
-          const imei = Cookies.get('IMEI');
+        const apiKey = Cookies.get('api_key');
+        const token = Cookies.get('token');
+        const imei = Cookies.get('IMEI');
   
-          const response = await axios.post(
-              'https://api.sobotdadeh.com/v1/company',
-              { title: searchTerm },
-              {
-                  headers: {
-                      'Api-Token': apiKey,
-                      'Authorization': `Bearer ${token}`,
-                      'IMEI': imei
-                  }
-              }
-          );
-          if (response.status === 200) {
-              setApiData(response.data.data);
-          } else {
-              console.error('Failed to fetch data');
+        const response = await axios.post(
+          'https://api.sobotdadeh.com/v1/company',
+          { title: searchTerm },
+          {
+            headers: {
+              'Api-Token': apiKey,
+              'Authorization': `Bearer ${token}`,
+              'IMEI': imei,
+            },
           }
+        );
+  
+        if (response.status === 200) {
+          setApiData(response.data.data);
+        } else {
+          console.error('Failed to fetch data');
+        }
       } catch (error) {
         if (error.response && error.response.status === 401) {
-            changeusertoken()
+          changeusertoken();
         } else {
-            console.error('Error changing user password:', error); // Handle other errors
+          console.error('Error changing user password:', error);
         }
-    } finally {
-          setLoading(false);
+      } finally {
+        setLoading(false);
       }
-  };
+    };
   
-
     const handleSubmit = async (event) => {
-        event.preventDefault();
-        const targetElement = document.getElementById('Companies-center-result');
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
-        fetchData(searchInput);
+      event.preventDefault();
+      // Scroll to the target element immediately
+      const targetElement = document.getElementById('Companies-center-result');
+      if (targetElement) {
+        const topOffset = targetElement.offsetTop;
+        window.scrollTo({
+          top: topOffset,
+          behavior: 'smooth',
+        });
+      }
+      // Call the API
+      fetchData(searchInput);
     };
     // api to get data
      //  --------------- animation slider ----------------------
-  const scrollContainer = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startPosition, setStartPosition] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const scrollSpeed = 1; // Adjust scroll speed
-  const autoScrollInterval = useRef(null);
-
-  const handleMouseDown = (e) => {
-      setIsDragging(true);
-      setStartPosition(e.pageX - scrollContainer.current.offsetLeft);
-      setScrollLeft(scrollContainer.current.scrollLeft);
-      clearInterval(autoScrollInterval.current); // Stop auto-scroll on drag start
-  };
-
-  const handleMouseLeave = () => {
-      setIsDragging(false);
-      restartAutoScroll(); // Restart auto-scroll on drag end
-  };
-
-  const handleMouseUp = () => {
-      setIsDragging(false);
-      restartAutoScroll(); // Restart auto-scroll on drag end
-  };
-
-  const handleMouseMove = (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      const x = e.pageX - scrollContainer.current.offsetLeft;
-      const walk = (x - startPosition) * 3; // Multiply by 3 to increase scroll speed
-      scrollContainer.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const startAutoScroll = () => {
-      autoScrollInterval.current = setInterval(() => {
-          if (scrollContainer.current) {
-              scrollContainer.current.scrollLeft += scrollSpeed;
-              if (scrollContainer.current.scrollLeft + scrollContainer.current.clientWidth >= scrollContainer.current.scrollWidth) {
-                  scrollContainer.current.scrollLeft = 0; // Reset to start when end is reached
-              }
-          }
-      }, 20); // Approximately 60 frames per second
-  };
-
-  const restartAutoScroll = () => {
-      clearInterval(autoScrollInterval.current);
-      setTimeout(startAutoScroll, 2000); // Restart after 2 seconds
-  };
-
-  useEffect(() => {
-      startAutoScroll();
-      return () => clearInterval(autoScrollInterval.current); // Clean up on unmount
-  }, []);
+     const scrollContainer = useRef(null);
+     const [isDragging, setIsDragging] = useState(false);
+     const [startPosition, setStartPosition] = useState(0);
+     const [scrollLeft, setScrollLeft] = useState(0);
+     const scrollSpeed = 1; // Adjust scroll speed
+     const autoScrollInterval = useRef(null);
+   
+     const handleMouseDown = (e) => {
+         setIsDragging(true);
+         setStartPosition(e.pageX - scrollContainer.current.offsetLeft);
+         setScrollLeft(scrollContainer.current.scrollLeft);
+         clearInterval(autoScrollInterval.current); // Stop auto-scroll on drag start
+     };
+   
+     const handleMouseLeave = () => {
+         setIsDragging(false);
+     };
+   
+     const handleMouseUp = () => {
+         setIsDragging(false);
+         startAutoScroll(); // Restart auto-scroll on drag end
+     };
+   
+     const handleMouseMove = (e) => {
+         if (!isDragging) return;
+         e.preventDefault();
+         const x = e.pageX - scrollContainer.current.offsetLeft;
+         const walk = (x - startPosition) * 3; // Multiply by 3 to increase scroll speed
+         scrollContainer.current.scrollLeft = scrollLeft - walk;
+     };
+   
+     const handleMouseEnter = () => {
+         clearInterval(autoScrollInterval.current); // Stop auto-scroll on hover
+     };
+   
+     const handleMouseLeaveContainer = () => {
+         startAutoScroll(); // Restart auto-scroll when mouse leaves container
+     };
+   
+     const startAutoScroll = () => {
+         clearInterval(autoScrollInterval.current);
+         autoScrollInterval.current = setInterval(() => {
+             if (scrollContainer.current) {
+                 scrollContainer.current.scrollLeft += scrollSpeed;
+                 if (scrollContainer.current.scrollLeft + scrollContainer.current.clientWidth >= scrollContainer.current.scrollWidth) {
+                     scrollContainer.current.scrollLeft = 0; // Reset to start when end is reached
+                 }
+             }
+         }, 25); // Approximately 60 frames per second
+     };
+   
+     useEffect(() => {
+         // Clone images for infinite scroll effect
+         const scrollContainerElement = scrollContainer.current;
+         const images = scrollContainerElement.querySelectorAll('a');
+         images.forEach(image => {
+             const clone = image.cloneNode(true);
+             scrollContainerElement.appendChild(clone);
+         });
+   
+         startAutoScroll();
+   
+         return () => {
+             clearInterval(autoScrollInterval.current); // Clean up on unmount
+         };
+     }, []);
 //  --------------- animation slider ----------------------
     return ( 
         <div>
+          <Helmet>
+          <title>ثبات داده - استعلام شرکت‌ها</title>
+          </Helmet>
             <div className="Companies-header">
                 <div className='Searchbox-main2'>
                   <form onSubmit={handleSubmit}>
@@ -288,7 +312,7 @@ const changeusertoken = async () => {
             </div>
             </div>
             <div className="Madrese-slider">
-              <div className='slider'>
+               <div className='slider'>
                 <h1>{t('برترین کسب و کار ها')}</h1>
                 <div
                     className='card-box'
@@ -297,6 +321,9 @@ const changeusertoken = async () => {
                     onMouseLeave={handleMouseLeave}
                     onMouseUp={handleMouseUp}
                     onMouseMove={handleMouseMove}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeaveContainer} // Restart auto-scroll when leaving the container
+                    style={{ overflow: 'hidden', whiteSpace: 'nowrap', userSelect: 'none', cursor: isDragging ? 'grabbing' : 'grab' }}
                 >
                     {sliderdata.map((item, index) => (
                         <Card2
@@ -308,14 +335,13 @@ const changeusertoken = async () => {
                         />
                     ))}
                 </div>
-        </div>
+            </div>
             </div>
             <div className="Companies-filter-header">
                 <h1>{t('استعلام شرکت‌ها در ثبات‌داده')}</h1>
                 <p>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد')}</p>
             </div>
-            <a href="#Companies-center-result"></a>
-            <div className="Companies-center" id='Companies-center-result'>
+            <div className="Companies-center" id="Companies-center-result">
                 <div className='Searchbox-main-companies'>
                     <div className='Searchbox-items22'>
                           <select name="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
@@ -497,148 +523,72 @@ const changeusertoken = async () => {
                         <span className='slider2-notfound'>{t('موردی یافت نشد')}</span>
                       )}
                     </div>
-                    {
-                    windowWidth <= 500 ? (
-                      <div className='Profile-mobile'>
-                        <div className="Profile-mobile-sub">
-                            <h1>{t('اشتراک ثبات داده')}</h1>
-                            <p>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. ')}</p>
-                        </div>
-                        {/* tarefe 1 */}
-                        <div className="Profile-mobile-sub-tarefe">
-                            <h1>اشتراک سطح ۱</h1>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۱</h1>
-                            </div>
-                            <span>۵۰,۰۰۰ تومان</span>
-                            <button>خرید اشتراک</button>
-                        </div>
-                        {/* tarefe 2 */}
-                        <div className="Profile-mobile-sub-tarefe tarefe-special">
-                            <div className="tarefe-special-mahbob">
-                                <h1>اشتراک سطح ۲</h1>
-                                <h2>(محبوب کاربران)</h2>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۲</h1>
-                            </div>
-                            <span>۸۰,۰۰۰ تومان</span>
-                            <button>خرید اشتراک</button>
-                        </div>
-                        {/* tarefe 3 */}
-                        <div className="Profile-mobile-sub-tarefe">
-                            <h1>اشتراک سطح ۳</h1>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <div className="Profile-mobile-sub-tarefe-row">
-                                <img src={profile_mark} alt="mark icon" />
-                                <h1>امکانات سطح ۳</h1>
-                            </div>
-                            <span>۱۲۰,۰۰۰ تومان</span>
-                            <button>خرید اشتراک</button>
-                        </div>
-                    </div>
-                    ) : (
-                      <div className="Profile-eshterak">
-                      <div className="Profile-eshterak-header">
-                          <h1>{t('اشتراک ثبات داده')}</h1>
-                          <p>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. ')}</p>
+                    <div className="Profile-eshterak">
+                      <div className="Profile-eshterak-price">
+                          <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
+                              <h2>استعلام شرکت‌های ایرانی</h2>
+                              <h2>تعداد استعلام در روز : 5</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۳۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۱۵,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum">
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>تعداد استعلام در روز : 11</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۴۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۲۷,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>تعداد استعلام در روز : 17</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۹۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۴۲,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
                       </div>
                       <div className="Profile-eshterak-price">
                           <div className="Profile-eshterak-price-cloum">
-                              <h1>اشتراک سطح ۱</h1>
-                              <h2>اشتراک سطح ۱</h2>
-                              <h2>اشتراک سطح ۱</h2>
-                              <h2>اشتراک سطح ۱</h2>
-                              <h2>اشتراک سطح ۱</h2>
-                              <span>۵۰,۰۰۰ تومان</span>
+                              <h1>ارائه کاربردی</h1>
+                              <h2>استعلام شرکت‌های ایرانی</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : 10</h2>
+                              <h2>نشانه دار کردن شرکت ها</h2>
+                              <h2>نمایش شرکت های پیشنهادی</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۱,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۵۰۰,۰۰۰ تومان</span>
                               <button type="submit">خرید اشتراک</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
                               <div className="Profile-eshterak-price-cloum-special-header">
-                                  <h1>امکانات سطح ۲</h1>
+                                  <h1>ارائه حرفه ای</h1>
                                   <h2>(محبوب کاربران)</h2>
                               </div>
-                              <h2>امکانات سطح ۲</h2>
-                              <h2>امکانات سطح ۲</h2>
-                              <h2>امکانات سطح ۲</h2>
-                              <h2>امکانات سطح ۲</h2>
-                              <span>۸۰,۰۰۰ تومان</span>
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : 40</h2>
+                              <h2>ارائه گزارش اختصاصی شرکت ها</h2>
+                              <h2>نمایش شرکت های پیشنهادی ایرانی و منطقه</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۳,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۱,۵۰۰,۰۰۰ تومان</span>
                               <button type="submit">خرید اشتراک</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum">
-                              <h1>امکانات سطح ۳</h1>
-                              <h2>امکانات سطح ۳</h2>
-                              <h2>امکانات سطح ۳</h2>
-                              <h2>امکانات سطح ۳</h2>
-                              <h2>امکانات سطح ۳</h2>
-                              <span>۱۲۰,۰۰۰ تومان</span>
+                                 <div className="Profile-eshterak-price-cloum-special-header">
+                                    <h1>ارائه اختصاصی</h1>
+                                    <h2>(پیشنهادی ثبات داده)</h2>
+                                </div>
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : نامحدود</h2>
+                              <h2>طرف قرارداد تو بشناس</h2>
+                              <h2>ارائه گزارش اختصاصی و برسی ریسک معاملاتی</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۷,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۵,۰۰۰,۰۰۰ تومان</span>
                               <button type="submit">خرید اشتراک</button>
                           </div>
                       </div>
                   </div>
-                    )
-                   }
          </div>
         </div>
      );

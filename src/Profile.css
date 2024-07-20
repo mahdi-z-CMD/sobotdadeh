@@ -5,6 +5,56 @@
     width: 100%;
     justify-content: space-between;
 }
+.message-box {
+    position: fixed;
+    top: 10px;
+    left: -300px; /* Start outside the viewport on the left */
+    padding: 25px;
+    border-radius: 8px;
+    font-size: 20px;
+    color: white;
+    z-index: 1000;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.message-box.success {
+    background-color: green;
+}
+
+.message-box.error {
+    background-color: red;
+}
+
+.message-box.show {
+    animation: slide-in 0.5s forwards;
+}
+
+.message-box.hide {
+    animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-in {
+    from {
+        left: -300px;
+        opacity: 0;
+    }
+    to {
+        left: 10px;
+        opacity: 1;
+    }
+}
+
+@keyframes slide-out {
+    from {
+        left: 10px;
+        opacity: 1;
+    }
+    to {
+        left: -300px;
+        opacity: 0;
+    }
+}
+
 /* profile category */
 .Profile-category{
     display: flex;
@@ -218,7 +268,7 @@
     direction: rtl;
     width: 25%;
     color: white;
-    margin-right: 90%;
+    margin-right: 100%;
     cursor: pointer;
     transition: all .3s;
 }
@@ -251,6 +301,11 @@
     border-radius: 20px;
     flex-basis: 45%;
     text-decoration: none;
+    transition: all .3s ease-in-out;
+}
+.Profile-bookmark-box:hover{
+    box-shadow: 0px 1px 5px 1px #6994f0;
+    transition: all .3s ease-in-out;
 }
 .Profile-bookmark-1{
     width: 20%;
@@ -629,6 +684,7 @@
     width: 100%;
     align-items: flex-start;
     padding: 1%;
+    direction: rtl;
 }
 .Profile-eshterak-header{
     display: flex;
@@ -687,6 +743,37 @@
     width: 100%;
     margin-top: 5%;
 }
+.Profile-eshterak-price-takhfif-text{
+    position: relative;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding: 5%;
+    padding-right: 12%;
+    left: 20%;
+    padding-left: 12%;
+    font-size: 11px !important;
+    background-color: rgb(199, 7, 7);
+    box-shadow: 1px 2px 2px 1px black;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    bottom: 1%;
+    z-index: 1;
+    font-weight: 700;
+}
+.Profile-eshterak-price-takhfif{
+    text-decoration: line-through;
+    color: rgba(0, 0, 0, 0.6);
+}
+.Profile-eshterak-price-now{
+    font-size: 27px !important;
+    color: rgb(255 51 51);
+
+}
+.Profile-eshterak-price-cloum-special .Profile-eshterak-price-now{
+    color: white;
+
+}
 .Profile-eshterak-price-cloum{
     border: 1px solid #D1D1D1;
     width: 31%;
@@ -737,7 +824,7 @@
 }
 .Profile-eshterak-price-cloum-special:hover , .Profile-eshterak-price-cloum:hover{
     transition: all .3s;
-    margin-top: -3%;
+    margin-top: -3%8
 }
 .Profile-eshterak-price-cloum-special{
     background-color: #2454B7;
@@ -1318,4 +1405,39 @@
 .tarefe-special-mahbob h2{
     color: #002347;
     font-size: 12px;
+}
+/* mobile  */
+@media only screen and (max-width: 500px) {
+    .Profile-eshterak-price{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 100%;
+        margin-top: 5%;
+    }
+    .Profile-eshterak-price-cloum{
+        width: 100%;
+        margin-top: 8%;
+        padding: 5%;
+    }
+    .Profile-eshterak-price-cloum button{
+        border: none;
+        background-color: #2D69E5;
+        color: white;
+        width: 80%;
+        padding: 5%;
+        border-radius: 8px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 10%;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all .3s;
+    }
+    .Profile-eshterak-price-cloum-special:hover , .Profile-eshterak-price-cloum:hover{
+        transition: all .3s;
+        box-shadow: 0px 0px 3px 1px black inset;
+        margin-top: 8% !important;
+
+    }
 }

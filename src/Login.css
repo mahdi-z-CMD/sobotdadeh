@@ -148,7 +148,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    cursor: not-allowed;
 }
 .Login-items-google button img{
     margin-left: 3%;

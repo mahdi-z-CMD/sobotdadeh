@@ -1,4 +1,6 @@
 import './Contact.css'
+import { Helmet } from 'react-helmet';
+
 // Icons
 import Contactemailicon from './Icons/Contactemailicon.svg'
 import Contactfaxicon from './Icons/Contactfaxicon.svg'
@@ -8,6 +10,9 @@ import Contactlocicon from './Icons/Contactlocicon.svg'
 const Contact = () => {
     return ( 
         <div>
+            <Helmet>
+                <title>ثبات داده - تماس با ما</title>
+            </Helmet>
         <div className="header-Contact">
             <h1>تماس با ما</h1>
         </div>
@@ -27,7 +32,7 @@ const Contact = () => {
                 </div>
                 <div className="Contact-location">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d962.9133407559286!2d51.4500751917253!3d35.73011627886975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2snl!4v1709037681795!5m2!1sen!2snl"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d5784.444131744092!2d48.19462621700314!3d30.451659765915565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1720185459868!5m2!1sen!2s"
                     width="400"
                     height="300"
                     style={{ border: "0" }}  // Convert inline style to JavaScript object
@@ -38,30 +43,30 @@ const Contact = () => {
                     <div className="Contact-loc-row">
                         <img src={Contactlocicon} alt="" />
                         <h1>آدرس:</h1>
-                        <span>تهران، شهرک غرب، خیابان گلستان جنوبی کوچه اول پلاک ۱۰ واحد ۴</span>
+                        <span>خوزستان، منطقه آزاد اروند، خرمشهر، کوی دانشگاه، معین 2 , پلاک 9</span>
                     </div>
                     <div className="Contact-loc-row">
                         <img src={Contacttellicon} alt="" />
                         <h1>تلفن:</h1>
-                        <span>۰۲۱-۷۷۸۸۹۹۰۰</span>
+                        <span>۰۶۱-۵۳۲۶۸۱۲۲</span>
                     </div>
-                    <div className="Contact-loc-row">
+                    {/* <div className="Contact-loc-row">
                         <img src={Contactfaxicon} alt="" />
                         <h1>فکس:</h1>
                         <span>۰۲۱-۷۷۸۸۹۹۰۰</span>
-                    </div>
+                    </div> */}
                     <div className="Contact-loc-row">
                         <img src={Contactemailicon} alt="" />
                         <h1>ایمیل:</h1>
-                        <span>sobotdadeh@gmail.com</span>
+                        <span>sobotdadeh@info.com</span>
                     </div>
                     <div className="Contact-loc-row">
                         <img src={Contactwarninglicon} alt="" />
-                        <span>توجه داشته باشید که 50003101 تنها شماره‌ای است که ‌ثبات‌داده از طریق آن برای کاربران و مشتریان خود پیامک ارسال می‌کند.</span>
+                        <span>توجه داشته باشید که 09830007871 تنها شماره‌ای است که ‌ثبات‌داده از طریق آن برای کاربران و مشتریان خود پیامک ارسال می‌کند.</span>
                     </div>
                     <div className="Contact-loc-row">
                         <img src={Contactwarninglicon} alt="" />
-                        <span>در صورت دریافت پیامک از شماره دیگر با نام ثبات‌داده، لطفاً جهت پیگیری قانونی آن را به info@sobotdadeh.ir اطلاع دهید.</span>
+                        <span>در صورت دریافت پیامک از شماره دیگر با نام ثبات‌داده، لطفاً جهت پیگیری قانونی آن را به sobotdadeh@info.com اطلاع دهید.</span>
                     </div>
                 </div>
             </div>

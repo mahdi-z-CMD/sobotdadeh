@@ -1,6 +1,7 @@
 import './Footer.css'
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 // icons
 import aparaticon from './Icons/aparaticon.svg'
 import telegramicon from './Icons/telegramicon.svg'
@@ -34,6 +35,146 @@ const Footer = () => {
      };
    }, []);
    // get window width
+  //  social animation
+  const [hoverIndex, setHoverIndex] = useState(-1);
+  const [isPaused, setIsPaused] = useState(false);
+  const [manualHoverIndex, setManualHoverIndex] = useState(-1);
+
+  const icons = [
+      {
+          imgSrc: "https://sobotdadeh.com/iconsocial/Frv7RnXM6VxWOnbVblack.png",
+          hoverImgSrc: "https://sobotdadeh.com/iconsocial/Frv7RnXM6VxWOnbV.png",
+          altText: "bale icon",
+          link: "https://web.bale.ai/"
+      },
+      {
+          imgSrc: "https://sobotdadeh.com/iconsocial/Igapblack.png",
+          hoverImgSrc: "https://sobotdadeh.com/iconsocial/Igap.png",
+          altText: "igap icon",
+          link: "https://web.igap.net/"
+      },
+      {
+          imgSrc: "https://sobotdadeh.com/iconsocial/Instagram_logo_2016black.png",
+          hoverImgSrc: "https://sobotdadeh.com/iconsocial/Instagram_logo_2016.png",
+          altText: "instagram icon",
+          link: "https://www.instagram.com/"
+      },
+      {
+          imgSrc: "https://sobotdadeh.com/iconsocial/aparatblack.png",
+          hoverImgSrc: "https://sobotdadeh.com/iconsocial/Logo_Aparat.png",
+          altText: "aparat icon",
+          link: "https://www.aparat.com/"
+      },
+      {
+          imgSrc: "https://sobotdadeh.com/iconsocial/Telegram_logoblack.png",
+          hoverImgSrc: "https://sobotdadeh.com/iconsocial/Telegram_logo.png",
+          altText: "telegram icon",
+          link: "https://web.telegram.org/k/"
+      },
+      {
+          imgSrc: "https://sobotdadeh.com/iconsocial/eitablack.png",
+          hoverImgSrc: "https://sobotdadeh.com/iconsocial/eita.png",
+          altText: "eita icon",
+          link: "https://web.eitaa.com/"
+      },
+      {
+          imgSrc: "https://sobotdadeh.com/iconsocial/minimal-black.png",
+          hoverImgSrc: "https://sobotdadeh.com/iconsocial/minimal.png",
+          altText: "minimal icon",
+          link: "https://web.rubika.ir/"
+      },
+      {
+          imgSrc: "https://sobotdadeh.com/iconsocial/nody-لوگو-سروش-png-1676632510black.png",
+          hoverImgSrc: "https://sobotdadeh.com/iconsocial/nody-لوگو-سروش-png-1676632510.png",
+          altText: "nody icon",
+          link: "https://web.splus.ir/"
+      },
+      {
+          imgSrc: "https://sobotdadeh.com/iconsocial/whatsappblack.png",
+          hoverImgSrc: "https://sobotdadeh.com/iconsocial/whatsapp.png",
+          altText: "whatsapp icon",
+          link: "https://web.whatsapp.com/"
+      },
+  ];
+
+  useEffect(() => {
+      if (!isPaused) {
+          const interval = setInterval(() => {
+              setHoverIndex(prevIndex => (prevIndex + 1) % icons.length);
+          }, 1000);
+          return () => clearInterval(interval);
+      }
+  }, [isPaused, icons.length]);
+
+  const HoverImage = ({ imgSrc, hoverImgSrc, altText, width, height, isHovered, onHover, onLeave, showText }) => {
+      const [isPreloaded, setIsPreloaded] = useState(false);
+
+      useEffect(() => {
+          const img = new Image();
+          img.src = hoverImgSrc;
+          img.onload = () => setIsPreloaded(true);
+      }, [hoverImgSrc]);
+
+      return (
+          <div
+              className="hover-image-container"
+              onMouseEnter={onHover}
+              onMouseLeave={onLeave}
+          >
+              <img
+                  src={isHovered ? hoverImgSrc : imgSrc}
+                  alt={altText}
+                  width={width}
+                  height={height}
+                  className="social-icon-img"
+                  style={{
+                      opacity: isPreloaded ? 1 : 1,
+                      transform: isHovered ? 'scale(1.4)' : 'scale(1)',
+                      transition: 'opacity 0.3s ease, transform 0.3s ease'
+                  }}
+              />
+              {showText && (
+                  <div className="social-icon-text">۰۹۱۰۸۳۰۴۳۰۱ , @sobotdadeh</div>
+              )}
+          </div>
+      );
+  };
+  //  social animation
+// check the phone 
+const [phone, setPhone] = useState('');
+  const [isValid, setIsValid] = useState(true);
+  const [showError, setShowError] = useState(false);
+  const navigate = useNavigate();
+
+  const validatePhoneNumber = (number) => {
+    const numberString = number.toString();
+    if (numberString.startsWith('09') && numberString.length === 11 && /^\d+$/.test(numberString)) {
+      return true;
+    }
+    return false;
+  };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setPhone(value);
+    if (value === '') {
+      setIsValid(true);
+      setShowError(false);
+    } else {
+      const valid = validatePhoneNumber(value);
+      setIsValid(valid);
+      setShowError(!valid);
+    }
+  };
+
+  const handleClick = () => {
+    if (validatePhoneNumber(phone)) {
+      navigate(`/login?phone=${phone}&loginarea=false`);
+    } else {
+      setShowError(true);
+    }
+  };
+// check the phone
     return ( 
         <div className="footer">
           {
@@ -43,13 +184,30 @@ const Footer = () => {
         <div className="signup">
           <h1>{t('برای استفاده از امکانات ثبات داده، ثبت‌نام کنید')}</h1>
           <div className="singup-submit">
-            <input type="email" name="email" placeholder={t('أدخل عنوان بريدك الالكتروني...')}/>
-            <button type="submit">{t('ثبت درخواست')}</button>
+          <input
+            type="text"
+            name="phone"
+            placeholder="شماره تماس را وارد نمایید ..."
+            value={phone}
+            onChange={handleChange}
+            className={isValid ? 'valid' : 'invalid'}
+          />
+          {showError && <p className="singup-submit-error">شماره تلفن معتبر نیست</p>}
+            <button type="submit" onClick={handleClick}>{t('ثبت درخواست')}</button>
           </div>
         </div>
         <div className="footer-about">
-          <h2>{t('تسهیل سرمایه گذاری داده محور')}{windowWidth <= 500 ? (<img src={logoicon} alt="logo icon" />):null}</h2>
-          <p>{t('ثبات داده همراه شما در سرمایه گذاری مبتنی بر علم و تجربه است.  در مجموعه ما تلاش می شود تا با تلفیق تجربه تجارت مدرن و شناخت پیچیدگی های تجارت در خاورمیانه نقش راه گویایی از خلق کسب و کار پویا در اختیار شما قرار دهیم')}</p>
+          <div className="footer-about-1">
+            <h2>{t('همراهی با ما')}</h2>
+            <p>{t('خوزستان، منطقه آزاد اروند، خرمشهر، کوی دانشگاه، معین 2 , پلاک 9')}</p>
+          </div>
+          <div className="footer-about-2">
+            <ul>
+              <li>شماره تماس : ۵۳۲۶۸۱۲۲ - ۰۶۱ </li>
+              <li>شماره فضای سایبری : ۰۹۱۰۸۳۰۴۳۰۱</li>
+              <li>پست الکترونیکی : sobotdadeh@info.com</li>
+            </ul>
+          </div>
         </div>
         <h1>{t('دسترسی سریع')}</h1>
         <div className="footer-pages">
@@ -69,26 +227,26 @@ const Footer = () => {
                 windowWidth <= 500 ? (
                   <div className="links-cloum">
                       <div className="links-cloum-list">
-                        <Link to='/soalatmotadavel'>{t('سوالات متداول')}</Link>
-                        <Link to='/soalatmotadavel'>{t('پشتیبانی')}</Link>
-                        <Link to='/aboutus'>{t('درباره ثبات‌داده')}</Link>
+                        <Link to='/سوالات-متداول'>{t('سوالات متداول')}</Link>
+                        <Link to='/سوالات-متداول'>{t('پشتیبانی')}</Link>
+                        <Link to='/درباره-ما'>{t('درباره ثبات‌داده')}</Link>
                       </div>
                       <div className="links-cloum-list">
-                        <Link to='/ghavanin'>{t('قوانین')}</Link>
-                        <Link to='/contact'>{t('ارتباط با ما')}</Link>
+                        <Link to='/قوانین-و-مقررات'>{t('قوانین')}</Link>
+                        <Link to='/تماس-با-ما'>{t('ارتباط با ما')}</Link>
                         <Link to='/blog'>{t('مجله ثبات‌داده')}</Link>
                       </div>
                   </div>
                 ):(
                   <>
                     <div className="links-row">
-                    <Link to='/soalatmotadavel'>{t('سوالات متداول')}</Link>
-                        <Link to='/soalatmotadavel'>{t('پشتیبانی')}</Link>
-                        <Link to='/aboutus'>{t('درباره ثبات‌داده')}</Link>
+                    <Link to='/سوالات-متداول'>{t('سوالات متداول')}</Link>
+                        <Link to='/سوالات-متداول'>{t('پشتیبانی')}</Link>
+                        <Link to='/درباره-ما'>{t('درباره ثبات‌داده')}</Link>
                     </div>
                     <div className="links-row">
-                    <Link to='/ghavanin'>{t('قوانین')}</Link>
-                        <Link to='/contact'>{t('ارتباط با ما')}</Link>
+                    <Link to='/قوانین-و-مقررات'>{t('قوانین')}</Link>
+                        <Link to='/تماس-با-ما'>{t('ارتباط با ما')}</Link>
                         <Link to='/blog'>{t('مجله ثبات‌داده')}</Link>
                     </div>
                   </>
@@ -99,14 +257,35 @@ const Footer = () => {
         </div>
         <hr />
         <div className="footer-end">
-          <div className="social-icon">
-            <img src={aparaticon} alt="aparat icon" width="24px" height="24px"/>
-            <img src={instagramicon} alt="instagram icon" width="24px" height="24px"/>
-            <img src={telegramicon} alt="telegram icon" width="24px" height="24px"/>
-            <img src={itaicon} alt="telegram icon" width="24px" height="24px"/>
-            <img src={whatsappicon} alt="telegram icon" width="24px" height="24px"/>
-            <img src={rubikaicon} alt="telegram icon" width="24px" height="24px"/>
-          </div>
+        <div className="social-icon">
+          {icons.map((icon, index) => (
+              <a
+                  key={index}
+                  href={icon.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-icon-link"
+              >
+                  <HoverImage
+                      imgSrc={icon.imgSrc}
+                      hoverImgSrc={icon.hoverImgSrc}
+                      altText={icon.altText}
+                      width="24px"
+                      height="24px"
+                      isHovered={index === hoverIndex || index === manualHoverIndex}
+                      showText={index === manualHoverIndex}
+                      onHover={() => {
+                          setManualHoverIndex(index);
+                          setIsPaused(true);
+                      }}
+                      onLeave={() => {
+                          setManualHoverIndex(-1);
+                          setIsPaused(false);
+                      }}
+                  />
+              </a>
+          ))}
+      </div>
           <div className="hoghogh">
             <h1>{t('تمامی حقوق این سایت متعلق به سایت sobotdadeh می‌باشد.')}</h1>
           </div>
