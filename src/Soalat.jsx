@@ -25,7 +25,12 @@ const Soalat = (props) => {
         {expandedIndex === 0 && (
           <div className="additional-text">
             <img src={arrowback} alt="arrow back" />
-            <p>{props.Soalcontent}</p>
+            <p>{props.Soalcontent}
+              <ul>
+                <li>{props.Soalcontent2}</li>
+                <li>{props.Soalcontent3}</li>
+              </ul>
+            </p>
           </div>
         )}
       </div>

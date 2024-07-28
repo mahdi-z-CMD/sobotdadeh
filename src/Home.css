@@ -168,7 +168,7 @@ header{
 
 /* main content */
 main{
-    height: 70vh;
+    height: auto;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -181,7 +181,7 @@ main{
     box-shadow: 00px 0px 24px 0px #1B2B4E33;
     display: flex;
     position: relative;
-    top: -15%;
+    top: -65px;
     flex-direction: column;
     direction: rtl;
     width: 100%;
@@ -521,7 +521,7 @@ main{
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
-    margin-top: 10%;
+    margin-top: 5%;
     box-shadow: 0px 0px 24px 0px #2C156199;
     background-image: url('./image/ghavanin.svg');
     background-size: auto;

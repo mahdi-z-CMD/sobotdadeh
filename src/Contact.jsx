@@ -27,7 +27,7 @@ const Contact = () => {
                     <label htmlFor="">شماره تماس</label>
                     <input type="text" name="" id="" placeholder='09123456789'/>
                     <label htmlFor="">توضیحات</label>
-                    <input type="text" name="" id="" className='Contact-tozihat'/>
+                    <textarea type="text" name="" id="" className='Contact-tozihat'/>
                     <button type="submit">ارسال پیام</button>
                 </div>
                 <div className="Contact-location">

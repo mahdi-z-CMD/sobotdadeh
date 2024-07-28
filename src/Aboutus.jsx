@@ -26,64 +26,97 @@ const Aboutus = () => {
   const autoScrollIntervalRef2 = useRef(null);
 
   const handleMouseDown2 = (e) => {
-      setIsDragging2(true);
-      setStartPosition2(e.pageX - scrollContainerRef2.current.offsetLeft);
-      setScrollLeft2(scrollContainerRef2.current.scrollLeft);
-      clearInterval(autoScrollIntervalRef2.current); // Stop auto-scroll on drag start
+    setIsDragging2(true);
+    setStartPosition2(e.pageX - scrollContainerRef2.current.offsetLeft);
+    setScrollLeft2(scrollContainerRef2.current.scrollLeft);
+    clearInterval(autoScrollIntervalRef2.current); // Stop auto-scroll on drag start
   };
 
-  const handleMouseLeave2 = () => {
-      setIsDragging2(false);
-  };
-
-  const handleMouseUp2 = () => {
-      setIsDragging2(false);
-      startAutoScroll2(); // Restart auto-scroll on drag end
+  const handleTouchStart2 = (e) => {
+    setIsDragging2(true);
+    setStartPosition2(e.touches[0].pageX - scrollContainerRef2.current.offsetLeft);
+    setScrollLeft2(scrollContainerRef2.current.scrollLeft);
+    clearInterval(autoScrollIntervalRef2.current); // Stop auto-scroll on touch start
   };
 
   const handleMouseMove2 = (e) => {
-      if (!isDragging2) return;
-      e.preventDefault();
-      const x = e.pageX - scrollContainerRef2.current.offsetLeft;
-      const walk = (x - startPosition2) * 3; // Multiply by 3 to increase scroll speed
-      scrollContainerRef2.current.scrollLeft = scrollLeft2 - walk;
+    if (!isDragging2) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef2.current.offsetLeft;
+    const walk = (x - startPosition2) * 3; // Adjust scroll speed for smoothness
+    scrollContainerRef2.current.scrollLeft = scrollLeft2 - walk;
+  };
+
+  const handleTouchMove2 = (e) => {
+    if (!isDragging2) return;
+    const x = e.touches[0].pageX - scrollContainerRef2.current.offsetLeft;
+    const walk = (x - startPosition2) * 3; // Adjust scroll speed for smoothness
+    scrollContainerRef2.current.scrollLeft = scrollLeft2 - walk;
+  };
+
+  const handleMouseUp2 = () => {
+    setIsDragging2(false);
+    startAutoScroll2(); // Restart auto-scroll on drag end
+  };
+
+  const handleTouchEnd2 = () => {
+    setIsDragging2(false);
+    startAutoScroll2(); // Restart auto-scroll on touch end
   };
 
   const handleMouseEnter2 = () => {
-      clearInterval(autoScrollIntervalRef2.current); // Stop auto-scroll on hover
+    clearInterval(autoScrollIntervalRef2.current); // Stop auto-scroll on hover
   };
 
   const handleMouseLeaveContainer2 = () => {
+    if (!isDragging2) {
       startAutoScroll2(); // Restart auto-scroll when mouse leaves container
+    }
+  };
+
+  const preventImageDrag = (e) => {
+    e.preventDefault();
   };
 
   const startAutoScroll2 = () => {
-      clearInterval(autoScrollIntervalRef2.current);
-      autoScrollIntervalRef2.current = setInterval(() => {
-          if (scrollContainerRef2.current) {
-              const maxScrollLeft = scrollContainerRef2.current.scrollWidth / 2;
-              if (scrollContainerRef2.current.scrollLeft >= maxScrollLeft) {
-                  scrollContainerRef2.current.scrollLeft -= maxScrollLeft;
-              }
-              scrollContainerRef2.current.scrollLeft += scrollSpeed2; // Move the slider
-          }
-      }, 25); // Approximately 60 frames per second
+    clearInterval(autoScrollIntervalRef2.current);
+    autoScrollIntervalRef2.current = setInterval(() => {
+      if (scrollContainerRef2.current) {
+        const maxScrollLeft = scrollContainerRef2.current.scrollWidth - scrollContainerRef2.current.clientWidth;
+        if (scrollContainerRef2.current.scrollLeft >= maxScrollLeft) {
+          scrollContainerRef2.current.scrollLeft = 0; // Reset to start when end is reached
+        } else {
+          scrollContainerRef2.current.scrollLeft += scrollSpeed2; // Move the slider
+        }
+      }
+    }, 25); // Approximately 40 frames per second
   };
 
   useEffect(() => {
-      // Clone images for infinite scroll effect
-      const scrollContainer = scrollContainerRef2.current;
-      const images = scrollContainer.querySelectorAll('a');
-      images.forEach(image => {
-          const clone = image.cloneNode(true);
-          scrollContainer.appendChild(clone);
+    const scrollContainer = scrollContainerRef2.current;
+    const images = scrollContainer.querySelectorAll('a');
+
+    // Clone images for infinite scroll effect
+    images.forEach(image => {
+      const clone = image.cloneNode(true);
+      scrollContainer.appendChild(clone);
+    });
+
+    startAutoScroll2();
+
+    // Prevent image dragging
+    scrollContainer.querySelectorAll('img').forEach(img => {
+      img.addEventListener('dragstart', preventImageDrag);
+      img.addEventListener('touchmove', preventImageDrag);
+    });
+
+    return () => {
+      clearInterval(autoScrollIntervalRef2.current); // Clean up on unmount
+      scrollContainer.querySelectorAll('img').forEach(img => {
+        img.removeEventListener('dragstart', preventImageDrag);
+        img.removeEventListener('touchmove', preventImageDrag);
       });
-
-      startAutoScroll2();
-
-      return () => {
-          clearInterval(autoScrollIntervalRef2.current); // Clean up on unmount
-      };
+    };
   }, []);
   //  --------------- animation slider ----------------------
     return ( 
@@ -128,53 +161,55 @@ const Aboutus = () => {
             <div className="manabe-aboutus">
             <h1>منابع ما</h1>
             <div
-                className="manabe-aboutus-icons"
-                ref={scrollContainerRef2}
-                onMouseDown={handleMouseDown2}
-                onMouseLeave={handleMouseLeave2}
-                onMouseUp={handleMouseUp2}
-                onMouseMove={handleMouseMove2}
-                onMouseEnter={handleMouseEnter2}
-                onMouseLeave={handleMouseLeaveContainer2}
-                style={{ overflow: 'hidden', whiteSpace: 'nowrap', cursor: isDragging2 ? 'grabbing' : 'grab' }}
-            >
-                <a href="https://bmn.ir/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh1.webp" alt="بنیاد ملی نخبگان" />
-                </a>
-                <a href="https://daneshbonyan.isti.ir/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh2.webp" alt="مرکز شرکت ها و موسسات دانش بنیان" />
-                </a>
-                <a href="https://evand.com/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh3.webp" alt="بنیاد ملی توسعه فناوری" />
-                </a>
-                <a href="https://mstfdn.org/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh4.webp" alt="بنیاد علم و فناوری مصطفی" />
-                </a>
-                <a href="https://jamilifoundation.com/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh5.webp" alt="بنیاد علم و فناوری جمیلی" />
-                </a>
-                <a href="https://utf.ut.ac.ir/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh6.webp" alt="بنیاد حامیان دانشگاه تهران" />
-                </a>
-                <a href="https://dolat.ir/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh7.webp" alt="دولت جمهوری اسلامی ایران" />
-                </a>
-                <a href="https://eadl.ir/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh8.webp" alt="قوه قضاییه" />
-                </a>
-                <a href="https://www.ict.gov.ir/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh9.webp" alt="وزارت ارتباطات" />
-                </a>
-                <a href="https://www.mfa.gov.ir/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh10.webp" alt="وزارت امور خارجه" />
-                </a>
-                <a href="https://ssaa.ir/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh11.webp" alt="سازمان ثبت اسناد و املاک کشور" />
-                </a>
-                <a href="https://www.maj.ir/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://sobotdadeh.com/manabeimg/danesh12.webp" alt="جهاد کشاورزی" />
-                </a>
-            </div>
+        className="manabe-aboutus-icons"
+        ref={scrollContainerRef2}
+        onMouseDown={handleMouseDown2}
+        onMouseMove={handleMouseMove2}
+        onMouseUp={handleMouseUp2}
+        onMouseEnter={handleMouseEnter2}
+        onMouseLeave={handleMouseLeaveContainer2}
+        onTouchStart={handleTouchStart2}
+        onTouchMove={handleTouchMove2}
+        onTouchEnd={handleTouchEnd2}
+        style={{ overflow: 'hidden', whiteSpace: 'nowrap', cursor: isDragging2 ? 'grabbing' : 'grab', transition: 'scroll-left 0.2s linear' }} // Add CSS transition for smooth scrolling
+      >
+        <a href="https://bmn.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh1.webp" alt="بنیاد ملی نخبگان" />
+        </a>
+        <a href="https://daneshbonyan.isti.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh2.webp" alt="مرکز شرکت ها و موسسات دانش بنیان" />
+        </a>
+        <a href="https://evand.com/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh3.webp" alt="بنیاد ملی توسعه فناوری" />
+        </a>
+        <a href="https://mstfdn.org/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh4.webp" alt="بنیاد علم و فناوری مصطفی" />
+        </a>
+        <a href="https://jamilifoundation.com/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh5.webp" alt="بنیاد علم و فناوری جمیلی" />
+        </a>
+        <a href="https://utf.ut.ac.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh6.webp" alt="بنیاد حامیان دانشگاه تهران" />
+        </a>
+        <a href="https://dolat.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh7.webp" alt="دولت جمهوری اسلامی ایران" />
+        </a>
+        <a href="https://eadl.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh8.webp" alt="قوه قضاییه" />
+        </a>
+        <a href="https://www.ict.gov.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh9.webp" alt="وزارت ارتباطات" />
+        </a>
+        <a href="https://www.mfa.gov.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh10.webp" alt="وزارت امور خارجه" />
+        </a>
+        <a href="https://ssaa.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh11.webp" alt="سازمان ثبت اسناد و املاک کشور" />
+        </a>
+        <a href="https://www.maj.ir/" target="_blank" rel="noopener noreferrer">
+          <img src="https://sobotdadeh.com/manabeimg/danesh12.webp" alt="جهاد کشاورزی" />
+        </a>
+      </div>
         </div>
             <div className="kharid">
                 <h1>به ثبات‌داده اعتماد کن ما کنارتان هستیم ...</h1>

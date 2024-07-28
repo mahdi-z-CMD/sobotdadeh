@@ -34,6 +34,21 @@
     position: relative;
     bottom: 4%;
 }
+.ghavanin-content-back h1{
+    padding-top: 5%;
+    direction: rtl;
+    margin-right: 9%;
+    margin-left: 9%;
+    font-weight: 700;
+    font-size: 32px;
+}
+.ghavanin-content-back p{
+    font-size: 20px;
+    padding-top: 2%;
+    margin-left: 9%;
+    direction: rtl;
+    margin-right: 9%;
+}
 /* mobile */
 @media only screen and (max-width: 450px) {
     .header-ghavanin{

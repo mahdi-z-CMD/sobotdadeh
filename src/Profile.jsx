@@ -572,7 +572,7 @@ const Profile = () => {
     const changeUserPassword = async () => {
         try {
             setLoadingpass(true);
-    
+            
             // Check if passwords match...
             if (newPass !== confirmPass) {
                 setErrorMessage('رمز عبور‌ها همخوانی ندارند');
@@ -623,14 +623,23 @@ const Profile = () => {
             // Check if password change was successful
             if (response.data.status === true) {
                 // Password changed successfully, handle accordingly
-                setErrorMessage('رمز عبور با موفقیعت  تغییر کرد');
+                // Show success message
+                setProfileedit(false)
+                setMessageContent('رمز عبور جدید با موفقیت ثبت شد');
+                setMessageClass('show');
+                setShowMessage(true);
+                setTimeout(() => {
+                    setMessageClass('hide');
+                    setTimeout(() => {
+                        setShowMessage(false);
+                    }, 500); // Duration of the slide-out animation
+                }, 5000); // Hide after 5 seconds
             } else {
                 // Password change failed, check if old password was incorrect
                 if (response.data.data && response.data.data.old_password) {
                     setErrorMessage(response.data.data.old_password[0]);
                 } else {
                     // Handle other errors
-                    console.error('Error changing user password:', response.data);
                 }
             }
         } catch (error) {
@@ -1018,13 +1027,18 @@ const Profile = () => {
       {/* mobile --------------- */}
   </div>) : (
             mobilepage === 0 ? (<div className='Profile-mobile'>
+                  {showMessage && (
+                <div className={`message-box ${messageContent === 'Failed to load data!' ? 'error' : 'success'} ${messageClass}`}>
+                    {messageContent}
+                </div>
+            )}
             {/* MENU AREA */}
             <div className="Profile-mobile-menu">
                 <Link to={'/'}>
                 <img src={profile_homeicon} alt="home icon" />
                     <h1>خانه</h1>
                 </Link>
-                <Link to={'/companies'}>
+                <Link to={'/استعلام-شرکت'}>
                 <img src={profile_searchicon} alt="search icon" />
                     <h1>جستجو</h1>
                 </Link>
@@ -1039,9 +1053,9 @@ const Profile = () => {
             {/* MENU AREA */}
             <div className="Profile-mobile-header-name">
                 <div className="Profile-mobile-header-name-name">
-                    <img src={profilepic1} alt="profile pic" />
+                    <img src={imageSrc || profilepic1} alt="profile pic" />
                     <div className="Profile-mobile-header-number">
-                        <h1>{profilename} {profilefamily}</h1>
+                        <h1>{loadinguser ? 'در حال دریافت اطلاعات ...' : profilename} {profilefamily}</h1>
                         <h2>{profilephone}</h2>
                     </div>
                 </div>
@@ -1081,13 +1095,18 @@ const Profile = () => {
                 <h1 onClick={removeCookies}>خروج از حساب</h1>
             </div>
         </div>) : mobilepage === 1 ? (<div className='Profile-mobile'>
+            {showMessage && (
+                    <div className={`message-box ${messageContent === 'Failed to load data!' ? 'error' : 'success'} ${messageClass}`}>
+                        {messageContent}
+                    </div>
+                )}
              {/* MENU AREA */}
              <div className="Profile-mobile-menu">
                 <Link to={'/'}>
                 <img src={profile_homeicon} alt="home icon" />
                     <h1>خانه</h1>
                 </Link>
-                <Link to={'/companies'}>
+                <Link to={'/استعلام-شرکت'}>
                 <img src={profile_searchicon} alt="search icon" />
                     <h1>جستجو</h1>
                 </Link>
@@ -1102,11 +1121,18 @@ const Profile = () => {
             {/* MENU AREA */}
             <div className="Profile-mobile-header-name">
                 <div className="Profile-mobile-header-name-name-edit">
-                    <img src={imageSrc || profilepic1} alt="profile pic" />
+                    <img src={imageSrc || profilepic1} alt="profile pic" onClick={profileedit === false ? null : handleImageClick}/>
                     <div className="Profile-mobile-header-section-edit">
                         <div className="Profile-mobile-header-section-edit-text">
-                            <h1>آپلود تصویر</h1>
-                            <img src={profile_uploadicon} alt="upload icon" />
+                            <h1 onClick={profileedit === false ? null : handleImageClick}>آپلود تصویر</h1>
+                            <img src={profile_uploadicon} onClick={profileedit === false ? null : handleImageClick} alt="upload icon" />
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                accept="image/*"
+                                style={{ display: 'none' }}
+                                onChange={handleFileInputChange} // Handle file input change
+                            />
                         </div>
                         <div className="Profile-mobile-header-section-edit-text">
                         </div>
@@ -1179,6 +1205,11 @@ const Profile = () => {
             }
             </div>
         </div>) : mobilepage === 2 ? (<div className='Profile-mobile'>
+            {showMessage && (
+                    <div className={`message-box ${messageContent === 'Failed to load data!' ? 'error' : 'success'} ${messageClass}`}>
+                        {messageContent}
+                    </div>
+                )}
             {/* password section */}
              {/* MENU AREA */}
              <div className="Profile-mobile-menu">
@@ -1186,7 +1217,7 @@ const Profile = () => {
                 <img src={profile_homeicon} alt="home icon" />
                     <h1>خانه</h1>
                 </Link>
-                <Link to={'/companies'}>
+                <Link to={'/استعلام-شرکت'}>
                 <img src={profile_searchicon} alt="search icon" />
                     <h1>جستجو</h1>
                 </Link>
@@ -1201,9 +1232,9 @@ const Profile = () => {
             {/* MENU AREA */}
             <div className="Profile-mobile-header-name">
                 <div className="Profile-mobile-header-name-name">
-                    <img src={profilepic1} alt="profile pic" />
+                    <img src={imageSrc || profilepic1} alt="profile pic" />
                         <div className="Profile-mobile-header-number">
-                            <h1>{profilename} {profilefamily}</h1>
+                            <h1>{loadinguser ? 'در حال دریافت اطلاعات ...' : profilename} {profilefamily}</h1>
                             <h2>{profilephone}</h2>
                         </div>
                 </div>
@@ -1262,13 +1293,18 @@ const Profile = () => {
                     <button type="submit" onClick={loadingpass ? null : changeUserPassword}>{loadingpass ? 'ثبت تغییرات ...' : 'ثبت تغییرات'}</button>
             </div>
         </div>) : mobilepage === 3 ? (<div className='Profile-mobile'>
+            {showMessage && (
+                    <div className={`message-box ${messageContent === 'Failed to load data!' ? 'error' : 'success'} ${messageClass}`}>
+                        {messageContent}
+                    </div>
+                )}
              {/* MENU AREA */}
              <div className="Profile-mobile-menu">
                 <Link to={'/'}>
                 <img src={profile_homeicon} alt="home icon" />
                     <h1>خانه</h1>
                 </Link>
-                <Link to={'/companies'}>
+                <Link to={'/استعلام-شرکت'}>
                 <img src={profile_searchicon} alt="search icon" />
                     <h1>جستجو</h1>
                 </Link>
@@ -1285,26 +1321,51 @@ const Profile = () => {
                 <h1>شرکت‌ها</h1>
             </div>
             <div className="Profile-mobile-bookmark">
-                 {bookmarkCompaniesData.map(company => (
-                        <Cardbookmark
-                        name={company.title}
-                        img={company.profile_companie1 || companielogo}
-                        type='ایرانی'
-                        url={company.code}
+            {loadinguser ? (
+                Array(4).fill(null).map((_, index) => (
+                    <Bookmarkcard
+                        key={index}
+                        img={companielogo}
+                        companiename={''}
+                        companiedes=''
+                        companieprice={''}
+                        companiedate={''}
+                        url={''}
                         contry={0}
-                        ></Cardbookmark>
-                    ))}
-                    {bookmarkCompaniesData2.map(company => (
-                        <Cardbookmark
-                        name={company.title}
-                        img={company.profile_companie1 || companielogo}
-                        type='عراقی'
-                        url={company.id}
-                        contry={1}
-                        ></Cardbookmark>
-                    ))}
+                        className="companie-content-loading"
+                    />
+                ))
+            ) : hasBookmarks ? (
+                    <>
+                        {bookmarkCompaniesData.map(company => (
+                            <Cardbookmark
+                            name={company.title}
+                            img={company.profile_companie1 || companielogo}
+                            type='ایرانی'
+                            url={company.code}
+                            contry={0}
+                            ></Cardbookmark>
+                        ))}
+                        {bookmarkCompaniesData2.map(company => (
+                            <Cardbookmark
+                            name={company.title}
+                            img={company.profile_companie1 || companielogo}
+                            type='عراقی'
+                            url={company.id}
+                            contry={1}
+                            ></Cardbookmark>
+                        ))}
+                    </>
+                ) : (
+                    <p>آگهی نشان نشده</p>
+                )}
             </div>
         </div>) : mobilepage === 4 ? (<div className='Profile-mobile'>
+            {showMessage && (
+                    <div className={`message-box ${messageContent === 'Failed to load data!' ? 'error' : 'success'} ${messageClass}`}>
+                        {messageContent}
+                    </div>
+                )}
              {/* MENU AREA */}
              <div className="Profile-mobile-menu">
                 <Link to={'/'}>
@@ -1333,98 +1394,72 @@ const Profile = () => {
                         <h2>مدت زمان : {profilesathtime} روز</h2>
                       </div>
             {/* tarefe 1 */}
-            <div className="Profile-mobile-sub-tarefe">
-                <h1>اشتراک سطح ۱</h1>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۱</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۱</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۱</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۱</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۱</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۱</h1>
-                </div>
-                <span>۵۰,۰۰۰ تومان</span>
-                <button>خرید اشتراک</button>
-            </div>
-            {/* tarefe 2 */}
-            <div className="Profile-mobile-sub-tarefe tarefe-special">
-                <div className="tarefe-special-mahbob">
-                    <h1>اشتراک سطح ۲</h1>
-                    <h2>(محبوب کاربران)</h2>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۲</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۲</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۲</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۲</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۲</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۲</h1>
-                </div>
-                <span>۸۰,۰۰۰ تومان</span>
-                <button>خرید اشتراک</button>
-            </div>
-            {/* tarefe 3 */}
-            <div className="Profile-mobile-sub-tarefe">
-                <h1>اشتراک سطح ۳</h1>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۳</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۳</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۳</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۳</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۳</h1>
-                </div>
-                <div className="Profile-mobile-sub-tarefe-row">
-                    <img src={profile_mark} alt="mark icon" />
-                    <h1>امکانات سطح ۳</h1>
-                </div>
-                <span>۱۲۰,۰۰۰ تومان</span>
-                <button>خرید اشتراک</button>
-            </div>
+            <div className="Profile-eshterak">
+                      <div className="Profile-eshterak-price">
+                          <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
+                              <h2>استعلام شرکت‌های ایرانی</h2>
+                              <h2>تعداد استعلام در روز : 5</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۳۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۱۵,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum">
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>تعداد استعلام در روز : 11</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۴۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۲۷,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>تعداد استعلام در روز : 17</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۹۲,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۴۲,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                      </div>
+                      <div className="Profile-eshterak-price">
+                          <div className="Profile-eshterak-price-cloum">
+                              <h1>ارائه کاربردی</h1>
+                              <h2>استعلام شرکت‌های ایرانی</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : 10</h2>
+                              <h2>نشانه دار کردن شرکت ها</h2>
+                              <h2>نمایش شرکت های پیشنهادی</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۱,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۵۰۰,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
+                              <div className="Profile-eshterak-price-cloum-special-header">
+                                  <h1>ارائه حرفه ای</h1>
+                                  <h2>(محبوب کاربران)</h2>
+                              </div>
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : 40</h2>
+                              <h2>ارائه گزارش اختصاصی شرکت ها</h2>
+                              <h2>نمایش شرکت های پیشنهادی ایرانی و منطقه</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۳,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۱,۵۰۰,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                          <div className="Profile-eshterak-price-cloum">
+                                 <div className="Profile-eshterak-price-cloum-special-header">
+                                    <h1>ارائه اختصاصی</h1>
+                                    <h2>(پیشنهادی ثبات داده)</h2>
+                                </div>
+                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
+                              <h2>مدت زمان : 90 روز</h2>
+                              <h2>تعداد استعلام در روز : نامحدود</h2>
+                              <h2>طرف قرارداد تو بشناس</h2>
+                              <h2>ارائه گزارش اختصاصی و برسی ریسک معاملاتی</h2>
+                              <span className='Profile-eshterak-price-takhfif'>۷,۵۰۰,۰۰۰ تومان</span>
+                              <span className='Profile-eshterak-price-now'>۵,۰۰۰,۰۰۰ تومان</span>
+                              <button type="submit">خرید اشتراک</button>
+                          </div>
+                      </div>
+                  </div>
         </div>) : (null)
         ) 
      )

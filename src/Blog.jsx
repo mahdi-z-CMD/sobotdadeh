@@ -121,36 +121,37 @@ const Blog = () => {
               <h1 className={loadingArticle ? '' : ''}>
                 {article ? article.title : 'در حال جستجو ...'}
               </h1>
-              <p className={loadingArticle ? 'companie-content-loading' : ''}>
+              <p>
                 {article ? article.excerpt : ''}
               </p>
               {article && <img src={article.image} alt="Blog image" />}
-              <div className={loadingArticle ? 'companie-content-loading' : ''} dangerouslySetInnerHTML={{ __html: article ? article.content : '' }}></div>
+              <div dangerouslySetInnerHTML={{ __html: article ? article.content : '' }}></div>
             </div>
             {!loadingOtherArticles && (
               <>
-                <h1 className='BlogCards-header'>مقالات مشابه</h1>
-                <div className="Blog-Cards">
-                  <div className="Blog-Cards-arrows">
-                    <img 
-                      src={leftarrow} 
-                      alt="left key" 
-                      className='Blog-Cards-arrows-left' 
-                      onClick={handlePrev} 
-                      style={{ cursor: 'pointer' }} 
-                    />
-                    <img 
-                      src={rightkey} 
-                      alt="right key" 
-                      className='Blog-Cards-arrows-right' 
-                      onClick={handleNext} 
-                      style={{ cursor: 'pointer' }} 
-                    />
-                  </div>
-                  {otherArticles.slice(currentIndex, currentIndex + 4).map((article) => (
-                    <Blogcards key={article.id} img={article.image} title={article.title} id={article.id} />
-                  ))}
+               <h1 className='BlogCards-header'>مقالات مشابه</h1>
+              <div className="Blog-Cards">
+                <div className="Blog-Cards-arrows">
+                  <img 
+                    src={leftarrow} 
+                    alt="left key" 
+                    className='Blog-Cards-arrows-left' 
+                    onClick={handlePrev} 
+                    style={{ cursor: 'pointer' }} 
+                  />
+                  <img 
+                    src={rightkey} 
+                    alt="right key" 
+                    className='Blog-Cards-arrows-right' 
+                    onClick={handleNext} 
+                    style={{ cursor: 'pointer' }} 
+                  />
                 </div>
+                {otherArticles.slice(currentIndex, currentIndex + 4).map((article) => (
+                  <Blogcards key={article.id} img={article.image} title={article.title} id={article.id} />
+                ))}
+                <div id="load-more-trigger" style={{ height: '1px' }}></div>
+              </div>
               </>
             )}
           </div>

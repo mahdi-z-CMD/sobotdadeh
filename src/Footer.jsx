@@ -203,9 +203,9 @@ const [phone, setPhone] = useState('');
           </div>
           <div className="footer-about-2">
             <ul>
-              <li>شماره تماس : ۵۳۲۶۸۱۲۲ - ۰۶۱ </li>
-              <li>شماره فضای سایبری : ۰۹۱۰۸۳۰۴۳۰۱</li>
-              <li>پست الکترونیکی : sobotdadeh@info.com</li>
+              <li>{t('شماره تماس : ۵۳۲۶۸۱۲۲ - ۰۶۱')}</li>
+              <li>{t('شماره فضای سایبری : ۰۹۱۰۸۳۰۴۳۰۱')}</li>
+              <li>{t('پست الکترونیکی : sobotdadeh@info.com')}</li>
             </ul>
           </div>
         </div>

@@ -214,7 +214,12 @@
     border: none;
     margin-top: 15%;
     border-radius: 8px;
+    transition: all .3s ease-in-out;
     cursor: pointer;
+}
+.Login-items-b-submit2 button:hover{
+    transition: all .3s ease-in-out;
+    box-shadow: 0px 0px 3px 1px rgb(106, 106, 106);
 }
 .not-correct-format-singup button{
     background-color: rgba(255, 127, 80,0.4);

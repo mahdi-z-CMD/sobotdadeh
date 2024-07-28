@@ -4,6 +4,7 @@ import Footer from './Footer';
 import Soalat from './Soalat';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import CryptoJS from 'crypto-js';
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -57,6 +58,105 @@ export const Homepage = () => {
     };
   }, []);
   // get window width
+
+// CHANGE TOKEN
+const [isChecking, setIsChecking] = useState(true); // State to track if we're checking cookies
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // State to track login status
+
+  // Function to remove cookies and log out the user
+  const removeCookies = async () => {
+    try {
+      // Make a logout request to invalidate the user's session on the server
+      await axios.post('https://api.sobotdadeh.com/v1/auth/logout');
+
+      // Remove the cookies from the client side
+      Cookies.remove('api_key');
+      Cookies.remove('token');
+      Cookies.remove('IMEI');
+      Cookies.remove('user');
+
+      // Update state to reflect the logged-out status
+      setIsLoggedIn(false);
+      setIsChecking(false); // Stop checking once logout is done
+    } catch (error) {
+      // Handle errors if necessary
+      setIsLoggedIn(false);
+      setIsChecking(false);
+    }
+  };
+
+  // Function to refresh the user token
+  const changeUserToken = async () => {
+    try {
+      const apiKey = Cookies.get('api_key');
+      const token = Cookies.get('token');
+      const imei = Cookies.get('IMEI');
+      const decryptedValue = CryptoJS.AES.decrypt(Cookies.get('pn'), 'f2af0b0c9a27d7c893fa5d0ee2887c64').toString(CryptoJS.enc.Utf8);
+
+      // Send the POST request with custom headers
+      const response = await axios.post('https://api.sobotdadeh.com/v1/auth/check', {
+        phone: decryptedValue,
+        api_key: apiKey
+      }, {
+        headers: {
+          'Api-Token': apiKey,
+          'Authorization': `Bearer ${token}`,
+          'IMEI': imei
+        }
+      });
+
+      if (response.data.status === true) {
+        Cookies.set('api_key', response.data.data.api_key, { expires: 7 });
+        Cookies.set('token', response.data.data.token, { expires: 7 });
+        Cookies.set('user', 'true', { expires: 7 });
+        setIsLoggedIn(true);
+        setIsChecking(false); // Stop checking once token is refreshed
+      } else {
+        removeCookies();
+      }
+    } catch (error) {
+      removeCookies();
+    }
+  };
+
+  // Function to check user data
+  const checkUserData = async () => {
+    try {
+      const apiKey = Cookies.get('api_key');
+      const token = Cookies.get('token');
+      const imei = Cookies.get('IMEI');
+
+      const response = await axios.post('https://api.sobotdadeh.com/v1/auth/init', {}, {
+        headers: {
+          'Api-Token': apiKey,
+          'Authorization': `Bearer ${token}`,
+          'IMEI': imei
+        }
+      });
+
+      if (response.data.status === true) {
+        setIsLoggedIn(true);
+        setIsChecking(false); // Stop checking once user data is validated
+      } else if (response.data.data.error === "Unauthorized") {
+        changeUserToken();
+      } else {
+        removeCookies();
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        changeUserToken();
+      } else {
+        removeCookies();
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (isChecking) {
+      checkUserData();
+    }
+  }, [isChecking]);
+//   GETTING USER DATA
   // thie section is for box khadamat animation 
   const [scrolled, setScrolled] = useState(false);
 
@@ -535,16 +635,16 @@ export const Homepage = () => {
       </div>
     <div className={`box-khadamat ${scrolled ? 'scrolled' : ''}`}>
       {
-          windowWidth <= 500 ? (<h1 className='box-khadamat-text-h1'>{scrolled ? t('استعلام شرکت ها') : t('شناخت ریسک معاملات ')}</h1>):null
+          windowWidth <= 500 ? (<h1 className='box-khadamat-text-h1'>{scrolled ? t('استعلام شرکت ها') : t('شناخت ریسک معاملات')}</h1>):null
       }
       <div className="box-khadamat-img">
         <img src={scrolled ? boximage2 : boximage1} alt="box image" />
       </div>
       <div className="box-khadamat-text">
         {
-            windowWidth >= 500 ? (<h1>{scrolled ? t('استعلام شرکت ها') : t('شناخت ریسک معاملات ')}</h1>):null
+            windowWidth >= 500 ? (<h1>{scrolled ? t('استعلام شرکت ها') : t('شناخت ریسک معاملات')}</h1>):null
         }
-        <p>{scrolled ? 'بعضی افراد سودجو می توانند به اسم یک شرکت جعلی که به ثبت نرسیده است اقدام به معامله با شرکت ها یا افراد عادی کنند و از آن ها کلاهبرداری کنند. وقتی این نوع از کلاهبرداری با مبالغ کلان اتفاق افتاد و افراد مال باخته اقدام به شکایت کردند، تازه متوجه خواهند شد که چنبن شرکتی وجود ندارد و دسترسی به افراد کلاهبردار برای شکایت و پیگیری جرم کلاهبرداری برای آنان بسیار دشوار خواهد بود. برای افراد این سوال ممکن است به وجود بی آید ' : 'ریسک امری غیرقابل انکار در معاملات است و هر فرد با توجه به استراتژی معاملاتی و ریسک پذیری خود به معامله یک دارایی می‌پردازد. استفاده از ابزارهای مختلف اقتصادی منجر به کنترل ریسک معامله می‌شود و این امر بدون دانش و تجربه امکان‌پذیر نخواهد بود. با توجه به اهمیت ریسک پذیری و شناخت درجات ریسک پذیری در ثبات داده  قصد داریم به کاهش ریسک پذیری تجارت شما و دسته ‌بندی طرفین معاملاتی بر اساس میزان ریسک‌ پذیری بپردازیم.'}</p>  
+        <p>{scrolled ? t('بعضی افراد سودجو می توانند به اسم یک شرکت جعلی که به ثبت نرسیده است اقدام به معامله با شرکت ها یا افراد عادی کنند و از آن ها کلاهبرداری کنند. وقتی این نوع از کلاهبرداری با مبالغ کلان اتفاق افتاد و افراد مال باخته اقدام به شکایت کردند، تازه متوجه خواهند شد که چنبن شرکتی وجود ندارد و دسترسی به افراد کلاهبردار برای شکایت و پیگیری جرم کلاهبرداری برای آنان بسیار دشوار خواهد بود. برای افراد این سوال ممکن است به وجود بی آید') : t('ریسک امری غیرقابل انکار در معاملات است و هر فرد با توجه به استراتژی معاملاتی و ریسک پذیری خود به معامله یک دارایی می‌پردازد. استفاده از ابزارهای مختلف اقتصادی منجر به کنترل ریسک معامله می‌شود و این امر بدون دانش و تجربه امکان‌پذیر نخواهد بود. با توجه به اهمیت ریسک پذیری و شناخت درجات ریسک پذیری در ثبات داده قصد داریم به کاهش ریسک پذیری تجارت شما و دسته ‌بندی طرفین معاملاتی بر اساس میزان ریسک‌ پذیری بپردازیم.')}</p>  
         <img src={scrolldownicon} alt="scroll icon" className='scrollicon-khadamat'/>
       </div>
     </div>

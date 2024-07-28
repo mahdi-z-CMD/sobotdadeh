@@ -204,74 +204,86 @@ const changeusertoken = async () => {
       fetchData(searchInput);
     };
     // api to get data
-     //  --------------- animation slider ----------------------
-     const scrollContainer = useRef(null);
-     const [isDragging, setIsDragging] = useState(false);
-     const [startPosition, setStartPosition] = useState(0);
-     const [scrollLeft, setScrollLeft] = useState(0);
-     const scrollSpeed = 1; // Adjust scroll speed
-     const autoScrollInterval = useRef(null);
-   
-     const handleMouseDown = (e) => {
-         setIsDragging(true);
-         setStartPosition(e.pageX - scrollContainer.current.offsetLeft);
-         setScrollLeft(scrollContainer.current.scrollLeft);
-         clearInterval(autoScrollInterval.current); // Stop auto-scroll on drag start
-     };
-   
-     const handleMouseLeave = () => {
-         setIsDragging(false);
-     };
-   
-     const handleMouseUp = () => {
-         setIsDragging(false);
-         startAutoScroll(); // Restart auto-scroll on drag end
-     };
-   
-     const handleMouseMove = (e) => {
-         if (!isDragging) return;
-         e.preventDefault();
-         const x = e.pageX - scrollContainer.current.offsetLeft;
-         const walk = (x - startPosition) * 3; // Multiply by 3 to increase scroll speed
-         scrollContainer.current.scrollLeft = scrollLeft - walk;
-     };
-   
-     const handleMouseEnter = () => {
-         clearInterval(autoScrollInterval.current); // Stop auto-scroll on hover
-     };
-   
-     const handleMouseLeaveContainer = () => {
-         startAutoScroll(); // Restart auto-scroll when mouse leaves container
-     };
-   
-     const startAutoScroll = () => {
-         clearInterval(autoScrollInterval.current);
-         autoScrollInterval.current = setInterval(() => {
-             if (scrollContainer.current) {
-                 scrollContainer.current.scrollLeft += scrollSpeed;
-                 if (scrollContainer.current.scrollLeft + scrollContainer.current.clientWidth >= scrollContainer.current.scrollWidth) {
-                     scrollContainer.current.scrollLeft = 0; // Reset to start when end is reached
-                 }
-             }
-         }, 25); // Approximately 60 frames per second
-     };
-   
-     useEffect(() => {
-         // Clone images for infinite scroll effect
-         const scrollContainerElement = scrollContainer.current;
-         const images = scrollContainerElement.querySelectorAll('a');
-         images.forEach(image => {
-             const clone = image.cloneNode(true);
-             scrollContainerElement.appendChild(clone);
-         });
-   
-         startAutoScroll();
-   
-         return () => {
-             clearInterval(autoScrollInterval.current); // Clean up on unmount
-         };
-     }, []);
-//  --------------- animation slider ----------------------
+    //  --------------- animation slider ----------------------
+  const scrollContainerRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startPosition, setStartPosition] = useState(0);
+  const [startScrollLeft, setStartScrollLeft] = useState(0);
+  const scrollSpeed = 1; // Adjust scroll speed
+  const autoScrollInterval = useRef(null);
+
+  const handleMouseDown = (e) => {
+    e.preventDefault(); // Prevent default action
+    setIsDragging(true);
+    setStartPosition(e.pageX - scrollContainerRef.current.offsetLeft);
+    setStartScrollLeft(scrollContainerRef.current.scrollLeft);
+    clearInterval(autoScrollInterval.current); // Stop auto-scroll on drag start
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault(); // Prevent default action
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startPosition) * 3; // Multiply by 3 to increase scroll speed
+    scrollContainerRef.current.scrollLeft = startScrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    startAutoScroll(); // Restart auto-scroll on drag end
+  };
+
+  const handleTouchStart = (e) => {
+    setIsDragging(true);
+    setStartPosition(e.touches[0].pageX - scrollContainerRef.current.offsetLeft);
+    setStartScrollLeft(scrollContainerRef.current.scrollLeft);
+    clearInterval(autoScrollInterval.current); // Stop auto-scroll on drag start
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startPosition) * 3; // Multiply by 3 to increase scroll speed
+    scrollContainerRef.current.scrollLeft = startScrollLeft - walk;
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    startAutoScroll(); // Restart auto-scroll on drag end
+  };
+
+  const handleMouseEnter = () => {
+    clearInterval(autoScrollInterval.current); // Stop auto-scroll on hover
+  };
+
+  const handleMouseLeaveContainer = () => {
+    startAutoScroll(); // Restart auto-scroll when mouse leaves container
+  };
+
+  const startAutoScroll = () => {
+    clearInterval(autoScrollInterval.current);
+    autoScrollInterval.current = setInterval(() => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollLeft += scrollSpeed;
+        if (
+          scrollContainerRef.current.scrollLeft +
+            scrollContainerRef.current.clientWidth >=
+          scrollContainerRef.current.scrollWidth
+        ) {
+          scrollContainerRef.current.scrollLeft = 0; // Reset to start when end is reached
+        }
+      }
+    }, 25); // Approximately 60 frames per second
+  };
+
+  useEffect(() => {
+    startAutoScroll();
+
+    return () => {
+      clearInterval(autoScrollInterval.current); // Clean up on unmount
+    };
+  }, []);
+  //  --------------- animation slider ----------------------
     return ( 
         <div>
           <Helmet>
@@ -312,30 +324,39 @@ const changeusertoken = async () => {
             </div>
             </div>
             <div className="Madrese-slider">
-               <div className='slider'>
-                <h1>{t('برترین کسب و کار ها')}</h1>
-                <div
-                    className='card-box'
-                    ref={scrollContainer}
-                    onMouseDown={handleMouseDown}
-                    onMouseLeave={handleMouseLeave}
-                    onMouseUp={handleMouseUp}
-                    onMouseMove={handleMouseMove}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeaveContainer} // Restart auto-scroll when leaving the container
-                    style={{ overflow: 'hidden', whiteSpace: 'nowrap', userSelect: 'none', cursor: isDragging ? 'grabbing' : 'grab' }}
-                >
-                    {sliderdata.map((item, index) => (
-                        <Card2
-                            key={index}
-                            name={item.name}
-                            namecompanie={item.description}
-                            img={item.imageUrl}
-                            bookmark=""
-                        />
-                    ))}
-                </div>
-            </div>
+              <div className="slider">
+              <h1>برترین کسب و کار ها</h1>
+              <div
+                className="card-box"
+                ref={scrollContainerRef}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeaveContainer}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{
+              whiteSpace: 'nowrap',
+              userSelect: 'none',
+              cursor: isDragging ? 'grabbing' : 'grab',
+              WebkitOverflowScrolling: 'touch', // Enable momentum scrolling on iOS
+              touchAction: 'manipulation', // Improve touch responsiveness
+              padding: '0 5vw', // Adjust padding for your design
+            }}
+              >
+                {sliderdata.map((item, index) => (
+                  <Card2
+                    key={index}
+                    name={item.name}
+                    namecompanie={item.description}
+                    img={item.imageUrl}
+                    bookmark=""
+                  />
+                ))}
+              </div>
+          </div>
             </div>
             <div className="Companies-filter-header">
                 <h1>{t('استعلام شرکت‌ها در ثبات‌داده')}</h1>

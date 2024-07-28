@@ -89,6 +89,7 @@
     flex-direction: row-reverse;
     justify-content: space-around;
     margin-top: 3%;
+    gap: 3%;
 }
 .Blog-Cards a{
     border: 2px solid var(--secondary-darker, #002347);
@@ -98,7 +99,7 @@
     display: flex;
     flex-direction: column;
     direction: rtl;
-    flex-basis: 22%;
+    flex-basis: 25%;
     text-decoration: none !important;
 }
 
@@ -185,14 +186,27 @@
         display: none;
     }
     /* cards */
-    .Blog-Cards{
+    .Blog-Cards {
         overflow-x: auto;
+        gap: 5%;
+        display: flex; /* Use flexbox to align the children */
         justify-content: flex-start;
         width: 100%;
+        scroll-snap-type: x mandatory; /* Optional: for a snapping effect */
     }
-    .Blog-Cards-box{
-        flex-basis: 100%;
+    
+    .Blog-Cards-arrows {
+        display: none;
     }
+    
+    .Blog-Cards a {
+        resize: both;
+        margin-bottom: 5%;
+        flex: 0 0 70%; /* Take up 100% width of the parent */
+        width: 80%; /* Ensure it covers the full width */
+        scroll-snap-align: start; /* Optional: for a snapping effect */
+    }
+    
     .Blog-Header div p strong{
         font-size: 22px;
     }

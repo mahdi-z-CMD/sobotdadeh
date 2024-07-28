@@ -22,9 +22,14 @@ const Login = () => {
     const [passwordlogin, setPasswordlogin] = useState()
     const [getcode, setGetcode] = useState(0)
     const [nextpage, setNextpage] = useState(0)
-    const [coldowncode, setColdowncode] = useState(0)
     const [loginwithcode, setLoginwithcode] = useState(false)
     const [loginforgetpass, setLoginforgetpass] = useState(false)
+    const [coldowncode, setColdowncode] = useState(0);
+    const [loadinguser, setLoadinguser] = useState(false);
+    const [showMessage, setShowMessage] = useState(false);
+    const [messageContent, setMessageContent] = useState('');
+    const [messageClass, setMessageClass] = useState('');
+
     // check the code 
     const checkNumberDigits = (number) => {
         const numberString = number.toString();
@@ -68,13 +73,15 @@ const Login = () => {
         checkNumberDigits(newValue); // Call checkNumberDigits when input value changes
     };
     const checktosendcode = () => {
-        if (getcode === 0) {
-            setNextpage(0)
-        }else{
-            sendsingupcode()
-            setNextpage(1)
+        if (coldowncode > 0) {
+            setNextpage(1);
+        } else {
+            setCooldownCookie(); // Set cooldown cookie when sending code
+            sendsingupcode();
+            setNextpage(1);
         }
     };
+    
     // input code 
     const [confirmationCode, setConfirmationCode] = useState('');
     const inputRefs = useRef([]);
@@ -172,51 +179,68 @@ const Login = () => {
     }
     // show password function
     // api send singup code
+    const [loading, setLoading] = useState(false); // Track request state
     const sendsingupcode = async () => {
         try {
+            setLoading(true); // Start loading
             const response = await axios.post('https://api.sobotdadeh.com/v1/auth/code/send', {
                 phone: inputValue,
             });
-    
+
             console.log('API response:', response);
-    
+
             if (response.data.status) {
-                // Check if status is true
-                startTimer(180, () => {
-                    // Perform any action when the timer expires
-                });
+                startTimer(COOLDOWN_DURATION); // Start timer when code is sent successfully
             } else {
                 console.error('API request failed:', response.data.error);
             }
         } catch (error) {
             console.error('Error sending API request:', error);
-        }
-    };    
-    // api send singup code
-    // timer 
-    const startTimer = (durationInSeconds, callback) => {
-        let timer = durationInSeconds;
-        const interval = setInterval(() => {
-            timer--;
-            setColdowncode(timer)
-          if (timer <= 0) {
-            clearInterval(interval);
-            if (callback) {
-              callback();
-            }
-          }
-        }, 1000);
-      };
-    // timer
-    // coldown end 
-    const coldownend = () => {
-        if (coldowncode === 0) {
-            sendsingupcode()
-            startTimer(180, () => {
-                // Perform any action when the timer expires
-              });
+        } finally {
+            setLoading(false); // End loading
         }
     };
+    // api send singup code
+    // timer 
+    const COOKIE_NAME = 'CT'; // Updated cookie name
+    const COOLDOWN_DURATION = 180; // Cooldown duration in seconds
+
+    // Helper functions
+    const getRemainingCooldown = () => {
+        const cookieValue = Cookies.get(COOKIE_NAME);
+        if (cookieValue) {
+            const expiryTime = new Date(cookieValue);
+            const now = new Date();
+            const remainingTime = Math.max(0, Math.floor((expiryTime - now) / 1000));
+            return remainingTime;
+        }
+        return 0;
+    };
+
+    const setCooldownCookie = () => {
+        const expiryTime = new Date();
+        expiryTime.setSeconds(expiryTime.getSeconds() + COOLDOWN_DURATION);
+        Cookies.set(COOKIE_NAME, expiryTime.toISOString(), { expires: COOLDOWN_DURATION / 86400 }); // Cookie expires in 180 seconds
+    };
+
+    const startTimer = (durationInSeconds) => {
+        let timer = durationInSeconds;
+        setColdowncode(timer);
+        const interval = setInterval(() => {
+            timer--;
+            setColdowncode(timer);
+            if (timer <= 0) {
+                clearInterval(interval);
+                setCooldownCookie(); // Reset cooldown cookie when the timer ends
+            }
+        }, 1000);
+    };
+    useEffect(() => {
+        const remainingCooldown = getRemainingCooldown();
+        if (remainingCooldown > 0) {
+            startTimer(remainingCooldown);
+        }
+    }, []);
     // coldown end 
     // check if password is same
     const [password, setPassword] = useState('');
@@ -314,6 +338,16 @@ const Login = () => {
     const loginUser = async () => {
         try {
             setLoginloading(true)
+             // Show success message
+             setMessageContent('... در حال ورود');
+             setMessageClass('show');
+             setShowMessage(true);
+             setTimeout(() => {
+                 setMessageClass('hide');
+                 setTimeout(() => {
+                     setShowMessage(false);
+                 }, 500); // Duration of the slide-out animation
+             }, 5000); // Hide after 5 seconds
             // Generate a random string for the IMEI header
             const randomIMEI = generateRandomString(15); // Implement this function to generate a random string
     
@@ -343,20 +377,47 @@ const Login = () => {
                 // Encrypt and store the username in cookies
                 const encryptedValue = CryptoJS.AES.encrypt(usernamelogin, 'f2af0b0c9a27d7c893fa5d0ee2887c64').toString();
                 Cookies.set('pn', encryptedValue, { expires: 7 });
-    
+                // Show success message
+                setMessageContent('ورود با موفقیت انجام شد');
+                setMessageClass('show');
+                setShowMessage(true);
+                setTimeout(() => {
+                    setMessageClass('hide');
+                    setTimeout(() => {
+                        setShowMessage(false);
+                    }, 500); // Duration of the slide-out animation
+                }, 5000); // Hide after 5 seconds
                 // Return null if no error occurred
                 setErrorMessage('');
                 window.location.href = '/sobotdadeh/#/';
                 window.location.reload();
             } else {
                 // Return the error message if the login was not successful
-                setErrorMessage('خطا در ورود به سایت')
-                setLoginloading(false)
-            }
+                // Show success message
+                setMessageContent('رمز عبور یا نام کاربری درست نمیباشد');
+                setMessageClass('show');
+                setShowMessage(true);
+                setTimeout(() => {
+                    setMessageClass('hide');
+                    setTimeout(() => {
+                        setShowMessage(false);
+                    }, 500); // Duration of the slide-out animation
+                }, 5000); // Hide after 5 seconds
+                    setLoginloading(false)
+                }
         } catch (error) {
             // Handle any errors that occur during the API request
             setLoginloading(false)
-            setErrorMessage('خطا در ورود به سایت')
+            // Show success message
+            setMessageContent('رمز عبور یا نام کاربری درست نمیباشد');
+            setMessageClass('show');
+            setShowMessage(true);
+            setTimeout(() => {
+                setMessageClass('hide');
+                setTimeout(() => {
+                    setShowMessage(false);
+                }, 500); // Duration of the slide-out animation
+            }, 5000); // Hide after 5 seconds
         }
     };
     // LOGIN API 
@@ -407,6 +468,11 @@ const Login = () => {
             <Helmet>
                 <title>ثبات داده - ورود/ثبت نام</title>
             </Helmet>
+            {showMessage && (
+                <div className={`message-box ${messageContent === 'رمز عبور یا نام کاربری درست نمیباشد' ? 'error' : 'success'} ${messageClass}`}>
+                    {messageContent}
+                </div>
+            )}
                {
                 loginarea ?(
                     <div className="Login-items">
@@ -494,7 +560,13 @@ const Login = () => {
                         codenotcorrect === false ? (<span>کد وارد شده صحیح نیست</span>) : null
                     }
                     <button onClick={checksingupcode}>تایید</button>
-                    <h4 className={coldowncode !== 0 ? 'singup-items-singup-off' : ''} onClick={coldownend}>ارسال مجدد کد {coldowncode}</h4>
+                            <h4 
+                        className={coldowncode !== 0 ? 'singup-items-singup-off' : ''}
+                        onClick={checktosendcode}
+                        style={{ cursor: 'pointer', opacity: loading ? 0.5 : 1 }}
+                    >
+                        {loading ? '' : `ارسال مجدد کد ${coldowncode}`}
+                    </h4>
                </div>) : (<div className='singup-items2'>
                         <h1>ثبت رمز عبور</h1>
                         <label htmlFor="">رمز عبور</label>

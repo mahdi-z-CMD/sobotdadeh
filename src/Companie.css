@@ -263,7 +263,46 @@
     margin-right: auto !important;
     margin-left: 10%;
     cursor: pointer;
+    animation: vibrateWithPause 4s infinite; /* 4s total duration, infinite repeat */
 }
+@keyframes vibrate {
+    0% {
+      transform: translateX(-5px);
+    }
+    25% {
+      transform: translateX(5px);
+    }
+    50% {
+      transform: translateX(-5px);
+    }
+    75% {
+      transform: translateX(5px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes vibrateWithPause {
+    0% {
+      transform: translateX(-5px);
+    }
+    10% {
+      transform: translateX(5px);
+    }
+    20% {
+      transform: translateX(-5px);
+    }
+    30% {
+      transform: translateX(5px);
+    }
+    40% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
 /* mobile */
 @media only screen and (max-width: 450px) {
     .companie-content{
