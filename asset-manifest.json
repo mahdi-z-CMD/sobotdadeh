@@ -1,16 +1,23 @@
 {
   "files": {
-    "main.css": "/sobotdadeh/static/css/main.83acdbac.css",
-    "main.js": "/sobotdadeh/static/js/main.f2983291.js",
+    "main.css": "/sobotdadeh/static/css/main.a80e06e0.css",
+    "main.js": "/sobotdadeh/static/js/main.9d92b5a7.js",
+    "static/media/iraq3.webp": "/sobotdadeh/static/media/iraq3.499911e0c80c506f551a.webp",
+    "static/media/saudibg2.webp": "/sobotdadeh/static/media/saudibg2.5a60d61fcd3104ded62b.webp",
     "static/media/majale2.webp": "/sobotdadeh/static/media/majale2.4782b674c1bf2c0ef6b2.webp",
     "static/media/default_companies_icon.gif": "/sobotdadeh/static/media/default_companies_icon.0a1596629f23d1cbf0ca.gif",
     "static/media/madrese6.jpg": "/sobotdadeh/static/media/madrese6.37c084883cc525301f6c.jpg",
+    "static/media/iraqbg.webp": "/sobotdadeh/static/media/iraqbg.d838dc150ad8fecc115e.webp",
     "static/media/madrese5.jpg": "/sobotdadeh/static/media/madrese5.10636edfc32541ea3c0c.jpg",
     "static/media/madrese4.jpg": "/sobotdadeh/static/media/madrese4.e7704f8323ab6336a5b4.jpg",
     "static/media/background.jpg": "/sobotdadeh/static/media/background.af7504f9e7824d4445ba.jpg",
     "static/media/madrese2.jpg": "/sobotdadeh/static/media/madrese2.37c65b7a733f0c319bef.jpg",
     "static/media/madrese3.jpg": "/sobotdadeh/static/media/madrese3.edd03dcb178f5d7275f0.jpg",
+    "static/media/saudibg.webp": "/sobotdadeh/static/media/saudibg.18cada6040ee015e08f0.webp",
+    "static/media/qatar3.webp": "/sobotdadeh/static/media/qatar3.9d10de8a72d83099067f.webp",
+    "static/media/iranbg2.webp": "/sobotdadeh/static/media/iranbg2.df164736b2846c0d12a5.webp",
     "static/media/prof5.jpg": "/sobotdadeh/static/media/prof5.07d04cd6e0b7e9bd1a55.jpg",
+    "static/media/ghatar.webp": "/sobotdadeh/static/media/ghatar.743020e0cb838be7c9ea.webp",
     "static/media/aboutimg1.webp": "/sobotdadeh/static/media/aboutimg1.9382bb170b22cda9f14d.webp",
     "static/media/majale3.webp": "/sobotdadeh/static/media/majale3.9cef6f631bbe85a23576.webp",
     "static/media/majale1.webp": "/sobotdadeh/static/media/majale1.f68c87dc5c14f664ef01.webp",
@@ -20,10 +27,7 @@
     "static/media/tarafetobg.png": "/sobotdadeh/static/media/tarafetobg.f912605a4c9e0c05708c.png",
     "static/media/khareji_milad.jpg": "/sobotdadeh/static/media/khareji_milad.6ed7d53bbceea118b8c5.jpg",
     "static/media/aboutimg3.webp": "/sobotdadeh/static/media/aboutimg3.f776dc8558e8ab8ea9ac.webp",
-    "static/media/kuwaitbg.jpg": "/sobotdadeh/static/media/kuwaitbg.c5493c9ac51407dbae95.jpg",
     "static/media/madrese7.jpg": "/sobotdadeh/static/media/madrese7.98de377f0e1370af3056.jpg",
-    "static/media/iraqbg.jpg": "/sobotdadeh/static/media/iraqbg.0c535101b4a18bdebae7.jpg",
-    "static/media/turkeybg.jpg": "/sobotdadeh/static/media/turkeybg.0b47b0fe9a6fedf6e0db.jpg",
     "static/media/shenakht_img1.png": "/sobotdadeh/static/media/shenakht_img1.a134e7e5dc1601fc8868.png",
     "static/media/mostatil.svg": "/sobotdadeh/static/media/mostatil.f26c32b326a61d776b0236fd0df14b58.svg",
     "static/media/turkeymap.jpg": "/sobotdadeh/static/media/turkeymap.348a26fe5cf24f400e9c.jpg",
@@ -32,7 +36,6 @@
     "static/media/hadaf.webp": "/sobotdadeh/static/media/hadaf.3cc2ef51c59d61ff0947.webp",
     "static/media/iranmap.png": "/sobotdadeh/static/media/iranmap.5838d86c5b0458758eb2.png",
     "static/media/khareji_turkey.png": "/sobotdadeh/static/media/khareji_turkey.3a32f07f9262e8ea80ab.png",
-    "static/media/khareji_iranbg.jpg": "/sobotdadeh/static/media/khareji_iranbg.2079e5c4c32a48b4c5b8.jpg",
     "static/media/ghavanin.svg": "/sobotdadeh/static/media/ghavanin.58c599e6518e6fa73a72.svg",
     "static/media/box1.webp": "/sobotdadeh/static/media/box1.03fd25b56ac715d90e03.webp",
     "static/media/khareji_iraq.png": "/sobotdadeh/static/media/khareji_iraq.86d71cc90d887ec8a710.png",
@@ -122,11 +125,11 @@
     "static/media/hamburger-menu.svg": "/sobotdadeh/static/media/hamburger-menu.2c037419d5d5bc29a7e7759e9a0e037a.svg",
     "static/media/Profile_uploadicon.svg": "/sobotdadeh/static/media/Profile_uploadicon.75357b407fd8d4929fe03b10c70c9a65.svg",
     "static/media/closeicon.svg": "/sobotdadeh/static/media/closeicon.5c5198a00f41435cfcd1daa88bce3e45.svg",
-    "main.83acdbac.css.map": "/sobotdadeh/static/css/main.83acdbac.css.map",
-    "main.f2983291.js.map": "/sobotdadeh/static/js/main.f2983291.js.map"
+    "main.a80e06e0.css.map": "/sobotdadeh/static/css/main.a80e06e0.css.map",
+    "main.9d92b5a7.js.map": "/sobotdadeh/static/js/main.9d92b5a7.js.map"
   },
   "entrypoints": [
-    "static/css/main.83acdbac.css",
-    "static/js/main.f2983291.js"
+    "static/css/main.a80e06e0.css",
+    "static/js/main.9d92b5a7.js"
   ]
 }
