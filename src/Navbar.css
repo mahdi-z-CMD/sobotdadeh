@@ -213,6 +213,11 @@ nav .Navbar-items2 a img{
     display: block;
   }
   /* --------------- */
+  .today-date{
+    font-size: 18px;
+    position: absolute;
+    left: 1%;
+  }
   .nav-list-hover3 {
     display: none;
     position: absolute;
@@ -315,6 +320,9 @@ nav .Navbar-items2 a img{
 }
 /* responsive ----------- */
 @media only screen and (max-width: 1450px) {
+  .today-date{
+    font-size: 13px;
+  }
   .Navbar-items2{
     display: flex;
     justify-content: space-between;

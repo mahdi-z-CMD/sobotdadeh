@@ -17,11 +17,25 @@ import burgericon from './Icons/hamburger-menu.svg'
 import burgericonclose from './Icons/hamburger-menu-close.svg'
 import expandmore_mobile from './Icons/expandmore_mobile.svg'
 import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import moment from 'moment';
+import 'moment/locale/fa'; // Import Persian locale for moment
+import jalaliMoment from 'jalali-moment';
 import closeicon from './Icons/closeicon.svg'
 // translate 
 export const Navbar = () => {
   const { i18n } = useTranslation();
   const { t } = useTranslation();
+  // Get today's date
+  const today = moment(); // Lunar Hijri date
+  const solarDate = jalaliMoment().format('jD / jM / jYYYY'); // Persian (Jalali) date
+
+  // Format the date based on the selected language
+  const formattedDate = i18n.language === 'fa'
+    ? solarDate // Display Persian Solar Hijri date if the language is Persian
+    : today.format('YYYY-MM-DD'); // Display Lunar Hijri date or any other format for different languages
+
    // get window width
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
@@ -143,75 +157,123 @@ export const Navbar = () => {
   };
   // search bar 
   const navigate = useNavigate();
-    const [searchInput, setSearchInput] = useState('');
-    const [isHomepage, setIsHomepage] = useState(true);
-    useEffect(() => {
-      if (location.pathname === '/') {
-          setIsHomepage(true);
-      } else {
-          setIsHomepage(false);
-      }
+  const [searchInput, setSearchInput] = useState('');
+  const [isHomepage, setIsHomepage] = useState(true);
+  const [searchResults, setSearchResults] = useState({
+    pages: [],
+    blogs: [],
+  });
+  const [pageContents, setPageContents] = useState({
+    'درباره ما': "هدف از ثبات‌داده لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است...",
+    'طرف قرارداد تو بشناس': "طرف قرارداد تو بشناس لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است...",
+    'استعلام شرکت‌ها': "جستجوی شرکت ها استعلام شرکت‌ها لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است...",
+    'شرکت‌های خارجی': "شرکت‌های خارجی استعلام شرکت‌ها ایران عراق امارات ترکیه کشور مورد نظر...",
+    'کسب و کار تو': "کسب و کار تو اهمیت کسب و کار تو از نگاه ثبات‌داده در عصر هوش مصنوعی و داده محور شدن تمامی کسب و کارها...",
+    // Add more page contents here
+  });
+  const [blogMapping, setBlogMapping] = useState({}); // To store blog title to ID mapping
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setIsHomepage(true);
+    } else {
+      setIsHomepage(false);
+    }
   }, [location.pathname]);
-    const [searchResults, setSearchResults] = useState([]);
 
-    const pageContents = {
-        'درباره ما': "هدف از ثبات‌داده لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد",
-        'طرف قرارداد تو بشناس': "طرف قرارداد تو بشناس لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد",
-        'استعلام شرکت‌ها': "جستجوی شرکت ها استعلام شرکت‌ها لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد",
-        'شرکت‌های خارجی': "شرکت‌های خارجی استعلام شرکت‌ها ایران عراق امارات ترکیه کشور مورد نظر",
-        'کسب و کار تو': "کسب و کار تو اهمیت کسب و کار تو از نگاه ثبات‌داده در عصر هوش مصنوعی و داده محور شدن تمامی کسب و کارها، ثبات داده تلاش می کند تا مشاوره ای اقتصادی را بر پایه استاندارد های جهانی را برای تجارت شما به ارمغان سازد. طرح جامع کسب و کار تحلیل بازارهای رقیب مشاوره مالیاتی مشاوره حقوقی مشاوره سرمایه گذاری مشاوره IT مشاوره ویژه اقتصادی",
-        // Add more page contents here
+  // Fetch blog titles and IDs from the API and update state
+  useEffect(() => {
+    const fetchBlogTitles = async () => {
+      try {
+        const apiKey = Cookies.get('api_key');
+        const token = Cookies.get('token');
+        const imei = Cookies.get('IMEI');
+        const response = await axios.post(
+          'https://api.sobotdadeh.com/v1/article',
+          {},
+          {
+            headers: {
+              'Api-Token': apiKey,
+              'Authorization': `Bearer ${token}`,
+              'IMEI': imei,
+            },
+          }
+        );
+
+        const blogMap = {};
+        response.data.data.forEach(blog => {
+          blogMap[blog.title] = blog.id; // Store the ID with the title
+        });
+
+        setBlogMapping(blogMap); // Update the blogMapping state
+
+      } catch (error) {
+        console.error("Error fetching blog titles:", error);
+      }
     };
 
-    const searchPages = (searchTerm) => {
-        const results = [];
+    fetchBlogTitles();
+  }, []); // Empty dependency array ensures this runs once when the component mounts
 
-        for (const [page, content] of Object.entries(pageContents)) {
-            if (content.toLowerCase().includes(searchTerm.toLowerCase())) {
-                results.push(page);
-            }
-        }
+  const searchPagesAndBlogs = (searchTerm) => {
+    const pagesResults = [];
+    const blogsResults = [];
 
-        return results;
-    };
+    for (const [page, content] of Object.entries(pageContents)) {
+      if (content.toLowerCase().includes(searchTerm.toLowerCase())) {
+        pagesResults.push(page);
+      }
+    }
 
-    const handleSearch = (e) => {
-        setSearchInput(e.target.value);
-    };
+    for (const [blogTitle, blogId] of Object.entries(blogMapping)) {
+      if (blogTitle.toLowerCase().includes(searchTerm.toLowerCase())) {
+        blogsResults.push(blogTitle);
+      }
+    }
 
-    useEffect(() => {
-        if (searchInput.trim() !== '') {
-            const results = searchPages(searchInput);
-            setSearchResults(results);
-        } else {
-            setSearchResults([]);
-        }
-    }, [searchInput]);
+    return { pages: pagesResults, blogs: blogsResults };
+  };
 
-    const handleResultClick = (page) => {
-        switch (page) {
-            case 'درباره ما':
-                navigate('/درباره-ما');
-                break;
-            case 'طرف قرارداد تو بشناس':
-                navigate('/طرف-قرارداد-تو-بشناس');
-                break;
-            case 'استعلام شرکت‌ها':
-                navigate('/استعلام-شرکت');
-                break;
-            case 'شرکت‌های خارجی':
-                navigate('/استعلام-شرکت-خارجی');
-                break;
-            case 'کسب و کار تو':
-                navigate('/کسب-و-کار');
-                break;
-            
-            // Add more cases as needed
-            default:
-                console.log('Page not found');
-        }
-    };
+  const handleSearch = (e) => {
+    setSearchInput(e.target.value);
+  };
 
+  useEffect(() => {
+    if (searchInput.trim() !== '') {
+      const results = searchPagesAndBlogs(searchInput);
+      setSearchResults(results);
+    } else {
+      setSearchResults({ pages: [], blogs: [] });
+    }
+  }, [searchInput, pageContents, blogMapping]);
+
+  const handleResultClick = (result, type) => {
+    if (type === 'blog') {
+      const blogId = blogMapping[result];
+      navigate(`/blog/${blogId}`);
+    } else {
+      switch (result) {
+        case 'درباره ما':
+          navigate('/درباره-ما');
+          break;
+        case 'طرف قرارداد تو بشناس':
+          navigate('/طرف-قرارداد-تو-بشناس');
+          break;
+        case 'استعلام شرکت‌ها':
+          navigate('/استعلام-شرکت');
+          break;
+        case 'شرکت‌های خارجی':
+          navigate('/استعلام-شرکت-خارجی');
+          break;
+        case 'کسب و کار تو':
+          navigate('/کسب-و-کار');
+          break;
+        // Add more cases as needed
+        default:
+          console.log('Page not found');
+      }
+    }
+  };
   // search bar 
   // show language in mobile 
   const [isLanguageListOpen, setIsLanguageListOpen] = useState(false);
@@ -269,6 +331,7 @@ export const Navbar = () => {
                     <Link onClick={navmobileclick} to={'/login'}>{isAuthenticated() ? t('پروفایل') : t('ورود/ثبت نام')}<img src={loginicon_nothome} alt="login icon" /></Link>
                   </div>
                   {/* select language */}
+                  
                   <span onClick={toggleLanguageList} className='Nav-mobile-language-head'>
                     {i18n.language === 'fa' ? 'فارسی' : 'العربية'}
                     <img src={expandmore_mobile} alt="Logo" width="24px" height="24px" />
@@ -347,25 +410,50 @@ export const Navbar = () => {
                 value={searchInput}
                 onChange={handleSearch}
             />
-         {searchInput.trim() !== '' && (
-            <div className='search-results'>
-                <img src={closeicon} alt="close icon" onClick={() => setSearchInput('')}/>
-                {searchResults.length > 0 ? (
-                    searchResults.map((result) => (
-                        <div key={result} onClick={() => handleResultClick(result)} className='search-results-show'>
-                            <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در صفحه `}
-                            <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
-                            {` است.`}
-                        </p>
-                        </div>
-                    ))
-                ) : (
-                    <div className='search-results-show'>
-                        <p>{`هیچ نتیجه‌ای برای `}<span className='search-results-show-text'>{searchInput}</span>{` یافت نشد.`}</p>
-                    </div>
-                )}
+        {searchInput.trim() !== '' && (
+  <div className='search-results'>
+    <img src={closeicon} alt="close icon" onClick={() => setSearchInput('')} />
+    {searchInput.trim() !== '' && (
+        <div className='search-results'>
+          <img src={closeicon} alt="close icon" onClick={() => setSearchInput('')} />
+          {searchResults.pages.length > 0 && (
+            <div>
+              <h1>صفحات</h1>
+              {searchResults.pages.map((result) => (
+                <div key={result} onClick={() => handleResultClick(result, 'page')} className='search-results-show'>
+                  <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در صفحه `}
+                  <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
+                  {` است.`}
+                  </p>
+                </div>
+              ))}
             </div>
-        )}
+          )}
+
+          {searchResults.blogs.length > 0 && (
+            <div>
+              <h1>مقالات</h1>
+              {searchResults.blogs.map((result) => (
+                <div key={result} onClick={() => handleResultClick(result, 'blog')} className='search-results-show'>
+                  <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در مقاله `}
+                  <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
+                  {` است.`}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {searchResults.pages.length === 0 && searchResults.blogs.length === 0 && (
+            <div className='search-results-show'>
+              <p>{`هیچ نتیجه‌ای برای `}<span className='search-results-show-text'>{searchInput}</span>{` یافت نشد.`}</p>
+            </div>
+          )}
+        </div>
+      )}
+  </div>
+)}
+
         </div>
       </div>
       {
@@ -375,7 +463,9 @@ export const Navbar = () => {
           }
         </>) : (<>
         <div className="Navbar-items1">
+          
            {/* select language */}
+          <span className='today-date'>{formattedDate}</span>
             <span
               onMouseEnter={handleMouseEnter3}
               onMouseLeave={handleMouseLeave3}
@@ -456,25 +546,44 @@ export const Navbar = () => {
                 value={searchInput}
                 onChange={handleSearch}
             />
-         {searchInput.trim() !== '' && (
-            <div className='search-results'>
-                <img src={closeicon} alt="close icon" onClick={() => setSearchInput('')}/>
-                {searchResults.length > 0 ? (
-                    searchResults.map((result) => (
-                        <div key={result} onClick={() => handleResultClick(result)} className='search-results-show'>
-                            <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در صفحه `}
-                            <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
-                            {` است.`}
-                        </p>
-                        </div>
-                    ))
-                ) : (
-                    <div className='search-results-show'>
-                        <p>{`هیچ نتیجه‌ای برای `}<span className='search-results-show-text'>{searchInput}</span>{` یافت نشد.`}</p>
-                    </div>
-                )}
+          {searchInput.trim() !== '' && (
+        <div className='search-results'>
+          <img src={closeicon} alt="close icon" onClick={() => setSearchInput('')} />
+          {searchResults.pages.length > 0 && (
+            <div>
+              <h1>صفحات</h1>
+              {searchResults.pages.map((result) => (
+                <div key={result} onClick={() => handleResultClick(result, 'page')} className='search-results-show'>
+                  <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در صفحه `}
+                  <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
+                  {` است.`}
+                  </p>
+                </div>
+              ))}
             </div>
-        )}
+          )}
+
+          {searchResults.blogs.length > 0 && (
+            <div>
+              <h1>مقالات</h1>
+              {searchResults.blogs.map((result) => (
+                <div key={result} onClick={() => handleResultClick(result, 'blog')} className='search-results-show'>
+                  <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در مقاله `}
+                  <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
+                  {` است.`}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {searchResults.pages.length === 0 && searchResults.blogs.length === 0 && (
+            <div className='search-results-show'>
+              <p>{`هیچ نتیجه‌ای برای `}<span className='search-results-show-text'>{searchInput}</span>{` یافت نشد.`}</p>
+            </div>
+          )}
+        </div>
+      )}
         </div>
       </div>
       {
