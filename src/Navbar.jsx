@@ -308,7 +308,6 @@ export const Navbar = () => {
                         <div className="Nav-mobile-khadamat-items">
                           <Link to='/کسب-و-کار' onClick={navmobileclick}>{t('کسب و کار تو')}</Link>
                           <Link to='/استعلام-شرکت' onClick={navmobileclick}>{t('استعلام شرکت‌ها')}</Link>
-                          <Link to='/تخمین-ریسک' onClick={navmobileclick}>{t('تخمین ریسک')}</Link>
                           <Link to='/طرف-قرارداد-تو-بشناس' onClick={navmobileclick}>{t('طرف قرارداد تو بشناس')}</Link>
                         </div>
                       ) : null
@@ -396,7 +395,6 @@ export const Navbar = () => {
           {
             windowWidth <= 1450 ? (<li><Link to='/استعلام-شرکت-خارجی' onClick={handleItemClick2}>{t('شرکت‌های خارجی')}</Link></li>) : null
           }
-          <li><Link to='/تخمین-ریسک' onClick={handleItemClick2}>{t('تخمین ریسک')}</Link></li>
           </ul>
         )}
         <Link to='/'>
@@ -531,7 +529,6 @@ export const Navbar = () => {
           {
             windowWidth <= 1450 ? (<li><Link to='/استعلام-شرکت-خارجی' onClick={handleItemClick2}>{t('شرکت‌های خارجی')}</Link></li>) : null
           }
-          <li><Link to='/تخمین-ریسک' onClick={handleItemClick2}>{t('تخمین ریسک')}</Link></li>
           <li><Link to='/طرف-قرارداد-تو-بشناس' onClick={navmobileclick}>{t('طرف قرارداد تو بشناس')}</Link></li>
           </ul>
         )}

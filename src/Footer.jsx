@@ -205,7 +205,7 @@ const [phone, setPhone] = useState('');
             <ul>
               <li>{t('شماره تماس : ۵۳۲۶۸۱۲۲ - ۰۶۱')}</li>
               <li>{t('شماره فضای سایبری : ۰۹۱۰۸۳۰۴۳۰۱')}</li>
-              <li>{t('پست الکترونیکی : sobotdadeh@info.com')}</li>
+              <li>{t('پست الکترونیکی : sobotdadeh@info.com , sobotdadeh@gmail.com')}</li>
             </ul>
           </div>
         </div>

@@ -185,12 +185,6 @@ const Aboutus = () => {
         <a href="https://mstfdn.org/" target="_blank" rel="noopener noreferrer">
           <img src="https://sobotdadeh.com/manabeimg/danesh4.webp" alt="بنیاد علم و فناوری مصطفی" />
         </a>
-        <a href="https://jamilifoundation.com/" target="_blank" rel="noopener noreferrer">
-          <img src="https://sobotdadeh.com/manabeimg/danesh5.webp" alt="بنیاد علم و فناوری جمیلی" />
-        </a>
-        <a href="https://utf.ut.ac.ir/" target="_blank" rel="noopener noreferrer">
-          <img src="https://sobotdadeh.com/manabeimg/danesh6.webp" alt="بنیاد حامیان دانشگاه تهران" />
-        </a>
         <a href="https://dolat.ir/" target="_blank" rel="noopener noreferrer">
           <img src="https://sobotdadeh.com/manabeimg/danesh7.webp" alt="دولت جمهوری اسلامی ایران" />
         </a>

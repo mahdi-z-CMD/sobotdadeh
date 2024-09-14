@@ -625,7 +625,7 @@ const [isChecking, setIsChecking] = useState(true); // State to track if we're c
       <div className="home-tarafeto-text">
         <h1>{t('طرف قراردادتو بشناس !')}</h1>
         <p>{t('در ثبات تلاش می‌کنیم با ارائه جامع‌ترین اطلاعات سرمایه‌گذاری مسیری مناسب را برای کسب و کار خود ترسیم کنید.')}</p>
-        <Link to={'/tarafeto'}>{t('بیشتر بخوانید...')}</Link>
+        <Link to={'/طرف-قرارداد-تو-بشناس'}>{t('بیشتر بخوانید...')}</Link>
       </div>
     </div>
       <div className="kharid">
@@ -762,12 +762,6 @@ const [isChecking, setIsChecking] = useState(true); // State to track if we're c
         </a>
         <a href="https://mstfdn.org/" target="_blank" rel="noopener noreferrer">
           <img src="https://sobotdadeh.com/manabeimg/danesh4.webp" alt="بنیاد علم و فناوری مصطفی" />
-        </a>
-        <a href="https://jamilifoundation.com/" target="_blank" rel="noopener noreferrer">
-          <img src="https://sobotdadeh.com/manabeimg/danesh5.webp" alt="بنیاد علم و فناوری جمیلی" />
-        </a>
-        <a href="https://utf.ut.ac.ir/" target="_blank" rel="noopener noreferrer">
-          <img src="https://sobotdadeh.com/manabeimg/danesh6.webp" alt="بنیاد حامیان دانشگاه تهران" />
         </a>
         <a href="https://dolat.ir/" target="_blank" rel="noopener noreferrer">
           <img src="https://sobotdadeh.com/manabeimg/danesh7.webp" alt="دولت جمهوری اسلامی ایران" />
