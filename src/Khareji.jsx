@@ -258,32 +258,32 @@ const Khareji = () => {
                 <title>ثبات داده - شرکت‌های خارجی</title>
             </Helmet>
             <div className="Khareji-header">
-                <h1>تجربه ارتباطی جهانی و بدون مرز با ثبات‌داده ...</h1>
+                <h1>{t('تجربه ارتباطی جهانی و بدون مرز با ثبات‌داده ...')}</h1>
                 <img src={curusimg} alt="scroll down image" width="52px" height="60px"/>
             </div>
             <div className="Khareji-select-country">
-                <h1>کشور مورد نظر را انتخاب نمائید ...</h1>
+                <h1>{t('کشور مورد نظر را انتخاب نمائید ...')}</h1>
                 <img className='Khareji-select-country-location' src={country === 0 ? "https://sobotdadeh.com/bestco/map1.svg" : country === 1 ? "https://sobotdadeh.com/bestco/map2.svg" : country === 3 ? "https://sobotdadeh.com/bestco/map3.svg" : country === 2 ? "https://sobotdadeh.com/bestco/map4.svg" : null} alt="map image" />
                 <div className="Khareji-select-map">
                     <div className="Khareji-select-map-country">
                         <img src={iranflag} alt="iran flag" width="100%" height="30%" onClick={()=>setCountry(0)}/>
-                        <h1 className={country === 0 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(0)}>ایران</h1>
+                        <h1 className={country === 0 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(0)}>{t('ایران')}</h1>
                     </div>
                     <div className="Khareji-select-map-country">
                         <img src={iraqflag} alt="iraq flag" width="100%" height="30%" className='Khareji-select-map-country-iraqlogo' onClick={()=>setCountry(1)}/>
-                        <h1 className={country === 1 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(1)}>عراق</h1>
+                        <h1 className={country === 1 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(1)}>{t('عراق')}</h1>
                     </div>
                     <div className="Khareji-select-map-country">
                         <img src={qatarflag} alt="AUE flag" width="100%" height="30%" onClick={()=>setCountry(2)}/>
-                        <h1 className={country === 2 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(2)}>قطر</h1>
+                        <h1 className={country === 2 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(2)}>{t('قطر')}</h1>
                     </div>
                     <div className="Khareji-select-map-country">
                         <img src={saudiflag} alt="saudi flag" width="100%" height="30%" onClick={()=>setCountry(3)}/>
-                        <h1 className={country === 3 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(3)}>عربستان سعودی</h1>
+                        <h1 className={country === 3 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(3)}>{t('عربستان سعودی')}</h1>
                     </div>
                     <div className="Khareji-select-map-country">
                         <img src={omanflag} alt="turkey flag" width="100%" height="30%" onClick={()=>setCountry(4)}/>
-                        <h1 className={country === 3 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(4)}>عمان</h1>
+                        <h1 className={country === 3 ? 'Khareji-select-map-country-active' : ''} onClick={()=>setCountry(4)}>{t('عمان')}</h1>
                     </div>
                 </div>
             </div>
@@ -297,8 +297,8 @@ const Khareji = () => {
                     <img src={country === 0 ? milad : country === 1 ? iraqbg : country === 3 ? saudi : country === 2 ? ghatar2 : country === 4 ? omanbg:null} alt="milad tower" width="190%" height="100%" />
                 </div>
                 <div className="Khareji-country-about-2">
-                    <h1>درباره {country === 0 ? "ایــــــــران" : country === 1 ? "عراق" : country === 3 ? "عربستان سعودی" : country === 2 ? "قطر" : country === 4 ? "عمان" : null}</h1>
-                    <p>{country === 0 ? "ایران به تعبیری یکی از قدرت‌های خاورمیانه است که از نظر اقتصادی و تکنولوژی و همچنین صنایع مختلف درحال رقابت با ابرقدرت‌های جهانی است. شرکت های مختلفی در زمینه های گوناگون در ایران مشغول به فعالیت میباشند که در ادامه با آنها آشنا خواهید شد." : country === 1 ? "عراق کشوری  باستانی در غرب آسیا می باشد که با ترکیه، ایران، کویت، عربستان سعودی، اردن و سوریه هم مرز است. این کشور دارای تاریخ غنی است که قدمت آن به بین النهرین باستان باز می گردد که یکی از خواستگاه های تمدن مدرن محسوب می شود. البته که این کشور در دهه های اخیر با چالش های مهمی از جمله بی ثباتی سیاسی، درگیری ها و مشکلات اقتصادی مواجه بوده است. این شهر به دلیل میراث فرهنگی متنوع خود، از جمله مکان های باستانی مانند بابل و شهر باستانی اور، همواره از سوی یونسکو مورد اهمیت واقع شده است. اقتصاد جمهوری عراق تا حد زیادی به صادرات نفت گرایش دارد به نحوی که بخش قابل توجهی از تولید ناخالص داخلی و درآمد دولت را تشکیل می دهد. تولید ناخالص داخلی بصورت اسمی منشتر شده از سوی وزارت اقتصاد عراق 16700 میلیون دلار اعلام شده است. عراق یکی از بزرگترین ذخایر نفت جهان را دارد و یکی از اعضای سازمان کشورهای صادرکننده نفت (اوپک) است.با این حال تلاش‌هایی برای جذب سرمایه‌گذاری خارجی، بهبود زیرساخت‌ها و ارتقای بخش‌های غیرنفتی برای کاهش اتکا به درآمدهای نفتی و تحریک رشد اقتصادی در حال انجام است." : country === 3 ? "دولت پادشاهی عربستان سعودی کشوری است که در بیشتر شبه جزیره عربی قرار دارد و به دلیل وجود اماکن مقدس مذهبی برای مسلمانان شناخته می شود. پایتخت آن ریاض است و شهرهای مکه مدینه از دیگر شهره های مهم این سرزمین شناخته می شوند. این کشور تحت حکومت آل سعود قرار دارد و به دلیل ذخایر نفتی و قدرت اقتصادی، بازیگری مهم در منطقه شناخته می شود. عربستان سعودی در سال های اخیر اصلاحات اقتصادی را برای تنوع بخشیدن به اقتصاد خود به دور از نفت، بهبود زیرساخت ها و جذب سرمایه گذاری خارجی انجام داده است. اقتصاد این کشور  به شدت به صادرات نفت وابسته است که بخش بزرگی از تولید ناخالص داخلی و درآمد دولت این کشور را تشکیل می دهد. با توجه به آخرین نرخ اعلامی تولید ناخالص ملی از سوی صندوق بین المللی پول، 1.119 تریلیون دلار سهم اقتصاد عربستان سعودی می شود. دولت پادشاهی سعودی به عنوان یکی از بزرگترین تولیدکنندگان نفت جهان، یکی از اعضای مهم در سازمان اوپک معرفی شده است که  نقش مهمی در بازار جهانی نفت ایفا می کند. در سال‌های اخیر، دولت عربستان اصلاحات اقتصادی را به عنوان بخشی از برنامه چشم‌انداز 2030 خود برای تنوع بخشیدن به اقتصاد به دور از نفت، جذب سرمایه‌گذاری خارجی و ارتقای بخش‌هایی مانند گردشگری، سرگرمی و فناوری اجرا کرده است. این کشور همچنین بر توسعه صنایع غیرنفتی، بهبود زیرساخت ها و ایجاد فرصت های شغلی برای جمعیت رو به رشد خود تمرکز دارد." : country === 2 ? "قطر کشوری است واقع در شمال شبه جزیره عربی که به دلیل نقش راهبردی در منطقه و خلیج فارس به عنوان بازیگری مهم در منطقه شناخته می شود. قطر به دلیل دارا بودن ذخایر قابل توجه انرژی های فسیلی،  ثروت فراوانی را کسب کرده و این کشور را به یکی از ثروتمندترین کشورهای جهان تبدیل شده است. این کشور برای تنوع بخشیدن به اقتصاد و کاهش اتکای خود به درآمدهای نفت و گاز، سرمایه گذاری زیادی در زیرساخت ها، آموزش دانشگاهی و ورزش انجام داده است. قطر همچنین به دلیل میزبانی رویدادهای بین المللی مهم مانند جام جهانی فوتبال در سال 2022 شناخته می شود. این کشور با جمعیت حدوداً 2.7 میلیون نفری یکی از بالاترین تولید ناخالص داخلی سرانه را در جهان دارد که عمدتاً به دلیل ذخایر قابل توجه نفت و گاز طبیعی است. این کشور با موفقیت فعالیت اقتصادی خود را فراتر از نفت و گاز متنوع کرده است و بخش هایی مانند سرمایه گذاری مالی، املاک و گردشگری نقش مهمی را ایفا می کنند. دولت همچنین با اصلاحات اقتصادی ریشه ای، طراح های توسعه گرایی در جذب سرمایه گذاری خارجی و ارتقای رشد بخش خصوصی را به اجرا گذاشته است. به طور کلی، اقتصاد قطر با ثروت، تلاش‌های متنوع و سرمایه‌گذاری راهبردی برای توسعه پایدار مشخص می‌شود." : country === 4 ? "عمان کشوری است که در ساحل جنوب شرقی شبه جزیره عربی قرار گرفته است که پایتخت آن مسقط می باشد. عمان به دلیل مناظر متنوع خود از جمله بیابان ها، کوه ها و خط ساحلی در امتداد دریای عمان شناخته شده است. این کشور دارای سابقه طولانی تجارت دریایی و تبادل فرهنگی با تأثیرات تمدن های عربی، ایرانی و شرق آفریقا است. اقتصاد عمان اساسا بر صادرات نفت و گاز و همچنین گردشگری، کشاورزی و ماهیگیری استوار است. دولت پادشاهی عمان در تلاش‌ است تا با  متنوع‌سازی اقتصاد، راه را برای کاهش وابستگی به درآمدهای نفتی و ترویج توسعه پایدار انجام داده دهد. این کشور در فرهنگ سیاسی بین المللی به عنوان سوئیس خاورمیانه شناخته می شود. با بررسی گزارش اقتصادی که از سوی دولت عمان ارائه شده است، تولید ناخالص ملی این کشور به 114.7 میلیارد دلار در رسیده است که رشد قابل توجه ای را در بین کشورهای غرب آسیا تجربه کرده است.":null}</p>
+                    <h1>{t('درباره')} {country === 0 ? t('ایــــــــران') : country === 1 ? t('عراق') : country === 3 ? t('عربستان سعودی') : country === 2 ? t('قطر') : country === 4 ? t('عمان') : null}</h1>
+                    <p>{country === 0 ? t('ایران به تعبیری یکی از قدرت‌های خاورمیانه است که از نظر اقتصادی و تکنولوژی و همچنین صنایع مختلف درحال رقابت با ابرقدرت‌های جهانی است. شرکت های مختلفی در زمینه های گوناگون در ایران مشغول به فعالیت میباشند که در ادامه با آنها آشنا خواهید شد.') : country === 1 ? t('ایران به تعبیری یکی از قدرت‌های خاورمیانه است که از نظر اقتصادی و تکنولوژی و همچنین صنایع مختلف درحال رقابت با ابرقدرت‌های جهانی است. شرکت های مختلفی در زمینه های گوناگون در ایران مشغول به فعالیت میباشند که در ادامه با آنها آشنا خواهید شد.') : country === 3 ? t('دولت پادشاهی عربستان سعودی کشوری است که در بیشتر شبه جزیره عربی قرار دارد و به دلیل وجود اماکن مقدس مذهبی برای مسلمانان شناخته می شود. پایتخت آن ریاض است و شهرهای مکه مدینه از دیگر شهره های مهم این سرزمین شناخته می شوند. این کشور تحت حکومت آل سعود قرار دارد و به دلیل ذخایر نفتی و قدرت اقتصادی، بازیگری مهم در منطقه شناخته می شود. عربستان سعودی در سال های اخیر اصلاحات اقتصادی را برای تنوع بخشیدن به اقتصاد خود به دور از نفت، بهبود زیرساخت ها و جذب سرمایه گذاری خارجی انجام داده است. اقتصاد این کشور به شدت به صادرات نفت وابسته است که بخش بزرگی از تولید ناخالص داخلی و درآمد دولت این کشور را تشکیل می دهد. با توجه به آخرین نرخ اعلامی تولید ناخالص ملی از سوی صندوق بین المللی پول، 1.119 تریلیون دلار سهم اقتصاد عربستان سعودی می شود. دولت پادشاهی سعودی به عنوان یکی از بزرگترین تولیدکنندگان نفت جهان، یکی از اعضای مهم در سازمان اوپک معرفی شده است که نقش مهمی در بازار جهانی نفت ایفا می کند. در سال‌های اخیر، دولت عربستان اصلاحات اقتصادی را به عنوان بخشی از برنامه چشم‌انداز 2030 خود برای تنوع بخشیدن به اقتصاد به دور از نفت، جذب سرمایه‌گذاری خارجی و ارتقای بخش‌هایی مانند گردشگری، سرگرمی و فناوری اجرا کرده است. این کشور همچنین بر توسعه صنایع غیرنفتی، بهبود زیرساخت ها و ایجاد فرصت های شغلی برای جمعیت رو به رشد خود تمرکز دارد.') : country === 2 ? t('قطر کشوری است واقع در شمال شبه جزیره عربی که به دلیل نقش راهبردی در منطقه و خلیج فارس به عنوان بازیگری مهم در منطقه شناخته می شود. قطر به دلیل دارا بودن ذخایر قابل توجه انرژی های فسیلی، ثروت فراوانی را کسب کرده و این کشور را به یکی از ثروتمندترین کشورهای جهان تبدیل شده است. این کشور برای تنوع بخشیدن به اقتصاد و کاهش اتکای خود به درآمدهای نفت و گاز، سرمایه گذاری زیادی در زیرساخت ها، آموزش دانشگاهی و ورزش انجام داده است. قطر همچنین به دلیل میزبانی رویدادهای بین المللی مهم مانند جام جهانی فوتبال در سال 2022 شناخته می شود. این کشور با جمعیت حدوداً 2.7 میلیون نفری یکی از بالاترین تولید ناخالص داخلی سرانه را در جهان دارد که عمدتاً به دلیل ذخایر قابل توجه نفت و گاز طبیعی است. این کشور با موفقیت فعالیت اقتصادی خود را فراتر از نفت و گاز متنوع کرده است و بخش هایی مانند سرمایه گذاری مالی، املاک و گردشگری نقش مهمی را ایفا می کنند. دولت همچنین با اصلاحات اقتصادی ریشه ای، طراح های توسعه گرایی در جذب سرمایه گذاری خارجی و ارتقای رشد بخش خصوصی را به اجرا گذاشته است. به طور کلی، اقتصاد قطر با ثروت، تلاش‌های متنوع و سرمایه‌گذاری راهبردی برای توسعه پایدار مشخص می‌شود.') : country === 4 ? t('عمان کشوری است که در ساحل جنوب شرقی شبه جزیره عربی قرار گرفته است که پایتخت آن مسقط می باشد. عمان به دلیل مناظر متنوع خود از جمله بیابان ها، کوه ها و خط ساحلی در امتداد دریای عمان شناخته شده است. این کشور دارای سابقه طولانی تجارت دریایی و تبادل فرهنگی با تأثیرات تمدن های عربی، ایرانی و شرق آفریقا است. اقتصاد عمان اساسا بر صادرات نفت و گاز و همچنین گردشگری، کشاورزی و ماهیگیری استوار است. دولت پادشاهی عمان در تلاش‌ است تا با متنوع‌سازی اقتصاد، راه را برای کاهش وابستگی به درآمدهای نفتی و ترویج توسعه پایدار انجام داده دهد. این کشور در فرهنگ سیاسی بین المللی به عنوان سوئیس خاورمیانه شناخته می شود. با بررسی گزارش اقتصادی که از سوی دولت عمان ارائه شده است، تولید ناخالص ملی این کشور به 114.7 میلیارد دلار در رسیده است که رشد قابل توجه ای را در بین کشورهای غرب آسیا تجربه کرده است.'):null}</p>
                 </div>
             </div>
             <div className="Companies-header Companies-header-khareji">
@@ -310,30 +310,30 @@ const Khareji = () => {
                               name="Search"
                               value={searchInput}
                               onChange={handleInputChange}
-                              placeholder="عنوان شرکت...."
+                              placeholder={t('عنوان شرکت....')}
                           />
                         <select name="status" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-                          <option value="default">وضعیت شرکت</option>
-                          <option value="notactive">غیر فعال</option>
-                          <option value="active">فعال</option>
+                          <option value="default">{t('وضعیت شرکت')}</option>
+                          <option value="notactive">{t('غیر فعال')}</option>
+                          <option value="active">{t('فعال')}</option>
                         </select>
                         <select name="companietype" value={companietypeFilter} onChange={(e) => setCompanietypeFilter(e.target.value)}>
-                          <option value="default">نوع شرکت</option>
-                          <option value="سهامی خاص">سهامی خاص</option>
-                          <option value="شرکت بامسیولیت محدود">شرکت بامسیولیت محدود</option>
-                          <option value="تعاونی">تعاونی</option>
-                          <option value="بامسئولیت محدود">بامسئولیت محدود</option>
-                          <option value="موسسه">موسسه</option>
-                          <option value="نامشخص">نامشخص</option>
-                          <option value="تضامنی">تضامنی</option>
-                          <option value="شعبه شرکت خارجی">شعبه شرکت خارجی</option>
-                          <option value="نسبی">نسبی</option>
-                          <option value="سهامی عام">سهامی عام</option>
-                          <option value="مختلط سهامی">مختلط سهامی</option>
+                          <option value="default">{t('نوع شرکت')}</option>
+                          <option value="سهامی خاص">{t('سهامی خاص')}</option>
+                          <option value="شرکت بامسیولیت محدود">{t('شرکت بامسیولیت محدود')}</option>
+                          <option value="تعاونی">{t('تعاونی')}</option>
+                          <option value="بامسئولیت محدود">{t('بامسئولیت محدود')}</option>
+                          <option value="موسسه">{t('موسسه')}</option>
+                          <option value="نامشخص">{t('نامشخص')}</option>
+                          <option value="تضامنی">{t('تضامنی')}</option>
+                          <option value="شعبه شرکت خارجی">{t('شعبه شرکت خارجی')}</option>
+                          <option value="نسبی">{t('نسبی')}</option>
+                          <option value="سهامی عام">{t('سهامی عام')}</option>
+                          <option value="مختلط سهامی">{t('مختلط سهامی')}</option>
                         </select>
 
                         <select name="afteryear" value={afterYearFilter} onChange={(e) => setAfterYearFilter(e.target.value)}>
-                          <option value="default">بعد از سال ...</option>
+                          <option value="default">{t('بعد از سال ...')}</option>
                           <option value="1400">1400</option>
                           <option value="1395">1395</option>
                           <option value="1390">1390</option>
@@ -351,7 +351,7 @@ const Khareji = () => {
                           <option value="1330">1330</option>
                       </select>
                         <select name="beforeyear" value={beforeYearFilter} onChange={(e) => setBeforeYearFilter(e.target.value)}>
-                        <option value="default">قبل از سال ...</option>
+                        <option value="default">{t('قبل از سال ...')}</option>
                           <option value="1400">1400</option>
                           <option value="1395">1395</option>
                           <option value="1390">1390</option>
@@ -369,26 +369,26 @@ const Khareji = () => {
                           <option value="1330">1330</option>
                         </select>
                         <img src={searchicon2} alt="Search icon" className='searchicon2'/>
-                        <button type="submit" className='filter-khareji'>فیلتر</button>
+                        <button type="submit" className='filter-khareji'>{t('فیلتر')}</button>
                     </div>
             </div>
             </div>
             {
                 statusFilter !== 'default' || companietypeFilter !== 'default' || afterYearFilter !== 'default' || beforeYearFilter !== 'default' ? (
                   <div className="Companies-delete-filter">
-                      <h1>حذف فیلترها :</h1>
+                      <h1>{t('حذف فیلترها')} :</h1>
                       <div className="Companies-delete-filter-items">
                         {
-                          statusFilter !== 'default' ? (<span onClick={()=>setStatusFilter('default')}>وضعیت شرکت<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
+                          statusFilter !== 'default' ? (<span onClick={()=>setStatusFilter('default')}>{t('وضعیت شرکت')}<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
                         }
                          {
-                          companietypeFilter !== 'default' ? (<span onClick={()=>setCompanietypeFilter('default')}>نوع شرکت<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
+                          companietypeFilter !== 'default' ? (<span onClick={()=>setCompanietypeFilter('default')}>{t('نوع شرکت')}<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
                         }
                          {
-                          afterYearFilter !== 'default' ? (<span onClick={()=>setAfterYearFilter('default')}>بعد از سال<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
+                          afterYearFilter !== 'default' ? (<span onClick={()=>setAfterYearFilter('default')}>{t('بعد از سال')}<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
                         }
                          {
-                          beforeYearFilter !== 'default' ? (<span onClick={()=>setBeforeYearFilter('default')}>قبل از سال<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
+                          beforeYearFilter !== 'default' ? (<span onClick={()=>setBeforeYearFilter('default')}>{t('قبل از سال')}<img src={closeicon} alt="close icon" width="24px" height="24px"/></span>):null
                         }
                       </div>
               </div>
@@ -488,7 +488,7 @@ const Khareji = () => {
             <div className="Companies-slider">
                     <div className='slider2'>
                    {!loading && apiData.length === 0 && searchInput.trim() !== '' && (
-                        <span className='slider2-notfound'>موردی یافت نشد</span>
+                        <span className='slider2-notfound'>{t('موردی یافت نشد')}</span>
                       )}
                     </div>
                     <div className="Profile-eshterak">
