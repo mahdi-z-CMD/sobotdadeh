@@ -9,7 +9,6 @@ import ghavaninpolicyicon from './Icons/ghavaninpolicyicon.svg'
 import Soalat from './Soalat';
 const Ghavanin = () => {
   const { t } = useTranslation();
-
     return ( 
         <div>
             <Helmet>

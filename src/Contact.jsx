@@ -1,5 +1,6 @@
 import './Contact.css'
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 // Icons
 import Contactemailicon from './Icons/Contactemailicon.svg'
@@ -8,27 +9,28 @@ import Contacttellicon from './Icons/Contacttelicon.svg'
 import Contactwarninglicon from './Icons/Contactwarningicon.svg'
 import Contactlocicon from './Icons/Contactlocicon.svg'
 const Contact = () => {
+  const { t } = useTranslation();
     return ( 
         <div>
             <Helmet>
                 <title>ثبات داده - تماس با ما</title>
             </Helmet>
         <div className="header-Contact">
-            <h1>تماس با ما</h1>
+            <h1>{t('تماس با ما')}</h1>
         </div>
         <div className="Contact-content">
             <div className="Contact-content-back">
                 <div className="Contact-poshtiban">
-                    <h1>پیام به پشتیبانی</h1>
-                    <h2>با وارد کردن اطلاعات خود در فرم زیر کارشناسان ما در اولین فرصت با شما تماس خواهند گرفت.</h2>
-                    <span>(این اطلاعات فقط برای تماس با شما استفاده خواهد شد.)</span>
-                    <label htmlFor="">نام و نام خانوادگی</label>
-                    <input type="text" name="" id="" placeholder='نام و نام خانوادگی'/>
-                    <label htmlFor="">شماره تماس</label>
+                    <h1>{t('پیام به پشتیبانی')}</h1>
+                    <h2>{t('با وارد کردن اطلاعات خود در فرم زیر کارشناسان ما در اولین فرصت با شما تماس خواهند گرفت.')}</h2>
+                    <span>{t('(این اطلاعات فقط برای تماس با شما استفاده خواهد شد.)')}</span>
+                    <label htmlFor="">{t('نام و نام خانوادگی')}</label>
+                    <input type="text" name="" id="" placeholder={t('نام و نام خانوادگی')}/>
+                    <label htmlFor="">{t('شماره تماس')}</label>
                     <input type="text" name="" id="" placeholder='09123456789'/>
-                    <label htmlFor="">توضیحات</label>
+                    <label htmlFor="">{t('توضیحات')}</label>
                     <textarea type="text" name="" id="" className='Contact-tozihat'/>
-                    <button type="submit">ارسال پیام</button>
+                    <button type="submit">{t('ارسال پیام')}</button>
                 </div>
                 <div className="Contact-location">
                 <iframe
@@ -42,12 +44,12 @@ const Contact = () => {
                     ></iframe>
                     <div className="Contact-loc-row">
                         <img src={Contactlocicon} alt="" />
-                        <h1>آدرس:</h1>
-                        <span>خوزستان، منطقه آزاد اروند، خرمشهر، کوی دانشگاه، معین 2 , پلاک 9</span>
+                        <h1>{t('آدرس')}:</h1>
+                        <span>{t('خوزستان، منطقه آزاد اروند، خرمشهر، کوی دانشگاه، معین 2 , پلاک 9')}</span>
                     </div>
                     <div className="Contact-loc-row">
                         <img src={Contacttellicon} alt="" />
-                        <h1>تلفن:</h1>
+                        <h1>{t('تلفن')}:</h1>
                         <span>۰۶۱-۵۳۲۶۸۱۲۲</span>
                     </div>
                     {/* <div className="Contact-loc-row">
@@ -57,16 +59,16 @@ const Contact = () => {
                     </div> */}
                     <div className="Contact-loc-row">
                         <img src={Contactemailicon} alt="" />
-                        <h1>ایمیل:</h1>
+                        <h1>{t('ایمیل')}:</h1>
                         <span>sobotdadeh@info.com</span>
                     </div>
                     <div className="Contact-loc-row">
                         <img src={Contactwarninglicon} alt="" />
-                        <span>توجه داشته باشید که 09830007871 تنها شماره‌ای است که ‌ثبات‌داده از طریق آن برای کاربران و مشتریان خود پیامک ارسال می‌کند.</span>
+                        <span>{t('توجه داشته باشید که 09830007871 تنها شماره‌ای است که ‌ثبات‌داده از طریق آن برای کاربران و مشتریان خود پیامک ارسال می‌کند.')}</span>
                     </div>
                     <div className="Contact-loc-row">
                         <img src={Contactwarninglicon} alt="" />
-                        <span>در صورت دریافت پیامک از شماره دیگر با نام ثبات‌داده، لطفاً جهت پیگیری قانونی آن را به sobotdadeh@info.com اطلاع دهید.</span>
+                        <span>{t('در صورت دریافت پیامک از شماره دیگر با نام ثبات‌داده، لطفاً جهت پیگیری قانونی آن را به sobotdadeh@info.com اطلاع دهید.')}</span>
                     </div>
                 </div>
             </div>

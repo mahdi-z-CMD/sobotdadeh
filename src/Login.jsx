@@ -6,6 +6,7 @@ import CryptoJS from 'crypto-js';
 import { setCookie } from './AuthContext'; // Adjust the path as needed
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // Icons 
 import visibiliy from './Icons/Login_visibilityicon.svg'
@@ -14,6 +15,7 @@ import googleicon from './Icons/Login_googleicon.svg'
 import singupBack from './Icons/singup_back.svg'
 import warrningicon from './Icons/Login_warrning.svg'
 const Login = () => {
+    const { t } = useTranslation();
     const [loginarea, setLoginarea] = useState(true)
     const [showpass1, setShowpass1] = useState(false)
     const [showpass2, setShowpass2] = useState(false)
@@ -259,25 +261,25 @@ const Login = () => {
     const validatePassword = () => {
        // Check if passwords match
         if (password !== confirmPassword) {
-            setErrorMessage('رمز عبور‌ها همخوانی ندارند');
+            setErrorMessage(t('رمز عبور‌ها همخوانی ندارند'));
             return false;
         }
 
         // Check if password length is at least 8 characters
         if (password.length < 8) {
-            setErrorMessage('رمز عبور باید حداقل 8 کاراکتر داشته باشد');
+            setErrorMessage(t('رمز عبور باید حداقل 8 کاراکتر داشته باشد'));
             return false;
         }
 
         // Check if password contains at least one digit
         if (!/\d/.test(password)) {
-            setErrorMessage('رمز عبور باید حداقل شامل یک عدد باشد');
+            setErrorMessage(t('رمز عبور باید حداقل شامل یک عدد باشد'));
             return false;
         }
 
         // Check if password contains at least one letter
         if (!/[a-zA-Z]/.test(password)) {
-            setErrorMessage('رمز عبور باید حداقل شامل یک حرف باشد');
+            setErrorMessage(t('رمز عبور باید حداقل شامل یک حرف باشد'));
             return false;
         }
 
@@ -327,7 +329,7 @@ const Login = () => {
                 // Handle the phone already taken error here
             } else {
                 console.error('Error sending API request:', error);
-                setErrorMessage('! خطا در ثبت نام');
+                setErrorMessage(t('! خطا در ثبت نام'));
                 // Handle other errors
             }
             return false;
@@ -339,7 +341,7 @@ const Login = () => {
         try {
             setLoginloading(true)
              // Show success message
-             setMessageContent('... در حال ورود');
+             setMessageContent(t('... در حال ورود'));
              setMessageClass('show');
              setShowMessage(true);
              setTimeout(() => {
@@ -378,7 +380,7 @@ const Login = () => {
                 const encryptedValue = CryptoJS.AES.encrypt(usernamelogin, 'f2af0b0c9a27d7c893fa5d0ee2887c64').toString();
                 Cookies.set('pn', encryptedValue, { expires: 7 });
                 // Show success message
-                setMessageContent('ورود با موفقیت انجام شد');
+                setMessageContent(t('ورود با موفقیت انجام شد'));
                 setMessageClass('show');
                 setShowMessage(true);
                 setTimeout(() => {
@@ -394,7 +396,7 @@ const Login = () => {
             } else {
                 // Return the error message if the login was not successful
                 // Show success message
-                setMessageContent('رمز عبور یا نام کاربری درست نمیباشد');
+                setMessageContent(t('رمز عبور یا نام کاربری درست نمیباشد'));
                 setMessageClass('show');
                 setShowMessage(true);
                 setTimeout(() => {
@@ -409,7 +411,7 @@ const Login = () => {
             // Handle any errors that occur during the API request
             setLoginloading(false)
             // Show success message
-            setMessageContent('رمز عبور یا نام کاربری درست نمیباشد');
+            setMessageContent(t('رمز عبور یا نام کاربری درست نمیباشد'));
             setMessageClass('show');
             setShowMessage(true);
             setTimeout(() => {
@@ -456,7 +458,7 @@ const Login = () => {
                 // Handle the phone already taken error here
             } else {
                 console.error('Error sending API request:', error);
-                setErrorMessage('! خطا در تغییر رمز عبور');
+                setErrorMessage(t('! خطا در تغییر رمز عبور'));
                 // Handle other errors
             }
             return false;
@@ -469,7 +471,7 @@ const Login = () => {
                 <title>ثبات داده - ورود/ثبت نام</title>
             </Helmet>
             {showMessage && (
-                <div className={`message-box ${messageContent === 'رمز عبور یا نام کاربری درست نمیباشد' ? 'error' : 'success'} ${messageClass}`}>
+                <div className={`message-box ${messageContent === t('رمز عبور یا نام کاربری درست نمیباشد') ? 'error' : 'success'} ${messageClass}`}>
                     {messageContent}
                 </div>
             )}
@@ -477,18 +479,18 @@ const Login = () => {
                 loginarea ?(
                     <div className="Login-items">
                          <div className="Login-items-button">
-                    <button type="submit" className='Login-items-button-Login' onClick={() => setLoginarea(true)}>ورود</button>
-                    <button type="submit" className='Login-items-button-Singup' onClick={() => { setLoginarea(false); setLoginforgetpass(false); setLoginwithcode(false)}}>ثبت نام</button>
+                    <button type="submit" className='Login-items-button-Login' onClick={() => setLoginarea(true)}>{t('ورود')}</button>
+                    <button type="submit" className='Login-items-button-Singup' onClick={() => { setLoginarea(false); setLoginforgetpass(false); setLoginwithcode(false)}}>{t('ثبت نام')}</button>
                     </div>
                 <div className="Login-items-inputs">
-                    <label htmlFor="">نام کاربری</label>
+                    <label htmlFor="">{t('نام کاربری')}</label>
                     <input
                         type="text"
-                        placeholder="شماره موبایل وارد کنید"
+                        placeholder={t('شماره موبایل وارد کنید')}
                         value={usernamelogin}
                         onChange={(e) => setUsernamelogin(e.target.value)}
                     />
-                    <label htmlFor="">رمز عبور</label>
+                    <label htmlFor="">{t('رمز عبور')}</label>
                     <input
                         type={showpass1 ? "text" : "password"}
                         value={passwordlogin}
@@ -504,14 +506,14 @@ const Login = () => {
                 </div>
                 <span>{errorMessage}</span>
                 <div className="Login-items-b-submit">
-                    <button type="submit" onClick={loginloading ? null : loginUser}>{loginloading ? '... ورود به سایت' : 'ورود به سایت'}</button>
+                    <button type="submit" onClick={loginloading ? null : loginUser}>{loginloading ? t('... ورود به سایت') : t('ورود به سایت')}</button>
                 </div>
                     <div className="Login-items-faramoshi">
-                        <span onClick={() => { setLoginarea(false); setLoginwithcode(true); setLoginforgetpass(true)}}>فراموشی رمز عبور</span>
-                        <span className='Login-items-faramoshi-remember'><img src={remember} alt="remember icon" />مرا به خاطر بسپار</span>
+                        <span onClick={() => { setLoginarea(false); setLoginwithcode(true); setLoginforgetpass(true)}}>{t('فراموشی رمز عبور')}</span>
+                        <span className='Login-items-faramoshi-remember'><img src={remember} alt="remember icon" />{t('مرا به خاطر بسپار')}</span>
                     </div>
                     <div className="Login-items-faramoshi">
-                        <span className='Login-items-faramoshi-last' onClick={() => { setLoginarea(false); setLoginwithcode(true); setLoginforgetpass(false)}}>ورود با رمز یک بار مصرف</span>
+                        <span className='Login-items-faramoshi-last' onClick={() => { setLoginarea(false); setLoginwithcode(true); setLoginforgetpass(false)}}>{t('ورود با رمز یک بار مصرف')}</span>
                     </div>
                     <hr />
                     <div className="Login-items-google">
@@ -523,25 +525,25 @@ const Login = () => {
                     
                     nextpage === 0 ? (<div className="Login-items">
                     <div className="Login-items-button">
-                   <button type="submit" className='Login-items-button-Login2' onClick={() => setLoginarea(true)}>ورود</button>
-                   <button type="submit" className='Login-items-button-Singup2'>{loginwithcode && loginforgetpass === false ? 'ورود با کد' : loginwithcode && loginforgetpass ? 'فراموشی رمز عبور' : 'ثبت نام'}</button>
+                   <button type="submit" className='Login-items-button-Login2' onClick={() => setLoginarea(true)}>{t('ورود')}</button>
+                   <button type="submit" className='Login-items-button-Singup2'>{loginwithcode && loginforgetpass === false ? t('ورود با کد') : loginwithcode && loginforgetpass ? t('فراموشی رمز عبور') : t('ثبت نام')}</button>
                </div>
                <div className="Login-items-inputs-singup">
-                   <label htmlFor="">شماره موبایل</label>
+                   <label htmlFor="">{t('شماره موبایل')}</label>
                    <input type="text" name="" id="" placeholder='+۹۸ | ' value={inputValue} onChange={handleInputChange}/>
                </div>
                <div className={getcode !== 0 ? "Login-items-b-submit2" : "Login-items-b-submit2 not-correct-format-singup"}>
-                   <button type="submit" onClick={checktosendcode}>دریافت کد فعالسازی</button>
+                   <button type="submit" onClick={checktosendcode}>{t('دریافت کد فعالسازی')}</button>
                </div>
                </div>) : nextpage === 1 ? (<div className='singup-items'>
                     <div className="singup-items-singup-gettingcode">
-                        <h2 onClick={()=>setNextpage(0)}>بازگست</h2>
+                        <h2 onClick={()=>setNextpage(0)}>{t('بازگست')}</h2>
                         <img src={singupBack} alt="Back icon"  onClick={()=>setNextpage(0)}/>
                     </div>
-                    <h3>فعالسازی حساب</h3>
+                    <h3>{t('فعالسازی حساب')}</h3>
                     <div className="singup-items-singup-gettingcode-header">
                         <h2>{inputValue}</h2>
-                        <h2>کد ارسال شده را وارد کنید</h2>
+                        <h2>{t('کد ارسال شده را وارد کنید')}</h2>
                     </div>
                     <div className="singup-items-singup-gettingcode-inputcode">
                     {[...Array(5)].map((_, index) => (
@@ -557,19 +559,19 @@ const Login = () => {
                     ))}
                     </div>
                     {
-                        codenotcorrect === false ? (<span>کد وارد شده صحیح نیست</span>) : null
+                        codenotcorrect === false ? (<span>{t('کد وارد شده صحیح نیست')}</span>) : null
                     }
-                    <button onClick={checksingupcode}>تایید</button>
+                    <button onClick={checksingupcode}>{t('تایید')}</button>
                             <h4 
                         className={coldowncode !== 0 ? 'singup-items-singup-off' : ''}
                         onClick={checktosendcode}
                         style={{ cursor: 'pointer', opacity: loading ? 0.5 : 1 }}
                     >
-                        {loading ? '' : `ارسال مجدد کد ${coldowncode}`}
+                        {loading ? '' : `${t('ارسال مجدد کد')} ${coldowncode}`}
                     </h4>
                </div>) : (<div className='singup-items2'>
-                        <h1>ثبت رمز عبور</h1>
-                        <label htmlFor="">رمز عبور</label>
+                        <h1>{t('ثبت رمز عبور')}</h1>
+                        <label htmlFor="">{t('رمز عبور')}</label>
                         <div className="singup-items2-pass">
                             <input
                                 type={showpass2 ? "text" : "password"}
@@ -579,7 +581,7 @@ const Login = () => {
                             />
                             <img src={visibiliy} alt="" onClick={handleshow2}/>
                         </div>
-                        <label htmlFor="">تکرار رمز عبور</label>
+                        <label htmlFor="">{t('تکرار رمز عبور')}</label>
                         <div className="singup-items2-pass">
                             <input
                                 type={showpass2 ? "text" : "password"}
@@ -590,15 +592,15 @@ const Login = () => {
                             <img src={visibiliy} alt="" onClick={handleshow2}/>
                         </div>
                         <div className="singup-items2-pass2">
-                            <h2>حداقل ۸ کاراکتر</h2>
+                            <h2>{t('حداقل ۸ کاراکتر')}</h2>
                             <img src={warrningicon} alt="warrning icon" width="24px" height="24px"/>
                         </div>
                         <div className="singup-items2-pass2">
-                            <h2>شامل حروف و اعداد</h2>
+                            <h2>{t('شامل حروف و اعداد')}</h2>
                             <img src={warrningicon} alt="warrning icon" width="24px" height="24px"/>
                         </div>
                         <span>{errorMessage}</span>
-                        <button onClick={validatePassword}>ایجاد حساب</button>
+                        <button onClick={validatePassword}>{t('ایجاد حساب')}</button>
                </div>)
                 )
                }
