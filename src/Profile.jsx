@@ -3,6 +3,7 @@ import { useState,useEffect,useRef } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import CryptoJS from 'crypto-js';
+import { useTranslation } from 'react-i18next';
 import companielogo from './Icons/default_companies_icon.gif'
 // Images
 import profilepic1 from './image/profile_def.jpg'
@@ -35,6 +36,7 @@ import profile_mark from './Icons/Shenkhat_kharid_mark.svg'
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 const Profile = () => {
+    const { t } = useTranslation();
     const [imageSrc, setImageSrc] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -676,10 +678,10 @@ const Profile = () => {
               activespan === 0 ? (
                   <>
                        <div className="Profile-content-sex">
-              <h1>جنسیت</h1>
+              <h1>{t('جنسیت')}</h1>
               <div className="Profile-content-sex-b">
-                  <button type="submit" className={profilegender === 'male' ? 'Profile-content-sex-b-active' : ''} onClick={()=>setProfilegender('male')} {...(profileedit === false ? { disabled: true } : {})}>آقا</button>
-                  <button type="submit" className={profilegender === 'female' ? 'Profile-content-sex-b-active' : ''} onClick={()=>setProfilegender('female')} {...(profileedit === false ? { disabled: true } : {})}>خانم</button>
+                  <button type="submit" className={profilegender === 'male' ? 'Profile-content-sex-b-active' : ''} onClick={()=>setProfilegender('male')} {...(profileedit === false ? { disabled: true } : {})}>{t('آقا')}</button>
+                  <button type="submit" className={profilegender === 'female' ? 'Profile-content-sex-b-active' : ''} onClick={()=>setProfilegender('female')} {...(profileedit === false ? { disabled: true } : {})}>{t('خانم')}</button>
               </div>
           </div>
           <div className="Profile-content-other">
@@ -705,8 +707,8 @@ const Profile = () => {
                   </div>
               </div>
               <div className="Profile-content-row">
-                  <label for="profile-name">نام</label>
-                  <label for="profile-family">نام‌خانوادگی</label>
+                  <label for="profile-name">{t('نام')}</label>
+                  <label for="profile-family">{t('نام و نام خانوادگی')}</label>
               </div>
               <div className="Profile-content-row">
                   <input className={loadinguser ? 'companie-content-loading' : ''} type="text" name="" id="profile-name" value={profilename} required {...(profileedit === false ? { disabled: true } : {})} onChange={(e) => setProfilename(e.target.value)}/>
@@ -714,7 +716,7 @@ const Profile = () => {
               </div>
               {/* next row */}
               <div className="Profile-content-row">
-                  <label for="profile-date">تاریخ تولد</label>
+                  <label for="profile-date">{t('تاریخ تولد')}</label>
               </div>
               <div className="Profile-content-row">
               <input
@@ -732,8 +734,8 @@ const Profile = () => {
               </div>
               {/* next row */}
               <div className="Profile-content-row">
-                  <label for="profile-phone">شماره تماس</label>
-                  <label for="profile-email">ایمیل</label>
+                  <label for="profile-phone">{t('شماره تماس')}</label>
+                  <label for="profile-email">{t('ایمیل')}</label>
               </div>
               <div className="Profile-content-row">
                   <input className={loadinguser ? 'companie-content-loading' : ''} type="text" name="" id="profile-phone" value={profilephone} required {...(profileedit === false ? { disabled: true } : {})} disabled/>
@@ -741,8 +743,8 @@ const Profile = () => {
               </div>
               {/* next row */}
               <div className="Profile-content-row">
-                  <label for="profile-city">شهر</label>
-                  <label for="profile-address">آدرس</label>
+                  <label for="profile-city">{t('شهر')}</label>
+                  <label for="profile-address">{t('آدرس')}</label>
               </div>
               <div className="Profile-content-row">
                     <select
@@ -754,7 +756,7 @@ const Profile = () => {
                         disabled={!profileedit}
                         className={loadinguser ? 'companie-content-loading' : ''}
                     >
-                        <option value="default">انتخاب</option>
+                        <option value="default">{t('انتخاب')}</option>
                         {provinces.map((province, index) => (
                             <option key={index} value={province}>
                                 {province}
@@ -766,7 +768,7 @@ const Profile = () => {
               <span>{fnameError}</span>
               <span>{lnameError}</span>
               <span>{birthError}</span>
-              <button type="button" onClick={changeprofileedit}>ویرایش پروفایل<img src={profile_edit} alt="edit profile icon" width="24px" height="24px"/></button>
+              <button type="button" onClick={changeprofileedit}>{t('ویرایش پروفایل')}<img src={profile_edit} alt="edit profile icon" width="24px" height="24px"/></button>
               {
                 profileedit ? (<button type="button" onClick={loadingEdite ? null  : changinguserdatainfo} className='Profile-content-edit-submite'>{loadingEdite ? 'در حال ثبت ...'  : 'ثبت'}</button>) : null
               }
@@ -816,14 +818,14 @@ const Profile = () => {
                         ))}
                     </>
                 ) : (
-                    <p>آگهی نشان نشده</p>
+                    <p>{t('آگهی نشان نشده')}</p>
                 )}
             </div>              
               ) : activespan === 2 ? (
                   <div className="Profile-changep">
                     <div className="Profile-changep-row">
                         <div className="Profile-changep-row-box">
-                            <label htmlFor="currentpass">رمز عبور فعلی</label>
+                            <label htmlFor="currentpass">{t('رمز عبور فعلی')}</label>
                             <input 
                                 type={showpass1 ? "text" : "password"} 
                                 name="currentpass" 
@@ -836,7 +838,7 @@ const Profile = () => {
                     </div>
                     <div className="Profile-changep-row">
                         <div className="Profile-changep-row-box2">
-                            <label htmlFor="newpass">رمز عبور جدید</label>
+                            <label htmlFor="newpass">{t('رمز عبور جدید')}</label>
                             <input 
                                 type={showpass2 ? "text" : "password"} 
                                 name="newpass" 
@@ -847,7 +849,7 @@ const Profile = () => {
                             <img src={showpassicon} alt="show password" width="24px" height="24px" onClick={show2}/>
                         </div>
                         <div className="Profile-changep-row-box2">
-                            <label htmlFor="confirmpass">تکرار رمز عبور جدید</label>
+                            <label htmlFor="confirmpass">{t('تکرار رمز عبور جدید')}</label>
                             <input 
                                 type={showpass3 ? "text" : "password"} 
                                 name="confirmpass" 
@@ -866,9 +868,9 @@ const Profile = () => {
                   <div className='Profile-agahi'>
                       <div className="Profile-agahi-headers">
                           <div className="Profile-agahi-headers-text">
-                              <h1 onClick={()=>setAgahiheader(0)} className={agahiheader === 0 ? 'Profile-agahi-headers-text-active' : ''}>آگهی‌های فعال</h1>
-                              <h1 onClick={()=>setAgahiheader(1)} className={agahiheader === 1 ? 'Profile-agahi-headers-text-active' : ''}>در حال بررسی</h1>
-                              <h1 onClick={()=>setAgahiheader(2)} className={agahiheader === 2 ? 'Profile-agahi-headers-text-active' : ''}>آگهی‌های غیر فعال</h1>
+                              <h1 onClick={()=>setAgahiheader(0)} className={agahiheader === 0 ? 'Profile-agahi-headers-text-active' : ''}>{t('آگهی‌های فعال')}</h1>
+                              <h1 onClick={()=>setAgahiheader(1)} className={agahiheader === 1 ? 'Profile-agahi-headers-text-active' : ''}>{t('در حال بررسی')}</h1>
+                              <h1 onClick={()=>setAgahiheader(2)} className={agahiheader === 2 ? 'Profile-agahi-headers-text-active' : ''}>{t('آگهی‌های غیر فعال')}</h1>
                           </div>                              
                       </div>
                       <div className="Profile-agahi-content">
@@ -924,81 +926,81 @@ const Profile = () => {
               ) : activespan === 5 ? (
                   <div className="Profile-eshterak">
                       <div className="Profile-eshterak-header">
-                          <h1>اشتراک ثبات‌داده</h1>
-                          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+                          <h1>{t('اشتراک ثبات‌داده')}</h1>
+                          <p>{t('لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. ')}</p>
                       </div>
                       <div className="Profile-eshterak-now">
-                        <h1>اشتراک فعلی : {profilesath}</h1>
-                        <h2>مدت زمان : {profilesathtime} روز</h2>
+                        <h1>{t('اشتراک فعلی')} : {profilesath}</h1>
+                        <h2>{t('مدت زمان')} : {profilesathtime} روز</h2>
                       </div>
                       <div className="Profile-eshterak-now">
-                        <h1>اشتراک سریع :</h1>
+                        <h1>{t('اشتراک سریع')} :</h1>
                       </div>
                       <div className="Profile-eshterak-price">
                           <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
-                              <h2>استعلام شرکت‌های ایرانی</h2>
-                              <h2>تعداد استعلام در روز : 5</h2>
+                              <h2>{t('استعلام شرکت‌های ایرانی')}</h2>
+                              <h2>{t('تعداد استعلام در روز')} : 5</h2>
                               <span className='Profile-eshterak-price-takhfif'>۳۲,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۱۵,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum">
-                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
-                              <h2>تعداد استعلام در روز : 11</h2>
+                              <h2>{t('استعلام شرکت‌های ایرانی و منطقه')}</h2>
+                              <h2>{t('تعداد استعلام در روز')} : 11</h2>
                               <span className='Profile-eshterak-price-takhfif'>۴۲,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۲۷,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
-                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
-                              <h2>تعداد استعلام در روز : 17</h2>
+                              <h2>{t('استعلام شرکت‌های ایرانی و منطقه')}</h2>
+                              <h2>{t('تعداد استعلام در روز')} : 17</h2>
                               <span className='Profile-eshterak-price-takhfif'>۹۲,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۴۲,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
                       </div>
                       <div className="Profile-eshterak-now">
-                        <h1>اشتراک پایه :</h1>
+                        <h1>{t('اشتراک پایه')} :</h1>
                       </div>
                       <div className="Profile-eshterak-price">
                           <div className="Profile-eshterak-price-cloum">
-                              <h1>ارائه کاربردی</h1>
-                              <h2>استعلام شرکت‌های ایرانی</h2>
-                              <h2>مدت زمان : 90 روز</h2>
-                              <h2>تعداد استعلام در روز : 10</h2>
-                              <h2>نشانه دار کردن شرکت ها</h2>
-                              <h2>نمایش شرکت های پیشنهادی</h2>
+                              <h1>{t('ارائه کاربردی')}</h1>
+                              <h2>{t('استعلام شرکت‌های ایرانی')}</h2>
+                              <h2>{t('مدت زمان : 90 روز')}</h2>
+                              <h2>{t('تعداد استعلام در روز : 10')}</h2>
+                              <h2>{t('نشانه دار کردن شرکت ها')}</h2>
+                              <h2>{t('نمایش شرکت های پیشنهادی')}</h2>
                               <span className='Profile-eshterak-price-takhfif'>۱,۵۰۰,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۵۰۰,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
                               <div className="Profile-eshterak-price-cloum-special-header">
-                                  <h1>ارائه حرفه ای</h1>
-                                  <h2>(محبوب کاربران)</h2>
+                                  <h1>{t('ارائه حرفه ای')}</h1>
+                                  <h2>{t('(محبوب کاربران)')}</h2>
                               </div>
-                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
-                              <h2>مدت زمان : 90 روز</h2>
-                              <h2>تعداد استعلام در روز : 40</h2>
-                              <h2>ارائه گزارش اختصاصی شرکت ها</h2>
-                              <h2>نمایش شرکت های پیشنهادی ایرانی و منطقه</h2>
+                              <h2>{t('استعلام شرکت‌های ایرانی و منطقه')}</h2>
+                              <h2>{t('مدت زمان : 90 روز')}</h2>
+                              <h2>{t('تعداد استعلام در روز : 40')}</h2>
+                              <h2>{t('ارائه گزارش اختصاصی شرکت ها')}</h2>
+                              <h2>{t('نمایش شرکت های پیشنهادی ایرانی و منطقه')}</h2>
                               <span className='Profile-eshterak-price-takhfif'>۳,۵۰۰,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۱,۵۰۰,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum">
                                  <div className="Profile-eshterak-price-cloum-special-header">
-                                    <h1>ارائه اختصاصی</h1>
-                                    <h2>(پیشنهادی ثبات داده)</h2>
+                                    <h1>{t('ارائه اختصاصی')}</h1>
+                                    <h2>{t('(پیشنهادی ثبات داده)')}</h2>
                                 </div>
-                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
-                              <h2>مدت زمان : 90 روز</h2>
-                              <h2>تعداد استعلام در روز : نامحدود</h2>
-                              <h2>طرف قرارداد تو بشناس</h2>
-                              <h2>ارائه گزارش اختصاصی و برسی ریسک معاملاتی</h2>
+                              <h2>{t('استعلام شرکت‌های ایرانی و منطقه')}</h2>
+                              <h2>{t('مدت زمان : 90 روز')}</h2>
+                              <h2>{t('تعداد استعلام در روز : نامحدود')}</h2>
+                              <h2>{t('طرف قرارداد تو بشناس')}</h2>
+                              <h2>{t('ارائه گزارش اختصاصی و برسی ریسک معاملاتی')}</h2>
                               <span className='Profile-eshterak-price-takhfif'>۷,۵۰۰,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۵,۰۰۰,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
                       </div>
                      
@@ -1015,12 +1017,12 @@ const Profile = () => {
       </div>
       <div className="Profile-category">
           <h1>پروفایل</h1>
-          <span onClick={()=>setActivespan(0)} className={activespan === 0 ? 'Profile-category-active-span' : ''}>اطلاعات کاربری</span>
-          <span onClick={() => {setActivespan(1);getBookmarkCompanies();getBookmarkCompanies2();}} className={activespan === 1 ? 'Profile-category-active-span' : ''}><img src={activespan === 1 ? profile_bookmark_selected : profile_bookmark} alt="bookmark icon" width="24px" height="24px"/>آگهی‌های نشان شده</span>
-          <span onClick={()=>setActivespan(2)} className={activespan === 2 ? 'Profile-category-active-span' : ''}>رمز عبور</span>
+          <span onClick={()=>setActivespan(0)} className={activespan === 0 ? 'Profile-category-active-span' : ''}>{t('اطلاعات کاربری')}</span>
+          <span onClick={() => {setActivespan(1);getBookmarkCompanies();getBookmarkCompanies2();}} className={activespan === 1 ? 'Profile-category-active-span' : ''}><img src={activespan === 1 ? profile_bookmark_selected : profile_bookmark} alt="bookmark icon" width="24px" height="24px"/>{t('آگهی‌های نشان شده')}</span>
+          <span onClick={()=>setActivespan(2)} className={activespan === 2 ? 'Profile-category-active-span' : ''}>{t('رمز عبور')}</span>
           {/* <span onClick={()=>setActivespan(3)} className={activespan === 3 ? 'Profile-category-active-span' : ''}>آگهی‌های من</span>
           <span onClick={()=>setActivespan(4)} className={activespan === 4 ? 'Profile-category-active-span' : ''}>ثبت آگهی</span> */}
-          <span onClick={()=>setActivespan(5)} className={activespan === 5 ? 'Profile-category-active-span' : ''}>اشتراک</span>
+          <span onClick={()=>setActivespan(5)} className={activespan === 5 ? 'Profile-category-active-span' : ''}>{t('اشتراک')}</span>
           {/* <span onClick={()=>setActivespan(6)} className={activespan === 6 ? 'Profile-category-active-span' : ''}><img src={activespan === 6 ? profile_rezomeiconblue : profile_rezomeiconwhite} alt="bookmark icon" width="24px" height="24px"/>رزومه من</span> */}
           <h2 onClick={removeCookies}>خروج از حساب</h2>
       </div>
@@ -1166,7 +1168,7 @@ const Profile = () => {
             <label htmlFor="username">نام</label>
             <input type="text" id="username" value={profilename} onChange={(e) => setProfilename(e.target.value)} {...(profileedit === false ? { disabled: true } : {})}/>
 
-            <label htmlFor="usernamefamily">نام‌خانوادگی</label>
+            <label htmlFor="usernamefamily">نام و نام خانوادگی</label>
             <input type="text" id="usernamefamily" value={profilefamily} onChange={(e) => setProfilefamily(e.target.value)} {...(profileedit === false ? { disabled: true } : {})}/>
 
             <label htmlFor="usertavalod">تاریخ تولد</label>

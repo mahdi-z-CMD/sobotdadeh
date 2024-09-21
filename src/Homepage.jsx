@@ -737,7 +737,7 @@ const [isChecking, setIsChecking] = useState(true); // State to track if we're c
       </div>
       {/* majale */}
       <div className="manabe-aboutus">
-      <h1>منابع ما</h1>
+      <h1>{t('منابع ما')}</h1>
       <div
         className="manabe-aboutus-icons"
         ref={scrollContainerRef2}

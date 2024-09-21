@@ -404,7 +404,7 @@ export const Navbar = () => {
         <img src={isHomepage ? Searchicon : Searchicon_nothome} alt="Search icon" />
             <input
                 type="text"
-                placeholder="جست‌وجو در ثبات‌داده...."
+                placeholder={t('جست‌وجو در ثبات‌داده....')}
                 value={searchInput}
                 onChange={handleSearch}
             />
@@ -479,6 +479,7 @@ export const Navbar = () => {
               >
                 <li><a href="#" onClick={() => handleItemClick3('fa')}>فارسی</a></li>
                 <li><a href="#" onClick={() => handleItemClick3('ar')}>العربية</a></li>
+                <li><a href="#" onClick={() => handleItemClick3('en')}>English</a></li>
               </ul>
             )}
           {/* select language */}
@@ -539,7 +540,7 @@ export const Navbar = () => {
         <img src={isHomepage ? Searchicon : Searchicon_nothome} alt="Search icon" />
             <input
                 type="text"
-                placeholder="جست‌وجو در ثبات‌داده...."
+                placeholder={t('جست‌وجو در ثبات‌داده....')}
                 value={searchInput}
                 onChange={handleSearch}
             />

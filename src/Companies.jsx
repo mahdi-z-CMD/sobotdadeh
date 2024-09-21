@@ -325,7 +325,7 @@ const changeusertoken = async () => {
             </div>
             <div className="Madrese-slider">
               <div className="slider">
-              <h1>برترین کسب و کار ها</h1>
+              <h1>{t('برترین کسب و کار ها')}</h1>
               <div
                 className="card-box"
                 ref={scrollContainerRef}

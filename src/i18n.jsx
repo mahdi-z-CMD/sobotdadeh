@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import translationFA from './persian.json';
 import translationAR from './arabic.json';
+import translationEN from './english.json';
 
 i18n
   .use(initReactI18next)
@@ -12,6 +13,9 @@ i18n
       },
       ar: {
         translation: translationAR,
+      },
+      en: {
+        translation: translationEN,
       },
     },
     lng: 'fa', // Set Persian as the default language
