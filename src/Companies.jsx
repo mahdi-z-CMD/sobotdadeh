@@ -547,68 +547,72 @@ const changeusertoken = async () => {
                     <div className="Profile-eshterak">
                       <div className="Profile-eshterak-price">
                           <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
-                              <h2>استعلام شرکت‌های ایرانی</h2>
-                              <h2>تعداد استعلام در روز : 5</h2>
+                              <h2>{t('استعلام شرکت‌های ایرانی')}</h2>
+                              <h2>{t('تعداد استعلام در روز')} : 5</h2>
                               <span className='Profile-eshterak-price-takhfif'>۳۲,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۱۵,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum">
-                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
-                              <h2>تعداد استعلام در روز : 11</h2>
+                              <h2>{t('استعلام شرکت‌های ایرانی و منطقه')}</h2>
+                              <h2>{t('تعداد استعلام در روز')} : 11</h2>
                               <span className='Profile-eshterak-price-takhfif'>۴۲,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۲۷,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
-                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
-                              <h2>تعداد استعلام در روز : 17</h2>
+                              <h2>{t('استعلام شرکت‌های ایرانی و منطقه')}</h2>
+                              <h2>{t('تعداد استعلام در روز')} : 17</h2>
                               <span className='Profile-eshterak-price-takhfif'>۹۲,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۴۲,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
+                      </div>
+                      <div className="Profile-eshterak-now">
+                        <h1>{t('اشتراک پایه')} :</h1>
                       </div>
                       <div className="Profile-eshterak-price">
                           <div className="Profile-eshterak-price-cloum">
-                              <h1>ارائه کاربردی</h1>
-                              <h2>استعلام شرکت‌های ایرانی</h2>
-                              <h2>مدت زمان : 90 روز</h2>
-                              <h2>تعداد استعلام در روز : 10</h2>
-                              <h2>نشانه دار کردن شرکت ها</h2>
-                              <h2>نمایش شرکت های پیشنهادی</h2>
+                              <h1>{t('ارائه کاربردی')}</h1>
+                              <h2>{t('استعلام شرکت‌های ایرانی')}</h2>
+                              <h2>{t('مدت زمان : 90 روز')}</h2>
+                              <h2>{t('تعداد استعلام در روز : 10')}</h2>
+                              <h2>{t('نشانه دار کردن شرکت ها')}</h2>
+                              <h2>{t('نمایش شرکت های پیشنهادی')}</h2>
                               <span className='Profile-eshterak-price-takhfif'>۱,۵۰۰,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۵۰۰,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum Profile-eshterak-price-cloum-special">
                               <div className="Profile-eshterak-price-cloum-special-header">
-                                  <h1>ارائه حرفه ای</h1>
-                                  <h2>(محبوب کاربران)</h2>
+                                  <h1>{t('ارائه حرفه ای')}</h1>
+                                  <h2>{t('(محبوب کاربران)')}</h2>
                               </div>
-                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
-                              <h2>مدت زمان : 90 روز</h2>
-                              <h2>تعداد استعلام در روز : 40</h2>
-                              <h2>ارائه گزارش اختصاصی شرکت ها</h2>
-                              <h2>نمایش شرکت های پیشنهادی ایرانی و منطقه</h2>
+                              <h2>{t('استعلام شرکت‌های ایرانی و منطقه')}</h2>
+                              <h2>{t('مدت زمان : 90 روز')}</h2>
+                              <h2>{t('تعداد استعلام در روز : 40')}</h2>
+                              <h2>{t('ارائه گزارش اختصاصی شرکت ها')}</h2>
+                              <h2>{t('نمایش شرکت های پیشنهادی ایرانی و منطقه')}</h2>
                               <span className='Profile-eshterak-price-takhfif'>۳,۵۰۰,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۱,۵۰۰,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
                           <div className="Profile-eshterak-price-cloum">
                                  <div className="Profile-eshterak-price-cloum-special-header">
-                                    <h1>ارائه اختصاصی</h1>
-                                    <h2>(پیشنهادی ثبات داده)</h2>
+                                    <h1>{t('ارائه اختصاصی')}</h1>
+                                    <h2>{t('(پیشنهادی ثبات داده)')}</h2>
                                 </div>
-                              <h2>استعلام شرکت‌های ایرانی و منطقه</h2>
-                              <h2>مدت زمان : 90 روز</h2>
-                              <h2>تعداد استعلام در روز : نامحدود</h2>
-                              <h2>طرف قرارداد تو بشناس</h2>
-                              <h2>ارائه گزارش اختصاصی و برسی ریسک معاملاتی</h2>
+                              <h2>{t('استعلام شرکت‌های ایرانی و منطقه')}</h2>
+                              <h2>{t('مدت زمان : 90 روز')}</h2>
+                              <h2>{t('تعداد استعلام در روز : نامحدود')}</h2>
+                              <h2>{t('طرف قرارداد تو بشناس')}</h2>
+                              <h2>{t('ارائه گزارش اختصاصی و برسی ریسک معاملاتی')}</h2>
                               <span className='Profile-eshterak-price-takhfif'>۷,۵۰۰,۰۰۰ تومان</span>
                               <span className='Profile-eshterak-price-now'>۵,۰۰۰,۰۰۰ تومان</span>
-                              <button type="submit">خرید اشتراک</button>
+                              <button type="submit">{t('خرید اشتراک')}</button>
                           </div>
                       </div>
+                     
                   </div>
          </div>
         </div>

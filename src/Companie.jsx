@@ -1,5 +1,6 @@
 import './Companie.css'
 import { useState,useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
@@ -10,6 +11,8 @@ import bookmarkfillicon from './Icons/bookmarkfill.svg'
 // Images
 import companielogo from './Icons/default_companies_icon.gif'
 const Companie = () => {
+    const { t } = useTranslation();
+
     const [titileactive, setTitileactive] = useState(0);
     const [issub, setIssub] = useState(false);
 
@@ -148,7 +151,7 @@ const Companie = () => {
         try {
             setLoadingBookmark(true); // Set loading state to true
               // Show success message
-              setMessageContent('... در حال ثبت');
+              setMessageContent(t('... در حال ثبت'));
               setMessageClass('show');
               setShowMessage(true);
               setTimeout(() => {
@@ -175,7 +178,7 @@ const Companie = () => {
             if (response.data.status === true) {
                 if (companyIdBook) {
                     // Show success message
-                    setMessageContent('شرکت با موفقیت حذف نشان شد');
+                    setMessageContent(t('شرکت با موفقیت حذف نشان شد'));
                     setMessageClass('show');
                     setShowMessage(true);
                     setTimeout(() => {
@@ -187,7 +190,7 @@ const Companie = () => {
                     setCompanyIdBook(false);
                 } else {
                     // Show success message
-                    setMessageContent('شرکت با موفقیت نشان شد');
+                    setMessageContent(t('شرکت با موفقیت نشان شد'));
                     setMessageClass('show');
                     setShowMessage(true);
                     setTimeout(() => {
@@ -200,7 +203,7 @@ const Companie = () => {
                 }
             } else {
                 // Show failure message
-                setMessageContent('! شرکت نشان نشد');
+                setMessageContent(t('! شرکت نشان نشد'));
                 setMessageClass('show');
                 setShowMessage(true);
                 setTimeout(() => {
@@ -214,7 +217,7 @@ const Companie = () => {
             if (error.response && error.response.status === 401) {
                 changeusertoken();
             } else {
-                setMessageContent('! شرکت نشان نشد');
+                setMessageContent(t('! شرکت نشان نشد'));
                 setMessageClass('show');
                 setShowMessage(true);
                 setTimeout(() => {
@@ -238,23 +241,23 @@ const Companie = () => {
             <div className="companie-content">
                 <div className="companie-content-header">
                     <img src={companielogo} alt="companie logo" />
-                    <h1>در حال جستجو...</h1>
+                    <h1>{t('در حال جستجو...')}</h1>
                 </div>
                 <div className="companie-content-header-title">
-                    <h1 className={titileactive === 0 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(0)}>درباره شرکت</h1>
-                    <h1 className={titileactive === 1 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(1)}>شناخت ریسک</h1>
+                    <h1 className={titileactive === 0 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(0)}>{t('درباره شرکت')}</h1>
+                    <h1 className={titileactive === 1 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(1)}>{t('شناخت ریسک')}</h1>
                 </div>
                 <hr/>
         <div className="companie-content-detail">
-            <h2>سال تاسیس</h2>
+            <h2>{t('سال تاسیس')}</h2>
             <span className='companie-content-loading'></span>
-            <h2>نوع شرکت</h2>
+            <h2>{t('نوع شرکت')}</h2>
             <span className='companie-content-loading'></span>
-            <h2>وضعیت شرکت</h2>
+            <h2>{t('وضعیت شرکت')}</h2>
             <span className='companie-content-loading'></span>
-            <h2>شناسه ملی</h2>
+            <h2>{t('شناسه ملی')}</h2>
             <span className='companie-content-loading'></span>
-            <h2>آخرین سرمایه ثبتی</h2>
+            <h2>{t('آخرین سرمایه ثبتی')}</h2>
             <span className='companie-content-loading'></span>
         </div>
         </div>
@@ -279,29 +282,29 @@ const Companie = () => {
                     <img src={companyIdBook ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='companie-content-header-bookmark' onClick={addbookmark}/>
                 </div>
                 <div className="companie-content-header-title">
-                    <h1 className={titileactive === 0 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(0)}>درباره شرکت</h1>
-                    <h1 className={titileactive === 1 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(1)}>شناخت ریسک</h1>
+                    <h1 className={titileactive === 0 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(0)}>{t('درباره شرکت')}</h1>
+                    <h1 className={titileactive === 1 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(1)}>{t('شناخت ریسک')}</h1>
                 </div>
                 <hr/>
                 {
                     titileactive === 0 ? (
                       <>
                         <div className="companie-content-detail">
-                        <h2>سال تاسیس</h2>
+                        <h2>{t('سال تاسیس')}</h2>
                         <span>{companyData.registrationDate}</span>
-                        <h2>نوع شرکت</h2>
+                        <h2>{t('نوع شرکت')}</h2>
                         <span>{companyData.registrationTypeTitle}</span>
-                        <h2>نوع فعالیت</h2>
+                        <h2>{t('نوع فعالیت')}</h2>
                         <span>{companyData.type.title}</span>
-                        <h2>وضعیت شرکت</h2>
+                        <h2>{t('وضعیت شرکت')}</h2>
                         <span>{companyData.status === 1 ? "فعال" : "غیر فعال"}</span>
-                        <h2>شناسه ملی</h2>
+                        <h2>{t('شناسه ملی')}</h2>
                         <span>{companyData.entityId}</span>
-                        <h2>آخرین سرمایه ثبتی</h2>
+                        <h2>{t('آخرین سرمایه ثبتی')}</h2>
                         <span>{companyData.capital} میلیون ریال</span>
                     </div>
                     <div className="companie-content-detail-des">
-                        <h2>درباره {companyData.title}</h2>
+                        <h2>{t('درباره')} {companyData.title}</h2>
                         <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>
                         <div className="companie-content-detail-des-button">
                                 <button className="companie-content-detail-des-button-blur">خرید اشتراک</button>
@@ -315,14 +318,14 @@ const Companie = () => {
                             issub === false ?
                                 <div className="companie-content-buy">
                                     <div className="companie-content-buy-main">
-                                        <h1>برای شناخت ریسک تمامی شرکت ها در ثبات‌داده لطفا اشتراک تهیه کنید ...</h1>
-                                        <button type="submit">خرید اشتراک</button>
+                                        <h1>{t('برای شناخت ریسک تمامی شرکت ها در ثبات‌داده لطفا اشتراک تهیه کنید ...')}</h1>
+                                        <button type="submit">{t('خرید اشتراک')}</button>
                                     </div>
                                 </div>
                             : null
                         }
                         <div className={issub === true ? 'companie-content-detail-des' : 'companie-content-detail-des-sub'}>
-                            <h2>درباره دیجی پی</h2>
+                            <h2>{t('درباره')} دیجی پی</h2>
                             <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>
                             <h2>قدم اول</h2>
                             <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>
@@ -338,28 +341,28 @@ const Companie = () => {
                     <img src={companyIdBook ? bookmarkfillicon : bookmarkicon} alt="bookmark icon" className='companie-content-header-bookmark' onClick={addbookmark}/>
                 </div>
                 <div className="companie-content-header-title">
-                    <h1 className={titileactive === 0 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(0)}>درباره شرکت</h1>
-                    <h1 className={titileactive === 1 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(1)}>شناخت ریسک</h1>
+                    <h1 className={titileactive === 0 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(0)}>{t('درباره شرکت')}</h1>
+                    <h1 className={titileactive === 1 ? 'companie-content-header-title-active' : ''} onClick={()=>setTitileactive(1)}>{t('شناخت ریسک')}</h1>
                 </div>
                 <hr/>
                 {
                     titileactive === 0 ? (
                       <>
                         <div className="companie-content-detail">
-                        <h2>سال تاسیس</h2>
+                        <h2>{t('سال تاسیس')}</h2>
                         <span>{companyData.registrationDate === '' ? 'ثبت نشده' : companyData.registrationDate}</span>
-                        <h2>وضعیت شرکت</h2>
+                        <h2>{t('وضعیت شرکت')}</h2>
                         <span>{companyData.status === 1 ? "فعال" : "غیر فعال"}</span>
-                        <h2>مدیر عامل</h2>
+                        <h2>{t('مدیر عامل')}</h2>
                         <span>{companyData.ceo}</span>
-                        <h2>آخرین سرمایه ثبتی</h2>
+                        <h2>{t('آخرین سرمایه ثبتی')}</h2>
                         <span>{companyData.capital} میلیون ریال</span>
                     </div>
                     <div className="companie-content-detail-des">
-                        <h2>درباره {companyData.title}</h2>
+                        <h2>{t('درباره')} {companyData.title}</h2>
                         <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>
                         <div className="companie-content-detail-des-button">
-                                <button className="companie-content-detail-des-button-blur">خرید اشتراک</button>
+                                <button className="companie-content-detail-des-button-blur">{t('خرید اشتراک')}</button>
                             </div>
                     </div>
                       </>
@@ -370,14 +373,14 @@ const Companie = () => {
                             issub === false ?
                                 <div className="companie-content-buy">
                                     <div className="companie-content-buy-main">
-                                        <h1>برای شناخت ریسک تمامی شرکت ها در ثبات‌داده لطفا اشتراک تهیه کنید ...</h1>
-                                        <button type="submit">خرید اشتراک</button>
+                                        <h1>{t('برای شناخت ریسک تمامی شرکت ها در ثبات‌داده لطفا اشتراک تهیه کنید ...')}</h1>
+                                        <button type="submit">{t('خرید اشتراک')}</button>
                                     </div>
                                 </div>
                             : null
                         }
                         <div className={issub === true ? 'companie-content-detail-des' : 'companie-content-detail-des-sub'}>
-                            <h2>درباره {companyData.title}</h2>
+                            <h2>{t('درباره')} {companyData.title}</h2>
                             <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>
                             <h2>قدم اول</h2>
                             <p>دیجی پی یک استارتاپ جوان در حوزه پرداخت الکترونیک با مجوز پرداخت یاری است که حاصل ادغام استارتاپ هُماپی در هلدینگدیجی کالا است. دیجی پی در سال 1397 عضوی از خانواده دیجی کالا شد. هدف گروه دیجیکالا از ورود به حوزه فینتک، ارائه سروی سهای پرداخت الکترونیک با پایداری بالا و بهترین تجربه برای مشتری بود. به دنبال تعریف این هدف، مسیر توسعه سرویس های دیجی پی مشخص شد. تا امروز دیجی پی خدمات متنوعی مانند درگاه پرداخت هوشمند،داشبورد، درگاه پرداخت موبایلی، سرویس بازپرداخت وجه به مشتری را در اختیار API کیفِ پول، اپلیکیشن موبایلی و سرویس، (payout) مشتریان قرار داده است.</p>

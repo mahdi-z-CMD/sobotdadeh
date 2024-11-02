@@ -332,7 +332,7 @@ export const Navbar = () => {
                   {/* select language */}
                   
                   <span onClick={toggleLanguageList} className='Nav-mobile-language-head'>
-                    {i18n.language === 'fa' ? 'فارسی' : 'العربية'}
+                  {i18n.language === 'fa' ? 'فارسی' : i18n.language === 'ar' ? 'العربية' : 'English'}
                     <img src={expandmore_mobile} alt="Logo" width="24px" height="24px" />
                   </span>
                   {isLanguageListOpen && (
@@ -416,10 +416,10 @@ export const Navbar = () => {
           <img src={closeicon} alt="close icon" onClick={() => setSearchInput('')} />
           {searchResults.pages.length > 0 && (
             <div>
-              <h1>صفحات</h1>
+              <h1>{t('صفحات')}</h1>
               {searchResults.pages.map((result) => (
                 <div key={result} onClick={() => handleResultClick(result, 'page')} className='search-results-show'>
-                  <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در صفحه `}
+                  <p>{t('اگر به دنبال ')}<span className='search-results-show-text'>{searchInput}</span>{t(' هستید، در صفحه ')}
                   <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
                   {` است.`}
                   </p>
@@ -430,10 +430,10 @@ export const Navbar = () => {
 
           {searchResults.blogs.length > 0 && (
             <div>
-              <h1>مقالات</h1>
+              <h1>{t('مقالات')}</h1>
               {searchResults.blogs.map((result) => (
                 <div key={result} onClick={() => handleResultClick(result, 'blog')} className='search-results-show'>
-                  <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در مقاله `}
+                  <p>{t('اگر به دنبال ')}<span className='search-results-show-text'>{searchInput}</span>{t(' هستید، در صفحه ')}
                   <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
                   {` است.`}
                   </p>
@@ -468,7 +468,7 @@ export const Navbar = () => {
               onMouseEnter={handleMouseEnter3}
               onMouseLeave={handleMouseLeave3}
             >
-              {i18n.language === 'fa' ? 'فارسی' : 'العربية'}
+              {i18n.language === 'fa' ? 'فارسی' : i18n.language === 'ar' ? 'العربية' : 'English'}
               <img src={isHomepage ? locationicon : loc_nothome} alt="Logo" width="24px" height="24px" />
             </span>
             {(isHovered3 || isListHovered3) && (
@@ -549,10 +549,10 @@ export const Navbar = () => {
           <img src={closeicon} alt="close icon" onClick={() => setSearchInput('')} />
           {searchResults.pages.length > 0 && (
             <div>
-              <h1>صفحات</h1>
+              <h1>{t('صفحات')}</h1>
               {searchResults.pages.map((result) => (
                 <div key={result} onClick={() => handleResultClick(result, 'page')} className='search-results-show'>
-                  <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در صفحه `}
+                  <p>{t('اگر به دنبال ')}<span className='search-results-show-text'>{searchInput}</span>{t(' هستید، در صفحه ')}
                   <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
                   {` است.`}
                   </p>
@@ -563,10 +563,10 @@ export const Navbar = () => {
 
           {searchResults.blogs.length > 0 && (
             <div>
-              <h1>مقالات</h1>
+              <h1>{t('مقالات')}</h1>
               {searchResults.blogs.map((result) => (
                 <div key={result} onClick={() => handleResultClick(result, 'blog')} className='search-results-show'>
-                  <p>{`اگر به دنبال `}<span className='search-results-show-text'>{searchInput}</span>{` هستید، در مقاله `}
+                  <p>{t('اگر به دنبال ')}<span className='search-results-show-text'>{searchInput}</span>{t(' هستید، در صفحه ')}
                   <span className='search-results-show-page' onClick={() => setSearchInput('')}>{result.replace(/([A-Z])/g, ' $1').trim()}</span>
                   {` است.`}
                   </p>

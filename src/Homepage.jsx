@@ -585,7 +585,7 @@ const [isChecking, setIsChecking] = useState(true); // State to track if we're c
         </form>   
         </div>
         <div className="slider">
-          <h1>برترین کسب و کار ها</h1>
+          <h1>{t('برترین کسب و کار ها')}</h1>
           <div
             className="card-box"
             ref={scrollContainerRef}

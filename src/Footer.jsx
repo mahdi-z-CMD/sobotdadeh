@@ -187,7 +187,7 @@ const [phone, setPhone] = useState('');
           <input
             type="text"
             name="phone"
-            placeholder="شماره تماس را وارد نمایید ..."
+            placeholder={t('شماره تماس را وارد نمایید ...')}
             value={phone}
             onChange={handleChange}
             className={isValid ? 'valid' : 'invalid'}

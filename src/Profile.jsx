@@ -321,12 +321,12 @@ const Profile = () => {
                     }, 500); // Duration of the slide-out animation
                 }, 5000); // Hide after 5 seconds
 
-                setProfilename('اطلاعات یافت نشد');
-                setProfilefamily('اطلاعات یافت نشد');
-                setProfilephone('اطلاعات یافت نشد');
-                setProfilemail('اطلاعات یافت نشد');
-                setProfileaddress('اطلاعات یافت نشد');
-                setProfilecity('اطلاعات یافت نشد');
+                setProfilename(t('اطلاعات یافت نشد'));
+                setProfilefamily(t('اطلاعات یافت نشد'));
+                setProfilephone(t('اطلاعات یافت نشد'));
+                setProfilemail(t('اطلاعات یافت نشد'));
+                setProfileaddress(t('اطلاعات یافت نشد'));
+                setProfilecity(t('اطلاعات یافت نشد'));
             }
         } catch (error) {
             // Show failure message
@@ -368,21 +368,21 @@ const Profile = () => {
     
             // Check if required fields are empty
             if (!profilename) {
-                setFnameError('نام خود را وارد کنید ! ');
+                setFnameError(t('نام خود را وارد کنید ! '));
                 return; // Exit the function early if first name is empty
             } else {
                 setFnameError('');
             }
     
             if (!profilefamily) {
-                setLnameError('نام خانوادگی خود را وارد کنید ! ');
+                setLnameError(t('نام خانوادگی خود را وارد کنید ! '));
                 return; // Exit the function early if last name is empty
             } else {
                 setLnameError('');
             }
     
             if (!profiledate) {
-                setBirthError('تاریخ تولد خود را وارد کنید ! ');
+                setBirthError(t('تاریخ تولد خود را وارد کنید ! '));
                 return; // Exit the function early if birth date is empty
             } else {
                 setBirthError('');
@@ -417,7 +417,7 @@ const Profile = () => {
             if (response.data.status === true) {
                // Show success message
                setProfileedit(false)
-               setMessageContent('تغییرات با موفقیت ثبت شد');
+               setMessageContent(t('تغییرات با موفقیت ثبت شد'));
                setMessageClass('show');
                setShowMessage(true);
                setTimeout(() => {
@@ -577,25 +577,25 @@ const Profile = () => {
             
             // Check if passwords match...
             if (newPass !== confirmPass) {
-                setErrorMessage('رمز عبور‌ها همخوانی ندارند');
+                setErrorMessage(t('رمز عبور‌ها همخوانی ندارند'));
                 return false;
             }
     
             // Check if password length is at least 8 characters
             if (newPass.length < 8) {
-                setErrorMessage('رمز عبور باید حداقل 8 کاراکتر داشته باشد');
+                setErrorMessage(t('رمز عبور باید حداقل 8 کاراکتر داشته باشد'));
                 return false;
             }
     
             // Check if password contains at least one digit
             if (!/\d/.test(newPass)) {
-                setErrorMessage('رمز عبور باید حداقل شامل یک عدد باشد');
+                setErrorMessage(t('رمز عبور باید حداقل شامل یک عدد باشد'));
                 return false;
             }
     
             // Check if password contains at least one letter
             if (!/[a-zA-Z]/.test(newPass)) {
-                setErrorMessage('رمز عبور باید حداقل شامل یک حرف باشد');
+                setErrorMessage(t('رمز عبور باید حداقل شامل یک حرف باشد'));
                 return false;
             }
     
@@ -627,7 +627,7 @@ const Profile = () => {
                 // Password changed successfully, handle accordingly
                 // Show success message
                 setProfileedit(false)
-                setMessageContent('رمز عبور جدید با موفقیت ثبت شد');
+                setMessageContent(t('رمز عبور جدید با موفقیت ثبت شد'));
                 setMessageClass('show');
                 setShowMessage(true);
                 setTimeout(() => {
@@ -770,7 +770,7 @@ const Profile = () => {
               <span>{birthError}</span>
               <button type="button" onClick={changeprofileedit}>{t('ویرایش پروفایل')}<img src={profile_edit} alt="edit profile icon" width="24px" height="24px"/></button>
               {
-                profileedit ? (<button type="button" onClick={loadingEdite ? null  : changinguserdatainfo} className='Profile-content-edit-submite'>{loadingEdite ? 'در حال ثبت ...'  : 'ثبت'}</button>) : null
+                profileedit ? (<button type="button" onClick={loadingEdite ? null  : changinguserdatainfo} className='Profile-content-edit-submite'>{loadingEdite ? t('در حال ثبت ...') : t('ثبت')}</button>) : null
               }
           </div>
                   </>
@@ -861,7 +861,7 @@ const Profile = () => {
                         </div>
                     </div>
                     <span>{errorMessage}</span>
-                    <button type="submit" onClick={loadingpass ? null : changeUserPassword}>{loadingpass ? 'ثبت تغییرات ...' : 'ثبت تغییرات'}</button>
+                    <button type="submit" onClick={loadingpass ? null : changeUserPassword}>{loadingpass ? t('ثبت تغییرات ...')  : t('ثبت تغییرات')}</button>
 
                   </div>
               ) : activespan === 3 ? (
@@ -1016,7 +1016,7 @@ const Profile = () => {
           }         
       </div>
       <div className="Profile-category">
-          <h1>پروفایل</h1>
+          <h1>{t('پروفایل')}</h1>
           <span onClick={()=>setActivespan(0)} className={activespan === 0 ? 'Profile-category-active-span' : ''}>{t('اطلاعات کاربری')}</span>
           <span onClick={() => {setActivespan(1);getBookmarkCompanies();getBookmarkCompanies2();}} className={activespan === 1 ? 'Profile-category-active-span' : ''}><img src={activespan === 1 ? profile_bookmark_selected : profile_bookmark} alt="bookmark icon" width="24px" height="24px"/>{t('آگهی‌های نشان شده')}</span>
           <span onClick={()=>setActivespan(2)} className={activespan === 2 ? 'Profile-category-active-span' : ''}>{t('رمز عبور')}</span>
@@ -1024,7 +1024,7 @@ const Profile = () => {
           <span onClick={()=>setActivespan(4)} className={activespan === 4 ? 'Profile-category-active-span' : ''}>ثبت آگهی</span> */}
           <span onClick={()=>setActivespan(5)} className={activespan === 5 ? 'Profile-category-active-span' : ''}>{t('اشتراک')}</span>
           {/* <span onClick={()=>setActivespan(6)} className={activespan === 6 ? 'Profile-category-active-span' : ''}><img src={activespan === 6 ? profile_rezomeiconblue : profile_rezomeiconwhite} alt="bookmark icon" width="24px" height="24px"/>رزومه من</span> */}
-          <h2 onClick={removeCookies}>خروج از حساب</h2>
+          <h2 onClick={removeCookies}>{t('خروج از حساب')}</h2>
       </div>
       {/* mobile --------------- */}
   </div>) : (
@@ -1203,7 +1203,7 @@ const Profile = () => {
             <span>{birthError}</span>
             <button onClick={changeprofileedit}>ویرایش پروفایل<img src={profile_edit} alt="edit icon" /></button>
             {
-                profileedit ? (<button onClick={loadingEdite ? null  : changinguserdatainfo} className='Profile-mobile-submit-b'>{loadingEdite ? 'در حال ثبت ...'  : 'ثبت'}</button>) : null
+                profileedit ? (<button onClick={loadingEdite ? null  : changinguserdatainfo} className='Profile-mobile-submit-b'>{loadingEdite ? t('در حال ثبت ...') : t('ثبت')}</button>) : null
             }
             </div>
         </div>) : mobilepage === 2 ? (<div className='Profile-mobile'>
